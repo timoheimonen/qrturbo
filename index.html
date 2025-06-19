@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRTurbo Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        #qr-container {
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #qr-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+        #download-btn {
+            display: none;
+            margin-top: 10px;
+        }
+        #char-count {
+            color: #666;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        #size-select {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>QRTurbo Code Generator</h1>
+    <input type="text" id="qr-text" placeholder="Enter text or URL" maxlength="300">
+    <div id="char-count">0 / 300 characters</div>
+    
+    <select id="size-select">
+        <option value="5">Small (5)</option>
+        <option value="10" selected>Medium (10)</option>
+        <option value="15">Large (15)</option>
+    </select>
+    
+    <button onclick="generateQRCode()">Create QR Code</button>
+    
+    <div id="qr-container">
+        <img id="qr-image" src="" alt="QR Code will appear here">
+        <button id="download-btn" onclick="downloadQRCode()">Download QR Code</button>
+    </div>
+    <p style="font-size: 0.9em; color: #666; margin-top: 30px;">
+        This tool runs entirely in your browser. No data is stored or sent anywhere.<br>
+        No tracking, no ads, no nonsense.
+        <br>
+        <a href="https://github.com/tunnuksesi/qr-generator" target="_blank" style="color: #007acc;">View source on GitHub</a>
+    </p>
+    <script src="js/qrcode.js"></script>
+    <script>
+        function generateQRCode() {
+            const text = document.getElementById('qr-text').value;
+            if (!text) {
+                alert('Please enter some text or a URL');
+                return;
+            }
+
+            // Get selected size
+            const sizeSelect = document.getElementById('size-select');
+            const selectedSize = parseInt(sizeSelect.value);
+
+            // Create QR code
+            const qr = qrcode(0, 'M');
+            qr.addData(text);
+            qr.make();
+
+            // Display QR code
+            const qrImage = document.getElementById('qr-image');
+            qrImage.src = qr.createDataURL(selectedSize);
+
+            // Show download button
+            const downloadBtn = document.getElementById('download-btn');
+            downloadBtn.style.display = 'block';
+        }
+
+        function downloadQRCode() {
+            const qrImage = document.getElementById('qr-image');
+            const text = document.getElementById('qr-text').value;
+            
+            // Create a temporary link to download
+            const link = document.createElement('a');
+            link.download = `qrcode_${text.replace(/[^a-z0-9]/gi, '_')}.png`;
+            link.href = qrImage.src;
+            link.click();
+        }
+
+        // Add character count tracking
+        const qrTextInput = document.getElementById('qr-text');
+        const charCountDisplay = document.getElementById('char-count');
+
+        qrTextInput.addEventListener('input', function() {
+            const currentLength = this.value.length;
+            charCountDisplay.textContent = `${currentLength} / 300 characters`;
+        });
+    </script>
+</body>
+</html>
