@@ -102,14 +102,17 @@
             const downloadBtn = document.getElementById('download-btn');
             downloadBtn.style.display = 'block';
         }
-
+ 
         function downloadQRCode() {
             const qrImage = document.getElementById('qr-image');
             const text = document.getElementById('qr-text').value;
-            
+        
+            // Limit file name lenght
+            const safeText = text.replace(/[^a-z0-9]/gi, '_').substring(0, 50) || 'qr';
+        
             // Create a temporary link to download
             const link = document.createElement('a');
-            link.download = `qrcode_${text.replace(/[^a-z0-9]/gi, '_')}.png`;
+            link.download = `qrcode_${safeText}.png`;
             link.href = qrImage.src;
             link.click();
         }
