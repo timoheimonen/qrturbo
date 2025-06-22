@@ -278,6 +278,29 @@
                 transform: none;
             }
         }
+
+        #qr-code-text {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 15px;
+            word-wrap: break-word;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -295,6 +318,7 @@
     
     <div id="qr-container">
         <img id="qr-image" src="" alt="QR Code will appear here">
+        <p id="qr-code-text" style="display:none;"></p>
         <button id="download-btn" onclick="downloadQRCode()">Download QR Code</button>
     </div>
     <p style="font-size: 0.9em; color: #666; margin-top: 30px;">
@@ -316,10 +340,12 @@
             const qrContainer = document.getElementById('qr-container');
             const qrImage = document.getElementById('qr-image');
             const downloadBtn = document.getElementById('download-btn');
+            const qrCodeText = document.getElementById('qr-code-text');
             
             qrContainer.classList.add('loading');
             qrImage.style.opacity = '0.3';
             downloadBtn.style.display = 'none';
+            qrCodeText.style.display = 'none';
 
             // Simulate a small delay for better UX
             setTimeout(() => {
@@ -336,6 +362,10 @@
                 qrImage.src = qr.createDataURL(selectedSize);
                 qrImage.style.opacity = '1';
                 
+                // Display the text content
+                qrCodeText.textContent = text;
+                qrCodeText.style.display = 'block';
+
                 // Remove loading state
                 qrContainer.classList.remove('loading');
 
