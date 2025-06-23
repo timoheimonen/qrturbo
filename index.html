@@ -57,6 +57,9 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             animation: slideInUp 0.8s ease-out 0.3s both;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         #qr-container:hover {
@@ -291,15 +294,10 @@
             animation: fadeIn 0.5s ease-out;
         }
 
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        #qr-placeholder {
+            color: #888;
+            margin-top: 20px;
+            padding: 20px 0;
         }
 
         /* Tab Styles */
@@ -406,7 +404,8 @@
     <button onclick="generateQRCode()">Create QR Code</button>
     
     <div id="qr-container">
-        <img id="qr-image" src="" alt="QR Code will appear here">
+        <p id="qr-placeholder">QR Code will appear here</p>
+        <img id="qr-image" src="" alt="QR Code" style="display:none;">
         <p id="qr-code-text" style="display:none;"></p>
         <button id="download-btn" onclick="downloadQRCode()">Download QR Code</button>
     </div>
@@ -431,16 +430,33 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
 
-            // Hide QR code display when switching tabs until new one is generated
+            // Clear all input fields
+            const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], input[type="url"]');
+            inputs.forEach(input => input.value = '');
+
+            // Reset character count
+            const charCountDisplay = document.getElementById('char-count');
+            charCountDisplay.textContent = '0 / 300 characters';
+            charCountDisplay.classList.remove('warning');
+
+            // Reset QR code display area
             const qrContainer = document.getElementById('qr-container');
             const qrImage = document.getElementById('qr-image');
             const downloadBtn = document.getElementById('download-btn');
             const qrCodeText = document.getElementById('qr-code-text');
+            const qrPlaceholder = document.getElementById('qr-placeholder');
             
+            qrPlaceholder.style.display = 'block';
             qrImage.src = "";
-            qrImage.style.opacity = '0';
+            qrImage.style.display = 'none';
             downloadBtn.style.display = 'none';
             qrCodeText.style.display = 'none';
+            qrContainer.classList.remove('loading');
+
+            // Reset container animation to initial state
+            qrContainer.style.animation = 'none';
+            qrContainer.offsetHeight; // Trigger reflow
+            qrContainer.style.animation = 'slideInUp 0.8s ease-out 0.3s both';
         }
 
         function generateQRCode() {
@@ -503,8 +519,10 @@
             const qrImage = document.getElementById('qr-image');
             const downloadBtn = document.getElementById('download-btn');
             const qrCodeText = document.getElementById('qr-code-text');
+            const qrPlaceholder = document.getElementById('qr-placeholder');
             
             qrContainer.classList.add('loading');
+            qrPlaceholder.style.display = 'none';
             qrImage.style.opacity = '0.3';
             downloadBtn.style.display = 'none';
             qrCodeText.style.display = 'none';
@@ -522,6 +540,7 @@
 
                 // Display QR code with animation
                 qrImage.src = qr.createDataURL(selectedSize);
+                qrImage.style.display = 'block';
                 qrImage.style.opacity = '1';
                 
                 // Display the text content
