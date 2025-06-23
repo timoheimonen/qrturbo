@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QRTurbo Code Generator</title>
-    <!-- Favicons -->
+    <!-- Favicon Configuration -->
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="manifest" href="/manifest.json">
     <style>
+        /* --- Base & Body Styles --- */
         body {
             font-family: Arial, sans-serif;
             max-width: 600px;
@@ -18,9 +19,12 @@
             padding: 20px;
             text-align: center;
             background-color: #f0f0f0;
-            animation: fadeIn 0.8s ease-in-out;
+            animation: fadeIn 0.8s ease-in-out; /* Initial page load animation */
         }
 
+        /* --- Keyframe Animations --- */
+
+        /* Fade-in animation for the body */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -38,6 +42,7 @@
             margin-bottom: 30px;
         }
 
+        /* Slide-in animation for the main heading */
         @keyframes slideInDown {
             from {
                 opacity: 0;
@@ -49,13 +54,14 @@
             }
         }
 
+        /* --- QR Code Container --- */
         #qr-container {
             margin-top: 20px;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            animation: slideInUp 0.8s ease-out 0.3s both;
+            animation: slideInUp 0.8s ease-out 0.3s both; /* Delayed slide-in */
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -67,6 +73,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
+        /* Slide-up animation for the QR container */
         @keyframes slideInUp {
             from {
                 opacity: 0;
@@ -78,6 +85,7 @@
             }
         }
 
+        /* --- Form Elements (Inputs, Buttons, Select) --- */
         input, button, #size-select {
             font-size: 14px;
             margin: 10px 0;
@@ -87,7 +95,7 @@
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             transition: all 0.3s ease;
-            animation: fadeInUp 0.6s ease-out 0.5s both;
+            animation: fadeInUp 0.6s ease-out 0.5s both; /* Staggered fade-in */
         }
 
         input:focus, #size-select:focus {
@@ -97,6 +105,7 @@
             transform: scale(1.02);
         }
 
+        /* Fade-up animation for form elements */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -108,14 +117,15 @@
             }
         }
 
+        /* --- Button Styles --- */
         button {
             background: linear-gradient(135deg, #007acc, #005a9e);
             color: white;
             border: none;
             cursor: pointer;
             font-weight: bold;
-            position: relative;
-            overflow: hidden;
+            position: relative; /* For pseudo-element positioning */
+            overflow: hidden; /* Hides the ::before element outside the button */
         }
 
         button:hover {
@@ -129,6 +139,7 @@
             box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
         }
 
+        /* Shimmer effect on button hover */
         button::before {
             content: '';
             position: absolute;
@@ -144,6 +155,7 @@
             left: 100%;
         }
 
+        /* --- QR Image & Download Button --- */
         #qr-image {
             max-width: 100%;
             height: auto;
@@ -153,6 +165,7 @@
             animation: qrAppear 0.6s ease-out;
         }
 
+        /* Animation for the QR code appearing */
         @keyframes qrAppear {
             from {
                 opacity: 0;
@@ -170,7 +183,7 @@
         }
 
         #download-btn {
-            display: none;
+            display: none; /* Initially hidden */
             margin-top: 15px;
             background: linear-gradient(135deg, #28a745, #20c997);
             animation: bounceIn 0.6s ease-out;
@@ -180,6 +193,7 @@
             background: linear-gradient(135deg, #20c997, #17a2b8);
         }
 
+        /* Bounce-in animation for the download button */
         @keyframes bounceIn {
             0% {
                 opacity: 0;
@@ -198,6 +212,7 @@
             }
         }
 
+        /* --- Character Counter --- */
         #char-count {
             color: #666;
             font-size: 0.8em;
@@ -211,6 +226,7 @@
             animation: pulse 1s ease-in-out;
         }
 
+        /* Pulse animation for character count warning */
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
@@ -220,6 +236,7 @@
             }
         }
 
+        /* --- Miscellaneous Styles --- */
         #size-select {
             background-color: white;
             cursor: pointer;
@@ -253,15 +270,17 @@
             animation: fadeInUp 0.6s ease-out 0.5s both;
         }
 
+        /* --- Layout Groups --- */
         .input-group {
             display: flex;
             flex-direction: column;
         }
         .input-group.full-width {
-            grid-column: 1 / -1;
+            grid-column: 1 / -1; /* Span across both columns in the grid */
         }
 
-        /* Loading animation for QR generation */
+        /* --- Loading Spinner Animation --- */
+        /* Applied to qr-container during generation */
         .loading {
             position: relative;
         }
@@ -285,7 +304,8 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Responsive animations */
+        /* --- Responsive Design --- */
+        /* Simplify animations on smaller screens */
         @media (max-width: 768px) {
             body {
                 padding: 15px;
@@ -295,11 +315,13 @@
                 padding: 15px;
             }
             
+            /* Disable hover transforms on touch devices to prevent sticky hover states */
             button:hover {
                 transform: none;
             }
         }
 
+        /* --- QR Code Data Display --- */
         #qr-code-text {
             font-size: 0.9em;
             color: #555;
@@ -318,7 +340,7 @@
             padding: 20px 0;
         }
 
-        /* Tab Styles */
+        /* --- Tab Navigation Styles --- */
         #tabs {
             display: flex;
             margin-bottom: 20px;
@@ -363,17 +385,18 @@
         }
 
         .tab-content {
-            display: none;
+            display: none; /* Hidden by default, shown via JS */
             animation: fadeIn 0.5s;
         }
 
+        /* --- vCard Form Grid Layout --- */
         .vcard-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
 
-        /* No extra margin needed for inputs inside the grid as the gap and label margin handle spacing */
+        /* No extra margin needed for inputs inside the grid; gap property handles spacing */
         .vcard-grid input {
              margin: 0;
         }
@@ -382,11 +405,13 @@
 <body>
     <h1>QRTurbo Code Generator</h1>
 
+    <!-- Tab navigation for switching between QR code types -->
     <div id="tabs">
         <button class="tab-link active" data-tab="URLText">URL/Text</button>
         <button class="tab-link" data-tab="VCard">vCard</button>
     </div>
 
+    <!-- Tab Content: URL/Text Input -->
     <div id="URLText" class="tab-content" style="display: block;">
         <label for="qr-text">Text or URL</label>
         <input type="text" id="qr-text" placeholder="e.g., https://www.example.com" maxlength="300">
@@ -394,8 +419,10 @@
     </div>
 
     <div id="VCard" class="tab-content">
+        <!-- Tab Content: vCard Input Form -->
         <div class="vcard-grid">
             <div class="input-group">
+                <!-- vCard Fields -->
                 <label for="vcard-fn">First Name</label>
                 <input type="text" id="vcard-fn" placeholder="John">
             </div>
@@ -449,6 +476,7 @@
             </div>
         </div>
     </div>
+    <!-- Common Controls -->
     <label for="size-select">QR Code Size</label>
     <select id="size-select">
         <option value="5">Small (5)</option>
@@ -457,12 +485,15 @@
     </select>
     <button onclick="generateQRCode()">Create QR Code</button>
     
+    <!-- QR Code Display Area -->
     <div id="qr-container">
         <p id="qr-placeholder">QR Code will appear here</p>
         <img id="qr-image" src="" alt="QR Code" style="display:none;">
         <p id="qr-code-text" style="display:none;"></p>
         <button id="download-btn" onclick="downloadQRCode()">Download QR Code</button>
     </div>
+
+    <!-- Footer / Info Section -->
     <p style="font-size: 0.9em; color: #666; margin-top: 30px;">
         This tool runs entirely in your browser. No data is stored or sent anywhere.<br>
         No tracking, no ads, no nonsense.
@@ -471,19 +502,24 @@
     </p>
     <script src="js/qrcode.js"></script>
     <script>
+        /**
+         * @description Main function to generate the QR code based on the active tab and user input.
+         */
         function generateQRCode() {
             let text;
             const activeTabButton = document.querySelector('.tab-link.active');
-            if (!activeTabButton) return;
+            if (!activeTabButton) return; // Exit if no active tab is found
             const activeTab = activeTabButton.dataset.tab;
 
+            // --- Step 1: Gather data from the active tab ---
             if (activeTab === 'URLText') {
                 text = document.getElementById('qr-text').value;
                 if (!text) {
                     alert('Please enter some text or a URL');
                     return;
                 }
-            } else { // VCard
+            } else { // VCard tab is active
+                // Collect all vCard fields
                 const vcard = {
                     fn: document.getElementById('vcard-fn').value.trim(),
                     ln: document.getElementById('vcard-ln').value.trim(),
@@ -500,11 +536,13 @@
                     country: document.getElementById('vcard-country').value.trim(),
                 };
 
+                // Basic validation: ensure at least one key identifier is present
                 if (!vcard.fn && !vcard.ln && !vcard.email && !vcard.telMobile && !vcard.telWork) {
                     alert('Please fill at least one of: First Name, Last Name, Email or Phone.');
                     return;
                 }
 
+                // Assemble the vCard string according to the vCard 3.0 format
                 let vCardString = "BEGIN:VCARD\nVERSION:3.0\n";
                 if (vcard.fn || vcard.ln) vCardString += `N:${vcard.ln};${vcard.fn}\n`;
                 if (vcard.fn || vcard.ln) vCardString += `FN:${vcard.fn} ${vcard.ln}\n`;
@@ -522,12 +560,12 @@
             }
             
             if (!text) {
-                // This case should be handled above, but as a fallback.
+                // Fallback validation, though prior checks should prevent this.
                 alert('No data provided for QR code.');
                 return;
             }
 
-            // Add loading animation
+            // --- Step 2: Prepare UI for generation (loading state) ---
             const qrContainer = document.getElementById('qr-container');
             const qrImage = document.getElementById('qr-image');
             const downloadBtn = document.getElementById('download-btn');
@@ -536,49 +574,51 @@
             
             qrContainer.classList.add('loading');
             qrPlaceholder.style.display = 'none';
-            qrImage.style.opacity = '0.3';
+            qrImage.style.opacity = '0.3'; // Dim the old image while loading
             downloadBtn.style.display = 'none';
             qrCodeText.style.display = 'none';
 
-            // Simulate a small delay for better UX
+            // Use a short timeout to allow the UI to update with the loading state before the (potentially blocking) QR generation.
             setTimeout(() => {
-                // Get selected size
+                // --- Step 3: Generate and display the QR code ---
                 const sizeSelect = document.getElementById('size-select');
                 const selectedSize = parseInt(sizeSelect.value);
 
-                // Create QR code
+                // Initialize QR code generator (type 0 = auto-detect, 'M' = medium error correction)
                 const qr = qrcode(0, 'M');
                 qr.addData(text);
                 qr.make();
 
-                // Display QR code with animation
+                // Set the generated QR code as a Data URL to the image element
                 qrImage.src = qr.createDataURL(selectedSize);
                 qrImage.style.display = 'block';
                 qrImage.style.opacity = '1';
                 
-                // Display the text content
+                // Display the raw text content of the QR code
                 qrCodeText.textContent = text;
                 qrCodeText.style.display = 'block';
 
-                // Remove loading state
+                // --- Step 4: Finalize UI (remove loading state, show results) ---
                 qrContainer.classList.remove('loading');
-
-                // Show download button with animation
                 downloadBtn.style.display = 'block';
                 
-                // Add success animation to container
+                // Re-trigger the container's appearance animation for a nice effect
                 qrContainer.style.animation = 'none';
-                qrContainer.offsetHeight; // Trigger reflow
+                qrContainer.offsetHeight; // Force a DOM reflow to reset the animation
                 qrContainer.style.animation = 'qrAppear 0.6s ease-out';
             }, 300);
         }
 
+        /**
+         * @description Handles downloading the generated QR code image.
+         */
         function downloadQRCode() {
             const qrImage = document.getElementById('qr-image');
             const activeTabButton = document.querySelector('.tab-link.active');
             if (!activeTabButton) return;
             const activeTab = activeTabButton.dataset.tab;
             let text;
+             // Generate a user-friendly filename based on the input
              if (activeTab === 'URLText') {
                 text = document.getElementById('qr-text').value;
             } else {
@@ -587,29 +627,33 @@
                 text = `vcard_${firstName}_${lastName}`;
             }
 
+            // Sanitize the text to create a safe filename
             const safeText = text.replace(/[^a-z0-9]/gi, '_').substring(0, 50) || 'qr';
 
+            // Create a temporary anchor element to trigger the download
             const link = document.createElement('a');
             link.download = `qrcode_${safeText}.png`;
             link.href = qrImage.src;
             link.click();
             
-            // Add download feedback animation
+            // Re-trigger the download button's animation for user feedback
             const downloadBtn = document.getElementById('download-btn');
             downloadBtn.style.animation = 'none';
-            downloadBtn.offsetHeight; // Trigger reflow
+            downloadBtn.offsetHeight; // Force reflow
             downloadBtn.style.animation = 'bounceIn 0.6s ease-out';
         }
 
-        // Add character count tracking with warning animation
+        // --- Event Listeners & Page Initialization ---
+
         const qrTextInput = document.getElementById('qr-text');
         const charCountDisplay = document.getElementById('char-count');
 
+        // Track character count for the URL/Text input
         qrTextInput.addEventListener('input', function() {
             const currentLength = this.value.length;
             charCountDisplay.textContent = `${currentLength} / 300 characters`;
             
-            // Add warning animation when approaching limit
+            // Add a visual warning when approaching the character limit
             if (currentLength >= 250) {
                 charCountDisplay.classList.add('warning');
             } else {
@@ -617,14 +661,14 @@
             }
         });
 
-        // Add enter key support
+        // Allow generating QR by pressing Enter in the text input
         qrTextInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 generateQRCode();
             }
         });
 
-        // Add focus animations
+        // Add a subtle scale effect on input focus for better UX
         qrTextInput.addEventListener('focus', function() {
             this.style.transform = 'scale(1.02)';
         });
@@ -633,38 +677,37 @@
             this.style.transform = 'scale(1)';
         });
 
-        // Initialize page with smooth animations
+        // Setup page logic after the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', function() {
             const tabsContainer = document.getElementById('tabs');
 
+            // --- Tab Switching Logic ---
             tabsContainer.addEventListener('click', function(event) {
                 const clickedTab = event.target.closest('.tab-link');
+                // Ignore clicks that are not on a a tab link or are on the already active tab
                 if (!clickedTab || clickedTab.classList.contains('active')) {
                     return;
                 }
 
                 const tabName = clickedTab.dataset.tab;
 
-                // Update active class on tabs
                 tabsContainer.querySelector('.active').classList.remove('active');
                 clickedTab.classList.add('active');
 
-                // Show/hide tab content
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.style.display = 'none';
                 });
                 document.getElementById(tabName).style.display = 'block';
 
+                // --- Reset UI state when switching tabs ---
                 // Clear all input fields
                 const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], input[type="url"]');
                 inputs.forEach(input => input.value = '');
 
-                // Reset character count
                 const charCountDisplay = document.getElementById('char-count');
                 charCountDisplay.textContent = '0 / 300 characters';
                 charCountDisplay.classList.remove('warning');
 
-                // Reset QR code display area
                 const qrContainer = document.getElementById('qr-container');
                 const qrImage = document.getElementById('qr-image');
                 const downloadBtn = document.getElementById('download-btn');
@@ -678,13 +721,13 @@
                 qrCodeText.style.display = 'none';
                 qrContainer.classList.remove('loading');
 
-                // Reset container animation to initial state
+                // Reset container animation to its initial slide-in state
                 qrContainer.style.animation = 'none';
-                qrContainer.offsetHeight; // Trigger reflow
+                qrContainer.offsetHeight; // Force reflow
                 qrContainer.style.animation = 'slideInUp 0.8s ease-out 0.3s both';
             });
 
-            // Add staggered animation delays for elements
+            // Apply a staggered animation delay to elements on page load for a smoother appearance
             const elements = document.querySelectorAll('input, button, #size-select, #char-count, .tab-link');
             elements.forEach((element, index) => element.style.animationDelay = `${0.1 + (index * 0.05)}s`);
         });
