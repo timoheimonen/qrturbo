@@ -86,7 +86,7 @@
         }
 
         /* --- Form Elements (Inputs, Buttons, Select) --- */
-        input, button, select {
+        input, button, select, textarea {
             font-size: 14px;
             margin: 10px 0;
             padding: 12px;
@@ -98,12 +98,18 @@
             animation: fadeInUp 0.6s ease-out 0.5s both; /* Staggered fade-in */
         }
 
-        input:focus, select:focus {
+        textarea {
+            font-family: Arial, sans-serif; /* Ensure consistent font */
+            resize: vertical; /* Allow vertical resizing only */
+        }
+
+        input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: #007acc;
             box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
             transform: scale(1.02);
         }
+
 
         /* Fade-up animation for form elements */
         @keyframes fadeInUp {
@@ -213,16 +219,19 @@
         }
 
         /* --- Character Counter --- */
-        #char-count {
+        .char-counter {
             color: #666;
             font-size: 0.8em;
+            margin-top: 5px;
             margin-bottom: 10px;
+            text-align: right;
             animation: fadeIn 0.8s ease-out 0.7s both;
             transition: color 0.3s ease;
         }
 
-        #char-count.warning {
+        .char-counter.warning {
             color: #ff6b35;
+            font-weight: bold;
             animation: pulse 1s ease-in-out;
         }
 
@@ -419,6 +428,33 @@
             font-weight: normal;
             animation: none;
         }
+
+        /* --- Radio Button Group Styles --- */
+        .radio-group-container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 10px;
+            grid-column: 1 / -1; /* Span full width in grid */
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-group input[type="radio"] {
+            width: auto;
+            margin: 0;
+            animation: none;
+            cursor: pointer;
+        }
+
+        .radio-group label {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -428,6 +464,7 @@
     <div id="tabs">
         <button class="tab-link active" data-tab="URLText">URL/Text</button>
         <button class="tab-link" data-tab="VCard">vCard</button>
+        <button class="tab-link" data-tab="SMSPhone">SMS/Phone</button>
         <button class="tab-link" data-tab="Wifi">Wifi</button>
     </div>
 
@@ -435,7 +472,7 @@
     <div id="URLText" class="tab-content" style="display: block;">
         <label for="qr-text">Text or URL</label>
         <input type="text" id="qr-text" placeholder="e.g., https://www.example.com" maxlength="300">
-        <div id="char-count">0 / 300 characters</div>
+        <div id="char-count" class="char-counter">0 / 300 characters</div>
     </div>
 
     <!-- Tab Content: vCard Input Form -->
@@ -444,47 +481,47 @@
             <div class="input-group">
                 <!-- vCard Fields -->
                 <label for="vcard-fn">First Name</label>
-                <input type="text" id="vcard-fn" placeholder="John">
+                <input type="text" id="vcard-fn" placeholder="John" maxlength="50">
             </div>
             <div class="input-group">
                 <label for="vcard-ln">Last Name</label>
-                <input type="text" id="vcard-ln" placeholder="Appleseed">
+                <input type="text" id="vcard-ln" placeholder="Appleseed" maxlength="50">
             </div>
             <div class="input-group">
                 <label for="vcard-org">Organization</label>
-                <input type="text" id="vcard-org" placeholder="ACME Inc.">
+                <input type="text" id="vcard-org" placeholder="ACME Inc." maxlength="100">
             </div>
             <div class="input-group">
                 <label for="vcard-title">Title</label>
-                <input type="text" id="vcard-title" placeholder="Developer">
+                <input type="text" id="vcard-title" placeholder="Developer" maxlength="100">
             </div>
             <div class="input-group">
                 <label for="vcard-tel-work">Phone (Work)</label>
-                <input type="tel" id="vcard-tel-work" placeholder="+1-555-555-1234">
+                <input type="tel" id="vcard-tel-work" placeholder="+1-555-555-1234" maxlength="30">
             </div>
             <div class="input-group">
                 <label for="vcard-tel-mobile">Phone (Mobile)</label>
-                <input type="tel" id="vcard-tel-mobile" placeholder="+1-555-555-5678">
+                <input type="tel" id="vcard-tel-mobile" placeholder="+1-555-555-5678" maxlength="30">
             </div>
             <div class="input-group full-width">
                 <label for="vcard-email">Email</label>
-                <input type="email" id="vcard-email" placeholder="john.appleseed@example.com">
+                <input type="email" id="vcard-email" placeholder="john.appleseed@example.com" maxlength="254">
             </div>
             <div class="input-group full-width">
                 <label for="vcard-url">Website</label>
-                <input type="url" id="vcard-url" placeholder="https://www.example.com">
+                <input type="url" id="vcard-url" placeholder="https://www.example.com" maxlength="255">
             </div>
             <div class="input-group full-width">
                 <label for="vcard-street">Street</label>
-                <input type="text" id="vcard-street" placeholder="123 Main St">
+                <input type="text" id="vcard-street" placeholder="123 Main St" maxlength="100">
             </div>
             <div class="input-group">
                 <label for="vcard-city">City</label>
-                <input type="text" id="vcard-city" placeholder="Anytown">
+                <input type="text" id="vcard-city" placeholder="Anytown" maxlength="50">
             </div>
             <div class="input-group">
                 <label for="vcard-state">State/Province</label>
-                <input type="text" id="vcard-state" placeholder="CA">
+                <input type="text" id="vcard-state" placeholder="CA" maxlength="50">
             </div>
             <div class="input-group">
                 <label for="vcard-zip">ZIP/Postal Code</label>
@@ -492,7 +529,7 @@
             </div>
             <div class="input-group">
                 <label for="vcard-country">Country</label>
-                <input type="text" id="vcard-country" placeholder="USA">
+                <input type="text" id="vcard-country" placeholder="USA" maxlength="50">
             </div>
         </div>
     </div>
@@ -502,11 +539,11 @@
         <div class="vcard-grid">
             <div class="input-group full-width">
                 <label for="wifi-ssid">Network Name (SSID)</label>
-                <input type="text" id="wifi-ssid" placeholder="e.g., MyHomeWiFi">
+                <input type="text" id="wifi-ssid" placeholder="e.g., MyHomeWiFi" maxlength="128">
             </div>
             <div class="input-group">
                 <label for="wifi-password">Password</label>
-                <input type="password" id="wifi-password" placeholder="Your secret password">
+                <input type="password" id="wifi-password" placeholder="Your secret password" maxlength="63">
             </div>
             <div class="input-group">
                 <label for="wifi-auth">Authentication</label>
@@ -523,6 +560,31 @@
             <div class="input-group full-width checkbox-group">
                 <input type="checkbox" id="show-password">
                 <label for="show-password">Show Password</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: SMS/Phone Input Form -->
+    <div id="SMSPhone" class="tab-content">
+        <div class="vcard-grid">
+            <div class="radio-group-container">
+                <div class="radio-group">
+                    <input type="radio" id="sms-type-sms" name="sms-phone-type" value="sms" checked>
+                    <label for="sms-type-sms">SMS</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="sms-type-phone" name="sms-phone-type" value="phone">
+                    <label for="sms-type-phone">Phone Call</label>
+                </div>
+            </div>
+            <div class="input-group full-width">
+                <label for="sms-phone-number">Phone Number</label>
+                <input type="tel" id="sms-phone-number" placeholder="e.g., +15551234567" maxlength="30">
+            </div>
+            <div id="sms-message-group" class="input-group full-width">
+                <label for="sms-message">Message (optional)</label>
+                <textarea id="sms-message" rows="4" placeholder="Your pre-filled message here..." maxlength="300"></textarea>
+                <div id="sms-char-count" class="char-counter">0 / 300 characters</div>
             </div>
         </div>
     </div>
@@ -629,8 +691,23 @@
                 if (isHidden) {
                     wifiString += 'H:true;';
                 }
-                wifiString += ';';
                 text = wifiString;
+            } else if (activeTab === 'SMSPhone') { // SMS/Phone tab is active
+                const type = document.querySelector('input[name="sms-phone-type"]:checked').value;
+                const phoneNumber = document.getElementById('sms-phone-number').value.trim();
+
+                if (!phoneNumber) {
+                    alert('Please enter a phone number.');
+                    return;
+                }
+
+                if (type === 'sms') {
+                    const message = document.getElementById('sms-message').value; // Don't trim message
+                    // Format: SMSTO:number:message
+                    text = `SMSTO:${phoneNumber}:${message}`;
+                } else { // type === 'phone'
+                    text = `tel:${phoneNumber}`;
+                }
             }
             
             if (!text) {
@@ -701,6 +778,10 @@
                 text = `vcard_${firstName}_${lastName}`;
             } else if (activeTab === 'Wifi') {
                 text = `wifi_${document.getElementById('wifi-ssid').value}`;
+            } else if (activeTab === 'SMSPhone') {
+                const type = document.querySelector('input[name="sms-phone-type"]:checked').value;
+                const phoneNumber = document.getElementById('sms-phone-number').value;
+                text = `${type}_${phoneNumber}`;
             }
 
             // Sanitize the text to create a safe filename
@@ -719,46 +800,71 @@
             downloadBtn.style.animation = 'bounceIn 0.6s ease-out';
         }
 
-        // --- Event Listeners & Page Initialization ---
-
-        const qrTextInput = document.getElementById('qr-text');
-        const charCountDisplay = document.getElementById('char-count');
-
-        // Track character count for the URL/Text input
-        qrTextInput.addEventListener('input', function() {
-            const currentLength = this.value.length;
-            charCountDisplay.textContent = `${currentLength} / 300 characters`;
-            
-            // Add a visual warning when approaching the character limit
-            if (currentLength >= 250) {
-                charCountDisplay.classList.add('warning');
-            } else {
-                charCountDisplay.classList.remove('warning');
-            }
-        });
-
-        // Allow generating QR by pressing Enter in the text input
-        qrTextInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                generateQRCode();
-            }
-        });
-
-        // Add a subtle scale effect on input focus for better UX
-        qrTextInput.addEventListener('focus', function() {
-            this.style.transform = 'scale(1.02)';
-        });
-
-        qrTextInput.addEventListener('blur', function() {
-            this.style.transform = 'scale(1)';
-        });
-
         // Setup page logic after the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', function() {
+            // --- Element Selectors ---
             const tabsContainer = document.getElementById('tabs');
             const wifiAuthSelect = document.getElementById('wifi-auth');
             const wifiPasswordField = document.getElementById('wifi-password');
             const showPasswordCheckbox = document.getElementById('show-password');
+            const smsPhoneTypeRadios = document.querySelectorAll('input[name="sms-phone-type"]');
+            const smsMessageGroup = document.getElementById('sms-message-group');
+            const qrTextInput = document.getElementById('qr-text');
+            const charCountDisplay = document.getElementById('char-count');
+            const smsMessageInput = document.getElementById('sms-message');
+            const smsCharCountDisplay = document.getElementById('sms-char-count');
+
+            // --- Event Listeners ---
+
+            // Track character count for the URL/Text input
+            qrTextInput.addEventListener('input', function() {
+                const currentLength = this.value.length;
+                charCountDisplay.textContent = `${currentLength} / 300 characters`;
+                charCountDisplay.classList.toggle('warning', currentLength >= 250);
+            });
+
+            // Track character count for the SMS message input
+            smsMessageInput.addEventListener('input', function() {
+                const currentLength = this.value.length;
+                smsCharCountDisplay.textContent = `${currentLength} / 300 characters`;
+                smsCharCountDisplay.classList.toggle('warning', currentLength >= 250);
+            });
+
+            // Allow generating QR by pressing Enter in the text input
+            qrTextInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    // Prevent form submission if it were inside a form
+                    e.preventDefault(); 
+                    generateQRCode();
+                }
+            });
+
+            // Add a subtle scale effect on input focus for better UX
+            document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], input[type="url"], textarea').forEach(el => {
+                el.addEventListener('focus', function() {
+                    // The :focus CSS already handles this, but if you wanted JS-only:
+                    // this.style.transform = 'scale(1.02)';
+                });
+                el.addEventListener('blur', function() {
+                    // The :focus CSS already handles this, but if you wanted JS-only:
+                    // this.style.transform = 'scale(1)';
+                });
+            });
+
+            // --- SMS/Phone Form Logic ---
+            function updateSmsPhoneUI() {
+                const selectedType = document.querySelector('input[name="sms-phone-type"]:checked').value;
+                const isSms = selectedType === 'sms';
+                // Use 'flex' to match the .input-group display property
+                smsMessageGroup.style.display = isSms ? 'flex' : 'none';
+                if (!isSms) {
+                    // Clear message when switching to phone call to avoid confusion
+                    document.getElementById('sms-message').value = '';
+                }
+            }
+            smsPhoneTypeRadios.forEach(radio => radio.addEventListener('change', updateSmsPhoneUI));
+            // Set initial state on page load
+            updateSmsPhoneUI();
 
             // --- Wifi Form Logic ---
             // Toggle password field enabled state based on authentication type
@@ -798,8 +904,8 @@
 
                 // --- Reset UI state when switching tabs ---
                 // Clear all input fields
-                const allInputs = document.querySelectorAll('.tab-content input');
-                allInputs.forEach(input => {
+                const allFormElements = document.querySelectorAll('.tab-content input, .tab-content textarea');
+                allFormElements.forEach(input => {
                     if (input.type === 'checkbox' || input.type === 'radio') {
                         input.checked = false;
                     } else {
@@ -809,15 +915,22 @@
                 // Reset select elements in all tabs to their first option
                 document.querySelectorAll('.tab-content select').forEach(select => select.selectedIndex = 0);
 
-                // Manually trigger change event for wifi auth to reset password field state
+                // Manually set default states for specific controls after clearing
+                document.getElementById('sms-type-sms').checked = true;
+
+                // Manually trigger change events to reset dependent UI states
                 document.getElementById('wifi-auth').dispatchEvent(new Event('change'));
+                updateSmsPhoneUI();
                 // Reset password field to be of type 'password'
                 document.getElementById('wifi-password').type = 'password';
 
-                // Reset character counter
+                // Reset character counters
                 const charCountDisplay = document.getElementById('char-count');
                 charCountDisplay.textContent = '0 / 300 characters';
                 charCountDisplay.classList.remove('warning');
+                const smsCharCountDisplay = document.getElementById('sms-char-count');
+                smsCharCountDisplay.textContent = '0 / 300 characters';
+                smsCharCountDisplay.classList.remove('warning');
 
                 const qrContainer = document.getElementById('qr-container');
                 const qrImage = document.getElementById('qr-image');
@@ -839,7 +952,7 @@
             });
 
             // Apply a staggered animation delay to elements on page load for a smoother appearance
-            const elements = document.querySelectorAll('input, button, select, #char-count, .tab-link');
+            const elements = document.querySelectorAll('input, button, select, textarea, .char-counter, .tab-link');
             elements.forEach((element, index) => element.style.animationDelay = `${0.1 + (index * 0.05)}s`);
         });
     </script>
