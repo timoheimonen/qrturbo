@@ -301,12 +301,101 @@
                 transform: translateY(0);
             }
         }
+
+        /* Tab Styles */
+        #tabs {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 10px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .tab-link {
+            background: #fff;
+            color: #333;
+            border: 2px solid #e0e0e0;
+            outline: none;
+            cursor: pointer;
+            padding: 12px 16px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin: 0;
+            width: auto;
+            box-sizing: border-box;
+            border-radius: 8px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .tab-link:hover:not(.active) {
+            border-color: #aaa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .tab-link.active {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        .tab-link.active:hover {
+             background: linear-gradient(135deg, #20c997, #17a2b8);
+             transform: translateY(-2px);
+             box-shadow: 0 6px 15px rgba(32, 201, 151, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .vcard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .vcard-grid .full-width {
+            grid-column: 1 / -1;
+        }
+
+        #vcard-grid input {
+             margin: 5px 0;
+        }
     </style>
 </head>
 <body>
     <h1>QRTurbo Code Generator</h1>
-    <input type="text" id="qr-text" placeholder="Enter text or URL" maxlength="300">
-    <div id="char-count">0 / 300 characters</div>
+
+    <div id="tabs">
+        <button class="tab-link active" onclick="openTab(event, 'URLText')">URL/Text</button>
+        <button class="tab-link" onclick="openTab(event, 'VCard')">vCard</button>
+    </div>
+
+    <div id="URLText" class="tab-content" style="display: block;">
+        <input type="text" id="qr-text" placeholder="Enter text or URL" maxlength="300">
+        <div id="char-count">0 / 300 characters</div>
+    </div>
+
+    <div id="VCard" class="tab-content">
+        <div class="vcard-grid">
+            <input type="text" id="vcard-fn" placeholder="First Name">
+            <input type="text" id="vcard-ln" placeholder="Last Name">
+            <input type="text" id="vcard-org" placeholder="Organization">
+            <input type="text" id="vcard-title" placeholder="Title">
+            <input type="tel" id="vcard-tel-work" placeholder="Phone (Work)">
+            <input type="tel" id="vcard-tel-mobile" placeholder="Phone (Mobile)">
+            <input type="email" id="vcard-email" placeholder="Email" class="full-width">
+            <input type="url" id="vcard-url" placeholder="Website" class="full-width">
+            <input type="text" id="vcard-street" placeholder="Street" class="full-width">
+            <input type="text" id="vcard-city" placeholder="City">
+            <input type="text" id="vcard-state" placeholder="State/Province">
+            <input type="text" id="vcard-zip" placeholder="ZIP/Postal Code">
+            <input type="text" id="vcard-country" placeholder="Country">
+        </div>
+    </div>
     
     <select id="size-select">
         <option value="5">Small (5)</option>
@@ -329,10 +418,83 @@
     </p>
     <script src="js/qrcode.js"></script>
     <script>
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+
+            // Hide QR code display when switching tabs until new one is generated
+            const qrContainer = document.getElementById('qr-container');
+            const qrImage = document.getElementById('qr-image');
+            const downloadBtn = document.getElementById('download-btn');
+            const qrCodeText = document.getElementById('qr-code-text');
+            
+            qrImage.src = "";
+            qrImage.style.opacity = '0';
+            downloadBtn.style.display = 'none';
+            qrCodeText.style.display = 'none';
+        }
+
         function generateQRCode() {
-            const text = document.getElementById('qr-text').value;
+            let text;
+            const activeTabButton = document.querySelector('.tab-link.active');
+            const activeTab = activeTabButton.getAttribute('onclick').includes('URLText') ? 'URLText' : 'VCard';
+
+            if (activeTab === 'URLText') {
+                text = document.getElementById('qr-text').value;
+                if (!text) {
+                    alert('Please enter some text or a URL');
+                    return;
+                }
+            } else { // VCard
+                const vcard = {
+                    fn: document.getElementById('vcard-fn').value.trim(),
+                    ln: document.getElementById('vcard-ln').value.trim(),
+                    org: document.getElementById('vcard-org').value.trim(),
+                    title: document.getElementById('vcard-title').value.trim(),
+                    telWork: document.getElementById('vcard-tel-work').value.trim(),
+                    telMobile: document.getElementById('vcard-tel-mobile').value.trim(),
+                    email: document.getElementById('vcard-email').value.trim(),
+                    url: document.getElementById('vcard-url').value.trim(),
+                    street: document.getElementById('vcard-street').value.trim(),
+                    city: document.getElementById('vcard-city').value.trim(),
+                    state: document.getElementById('vcard-state').value.trim(),
+                    zip: document.getElementById('vcard-zip').value.trim(),
+                    country: document.getElementById('vcard-country').value.trim(),
+                };
+
+                if (!vcard.fn && !vcard.ln && !vcard.email && !vcard.telMobile && !vcard.telWork) {
+                    alert('Please fill at least one of: First Name, Last Name, Email or Phone.');
+                    return;
+                }
+
+                let vCardString = "BEGIN:VCARD\nVERSION:3.0\n";
+                if (vcard.fn || vcard.ln) vCardString += `N:${vcard.ln};${vcard.fn}\n`;
+                if (vcard.fn || vcard.ln) vCardString += `FN:${vcard.fn} ${vcard.ln}\n`;
+                if (vcard.org) vCardString += `ORG:${vcard.org}\n`;
+                if (vcard.title) vCardString += `TITLE:${vcard.title}\n`;
+                if (vcard.telWork) vCardString += `TEL;TYPE=WORK,VOICE:${vcard.telWork}\n`;
+                if (vcard.telMobile) vCardString += `TEL;TYPE=CELL,VOICE:${vcard.telMobile}\n`;
+                if (vcard.email) vCardString += `EMAIL:${vcard.email}\n`;
+                if (vcard.url) vCardString += `URL:${vcard.url}\n`;
+                if (vcard.street || vcard.city || vcard.state || vcard.zip || vcard.country) {
+                    vCardString += `ADR;TYPE=HOME:;;${vcard.street};${vcard.city};${vcard.state};${vcard.zip};${vcard.country}\n`;
+                }
+                vCardString += "END:VCARD";
+                text = vCardString;
+            }
+            
             if (!text) {
-                alert('Please enter some text or a URL');
+                // This case should be handled above, but as a fallback.
+                alert('No data provided for QR code.');
                 return;
             }
 
@@ -381,7 +543,17 @@
 
         function downloadQRCode() {
             const qrImage = document.getElementById('qr-image');
-            const text = document.getElementById('qr-text').value;
+            const activeTabButton = document.querySelector('.tab-link.active');
+            const activeTab = activeTabButton.getAttribute('onclick').includes('URLText') ? 'URLText' : 'VCard';
+
+            let text;
+             if (activeTab === 'URLText') {
+                text = document.getElementById('qr-text').value;
+            } else {
+                const firstName = document.getElementById('vcard-fn').value;
+                const lastName = document.getElementById('vcard-ln').value;
+                text = `vcard_${firstName}_${lastName}`;
+            }
 
             const safeText = text.replace(/[^a-z0-9]/gi, '_').substring(0, 50) || 'qr';
 
@@ -432,7 +604,7 @@
         // Initialize page with smooth animations
         document.addEventListener('DOMContentLoaded', function() {
             // Add staggered animation delays for elements
-            const elements = document.querySelectorAll('input, button, #size-select, #char-count');
+            const elements = document.querySelectorAll('input, button, #size-select, #char-count, .tab-link');
             elements.forEach((element, index) => {
                 element.style.animationDelay = `${0.5 + (index * 0.1)}s`;
             });
