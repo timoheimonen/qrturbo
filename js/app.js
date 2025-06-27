@@ -129,8 +129,8 @@ function generateQRCode() {
         qrImage.style.display = 'block';
         qrImage.style.opacity = '1';
         
-        // Display the raw text content of the QR code
-        qrCodeText.textContent = text;
+        // Display the raw text content of the QR code, preserving line breaks
+        qrCodeText.innerHTML = text.replace(/\n/g, '<br>');
         qrCodeText.style.display = 'block';
 
         // --- Step 4: Finalize UI (remove loading state, show results) ---
@@ -329,4 +329,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Apply a staggered animation delay to elements on page load for a smoother appearance
     const elements = document.querySelectorAll('input, button, select, textarea, .char-counter, .tab-link');
     elements.forEach((element, index) => element.style.animationDelay = `${0.1 + (index * 0.05)}s`);
+
+    // Emoji picker logic for URL/Text textarea
+    const emojiPicker = document.getElementById('emoji-picker');
+    emojiPicker.addEventListener('change', function() {
+        const emoji = this.value;
+        if (!emoji) return;
+        const textarea = qrTextInput;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = textarea.value;
+        // Insert emoji at cursor position
+        textarea.value = text.slice(0, start) + emoji + text.slice(end);
+        // Move cursor after inserted emoji
+        textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
+        // Trigger input event to update char counter
+        textarea.dispatchEvent(new Event('input'));
+        // Reset dropdown
+        this.selectedIndex = 0;
+        // Refocus textarea
+        textarea.focus();
+    });
 }); 

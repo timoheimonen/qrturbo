@@ -38,7 +38,71 @@
     <!-- Tab Content: URL/Text Input -->
     <div id="URLText" class="tab-content" style="display: block;">
         <label for="qr-text">Text or URL</label>
-        <textarea id="qr-text" placeholder="e.g., https://www.example.com" maxlength="2000" rows="4"></textarea>
+        <div style="display: flex; gap: 8px; align-items: flex-start;">
+            <textarea id="qr-text" placeholder="e.g., https://www.example.com" maxlength="2000" rows="4" style="flex: 1;"></textarea>
+            <select id="emoji-picker" title="Insert emoji" style="width: 2.5em; font-size: 1.5em;">
+                <option value="">😀</option>
+                <option value="😀">😀</option>
+                <option value="😂">😂</option>
+                <option value="😍">😍</option>
+                <option value="👍">👍</option>
+                <option value="🙏">🙏</option>
+                <option value="🎉">🎉</option>
+                <option value="😎">😎</option>
+                <option value="🥳">🥳</option>
+                <option value="😃">😃</option>
+                <option value="😉">😉</option>
+                <option value="😊">😊</option>
+                <option value="😇">😇</option>
+                <option value="😋">😋</option>
+                <option value="😜">😜</option>
+                <option value="🤔">🤔</option>
+                <option value="😢">😢</option>
+                <option value="😭">😭</option>
+                <option value="😡">😡</option>
+                <option value="😱">😱</option>
+                <option value="🤩">🤩</option>
+                <option value="🥰">🥰</option>
+                <option value="😏">😏</option>
+                <option value="🙌">🙌</option>
+                <option value="👏">👏</option>
+                <option value="💪">💪</option>
+                <option value="🔥">🔥</option>
+                <option value="🌟">🌟</option>
+                <option value="💯">💯</option>
+                <option value="✅">✅</option>
+                <option value="❌">❌</option>
+                <option value="❤️">❤️</option>
+                <option value="💔">💔</option>
+                <option value="✨">✨</option>
+                <option value="🎶">🎶</option>
+                <option value="🍀">🍀</option>
+                <option value="🌈">🌈</option>
+                <option value="☀️">☀️</option>
+                <option value="🌙">🌙</option>
+                <option value="⭐">⭐</option>
+                <option value="⚡">⚡</option>
+                <option value="☁️">☁️</option>
+                <option value="🌍">🌍</option>
+                <option value="🍕">🍕</option>
+                <option value="🍔">🍔</option>
+                <option value="🍎">🍎</option>
+                <option value="🍩">🍩</option>
+                <option value="☕">☕</option>
+                <option value="🍺">🍺</option>
+                <option value="🏆">🏆</option>
+                <option value="⚽">⚽</option>
+                <option value="🏀">🏀</option>
+                <option value="🏈">🏈</option>
+                <option value="🚗">🚗</option>
+                <option value="✈️">✈️</option>
+                <option value="🚀">🚀</option>
+                <option value="🏠">🏠</option>
+                <option value="📱">📱</option>
+                <option value="💡">💡</option>
+                <option value="🎁">🎁</option>
+            </select>
+        </div>
         <div id="char-count" class="char-counter">0 / 2000 characters</div>
     </div>
 
