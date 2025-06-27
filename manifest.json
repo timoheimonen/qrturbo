@@ -1,6 +1,6 @@
 {
-    "name": "QRTurbo",
-    "short_name": "QRTurbo",
+    "name": "QRTurbo.app",
+    "short_name": "QRTurbo.app",
     "icons": [
       {
         "src": "/android-chrome-192x192.png",

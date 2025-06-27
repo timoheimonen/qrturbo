@@ -1,0 +1,476 @@
+/* --- Base & Body Styles --- */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #f0f0f0;
+    animation: fadeIn 0.8s ease-in-out; /* Initial page load animation */
+}
+
+/* --- Keyframe Animations --- */
+
+/* Fade-in animation for the body */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    animation: slideInDown 0.5s ease-out;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Slide-in animation for the main heading */
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- QR Code Container --- */
+#qr-container {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: slideInUp 0.4s ease-out 0.1s both; /* Delayed slide-in */
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#qr-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Slide-up animation for the QR container */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Form Elements (Inputs, Buttons, Select) --- */
+input, button, select, textarea {
+    font-size: 14px;
+    margin: 10px 0;
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.3s ease-out 0.1s both; /* Staggered fade-in */
+}
+
+textarea {
+    font-family: Arial, sans-serif; /* Ensure consistent font */
+    resize: vertical; /* Allow vertical resizing only */
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #007acc;
+    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+    transform: scale(1.02);
+}
+
+
+/* Fade-up animation for form elements */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Button Styles --- */
+button {
+    background: linear-gradient(135deg, #007acc, #005a9e);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    position: relative; /* For pseudo-element positioning */
+    overflow: hidden; /* Hides the ::before element outside the button */
+}
+
+button:hover {
+    background: linear-gradient(135deg, #005a9e, #004080);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 122, 204, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+}
+
+/* Shimmer effect on button hover */
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+/* --- QR Image & Download Button --- */
+#qr-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    animation: qrAppear 0.6s ease-out;
+}
+
+/* Animation for the QR code appearing */
+@keyframes qrAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) rotate(5deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+#qr-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+#download-btn {
+    display: none; /* Initially hidden */
+    margin-top: 15px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    animation: bounceIn 0.4s ease-out;
+}
+
+#download-btn:hover {
+    background: linear-gradient(135deg, #20c997, #17a2b8);
+}
+
+/* Bounce-in animation for the download button */
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- Character Counter --- */
+.char-counter {
+    color: #666;
+    font-size: 0.8em;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-align: right;
+    animation: fadeIn 0.8s ease-out 0.7s both;
+    transition: color 0.3s ease;
+}
+
+.char-counter.warning {
+    color: #ff6b35;
+    font-weight: bold;
+    animation: pulse 1s ease-in-out;
+}
+
+/* Pulse animation for character count warning */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* --- Miscellaneous Styles --- */
+#size-select {
+    background-color: white;
+    cursor: pointer;
+}
+
+#size-select:hover {
+    border-color: #007acc;
+}
+
+p {
+    animation: fadeIn 1s ease-out 1s both;
+}
+
+a {
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #005a9e !important;
+    text-decoration: underline;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+    font-size: 0.9em;
+    color: #444;
+    animation: fadeInUp 0.6s ease-out 0.5s both;
+}
+
+.input-group.full-width {
+    grid-column: 1 / -1; /* Span across both columns in the grid */
+}
+
+/* --- Loading Spinner Animation --- */
+/* Applied to qr-container during generation */
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #007acc;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Responsive Design --- */
+/* Simplify animations on smaller screens */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    #qr-container {
+        padding: 15px;
+    }
+    
+    /* Disable hover transforms on touch devices to prevent sticky hover states */
+    button:hover {
+        transform: none;
+    }
+}
+
+/* --- QR Code Data Display --- */
+#qr-code-text {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 15px;
+    word-wrap: break-word;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    animation: fadeIn 0.5s ease-out;
+}
+
+#qr-placeholder {
+    color: #888;
+    margin-top: 20px;
+    padding: 20px 0;
+}
+
+/* --- Tab Navigation Styles --- */
+#tabs {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 10px;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.tab-link {
+    background: #fff;
+    color: #333;
+    border: 2px solid #e0e0e0;
+    outline: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin: 0;
+    width: auto;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-weight: bold;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    height: 48px;
+}
+
+.tab-link:hover:not(.active) {
+    border-color: #aaa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.tab-link.active {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.tab-link.active:hover {
+     background: linear-gradient(135deg, #20c997, #17a2b8);
+     transform: translateY(-2px);
+     box-shadow: 0 6px 15px rgba(32, 201, 151, 0.4);
+}
+
+.tab-content {
+    display: none; /* Hidden by default, shown via JS */
+    animation: fadeIn 0.5s;
+}
+
+/* --- vCard Form Grid Layout --- */
+.vcard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* No extra margin needed for inputs inside the grid; gap property handles spacing */
+.vcard-grid input {
+     margin: 0;
+}
+
+/* --- Layout Groups & Checkboxes --- */
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    animation: none; /* No need to animate tiny checkboxes */
+}
+.checkbox-group label {
+    display: inline; /* Override block display */
+    margin: 0;
+    font-weight: normal;
+    animation: none;
+}
+
+/* --- Radio Button Group Styles --- */
+.radio-group-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 10px;
+    grid-column: 1 / -1; /* Span full width in grid */
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.2;
+}
+
+.radio-group input[type="radio"] {
+    appearance: none;
+    width: 1.2em;
+    height: 1.2em;
+    border: 2px solid #007acc;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    margin: 0;
+    background-color: white;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"]::before {
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    top: 20%;
+    left: 20%;
+    background-color: #007acc;
+    transform: scale(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.radio-group input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+.radio-group label {
+    vertical-align: middle;
+    margin: 0;
+    cursor: pointer;
+} 
