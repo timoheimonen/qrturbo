@@ -32,24 +32,51 @@ function generateQRCode() {
             country: document.getElementById('vcard-country').value.trim(),
         };
 
-        // Basic validation: ensure at least one key identifier is present
+        // Enhanced validation: require at least one name, email, or phone (per RFC 6350)
         if (!vcard.fn && !vcard.ln && !vcard.email && !vcard.telMobile && !vcard.telWork) {
-            alert('Please fill at least one of: First Name, Last Name, Email or Phone.');
+            alert('Please fill at least one of: First Name, Last Name, Email or Phone number.');
             return;
         }
 
+        // Helper function to escape vCard field values (escape backslashes and semicolons)
+        const escapeVCardField = (value) => {
+            if (!value) return '';
+            return value.replace(/[\\;]/g, '\\$&');
+        };
+
         // Assemble the vCard string according to the vCard 3.0 format
         let vCardString = "BEGIN:VCARD\nVERSION:3.0\n";
-        if (vcard.fn || vcard.ln) vCardString += `N:${vcard.ln};${vcard.fn}\n`;
-        if (vcard.fn || vcard.ln) vCardString += `FN:${vcard.fn} ${vcard.ln}\n`;
-        if (vcard.org) vCardString += `ORG:${vcard.org}\n`;
-        if (vcard.title) vCardString += `TITLE:${vcard.title}\n`;
-        if (vcard.telWork) vCardString += `TEL;TYPE=WORK,VOICE:${vcard.telWork}\n`;
-        if (vcard.telMobile) vCardString += `TEL;TYPE=CELL,VOICE:${vcard.telMobile}\n`;
-        if (vcard.email) vCardString += `EMAIL:${vcard.email}\n`;
-        if (vcard.url) vCardString += `URL:${vcard.url}\n`;
+        
+        // Handle N (Name) field - ensure at least one name component is present
+        const hasName = vcard.fn || vcard.ln;
+        if (hasName) {
+            const escapedLn = escapeVCardField(vcard.ln);
+            const escapedFn = escapeVCardField(vcard.fn);
+            vCardString += `N:${escapedLn};${escapedFn};;;\n`;
+        }
+        
+        // Handle FN (Formatted Name) field - create a meaningful display name
+        if (hasName) {
+            const displayName = `${vcard.fn || ''} ${vcard.ln || ''}`.trim();
+            vCardString += `FN:${escapeVCardField(displayName)}\n`;
+        } else if (vcard.org) {
+            // If no name, use organization as display name
+            vCardString += `FN:${escapeVCardField(vcard.org)}\n`;
+        }
+        
+        if (vcard.org) vCardString += `ORG:${escapeVCardField(vcard.org)}\n`;
+        if (vcard.title) vCardString += `TITLE:${escapeVCardField(vcard.title)}\n`;
+        if (vcard.telWork) vCardString += `TEL;TYPE=WORK,VOICE:${escapeVCardField(vcard.telWork)}\n`;
+        if (vcard.telMobile) vCardString += `TEL;TYPE=CELL,VOICE:${escapeVCardField(vcard.telMobile)}\n`;
+        if (vcard.email) vCardString += `EMAIL:${escapeVCardField(vcard.email)}\n`;
+        if (vcard.url) vCardString += `URL:${escapeVCardField(vcard.url)}\n`;
         if (vcard.street || vcard.city || vcard.state || vcard.zip || vcard.country) {
-            vCardString += `ADR;TYPE=HOME:;;${vcard.street};${vcard.city};${vcard.state};${vcard.zip};${vcard.country}\n`;
+            const escapedStreet = escapeVCardField(vcard.street);
+            const escapedCity = escapeVCardField(vcard.city);
+            const escapedState = escapeVCardField(vcard.state);
+            const escapedZip = escapeVCardField(vcard.zip);
+            const escapedCountry = escapeVCardField(vcard.country);
+            vCardString += `ADR;TYPE=HOME:;;${escapedStreet};${escapedCity};${escapedState};${escapedZip};${escapedCountry}\n`;
         }
         vCardString += "END:VCARD";
         text = vCardString;
@@ -154,22 +181,62 @@ function downloadQRCode() {
     const activeTab = activeTabButton.dataset.tab;
     let text;
      // Generate a user-friendly filename based on the input
-     if (activeTab === 'URLText') {
-        text = document.getElementById('qr-text').value;
+    let filename = 'qrcode_unknown';
+    
+    if (activeTab === 'URLText') {
+        const urlText = document.getElementById('qr-text').value.trim();
+        if (urlText) {
+            // For URLs, try to extract domain name, otherwise use first 30 chars
+            if (urlText.startsWith('http')) {
+                try {
+                    const url = new URL(urlText);
+                    filename = `url_${url.hostname.replace(/^www\./, '')}`;
+                } catch {
+                    filename = `text_${urlText.substring(0, 30)}`;
+                }
+            } else {
+                filename = `text_${urlText.substring(0, 30)}`;
+            }
+        }
     } else if (activeTab === 'VCard') {
-        const firstName = document.getElementById('vcard-fn').value;
-        const lastName = document.getElementById('vcard-ln').value;
-        text = `vcard_${firstName}_${lastName}`;
+        const firstName = document.getElementById('vcard-fn').value.trim();
+        const lastName = document.getElementById('vcard-ln').value.trim();
+        const email = document.getElementById('vcard-email').value.trim();
+        const org = document.getElementById('vcard-org').value.trim();
+        
+        if (firstName || lastName) {
+            filename = `vcard_${firstName || ''}_${lastName || ''}`.trim();
+        } else if (email) {
+            filename = `vcard_${email.split('@')[0]}`;
+        } else if (org) {
+            filename = `vcard_${org}`;
+        } else {
+            filename = 'vcard_contact';
+        }
     } else if (activeTab === 'Wifi') {
-        text = `wifi_${document.getElementById('wifi-ssid').value}`;
+        const ssid = document.getElementById('wifi-ssid').value.trim();
+        if (ssid) {
+            filename = `wifi_${ssid}`;
+        } else {
+            filename = 'wifi_network';
+        }
     } else if (activeTab === 'SMSPhone') {
         const type = document.querySelector('input[name="sms-phone-type"]:checked').value;
-        const phoneNumber = document.getElementById('sms-phone-number').value;
-        text = `${type}_${phoneNumber}`;
+        const phoneNumber = document.getElementById('sms-phone-number').value.trim();
+        if (phoneNumber) {
+            filename = `${type}_${phoneNumber.replace(/[^\d+]/g, '')}`;
+        } else {
+            filename = `${type}_number`;
+        }
     }
 
-    // Sanitize the text to create a safe filename
-    const safeText = text.replace(/[^a-z0-9]/gi, '_').substring(0, 50) || 'qr';
+    // Sanitize the filename: allow alphanumeric, hyphens, underscores, limit length
+    const safeText = filename
+        .replace(/[^a-z0-9\-_]/gi, '_')  // Replace invalid chars with underscore
+        .replace(/_+/g, '_')             // Replace multiple underscores with single
+        .replace(/^_|_$/g, '')           // Remove leading/trailing underscores
+        .substring(0, 50)                // Limit length
+        || 'qrcode_unknown';             // Fallback if empty
 
     // Create a temporary anchor element to trigger the download
     const link = document.createElement('a');
@@ -326,24 +393,5 @@ document.addEventListener('DOMContentLoaded', function() {
     const elements = document.querySelectorAll('input, button, select, textarea, .char-counter, .tab-link');
     elements.forEach((element, index) => element.style.animationDelay = `${0.1 + (index * 0.05)}s`);
 
-    // Emoji picker logic for URL/Text textarea
-    const emojiPicker = document.getElementById('emoji-picker');
-    emojiPicker.addEventListener('change', function() {
-        const emoji = this.value;
-        if (!emoji) return;
-        const textarea = qrTextInput;
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const text = textarea.value;
-        // Insert emoji at cursor position
-        textarea.value = text.slice(0, start) + emoji + text.slice(end);
-        // Move cursor after inserted emoji
-        textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
-        // Trigger input event to update char counter
-        textarea.dispatchEvent(new Event('input'));
-        // Reset dropdown
-        this.selectedIndex = 0;
-        // Refocus textarea
-        textarea.focus();
-    });
+
 }); 
