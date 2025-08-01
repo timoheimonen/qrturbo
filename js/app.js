@@ -190,7 +190,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabsContainer = document.getElementById('tabs');
     const wifiAuthSelect = document.getElementById('wifi-auth');
     const wifiPasswordField = document.getElementById('wifi-password');
-    const showPasswordCheckbox = document.getElementById('show-password');
     const smsPhoneTypeRadios = document.querySelectorAll('input[name="sms-phone-type"]');
     const smsMessageGroup = document.getElementById('sms-message-group');
     const qrTextInput = document.getElementById('qr-text');
@@ -253,10 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Trigger change on load to set initial state
     wifiAuthSelect.dispatchEvent(new Event('change'));
 
-    // Toggle password visibility
-    showPasswordCheckbox.addEventListener('change', function() {
-        wifiPasswordField.type = this.checked ? 'text' : 'password';
-    });
+
 
 
     // --- Tab Switching Logic ---
@@ -296,8 +292,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Manually trigger change events to reset dependent UI states
         document.getElementById('wifi-auth').dispatchEvent(new Event('change'));
         updateSmsPhoneUI();
-        // Reset password field to be of type 'password'
-        document.getElementById('wifi-password').type = 'password';
+        // Reset password field to be of type 'text' (always visible)
+        document.getElementById('wifi-password').type = 'text';
 
         // Reset character counters
         const charCountDisplay = document.getElementById('char-count');
