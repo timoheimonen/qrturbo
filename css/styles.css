@@ -1,4 +1,9 @@
 /* --- Base & Body Styles --- */
+html {
+    /* Prevent horizontal shift when scrollbar appears/disappears */
+    overflow-y: scroll;
+}
+
 body {
     font-family: Arial, sans-serif;
     max-width: 600px;

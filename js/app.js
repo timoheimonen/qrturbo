@@ -332,6 +332,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const tabName = clickedTab.dataset.tab;
 
+        // Store current scroll position before switching tabs
+        const currentScrollY = window.scrollY;
+
         tabsContainer.querySelector('.active').classList.remove('active');
         clickedTab.classList.add('active');
 
@@ -339,6 +342,9 @@ document.addEventListener('DOMContentLoaded', function() {
             content.style.display = 'none';
         });
         document.getElementById(tabName).style.display = 'block';
+
+        // Restore scroll position after tab switch to prevent page jumping
+        window.scrollTo(0, currentScrollY);
 
         // --- Reset UI state when switching tabs ---
         // Clear all input fields
