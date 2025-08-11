@@ -2,6 +2,6 @@
     "name": "qrturbo",
     "compatibility_date": "2025-08-11",
     "assets": {
-        "directory": "./dist"
+        "directory": "./"
     }
 }
