@@ -1,2 +1,2 @@
 [observability.logs]
-enabled = false
+enabled = true
