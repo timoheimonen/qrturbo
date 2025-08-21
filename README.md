@@ -33,4 +33,4 @@ MIT License.
 This project includes the [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) library.
 
 ## Author
-Timo Heimonen (timo.heimonen@gmail.com)
+Timo Heimonen (timo.heimonen@proton.me)
