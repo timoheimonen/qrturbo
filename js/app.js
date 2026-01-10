@@ -1,3 +1,47 @@
+// QR Code Styling instance (global for download access)
+let qrCodeInstance = null;
+
+// Customization state
+let qrCustomization = {
+    fgColor: '#000000',
+    bgColor: '#ffffff',
+    errorCorrection: 'M',
+    format: 'png',
+    dotStyle: 'square',
+    cornerSquareStyle: 'extra-rounded',
+    cornerDotStyle: 'dot',
+    margin: 16,
+    logoImage: null,
+    logoSize: 0.4,
+    logoMargin: 4
+};
+
+/**
+ * @description Calculate luminance for color contrast validation
+ */
+function calculateLuminance(hex) {
+    const rgb = parseInt(hex.slice(1), 16);
+    const r = (rgb >> 16) & 0xff;
+    const g = (rgb >> 8) & 0xff;
+    const b = (rgb >> 0) & 0xff;
+    return 0.299 * r + 0.587 * g + 0.114 * b;
+}
+
+/**
+ * @description Validate color contrast to ensure QR code scannability
+ */
+function validateColorContrast(fgColor, bgColor) {
+    const fgLum = calculateLuminance(fgColor);
+    const bgLum = calculateLuminance(bgColor);
+    const contrast = Math.abs(fgLum - bgLum);
+
+    if (contrast < 100) {
+        alert('⚠️ Low contrast detected. Your QR code may be difficult to scan. Consider using darker foreground or lighter background.');
+        return false;
+    }
+    return true;
+}
+
 /**
  * @description Main function to generate the QR code based on the active tab and user input.
  */
@@ -127,47 +171,110 @@ function generateQRCode() {
         return;
     }
 
+    // Validate color contrast
+    validateColorContrast(qrCustomization.fgColor, qrCustomization.bgColor);
+
     // --- Step 2: Prepare UI for generation (loading state) ---
     const qrContainer = document.getElementById('qr-container');
+    const qrCanvasContainer = document.getElementById('qr-canvas-container');
     const qrImage = document.getElementById('qr-image');
     const downloadBtn = document.getElementById('download-btn');
     const qrCodeText = document.getElementById('qr-code-text');
     const qrPlaceholder = document.getElementById('qr-placeholder');
-    
+
     qrContainer.classList.add('loading');
     qrPlaceholder.style.display = 'none';
-    qrImage.style.opacity = '0.3'; // Dim the old image while loading
+    qrImage.style.display = 'none'; // Hide old img element
     downloadBtn.style.display = 'none';
     qrCodeText.style.display = 'none';
 
     // Use a short timeout to allow the UI to update with the loading state before the (potentially blocking) QR generation.
     setTimeout(() => {
-        // --- Step 3: Generate and display the QR code ---
+        // --- Step 3: Get customization options and generate QR code ---
         const sizeSelect = document.getElementById('size-select');
-        const selectedSize = parseInt(sizeSelect.value);
+        const size = parseInt(sizeSelect.value);
 
-        // Initialize QR code generator (type 0 = auto-detect, 'M' = medium error correction)
-        const qr = qrcode(0, 'M');
-        qr.addData(text);
-        qr.make();
+        // Check if library is loaded
+        if (typeof QRCodeStyling === 'undefined') {
+            alert('QR Code library failed to load. Please refresh the page.');
+            qrContainer.classList.remove('loading');
+            return;
+        }
 
-        // Set the generated QR code as a Data URL to the image element
-        qrImage.src = qr.createDataURL(selectedSize);
-        qrImage.style.display = 'block';
-        qrImage.style.opacity = '1';
-        
-        // Display the raw text content of the QR code, preserving line breaks
-        qrCodeText.innerHTML = text.replace(/\n/g, '<br>');
-        qrCodeText.style.display = 'block';
+        // Ensure text is a string and not empty
+        const qrText = String(text).trim();
+        if (!qrText) {
+            alert('QR code data is empty.');
+            qrContainer.classList.remove('loading');
+            return;
+        }
 
-        // --- Step 4: Finalize UI (remove loading state, show results) ---
-        qrContainer.classList.remove('loading');
-        downloadBtn.style.display = 'block';
-        
-        // Re-trigger the container's appearance animation for a nice effect
-        qrContainer.style.animation = 'none';
-        qrContainer.offsetHeight; // Force a DOM reflow to reset the animation
-        qrContainer.style.animation = 'qrAppear 0.6s ease-out';
+        const config = {
+            width: size,
+            height: size,
+            type: qrCustomization.format === 'svg' ? 'svg' : 'canvas',
+            data: qrText,
+            dotsOptions: {
+                color: qrCustomization.fgColor,
+                type: qrCustomization.dotStyle
+            },
+            backgroundOptions: {
+                color: qrCustomization.bgColor
+            },
+            cornersSquareOptions: {
+                color: qrCustomization.fgColor,
+                type: qrCustomization.cornerSquareStyle
+            },
+            cornersDotOptions: {
+                color: qrCustomization.fgColor,
+                type: qrCustomization.cornerDotStyle
+            },
+            qrOptions: {
+                errorCorrectionLevel: qrCustomization.errorCorrection
+            },
+            margin: qrCustomization.margin
+        };
+
+        // Add logo if present
+        if (qrCustomization.logoImage) {
+            config.image = qrCustomization.logoImage;
+            config.imageOptions = {
+                hideBackgroundDots: true,
+                imageSize: qrCustomization.logoSize,
+                margin: qrCustomization.logoMargin,
+                crossOrigin: 'anonymous'
+            };
+        }
+
+        // --- Step 4: Generate QR Code ---
+        try {
+            // Clear previous QR code
+            qrCanvasContainer.innerHTML = '';
+
+            // Create new instance
+            qrCodeInstance = new QRCodeStyling(config);
+
+            // Append to DOM
+            qrCodeInstance.append(qrCanvasContainer);
+
+            // Display the raw text content of the QR code, preserving line breaks
+            qrCodeText.innerHTML = text.replace(/\n/g, '<br>');
+            qrCodeText.style.display = 'block';
+
+            // --- Step 5: Finalize UI (remove loading state, show results) ---
+            qrContainer.classList.remove('loading');
+            downloadBtn.style.display = 'block';
+
+            // Re-trigger the container's appearance animation for a nice effect
+            qrContainer.style.animation = 'none';
+            qrContainer.offsetHeight; // Force a DOM reflow to reset the animation
+            qrContainer.style.animation = 'qrAppear 0.6s ease-out';
+        } catch (error) {
+            console.error('QR Code Generation Error:', error);
+            alert('Error generating QR code: ' + error.message);
+            qrContainer.classList.remove('loading');
+            qrPlaceholder.style.display = 'block';
+        }
     }, 300);
 }
 
@@ -175,12 +282,16 @@ function generateQRCode() {
  * @description Handles downloading the generated QR code image.
  */
 function downloadQRCode() {
-    const qrImage = document.getElementById('qr-image');
+    if (!qrCodeInstance) {
+        alert('Please generate a QR code first.');
+        return;
+    }
+
     const activeTabButton = document.querySelector('.tab-link.active');
     if (!activeTabButton) return;
     const activeTab = activeTabButton.dataset.tab;
-    let text;
-     // Generate a user-friendly filename based on the input
+
+    // Generate a user-friendly filename based on the input
     let filename = 'qrcode_unknown';
     
     if (activeTab === 'URLText') {
@@ -238,12 +349,15 @@ function downloadQRCode() {
         .substring(0, 50)                // Limit length
         || 'qrcode_unknown';             // Fallback if empty
 
-    // Create a temporary anchor element to trigger the download
-    const link = document.createElement('a');
-    link.download = `qrcode_${safeText}.png`;
-    link.href = qrImage.src;
-    link.click();
-    
+    const finalFilename = `qrcode_${safeText}`;
+    const extension = qrCustomization.format; // 'png' or 'svg'
+
+    // Download using QRCodeStyling API
+    qrCodeInstance.download({
+        name: finalFilename,
+        extension: extension
+    });
+
     // Re-trigger the download button's animation for user feedback
     const downloadBtn = document.getElementById('download-btn');
     downloadBtn.style.animation = 'none';
@@ -399,5 +513,225 @@ document.addEventListener('DOMContentLoaded', function() {
     const elements = document.querySelectorAll('input, button, select, textarea, .char-counter, .tab-link');
     elements.forEach((element, index) => element.style.animationDelay = `${0.1 + (index * 0.05)}s`);
 
+    // --- Customization Panel Event Handlers ---
+
+    // Toggle customization panel
+    const customizeToggle = document.getElementById('customize-toggle');
+    const customizePanel = document.getElementById('customize-panel');
+    const customizeIcon = document.getElementById('customize-icon');
+
+    if (customizeToggle) {
+        customizeToggle.addEventListener('click', function() {
+            const isExpanded = customizePanel.style.display === 'block';
+            customizePanel.style.display = isExpanded ? 'none' : 'block';
+            customizeIcon.textContent = isExpanded ? '▶' : '▼';
+            customizeToggle.setAttribute('aria-expanded', !isExpanded);
+        });
+    }
+
+    // Color picker sync (picker <-> text input)
+    function setupColorSync(colorInputId, textInputId, stateKey) {
+        const colorInput = document.getElementById(colorInputId);
+        const textInput = document.getElementById(textInputId);
+
+        if (colorInput && textInput) {
+            colorInput.addEventListener('input', function() {
+                textInput.value = this.value.toUpperCase();
+                qrCustomization[stateKey] = this.value;
+            });
+
+            textInput.addEventListener('input', function() {
+                const hex = this.value.trim();
+                if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+                    colorInput.value = hex;
+                    qrCustomization[stateKey] = hex;
+                }
+            });
+        }
+    }
+
+    setupColorSync('qr-fg-color', 'qr-fg-color-text', 'fgColor');
+    setupColorSync('qr-bg-color', 'qr-bg-color-text', 'bgColor');
+
+    // Error correction change
+    const errorCorrectionSelect = document.getElementById('qr-error-correction');
+    if (errorCorrectionSelect) {
+        errorCorrectionSelect.addEventListener('change', function() {
+            qrCustomization.errorCorrection = this.value;
+        });
+    }
+
+    // Format change
+    const formatSelect = document.getElementById('qr-format');
+    if (formatSelect) {
+        formatSelect.addEventListener('change', function() {
+            qrCustomization.format = this.value;
+        });
+    }
+
+    // Reset customization button
+    const resetCustomizationBtn = document.getElementById('reset-customization');
+    if (resetCustomizationBtn) {
+        resetCustomizationBtn.addEventListener('click', function() {
+            // Reset to defaults
+            qrCustomization = {
+                fgColor: '#000000',
+                bgColor: '#ffffff',
+                errorCorrection: 'M',
+                format: 'png',
+                dotStyle: 'square',
+                cornerSquareStyle: 'extra-rounded',
+                cornerDotStyle: 'dot',
+                margin: 16,
+                logoImage: null,
+                logoSize: 0.4,
+                logoMargin: 4
+            };
+
+            // Update UI
+            document.getElementById('qr-fg-color').value = '#000000';
+            document.getElementById('qr-fg-color-text').value = '#000000';
+            document.getElementById('qr-bg-color').value = '#ffffff';
+            document.getElementById('qr-bg-color-text').value = '#ffffff';
+            document.getElementById('qr-error-correction').value = 'M';
+            document.getElementById('qr-format').value = 'png';
+
+            // Reset logo
+            const logoInput = document.getElementById('qr-logo');
+            if (logoInput) {
+                logoInput.value = '';
+                document.getElementById('logo-preview').style.display = 'none';
+                document.getElementById('logo-controls').style.display = 'none';
+                document.getElementById('logo-filename').textContent = '';
+                document.getElementById('logo-remove-btn').style.display = 'none';
+                document.getElementById('qr-logo-size').value = '0.4';
+                document.getElementById('qr-logo-size-value').textContent = '40%';
+                document.getElementById('qr-logo-margin').value = '4';
+                document.getElementById('qr-logo-margin-value').textContent = '4px';
+            }
+
+            // Reset style options
+            document.getElementById('qr-dot-style').value = 'square';
+            document.getElementById('qr-corner-square-style').value = 'extra-rounded';
+            document.getElementById('qr-corner-dot-style').value = 'dot';
+            document.getElementById('qr-margin').value = '16';
+            document.getElementById('qr-margin-value').textContent = '16px';
+
+            alert('Customization reset to defaults');
+        });
+    }
+
+    // --- Logo Upload Event Handlers ---
+
+    // Logo select button click
+    const logoSelectBtn = document.getElementById('logo-select-btn');
+    const logoInput = document.getElementById('qr-logo');
+    if (logoSelectBtn && logoInput) {
+        logoSelectBtn.addEventListener('click', function() {
+            logoInput.click();
+        });
+    }
+
+    // Logo file selection
+    if (logoInput) {
+        logoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                // Check file size (warn if > 1MB)
+                if (file.size > 1048576) {
+                    alert('⚠️ Large image file (' + (file.size / 1048576).toFixed(1) + 'MB). Consider using a smaller image for better performance.');
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const logoDataURL = event.target.result;
+
+                    // Store in customization state
+                    qrCustomization.logoImage = logoDataURL;
+
+                    // Show preview
+                    document.getElementById('logo-preview-img').src = logoDataURL;
+                    document.getElementById('logo-preview').style.display = 'block';
+                    document.getElementById('logo-controls').style.display = 'block';
+                    document.getElementById('logo-filename').textContent = file.name;
+                    document.getElementById('logo-remove-btn').style.display = 'inline-block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select a valid image file (PNG, JPEG, SVG, GIF).');
+            }
+        });
+    }
+
+    // Logo remove button
+    const logoRemoveBtn = document.getElementById('logo-remove-btn');
+    if (logoRemoveBtn) {
+        logoRemoveBtn.addEventListener('click', function() {
+            // Clear logo
+            qrCustomization.logoImage = null;
+            document.getElementById('qr-logo').value = '';
+            document.getElementById('logo-preview').style.display = 'none';
+            document.getElementById('logo-controls').style.display = 'none';
+            document.getElementById('logo-filename').textContent = '';
+            this.style.display = 'none';
+        });
+    }
+
+    // Logo size slider
+    const logoSizeSlider = document.getElementById('qr-logo-size');
+    const logoSizeValue = document.getElementById('qr-logo-size-value');
+    if (logoSizeSlider && logoSizeValue) {
+        logoSizeSlider.addEventListener('input', function() {
+            const percentage = Math.round(this.value * 100);
+            logoSizeValue.textContent = percentage + '%';
+            qrCustomization.logoSize = parseFloat(this.value);
+        });
+    }
+
+    // Logo margin slider
+    const logoMarginSlider = document.getElementById('qr-logo-margin');
+    const logoMarginValue = document.getElementById('qr-logo-margin-value');
+    if (logoMarginSlider && logoMarginValue) {
+        logoMarginSlider.addEventListener('input', function() {
+            logoMarginValue.textContent = this.value + 'px';
+            qrCustomization.logoMargin = parseInt(this.value);
+        });
+    }
+
+    // --- Style Options Event Handlers ---
+
+    // Dot style selector
+    const dotStyleSelect = document.getElementById('qr-dot-style');
+    if (dotStyleSelect) {
+        dotStyleSelect.addEventListener('change', function() {
+            qrCustomization.dotStyle = this.value;
+        });
+    }
+
+    // Corner square style selector
+    const cornerSquareStyleSelect = document.getElementById('qr-corner-square-style');
+    if (cornerSquareStyleSelect) {
+        cornerSquareStyleSelect.addEventListener('change', function() {
+            qrCustomization.cornerSquareStyle = this.value;
+        });
+    }
+
+    // Corner dot style selector
+    const cornerDotStyleSelect = document.getElementById('qr-corner-dot-style');
+    if (cornerDotStyleSelect) {
+        cornerDotStyleSelect.addEventListener('change', function() {
+            qrCustomization.cornerDotStyle = this.value;
+        });
+    }
+
+    // Margin slider
+    const marginSlider = document.getElementById('qr-margin');
+    const marginValue = document.getElementById('qr-margin-value');
+    if (marginSlider && marginValue) {
+        marginSlider.addEventListener('input', function() {
+            marginValue.textContent = this.value + 'px';
+            qrCustomization.margin = parseInt(this.value);
+        });
+    }
 
 }); 
