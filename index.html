@@ -64,22 +64,42 @@
 
 <body>
     <header>
-        <h1>QRTurbo.app - Free QR Code Generator</h1>
-        <p class="subtitle">Create customizable QR codes with logos, colors, and styles. Support for URLs, WiFi, vCards, SMS, and phone calls</p>
+        <h1 data-i18n="app.title">QRTurbo.app - Free QR Code Generator</h1>
+
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <label for="lang-select" class="sr-only" data-i18n="app.selectLanguage">Select Language</label>
+            <select id="lang-select" aria-label="Language">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="it">Italiano</option>
+                <option value="fi">Suomi</option>
+                <option value="sv">Svenska</option>
+                <option value="no">Norsk</option>
+                <option value="da">Dansk</option>
+                <option value="zh">简体中文</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+            </select>
+        </div>
+
+        <p class="subtitle" data-i18n="app.subtitle">Create customizable QR codes with logos, colors, and styles. Support for URLs, WiFi, vCards, SMS, and phone calls</p>
     </header>
 
     <!-- Tab navigation for switching between QR code types -->
     <nav id="tabs" role="tablist" aria-label="QR Code Types">
-        <button class="tab-link active" data-tab="URLText" role="tab" aria-selected="true">URL/Text</button>
-        <button class="tab-link" data-tab="VCard" role="tab" aria-selected="false">vCard</button>
-        <button class="tab-link" data-tab="SMSPhone" role="tab" aria-selected="false">SMS/Phone</button>
-        <button class="tab-link" data-tab="Wifi" role="tab" aria-selected="false">WiFi</button>
+        <button class="tab-link active" data-tab="URLText" role="tab" aria-selected="true" data-i18n="tabs.urlText">URL/Text</button>
+        <button class="tab-link" data-tab="VCard" role="tab" aria-selected="false" data-i18n="tabs.vcard">vCard</button>
+        <button class="tab-link" data-tab="SMSPhone" role="tab" aria-selected="false" data-i18n="tabs.smsPhone">SMS/Phone</button>
+        <button class="tab-link" data-tab="Wifi" role="tab" aria-selected="false" data-i18n="tabs.wifi">WiFi</button>
     </nav>
 
     <!-- Tab Content: URL/Text Input -->
     <div id="URLText" class="tab-content" style="display: block;">
-        <label for="qr-text">Text or URL</label>
-        <textarea id="qr-text" placeholder="e.g., https://www.example.com" maxlength="2000" rows="4"></textarea>
+        <label for="qr-text" data-i18n="fields.textOrUrl">Text or URL</label>
+        <textarea id="qr-text" data-i18n-placeholder="placeholders.url" placeholder="e.g., https://www.example.com" maxlength="2000" rows="4"></textarea>
         <div id="char-count" class="char-counter">0 / 2000 characters</div>
     </div>
 
@@ -88,56 +108,56 @@
         <div class="vcard-grid">
             <div class="input-group">
                 <!-- vCard Fields -->
-                <label for="vcard-fn">First Name</label>
-                <input type="text" id="vcard-fn" placeholder="John" maxlength="50">
+                <label for="vcard-fn" data-i18n="fields.firstName">First Name</label>
+                <input type="text" id="vcard-fn" data-i18n-placeholder="placeholders.firstName" placeholder="John" maxlength="50">
             </div>
             <div class="input-group">
-                <label for="vcard-ln">Last Name</label>
-                <input type="text" id="vcard-ln" placeholder="Appleseed" maxlength="50">
+                <label for="vcard-ln" data-i18n="fields.lastName">Last Name</label>
+                <input type="text" id="vcard-ln" data-i18n-placeholder="placeholders.lastName" placeholder="Appleseed" maxlength="50">
             </div>
             <div class="input-group">
-                <label for="vcard-org">Organization</label>
-                <input type="text" id="vcard-org" placeholder="ACME Inc." maxlength="100">
+                <label for="vcard-org" data-i18n="fields.organization">Organization</label>
+                <input type="text" id="vcard-org" data-i18n-placeholder="placeholders.organization" placeholder="ACME Inc." maxlength="100">
             </div>
             <div class="input-group">
-                <label for="vcard-title">Title</label>
-                <input type="text" id="vcard-title" placeholder="Developer" maxlength="100">
+                <label for="vcard-title" data-i18n="fields.title">Title</label>
+                <input type="text" id="vcard-title" data-i18n-placeholder="placeholders.title" placeholder="Developer" maxlength="100">
             </div>
             <div class="input-group">
-                <label for="vcard-tel-work">Phone (Work)</label>
-                <input type="tel" id="vcard-tel-work" placeholder="+1-555-555-1234" maxlength="30">
+                <label for="vcard-tel-work" data-i18n="fields.phoneWork">Phone (Work)</label>
+                <input type="tel" id="vcard-tel-work" data-i18n-placeholder="placeholders.phoneWork" placeholder="+1-555-555-1234" maxlength="30">
             </div>
             <div class="input-group">
-                <label for="vcard-tel-mobile">Phone (Mobile)</label>
-                <input type="tel" id="vcard-tel-mobile" placeholder="+1-555-555-5678" maxlength="30">
+                <label for="vcard-tel-mobile" data-i18n="fields.phoneMobile">Phone (Mobile)</label>
+                <input type="tel" id="vcard-tel-mobile" data-i18n-placeholder="placeholders.phoneMobile" placeholder="+1-555-555-5678" maxlength="30">
             </div>
             <div class="input-group full-width">
-                <label for="vcard-email">Email</label>
-                <input type="email" id="vcard-email" placeholder="john.appleseed@example.com" maxlength="254">
+                <label for="vcard-email" data-i18n="fields.email">Email</label>
+                <input type="email" id="vcard-email" data-i18n-placeholder="placeholders.email" placeholder="john.appleseed@example.com" maxlength="254">
             </div>
             <div class="input-group full-width">
-                <label for="vcard-url">Website</label>
-                <input type="url" id="vcard-url" placeholder="https://www.example.com" maxlength="255">
+                <label for="vcard-url" data-i18n="fields.website">Website</label>
+                <input type="url" id="vcard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.example.com" maxlength="255">
             </div>
             <div class="input-group full-width">
-                <label for="vcard-street">Street</label>
-                <input type="text" id="vcard-street" placeholder="123 Main St" maxlength="100">
+                <label for="vcard-street" data-i18n="fields.street">Street</label>
+                <input type="text" id="vcard-street" data-i18n-placeholder="placeholders.street" placeholder="123 Main St" maxlength="100">
             </div>
             <div class="input-group">
-                <label for="vcard-city">City</label>
-                <input type="text" id="vcard-city" placeholder="Anytown" maxlength="50">
+                <label for="vcard-city" data-i18n="fields.city">City</label>
+                <input type="text" id="vcard-city" data-i18n-placeholder="placeholders.city" placeholder="Anytown" maxlength="50">
             </div>
             <div class="input-group">
-                <label for="vcard-state">State/Province</label>
-                <input type="text" id="vcard-state" placeholder="CA" maxlength="50">
+                <label for="vcard-state" data-i18n="fields.state">State/Province</label>
+                <input type="text" id="vcard-state" data-i18n-placeholder="placeholders.state" placeholder="CA" maxlength="50">
             </div>
             <div class="input-group">
-                <label for="vcard-zip">ZIP/Postal Code</label>
-                <input type="text" id="vcard-zip" placeholder="90210">
+                <label for="vcard-zip" data-i18n="fields.zip">ZIP/Postal Code</label>
+                <input type="text" id="vcard-zip" data-i18n-placeholder="placeholders.zip" placeholder="90210">
             </div>
             <div class="input-group">
-                <label for="vcard-country">Country</label>
-                <input type="text" id="vcard-country" placeholder="USA" maxlength="50">
+                <label for="vcard-country" data-i18n="fields.country">Country</label>
+                <input type="text" id="vcard-country" data-i18n-placeholder="placeholders.country" placeholder="USA" maxlength="50">
             </div>
         </div>
     </div>
@@ -146,24 +166,24 @@
     <div id="Wifi" class="tab-content">
         <div class="vcard-grid">
             <div class="input-group full-width">
-                <label for="wifi-ssid">Network Name (SSID)</label>
-                <input type="text" id="wifi-ssid" placeholder="e.g., MyHomeWiFi" maxlength="128">
+                <label for="wifi-ssid" data-i18n="fields.ssid">Network Name (SSID)</label>
+                <input type="text" id="wifi-ssid" data-i18n-placeholder="placeholders.ssid" placeholder="e.g., MyHomeWiFi" maxlength="128">
             </div>
             <div class="input-group">
-                <label for="wifi-password">Password</label>
-                <input type="text" id="wifi-password" placeholder="Your secret password" maxlength="63">
+                <label for="wifi-password" data-i18n="fields.password">Password</label>
+                <input type="text" id="wifi-password" data-i18n-placeholder="placeholders.wifiPassword" placeholder="Your secret password" maxlength="63">
             </div>
             <div class="input-group">
-                <label for="wifi-auth">Authentication</label>
+                <label for="wifi-auth" data-i18n="fields.authentication">Authentication</label>
                 <select id="wifi-auth">
-                    <option value="WPA" selected>WPA/WPA2</option>
-                    <option value="WEP">WEP</option>
-                    <option value="nopass">None</option>
+                    <option value="WPA" selected data-i18n-option="options.authWpa">WPA/WPA2</option>
+                    <option value="WEP" data-i18n-option="options.authWep">WEP</option>
+                    <option value="nopass" data-i18n-option="options.authNone">None</option>
                 </select>
             </div>
             <div class="input-group full-width checkbox-group">
                 <input type="checkbox" id="wifi-hidden">
-                <label for="wifi-hidden">This is a hidden network</label>
+                <label for="wifi-hidden" data-i18n="fields.hiddenNetwork">This is a hidden network</label>
             </div>
 
         </div>
@@ -175,20 +195,20 @@
             <div class="radio-group-container">
                 <div class="radio-group">
                     <input type="radio" id="sms-type-sms" name="sms-phone-type" value="sms" checked>
-                    <label for="sms-type-sms">SMS</label>
+                    <label for="sms-type-sms" data-i18n="labels.sms">SMS</label>
                 </div>
                 <div class="radio-group">
                     <input type="radio" id="sms-type-phone" name="sms-phone-type" value="phone">
-                    <label for="sms-type-phone">Phone Call</label>
+                    <label for="sms-type-phone" data-i18n="labels.phone">Phone Call</label>
                 </div>
             </div>
             <div class="input-group full-width">
-                <label for="sms-phone-number">Phone Number</label>
-                <input type="tel" id="sms-phone-number" placeholder="e.g., +15551234567" maxlength="30">
+                <label for="sms-phone-number" data-i18n="fields.phoneNumber">Phone Number</label>
+                <input type="tel" id="sms-phone-number" data-i18n-placeholder="placeholders.phoneNumber" placeholder="e.g., +15551234567" maxlength="30">
             </div>
             <div id="sms-message-group" class="input-group full-width">
-                <label for="sms-message">Message (optional)</label>
-                <textarea id="sms-message" rows="4" placeholder="Your pre-filled message here..."
+                <label for="sms-message" data-i18n="fields.message">Message (optional)</label>
+                <textarea id="sms-message" rows="4" data-i18n-placeholder="placeholders.smsMessage" placeholder="Your pre-filled message here..."
                     maxlength="300"></textarea>
                 <div id="sms-char-count" class="char-counter">0 / 300 characters</div>
             </div>
@@ -196,58 +216,58 @@
     </div>
     <!-- Common Controls -->
     <br>
-    <label for="size-select">QR Code Size</label>
+    <label for="size-select" data-i18n="fields.qrSize">QR Code Size</label>
     <select id="size-select">
-        <option value="256">Small (256px)</option>
-        <option value="512" selected>Medium (512px)</option>
-        <option value="1024">Large (1024px)</option>
+        <option value="256" data-i18n-option="options.sizeSmall">Small (256px)</option>
+        <option value="512" selected data-i18n-option="options.sizeMedium">Medium (512px)</option>
+        <option value="1024" data-i18n-option="options.sizeLarge">Large (1024px)</option>
     </select>
 
     <!-- Customization Section -->
     <div class="customization-section">
         <button type="button" id="customize-toggle" class="customize-toggle" aria-expanded="false">
-            <span id="customize-icon">▶</span> Customize Appearance (Optional)
+            <span id="customize-icon">▶</span> <span data-i18n="actions.customize">Customize Appearance (Optional)</span>
         </button>
         <div id="customize-panel" class="customize-panel" style="display:none;">
             <div class="customize-grid">
                 <div class="input-group">
-                    <label for="qr-fg-color">Foreground Color</label>
+                    <label for="qr-fg-color" data-i18n="fields.foregroundColor">Foreground Color</label>
                     <div class="color-input-wrapper">
                         <input type="color" id="qr-fg-color" value="#000000">
                         <input type="text" id="qr-fg-color-text" value="#000000" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$">
                     </div>
                 </div>
                 <div class="input-group">
-                    <label for="qr-bg-color">Background Color</label>
+                    <label for="qr-bg-color" data-i18n="fields.backgroundColor">Background Color</label>
                     <div class="color-input-wrapper">
                         <input type="color" id="qr-bg-color" value="#ffffff">
                         <input type="text" id="qr-bg-color-text" value="#ffffff" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$">
                     </div>
                 </div>
                 <div class="input-group">
-                    <label for="qr-error-correction">Error Correction</label>
+                    <label for="qr-error-correction" data-i18n="fields.errorCorrection">Error Correction</label>
                     <select id="qr-error-correction">
-                        <option value="L">L - Low (7%)</option>
-                        <option value="M" selected>M - Medium (15%)</option>
-                        <option value="Q">Q - Quartile (25%)</option>
-                        <option value="H">H - High (30%)</option>
+                        <option value="L" data-i18n-option="options.errorLow">L - Low (7%)</option>
+                        <option value="M" selected data-i18n-option="options.errorMedium">M - Medium (15%)</option>
+                        <option value="Q" data-i18n-option="options.errorQuartile">Q - Quartile (25%)</option>
+                        <option value="H" data-i18n-option="options.errorHigh">H - High (30%)</option>
                     </select>
                 </div>
                 <div class="input-group">
-                    <label for="qr-format">Download Format</label>
+                    <label for="qr-format" data-i18n="fields.downloadFormat">Download Format</label>
                     <select id="qr-format">
-                        <option value="png" selected>PNG (raster)</option>
-                        <option value="svg">SVG (vector)</option>
+                        <option value="png" selected data-i18n-option="options.formatPng">PNG (raster)</option>
+                        <option value="svg" data-i18n-option="options.formatSvg">SVG (vector)</option>
                     </select>
                 </div>
             </div>
 
             <!-- Logo Upload Section -->
             <div class="logo-section">
-                <h3 class="section-title">Logo (Optional)</h3>
+                <h3 class="section-title" data-i18n="fields.logo">Logo (Optional)</h3>
                 <div class="logo-upload-area">
                     <input type="file" id="qr-logo" accept="image/*" style="display:none;">
-                    <button type="button" id="logo-select-btn" class="secondary-btn small-btn">Choose Image</button>
+                    <button type="button" id="logo-select-btn" class="secondary-btn small-btn" data-i18n="actions.chooseLogo">Choose Image</button>
                     <span id="logo-filename" class="logo-filename"></span>
                     <button type="button" id="logo-remove-btn" class="icon-btn" style="display:none;" title="Remove logo">✕</button>
                 </div>
@@ -256,11 +276,11 @@
                 </div>
                 <div id="logo-controls" style="display:none;">
                     <div class="slider-group">
-                        <label for="qr-logo-size">Logo Size: <span id="qr-logo-size-value">40%</span></label>
+                        <label for="qr-logo-size" data-i18n="fields.logoSize">Logo Size</label>: <span id="qr-logo-size-value">40%</span>
                         <input type="range" id="qr-logo-size" min="0.2" max="0.5" step="0.05" value="0.4">
                     </div>
                     <div class="slider-group">
-                        <label for="qr-logo-margin">Logo Margin: <span id="qr-logo-margin-value">4px</span></label>
+                        <label for="qr-logo-margin" data-i18n="fields.logoMargin">Logo Margin</label>: <span id="qr-logo-margin-value">4px</span>
                         <input type="range" id="qr-logo-margin" min="0" max="20" step="2" value="4">
                     </div>
                 </div>
@@ -271,63 +291,64 @@
                 <h3 class="section-title">Style Options</h3>
                 <div class="style-grid">
                     <div class="input-group">
-                        <label for="qr-dot-style">Dot Style</label>
+                        <label for="qr-dot-style" data-i18n="fields.dotStyle">Dot Style</label>
                         <select id="qr-dot-style">
-                            <option value="square" selected>Square</option>
-                            <option value="rounded">Rounded</option>
-                            <option value="dots">Dots</option>
-                            <option value="classy">Classy</option>
-                            <option value="classy-rounded">Classy Rounded</option>
-                            <option value="extra-rounded">Extra Rounded</option>
+                            <option value="square" selected data-i18n-option="options.dotSquare">Square</option>
+                            <option value="rounded" data-i18n-option="options.dotRounded">Rounded</option>
+                            <option value="dots" data-i18n-option="options.dotDots">Dots</option>
+                            <option value="classy" data-i18n-option="options.dotClassy">Classy</option>
+                            <option value="classy-rounded" data-i18n-option="options.dotClassyRounded">Classy Rounded</option>
+                            <option value="extra-rounded" data-i18n-option="options.dotExtraRounded">Extra Rounded</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label for="qr-corner-square-style">Corner Square</label>
+                        <label for="qr-corner-square-style" data-i18n="fields.cornerSquare">Corner Square</label>
                         <select id="qr-corner-square-style">
-                            <option value="square">Square</option>
-                            <option value="extra-rounded" selected>Extra Rounded</option>
-                            <option value="dot">Dot</option>
+                            <option value="square" data-i18n-option="options.cornerSquare">Square</option>
+                            <option value="extra-rounded" selected data-i18n-option="options.cornerExtraRounded">Extra Rounded</option>
+                            <option value="dot" data-i18n-option="options.cornerDot">Dot</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label for="qr-corner-dot-style">Corner Dot</label>
+                        <label for="qr-corner-dot-style" data-i18n="fields.cornerDot">Corner Dot</label>
                         <select id="qr-corner-dot-style">
-                            <option value="square">Square</option>
-                            <option value="dot" selected>Dot</option>
+                            <option value="square" data-i18n-option="options.cornerSquare">Square</option>
+                            <option value="dot" selected data-i18n-option="options.cornerDot">Dot</option>
                         </select>
                     </div>
                 </div>
                 <div class="slider-group">
-                    <label for="qr-margin">Quiet Zone (Margin): <span id="qr-margin-value">16px</span></label>
+                    <label for="qr-margin" data-i18n="fields.quietZone">Quiet Zone (Margin)</label>: <span id="qr-margin-value">16px</span>
                     <input type="range" id="qr-margin" min="0" max="40" step="4" value="16">
-                    <p class="helper-text">Space around the QR code (recommended: 4-16px for reliable scanning)</p>
+                    <p class="helper-text" data-i18n="helpers.quietZoneHelper">Space around the QR code (recommended: 4-16px for reliable scanning)</p>
                 </div>
             </div>
 
-            <button type="button" id="reset-customization" class="secondary-btn">Reset to Defaults</button>
+            <button type="button" id="reset-customization" class="secondary-btn" data-i18n="actions.reset">Reset to Defaults</button>
         </div>
     </div>
 
-    <button onclick="generateQRCode()">Create QR Code</button>
+    <button onclick="generateQRCode()" data-i18n="actions.generate">Create QR Code</button>
 
     <!-- QR Code Display Area -->
     <div id="qr-container">
-        <p id="qr-placeholder">QR Code will appear here</p>
+        <p id="qr-placeholder" data-i18n="misc.qrPlaceholder">QR Code will appear here</p>
         <div id="qr-canvas-container"></div>
         <img id="qr-image" src="" alt="QR Code" style="display:none;">
         <p id="qr-code-text" style="display:none;"></p>
-        <button id="download-btn" onclick="downloadQRCode()">Download QR Code</button>
+        <button id="download-btn" onclick="downloadQRCode()" data-i18n="actions.download">Download QR Code</button>
     </div>
 
     <!-- Footer / Info Section -->
     <footer style="font-size: 0.9em; color: #666; margin-top: 30px;">
-        <p>This free QR code generator runs entirely in your browser.</p>
-        <p>No data is stored or sent anywhere. No tracking, no ads, no nonsense.</p>
-        <p><a href="https://github.com/timoheimonen/qrturbo" target="_blank" style="color: #007acc;">View source on
+        <p data-i18n="footer.privacy1">This free QR code generator runs entirely in your browser.</p>
+        <p data-i18n="footer.privacy2">No data is stored or sent anywhere. No tracking, no ads, no nonsense.</p>
+        <p><a href="https://github.com/timoheimonen/qrturbo" target="_blank" style="color: #007acc;" data-i18n="footer.github">View source on
                 GitHub</a></p>
     </footer>
 
     <!-- External JavaScript -->
+    <script src="js/i18n.js" defer></script>
     <script src="js/qr-code-styling.min.js" defer></script>
     <script src="js/app.js" defer></script>
 </body>

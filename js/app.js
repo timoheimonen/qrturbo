@@ -36,7 +36,7 @@ function validateColorContrast(fgColor, bgColor) {
     const contrast = Math.abs(fgLum - bgLum);
 
     if (contrast < 100) {
-        alert('⚠️ Low contrast detected. Your QR code may be difficult to scan. Consider using darker foreground or lighter background.');
+        alert(t('alerts.lowContrast'));
         return false;
     }
     return true;
@@ -55,7 +55,7 @@ function generateQRCode() {
     if (activeTab === 'URLText') {
         text = document.getElementById('qr-text').value;
         if (!text) {
-            alert('Please enter some text or a URL');
+            alert(t('alerts.enterText'));
             return;
         }
     } else if (activeTab === 'VCard') { // VCard tab is active
@@ -78,7 +78,7 @@ function generateQRCode() {
 
         // Enhanced validation: require at least one name, email, or phone (per RFC 6350)
         if (!vcard.fn && !vcard.ln && !vcard.email && !vcard.telMobile && !vcard.telWork) {
-            alert('Please fill at least one of: First Name, Last Name, Email or Phone number.');
+            alert(t('alerts.vcardRequired'));
             return;
         }
 
@@ -131,7 +131,7 @@ function generateQRCode() {
         const isHidden = document.getElementById('wifi-hidden').checked;
 
         if (!ssid) {
-            alert('Please enter the Network Name (SSID).');
+            alert(t('alerts.wifiSsidRequired'));
             return;
         }
 
@@ -152,7 +152,7 @@ function generateQRCode() {
         const phoneNumber = document.getElementById('sms-phone-number').value.trim();
 
         if (!phoneNumber) {
-            alert('Please enter a phone number.');
+            alert(t('alerts.phoneRequired'));
             return;
         }
 
@@ -167,7 +167,7 @@ function generateQRCode() {
     
     if (!text) {
         // Fallback validation, though prior checks should prevent this.
-        alert('No data provided for QR code.');
+        alert(t('alerts.noData'));
         return;
     }
 
@@ -196,7 +196,7 @@ function generateQRCode() {
 
         // Check if library is loaded
         if (typeof QRCodeStyling === 'undefined') {
-            alert('QR Code library failed to load. Please refresh the page.');
+            alert(t('alerts.libraryLoadFailed'));
             qrContainer.classList.remove('loading');
             return;
         }
@@ -204,7 +204,7 @@ function generateQRCode() {
         // Ensure text is a string and not empty
         const qrText = String(text).trim();
         if (!qrText) {
-            alert('QR code data is empty.');
+            alert(t('alerts.dataEmpty'));
             qrContainer.classList.remove('loading');
             return;
         }
@@ -271,7 +271,7 @@ function generateQRCode() {
             qrContainer.style.animation = 'qrAppear 0.6s ease-out';
         } catch (error) {
             console.error('QR Code Generation Error:', error);
-            alert('Error generating QR code: ' + error.message);
+            alert(t('alerts.generationError') + ': ' + error.message);
             qrContainer.classList.remove('loading');
             qrPlaceholder.style.display = 'block';
         }
@@ -283,7 +283,7 @@ function generateQRCode() {
  */
 function downloadQRCode() {
     if (!qrCodeInstance) {
-        alert('Please generate a QR code first.');
+        alert(t('alerts.generateFirst'));
         return;
     }
 
@@ -383,14 +383,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Track character count for the URL/Text input
     qrTextInput.addEventListener('input', function() {
         const currentLength = this.value.length;
-        charCountDisplay.textContent = `${currentLength} / 2000 characters`;
+        charCountDisplay.textContent = t('counters.characters', { current: currentLength, max: 2000 });
         charCountDisplay.classList.toggle('warning', currentLength >= 1800);
     });
 
     // Track character count for the SMS message input
     smsMessageInput.addEventListener('input', function() {
         const currentLength = this.value.length;
-        smsCharCountDisplay.textContent = `${currentLength} / 300 characters`;
+        smsCharCountDisplay.textContent = t('counters.characters', { current: currentLength, max: 300 });
         smsCharCountDisplay.classList.toggle('warning', currentLength >= 250);
     });
 
@@ -484,10 +484,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Reset character counters
         const charCountDisplay = document.getElementById('char-count');
-        charCountDisplay.textContent = '0 / 2000 characters';
+        charCountDisplay.textContent = t('counters.characters', { current: 0, max: 2000 });
         charCountDisplay.classList.remove('warning');
         const smsCharCountDisplay = document.getElementById('sms-char-count');
-        smsCharCountDisplay.textContent = '0 / 300 characters';
+        smsCharCountDisplay.textContent = t('counters.characters', { current: 0, max: 300 });
         smsCharCountDisplay.classList.remove('warning');
 
         const qrContainer = document.getElementById('qr-container');
@@ -617,7 +617,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('qr-margin').value = '16';
             document.getElementById('qr-margin-value').textContent = '16px';
 
-            alert('Customization reset to defaults');
+            alert(t('alerts.resetSuccess'));
         });
     }
 
@@ -639,7 +639,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (file && file.type.startsWith('image/')) {
                 // Check file size (warn if > 1MB)
                 if (file.size > 1048576) {
-                    alert('⚠️ Large image file (' + (file.size / 1048576).toFixed(1) + 'MB). Consider using a smaller image for better performance.');
+                    alert(t('alerts.largeImageWarning', { size: (file.size / 1048576).toFixed(1) }));
                 }
 
                 const reader = new FileReader();
@@ -658,7 +658,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 reader.readAsDataURL(file);
             } else {
-                alert('Please select a valid image file (PNG, JPEG, SVG, GIF).');
+                alert(t('alerts.invalidImageFile'));
             }
         });
     }
