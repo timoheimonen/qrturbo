@@ -1,4 +1,4 @@
 [observability.logs]
-enabled = true
+enabled = false
 
 preview_urls = false
