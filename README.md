@@ -6,8 +6,6 @@ A fast, ad-free, privacy-respecting QR code generator.
 **No tracking. No ads. No data is sent or stored.**  
 **Open source under MIT license.**
 
-**Live demo:** [https://qrturbo.app](https://qrturbo.app)
-
 ---
 
 ## Features
