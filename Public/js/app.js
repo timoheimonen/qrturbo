@@ -172,7 +172,9 @@ function generateQRCode() {
     }
 
     // Validate color contrast
-    validateColorContrast(qrCustomization.fgColor, qrCustomization.bgColor);
+    if (!validateColorContrast(qrCustomization.fgColor, qrCustomization.bgColor)) {
+        return;
+    }
 
     // --- Step 2: Prepare UI for generation (loading state) ---
     const qrContainer = document.getElementById('qr-container');
@@ -257,8 +259,8 @@ function generateQRCode() {
             // Append to DOM
             qrCodeInstance.append(qrCanvasContainer);
 
-            // Display the raw text content of the QR code, preserving line breaks
-            qrCodeText.innerHTML = text.replace(/\n/g, '<br>');
+            // Display the raw text content of the QR code, preserving line breaks via CSS
+            qrCodeText.textContent = text;
             qrCodeText.style.display = 'block';
 
             // --- Step 5: Finalize UI (remove loading state, show results) ---
@@ -734,4 +736,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-}); 
+});

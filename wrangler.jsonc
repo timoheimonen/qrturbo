@@ -1,6 +1,12 @@
 {
     "name": "qrturbo",
     "compatibility_date": "2025-08-11",
+    "observability": {
+        "logs": {
+            "enabled": false
+        }
+    },
+    "preview_urls": false,
     "assets": {
         "directory": "./Public"
     }

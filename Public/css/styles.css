@@ -338,6 +338,7 @@ label {
     color: #555;
     margin-top: 15px;
     word-wrap: break-word;
+    white-space: pre-wrap;
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 5px;
@@ -899,4 +900,4 @@ h1 {
         min-width: 130px;
         font-size: 13px;
     }
-} 
+}
