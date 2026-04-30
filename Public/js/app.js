@@ -82,48 +82,42 @@ function generateQRCode() {
             return;
         }
 
-        // Helper function to escape vCard field values (escape backslashes and semicolons)
+        // Helper function to escape vCard text values.
         const escapeVCardField = (value) => {
             if (!value) return '';
-            return value.replace(/[\\;]/g, '\\$&');
+            return String(value)
+                .replace(/\\/g, '\\\\')
+                .replace(/\r\n|\r|\n/g, '\\n')
+                .replace(/;/g, '\\;')
+                .replace(/,/g, '\\,');
         };
 
         // Assemble the vCard string according to the vCard 3.0 format
-        let vCardString = "BEGIN:VCARD\nVERSION:3.0\n";
-        
-        // Handle N (Name) field - ensure at least one name component is present
+        const vCardLines = ['BEGIN:VCARD', 'VERSION:3.0'];
         const hasName = vcard.fn || vcard.ln;
-        if (hasName) {
-            const escapedLn = escapeVCardField(vcard.ln);
-            const escapedFn = escapeVCardField(vcard.fn);
-            vCardString += `N:${escapedLn};${escapedFn};;;\n`;
-        }
-        
-        // Handle FN (Formatted Name) field - create a meaningful display name
-        if (hasName) {
-            const displayName = `${vcard.fn || ''} ${vcard.ln || ''}`.trim();
-            vCardString += `FN:${escapeVCardField(displayName)}\n`;
-        } else if (vcard.org) {
-            // If no name, use organization as display name
-            vCardString += `FN:${escapeVCardField(vcard.org)}\n`;
-        }
-        
-        if (vcard.org) vCardString += `ORG:${escapeVCardField(vcard.org)}\n`;
-        if (vcard.title) vCardString += `TITLE:${escapeVCardField(vcard.title)}\n`;
-        if (vcard.telWork) vCardString += `TEL;TYPE=WORK,VOICE:${escapeVCardField(vcard.telWork)}\n`;
-        if (vcard.telMobile) vCardString += `TEL;TYPE=CELL,VOICE:${escapeVCardField(vcard.telMobile)}\n`;
-        if (vcard.email) vCardString += `EMAIL:${escapeVCardField(vcard.email)}\n`;
-        if (vcard.url) vCardString += `URL:${escapeVCardField(vcard.url)}\n`;
+        const displayName = hasName
+            ? `${vcard.fn || ''} ${vcard.ln || ''}`.trim()
+            : vcard.email || vcard.telMobile || vcard.telWork || vcard.org || 'Contact';
+
+        vCardLines.push(`N:${escapeVCardField(vcard.ln)};${escapeVCardField(vcard.fn)};;;`);
+        vCardLines.push(`FN:${escapeVCardField(displayName)}`);
+
+        if (vcard.org) vCardLines.push(`ORG:${escapeVCardField(vcard.org)}`);
+        if (vcard.title) vCardLines.push(`TITLE:${escapeVCardField(vcard.title)}`);
+        if (vcard.telWork) vCardLines.push(`TEL;TYPE=WORK,VOICE:${escapeVCardField(vcard.telWork)}`);
+        if (vcard.telMobile) vCardLines.push(`TEL;TYPE=CELL,VOICE:${escapeVCardField(vcard.telMobile)}`);
+        if (vcard.email) vCardLines.push(`EMAIL:${escapeVCardField(vcard.email)}`);
+        if (vcard.url) vCardLines.push(`URL:${escapeVCardField(vcard.url)}`);
         if (vcard.street || vcard.city || vcard.state || vcard.zip || vcard.country) {
             const escapedStreet = escapeVCardField(vcard.street);
             const escapedCity = escapeVCardField(vcard.city);
             const escapedState = escapeVCardField(vcard.state);
             const escapedZip = escapeVCardField(vcard.zip);
             const escapedCountry = escapeVCardField(vcard.country);
-            vCardString += `ADR;TYPE=HOME:;;${escapedStreet};${escapedCity};${escapedState};${escapedZip};${escapedCountry}\n`;
+            vCardLines.push(`ADR;TYPE=HOME:;;${escapedStreet};${escapedCity};${escapedState};${escapedZip};${escapedCountry}`);
         }
-        vCardString += "END:VCARD";
-        text = vCardString;
+        vCardLines.push('END:VCARD');
+        text = vCardLines.join('\r\n');
     } else if (activeTab === 'Wifi') { // Wifi tab is active
         const ssid = document.getElementById('wifi-ssid').value.trim();
         const password = document.getElementById('wifi-password').value; // No trim on password
@@ -132,6 +126,16 @@ function generateQRCode() {
 
         if (!ssid) {
             alert(t('alerts.wifiSsidRequired'));
+            return;
+        }
+
+        if (authType === 'WPA' && !/^(?:[ -~]{8,63}|[0-9A-Fa-f]{64})$/.test(password)) {
+            alert(t('alerts.wifiWpaPasswordInvalid'));
+            return;
+        }
+
+        if (authType === 'WEP' && !/^(?:[ -~]{5}|[ -~]{13}|[0-9A-Fa-f]{10}|[0-9A-Fa-f]{26})$/.test(password)) {
+            alert(t('alerts.wifiWepPasswordInvalid'));
             return;
         }
 
@@ -373,6 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabsContainer = document.getElementById('tabs');
     const wifiAuthSelect = document.getElementById('wifi-auth');
     const wifiPasswordField = document.getElementById('wifi-password');
+    const wifiPasswordToggle = document.getElementById('wifi-password-toggle');
     const smsPhoneTypeRadios = document.querySelectorAll('input[name="sms-phone-type"]');
     const smsMessageGroup = document.getElementById('sms-message-group');
     const qrTextInput = document.getElementById('qr-text');
@@ -414,26 +419,37 @@ document.addEventListener('DOMContentLoaded', function() {
         const isSms = selectedType === 'sms';
         // Use 'flex' to match the .input-group display property
         smsMessageGroup.style.display = isSms ? 'flex' : 'none';
-        if (!isSms) {
-            // Clear message when switching to phone call to avoid confusion
-            document.getElementById('sms-message').value = '';
-        }
     }
     smsPhoneTypeRadios.forEach(radio => radio.addEventListener('change', updateSmsPhoneUI));
     // Set initial state on page load
     updateSmsPhoneUI();
 
     // --- Wifi Form Logic ---
+    function updateWifiPasswordToggleLabel() {
+        wifiPasswordToggle.textContent = t(
+            wifiPasswordField.type === 'password' ? 'actions.showPassword' : 'actions.hidePassword'
+        );
+    }
+
     // Toggle password field enabled state based on authentication type
     wifiAuthSelect.addEventListener('change', function() {
         const isPasswordNeeded = this.value !== 'nopass';
         wifiPasswordField.disabled = !isPasswordNeeded;
+        wifiPasswordToggle.disabled = !isPasswordNeeded;
         if (!isPasswordNeeded) {
             wifiPasswordField.value = ''; // Clear password if not needed
+            wifiPasswordField.type = 'password';
         }
+        updateWifiPasswordToggleLabel();
     });
     // Trigger change on load to set initial state
     wifiAuthSelect.dispatchEvent(new Event('change'));
+
+    wifiPasswordToggle.addEventListener('click', function() {
+        const isHidden = wifiPasswordField.type === 'password';
+        wifiPasswordField.type = isHidden ? 'text' : 'password';
+        updateWifiPasswordToggleLabel();
+    });
 
 
 
@@ -451,8 +467,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Store current scroll position before switching tabs
         const currentScrollY = window.scrollY;
 
-        tabsContainer.querySelector('.active').classList.remove('active');
-        clickedTab.classList.add('active');
+        tabsContainer.querySelectorAll('.tab-link').forEach(tab => {
+            const isSelected = tab === clickedTab;
+            tab.classList.toggle('active', isSelected);
+            tab.setAttribute('aria-selected', String(isSelected));
+        });
 
         document.querySelectorAll('.tab-content').forEach(content => {
             content.style.display = 'none';
@@ -462,35 +481,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Restore scroll position after tab switch to prevent page jumping
         window.scrollTo(0, currentScrollY);
 
-        // --- Reset UI state when switching tabs ---
-        // Clear all input fields
-        const allFormElements = document.querySelectorAll('.tab-content input, .tab-content textarea');
-        allFormElements.forEach(input => {
-            if (input.type === 'checkbox' || input.type === 'radio') {
-                input.checked = false;
-            } else {
-                input.value = '';
-            }
-        });
-        // Reset select elements in all tabs to their first option
-        document.querySelectorAll('.tab-content select').forEach(select => select.selectedIndex = 0);
-
-        // Manually set default states for specific controls after clearing
-        document.getElementById('sms-type-sms').checked = true;
-
-        // Manually trigger change events to reset dependent UI states
+        // Keep form values when switching tabs, but refresh dependent UI states.
         document.getElementById('wifi-auth').dispatchEvent(new Event('change'));
         updateSmsPhoneUI();
-        // Reset password field to be of type 'text' (always visible)
-        document.getElementById('wifi-password').type = 'text';
 
-        // Reset character counters
-        const charCountDisplay = document.getElementById('char-count');
-        charCountDisplay.textContent = t('counters.characters', { current: 0, max: 2000 });
-        charCountDisplay.classList.remove('warning');
-        const smsCharCountDisplay = document.getElementById('sms-char-count');
-        smsCharCountDisplay.textContent = t('counters.characters', { current: 0, max: 300 });
-        smsCharCountDisplay.classList.remove('warning');
+        updateDynamicTranslations();
 
         const qrContainer = document.getElementById('qr-container');
         const qrImage = document.getElementById('qr-image');

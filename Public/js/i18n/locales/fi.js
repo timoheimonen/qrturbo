@@ -87,7 +87,9 @@
       download: 'Lataa QR-Koodi',
       reset: 'Palauta Oletusasetukset',
       customize: 'Mukauta Ulkoasu (Valinnainen)',
-      chooseLogo: 'Valitse Kuva'
+      chooseLogo: 'Valitse Kuva',
+      showPassword: 'Näytä salasana',
+      hidePassword: 'Piilota salasana'
     },
     options: {
       sizeSmall: 'Pieni (256px)',
@@ -116,6 +118,10 @@
       enterText: 'Anna teksti tai URL',
       vcardRequired: 'Täytä vähintään yksi: Etunimi, Sukunimi, Sähköposti tai Puhelinnumero.',
       wifiSsidRequired: 'Anna Verkon Nimi (SSID).',
+      wifiWpaPasswordInvalid:
+        'WPA/WPA2-salasanan on oltava 8-63 tulostettavaa merkkiä tai täsmälleen 64 heksadesimaalimerkkiä.',
+      wifiWepPasswordInvalid:
+        'WEP-salasanan on oltava 5 tai 13 tulostettavaa merkkiä tai 10 tai 26 heksadesimaalimerkkiä.',
       phoneRequired: 'Anna puhelinnumero.',
       lowContrast:
         '⚠️ Matala kontrasti havaittu. QR-koodisi saattaa olla vaikea skannata. Harkitse tummempaa etualaa tai vaaleampaa taustaa.',

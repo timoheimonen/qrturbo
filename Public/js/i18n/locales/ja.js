@@ -86,7 +86,9 @@
       download: 'QRコードをダウンロード',
       reset: 'デフォルトにリセット',
       customize: '外観をカスタマイズ（任意）',
-      chooseLogo: '画像を選択'
+      chooseLogo: '画像を選択',
+      showPassword: 'パスワードを表示',
+      hidePassword: 'パスワードを非表示'
     },
     options: {
       sizeSmall: '小（256px）',
@@ -115,6 +117,10 @@
       enterText: 'テキストまたはURLを入力してください',
       vcardRequired: '次のうち少なくとも1つを入力してください：名、姓、メール、または電話番号。',
       wifiSsidRequired: 'ネットワーク名（SSID）を入力してください。',
+      wifiWpaPasswordInvalid:
+        'WPA/WPA2パスワードは8〜63文字の印刷可能文字、または正確に64文字の16進数である必要があります。',
+      wifiWepPasswordInvalid:
+        'WEPパスワードは5文字または13文字の印刷可能文字、または10文字または26文字の16進数である必要があります。',
       phoneRequired: '電話番号を入力してください。',
       lowContrast:
         '⚠️ 低コントラストが検出されました。QRコードがスキャンしにくい可能性があります。より暗い前景色またはより明るい背景色の使用を検討してください。',

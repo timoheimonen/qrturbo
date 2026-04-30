@@ -85,7 +85,9 @@
       download: '下载二维码',
       reset: '重置为默认',
       customize: '自定义外观（可选）',
-      chooseLogo: '选择图像'
+      chooseLogo: '选择图像',
+      showPassword: '显示密码',
+      hidePassword: '隐藏密码'
     },
     options: {
       sizeSmall: '小（256像素）',
@@ -114,6 +116,10 @@
       enterText: '请输入文本或网址',
       vcardRequired: '请至少填写以下之一：名、姓、电子邮件或电话号码。',
       wifiSsidRequired: '请输入网络名称（SSID）。',
+      wifiWpaPasswordInvalid:
+        'WPA/WPA2 密码必须为 8-63 个可打印字符，或正好 64 个十六进制字符。',
+      wifiWepPasswordInvalid:
+        'WEP 密码必须为 5 或 13 个可打印字符，或 10 或 26 个十六进制字符。',
       phoneRequired: '请输入电话号码。',
       lowContrast: '⚠️ 检测到低对比度。您的二维码可能难以扫描。请考虑使用更深的前景色或更浅的背景色。',
       dataEmpty: '二维码数据为空。',

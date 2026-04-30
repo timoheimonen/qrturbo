@@ -86,7 +86,9 @@ const translations = {
       download: 'Download QR Code',
       reset: 'Reset to Defaults',
       customize: 'Customize Appearance (Optional)',
-      chooseLogo: 'Choose Image'
+      chooseLogo: 'Choose Image',
+      showPassword: 'Show password',
+      hidePassword: 'Hide password'
     },
     options: {
       sizeSmall: 'Small (256px)',
@@ -116,6 +118,10 @@ const translations = {
       vcardRequired:
         'Please fill at least one of: First Name, Last Name, Email or Phone number.',
       wifiSsidRequired: 'Please enter the Network Name (SSID).',
+      wifiWpaPasswordInvalid:
+        'WPA/WPA2 passwords must be 8-63 printable characters, or exactly 64 hexadecimal characters.',
+      wifiWepPasswordInvalid:
+        'WEP passwords must be 5 or 13 printable characters, or 10 or 26 hexadecimal characters.',
       phoneRequired: 'Please enter a phone number.',
       lowContrast:
         '⚠️ Low contrast detected. Your QR code may be difficult to scan. Consider using darker foreground or lighter background.',

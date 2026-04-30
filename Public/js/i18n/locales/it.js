@@ -87,7 +87,9 @@
       download: 'Scarica Codice QR',
       reset: 'Ripristina Predefiniti',
       customize: 'Personalizza Aspetto (Opzionale)',
-      chooseLogo: 'Scegli Immagine'
+      chooseLogo: 'Scegli Immagine',
+      showPassword: 'Mostra password',
+      hidePassword: 'Nascondi password'
     },
     options: {
       sizeSmall: 'Piccolo (256px)',
@@ -117,6 +119,10 @@
       vcardRequired:
         'Compila almeno uno di: Nome, Cognome, Email o Numero di Telefono.',
       wifiSsidRequired: 'Inserisci il Nome Rete (SSID).',
+      wifiWpaPasswordInvalid:
+        'Le password WPA/WPA2 devono avere 8-63 caratteri stampabili o esattamente 64 caratteri esadecimali.',
+      wifiWepPasswordInvalid:
+        'Le password WEP devono avere 5 o 13 caratteri stampabili, oppure 10 o 26 caratteri esadecimali.',
       phoneRequired: 'Inserisci un numero di telefono.',
       lowContrast:
         '⚠️ Contrasto basso rilevato. Il tuo codice QR potrebbe essere difficile da scansionare. Considera di usare un primo piano più scuro o uno sfondo più chiaro.',

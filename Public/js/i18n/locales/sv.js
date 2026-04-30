@@ -87,7 +87,9 @@
       download: 'Ladda Ner QR-Kod',
       reset: 'Återställ till Standard',
       customize: 'Anpassa Utseende (Valfritt)',
-      chooseLogo: 'Välj Bild'
+      chooseLogo: 'Välj Bild',
+      showPassword: 'Visa lösenord',
+      hidePassword: 'Dölj lösenord'
     },
     options: {
       sizeSmall: 'Liten (256px)',
@@ -117,6 +119,10 @@
       vcardRequired:
         'Fyll i minst en av: Förnamn, Efternamn, E-post eller Telefonnummer.',
       wifiSsidRequired: 'Ange Nätverksnamn (SSID).',
+      wifiWpaPasswordInvalid:
+        'WPA/WPA2-lösenord måste vara 8-63 utskrivbara tecken eller exakt 64 hexadecimala tecken.',
+      wifiWepPasswordInvalid:
+        'WEP-lösenord måste vara 5 eller 13 utskrivbara tecken, eller 10 eller 26 hexadecimala tecken.',
       phoneRequired: 'Ange ett telefonnummer.',
       lowContrast:
         '⚠️ Låg kontrast upptäckt. Din QR-kod kan vara svår att skanna. Överväg att använda mörkare förgrund eller ljusare bakgrund.',

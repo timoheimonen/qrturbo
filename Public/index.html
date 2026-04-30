@@ -185,7 +185,8 @@
             </div>
             <div class="input-group">
                 <label for="wifi-password" data-i18n="fields.password">Password</label>
-                <input type="text" id="wifi-password" data-i18n-placeholder="placeholders.wifiPassword" placeholder="Your secret password" maxlength="63">
+                <input type="password" id="wifi-password" data-i18n-placeholder="placeholders.wifiPassword" placeholder="Your secret password" maxlength="64" autocomplete="off">
+                <button type="button" id="wifi-password-toggle" class="secondary-btn small-btn" data-i18n="actions.showPassword">Show password</button>
             </div>
             <div class="input-group">
                 <label for="wifi-auth" data-i18n="fields.authentication">Authentication</label>

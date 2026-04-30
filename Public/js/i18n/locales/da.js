@@ -87,7 +87,9 @@
       download: 'Download QR-Kode',
       reset: 'Nulstil til Standard',
       customize: 'Tilpas Udseende (Valgfrit)',
-      chooseLogo: 'Vælg Billede'
+      chooseLogo: 'Vælg Billede',
+      showPassword: 'Vis adgangskode',
+      hidePassword: 'Skjul adgangskode'
     },
     options: {
       sizeSmall: 'Lille (256px)',
@@ -117,6 +119,10 @@
       vcardRequired:
         'Udfyld venligst mindst én af: Fornavn, Efternavn, E-mail eller Telefonnummer.',
       wifiSsidRequired: 'Indtast venligst Netværksnavn (SSID).',
+      wifiWpaPasswordInvalid:
+        'WPA/WPA2-adgangskoder skal være 8-63 udskrivbare tegn eller præcis 64 hexadecimale tegn.',
+      wifiWepPasswordInvalid:
+        'WEP-adgangskoder skal være 5 eller 13 udskrivbare tegn eller 10 eller 26 hexadecimale tegn.',
       phoneRequired: 'Indtast venligst et telefonnummer.',
       lowContrast:
         '⚠️ Lav kontrast registreret. Din QR-kode kan være svær at scanne. Overvej at bruge mørkere forgrund eller lysere baggrund.',

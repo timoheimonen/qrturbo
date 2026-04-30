@@ -87,7 +87,9 @@
       download: 'QR-Code Herunterladen',
       reset: 'Auf Standard Zurücksetzen',
       customize: 'Aussehen Anpassen (Optional)',
-      chooseLogo: 'Bild Auswählen'
+      chooseLogo: 'Bild Auswählen',
+      showPassword: 'Passwort anzeigen',
+      hidePassword: 'Passwort ausblenden'
     },
     options: {
       sizeSmall: 'Klein (256px)',
@@ -117,6 +119,10 @@
       vcardRequired:
         'Bitte füllen Sie mindestens eines aus: Vorname, Nachname, E-Mail oder Telefonnummer.',
       wifiSsidRequired: 'Bitte geben Sie den Netzwerknamen (SSID) ein.',
+      wifiWpaPasswordInvalid:
+        'WPA/WPA2-Passwörter müssen 8-63 druckbare Zeichen oder genau 64 hexadezimale Zeichen haben.',
+      wifiWepPasswordInvalid:
+        'WEP-Passwörter müssen 5 oder 13 druckbare Zeichen oder 10 oder 26 hexadezimale Zeichen haben.',
       phoneRequired: 'Bitte geben Sie eine Telefonnummer ein.',
       lowContrast:
         '⚠️ Niedriger Kontrast erkannt. Ihr QR-Code könnte schwer zu scannen sein. Erwägen Sie einen dunkleren Vordergrund oder helleren Hintergrund.',

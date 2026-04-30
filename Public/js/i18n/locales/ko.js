@@ -85,7 +85,9 @@
       download: 'QR 코드 다운로드',
       reset: '기본값으로 재설정',
       customize: '외관 사용자 정의（선택 사항）',
-      chooseLogo: '이미지 선택'
+      chooseLogo: '이미지 선택',
+      showPassword: '비밀번호 표시',
+      hidePassword: '비밀번호 숨기기'
     },
     options: {
       sizeSmall: '소（256px）',
@@ -114,6 +116,10 @@
       enterText: '텍스트 또는 URL을 입력하세요',
       vcardRequired: '다음 중 하나 이상을 입력하세요: 이름, 성, 이메일 또는 전화번호.',
       wifiSsidRequired: '네트워크 이름（SSID）을 입력하세요.',
+      wifiWpaPasswordInvalid:
+        'WPA/WPA2 비밀번호는 8-63자의 출력 가능한 문자이거나 정확히 64자의 16진수 문자여야 합니다.',
+      wifiWepPasswordInvalid:
+        'WEP 비밀번호는 5자 또는 13자의 출력 가능한 문자이거나 10자 또는 26자의 16진수 문자여야 합니다.',
       phoneRequired: '전화번호를 입력하세요.',
       lowContrast:
         '⚠️ 낮은 대비가 감지되었습니다. QR 코드가 스캔하기 어려울 수 있습니다. 더 어두운 전경색이나 더 밝은 배경색 사용을 고려하세요.',
