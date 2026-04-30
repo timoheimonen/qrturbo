@@ -6,15 +6,25 @@ A fast, ad-free, privacy-respecting QR code generator.
 **No tracking. No ads. No data is sent or stored.**  
 **Open source under MIT license.**
 
+## Edge Native
+
+QR Turbo is deployed on Cloudflare Pages and runs entirely at the edge.
+The app is served as static assets from Cloudflare's global network, with no origin server or backend API required for QR code generation.
+
 ---
 
 ## Features
 
 - Create QR codes instantly in your browser
-- Customize colors, logos, and styles
-- Multiple QR formats: URL, vCard, WiFi, SMS/Phone
+- Generate QR codes for URL/Text, vCard, MeCard, WiFi, SMS/Phone, Email, Calendar Events, Locations, WhatsApp, and App Links
+- Customize foreground and background colors
+- Add an optional logo with adjustable size and margin
+- Choose dot styles, corner square styles, and corner dot styles
+- Select QR code size: 256px, 512px, or 1024px
 - Error correction levels: L, M, Q, H
 - Export formats: PNG and SVG
+- Light and dark themes
+- Multilingual UI with 12 supported languages
 - No external API calls
 - Works fully offline after initial load
 - Supports UTF-8 and long messages
