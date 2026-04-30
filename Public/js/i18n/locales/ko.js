@@ -23,7 +23,13 @@
       urlText: 'URL/텍스트',
       vcard: 'vCard',
       smsPhone: 'SMS/전화',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: '이메일',
+      calendarEvent: '이벤트',
+      location: '위치',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: '앱 링크'
     },
     fields: {
       textOrUrl: '텍스트 또는 URL',
@@ -58,7 +64,26 @@
       logoSize: '로고 크기',
       logoMargin: '로고 여백',
       logo: '로고（선택 사항）',
-      styleOptions: '스타일 옵션'
+      styleOptions: '스타일 옵션',
+      emailTo: '받는 사람 이메일',
+      emailSubject: '제목',
+      emailBody: '메시지',
+      eventTitle: '이벤트 제목',
+      eventStart: '시작',
+      eventEnd: '종료',
+      eventLocation: '위치',
+      eventDescription: '설명',
+      locationAddress: '주소 또는 장소',
+      latitude: '위도',
+      longitude: '경도',
+      whatsappPhone: 'WhatsApp 번호',
+      whatsappMessage: '메시지 (선택 사항)',
+      mecardName: '이름',
+      address: '주소',
+      appWebUrl: '대체 / 웹 URL',
+      appIosUrl: 'iOS App Store URL',
+      appAndroidUrl: 'Android Play Store URL',
+      appLinkTarget: '스토어 대체 링크'
     },
     placeholders: {
       url: '예: https://www.example.com',
@@ -78,7 +103,23 @@
       ssid: '예: 우리집WiFi',
       wifiPassword: '비밀 비밀번호',
       phoneNumber: '예: +821012345678',
-      smsMessage: '미리 작성된 메시지를 여기에...'
+      smsMessage: '미리 작성된 메시지를 여기에...',
+      emailTo: 'hello@example.com',
+      emailSubject: 'QRTurbo에서 안녕하세요',
+      emailBody: '이메일 메시지를 여기에 입력하세요...',
+      eventTitle: '팀 회의',
+      eventLocation: '회의실 또는 주소',
+      eventDescription: '이벤트 세부 정보...',
+      locationAddress: '서울역, 서울',
+      latitude: '37.5547',
+      longitude: '126.9706',
+      whatsappPhone: '예: +82555123456',
+      whatsappMessage: 'WhatsApp 메시지를 여기에 입력하세요...',
+      mecardName: '홍길동',
+      address: '서울특별시 중구 세종대로 1',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/your-app',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'QR 코드 생성',
@@ -110,7 +151,9 @@
       dotExtraRounded: '매우 둥근',
       cornerSquare: '사각형',
       cornerExtraRounded: '매우 둥근',
-      cornerDot: '점'
+      cornerDot: '점',
+      appTargetIos: '웹 URL이 없으면 iOS 사용',
+      appTargetAndroid: '웹 URL이 없으면 Android 사용'
     },
     alerts: {
       enterText: '텍스트 또는 URL을 입력하세요',
@@ -121,6 +164,16 @@
       wifiWepPasswordInvalid:
         'WEP 비밀번호는 5자 또는 13자의 출력 가능한 문자이거나 10자 또는 26자의 16진수 문자여야 합니다.',
       phoneRequired: '전화번호를 입력하세요.',
+      emailRequired: '이메일 필드 중 하나 이상을 입력하세요.',
+      emailInvalid: '유효한 이메일 주소를 입력하세요.',
+      eventRequired: '이벤트 제목과 시작 시간을 입력하세요.',
+      eventEndInvalid: '종료 시간은 시작 시간보다 빠를 수 없습니다.',
+      locationRequired: '주소 또는 두 좌표를 모두 입력하세요.',
+      locationCoordinatesInvalid: '유효한 위도와 경도 좌표를 입력하세요.',
+      whatsappPhoneRequired: '국가 코드가 포함된 WhatsApp 전화번호를 입력하세요.',
+      mecardRequired: '이름, 전화번호 또는 이메일 중 하나 이상을 입력하세요.',
+      appLinkRequired: '웹, iOS 또는 Android 앱 URL을 입력하세요.',
+      urlInvalid: 'http:// 또는 https:// 로 시작하는 유효한 URL을 입력하세요.',
       lowContrast:
         '⚠️ 낮은 대비가 감지되었습니다. QR 코드가 스캔하기 어려울 수 있습니다. 더 어두운 전경색이나 더 밝은 배경색 사용을 고려하세요.',
       dataEmpty: 'QR 코드 데이터가 비어 있습니다.',

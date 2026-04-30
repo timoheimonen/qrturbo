@@ -25,7 +25,13 @@
       urlText: 'URL/Tekst',
       vcard: 'vCard',
       smsPhone: 'SMS/Telefon',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: 'E-post',
+      calendarEvent: 'Hendelse',
+      location: 'Plassering',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: 'App-lenke'
     },
     fields: {
       textOrUrl: 'Tekst eller URL',
@@ -60,7 +66,26 @@
       logoSize: 'Logostørrelse',
       logoMargin: 'Logomarg',
       logo: 'Logo (Valgfritt)',
-      styleOptions: 'Stilalternativer'
+      styleOptions: 'Stilalternativer',
+      emailTo: 'Mottakerens e-post',
+      emailSubject: 'Emne',
+      emailBody: 'Melding',
+      eventTitle: 'Hendelsestittel',
+      eventStart: 'Start',
+      eventEnd: 'Slutt',
+      eventLocation: 'Plassering',
+      eventDescription: 'Beskrivelse',
+      locationAddress: 'Adresse eller sted',
+      latitude: 'Breddegrad',
+      longitude: 'Lengdegrad',
+      whatsappPhone: 'WhatsApp-nummer',
+      whatsappMessage: 'Melding (valgfritt)',
+      mecardName: 'Navn',
+      address: 'Adresse',
+      appWebUrl: 'Fallback / web-URL',
+      appIosUrl: 'iOS App Store-URL',
+      appAndroidUrl: 'Android Play Store-URL',
+      appLinkTarget: 'Butikkfallback'
     },
     placeholders: {
       url: 'f.eks., https://www.eksempel.com',
@@ -80,7 +105,23 @@
       ssid: 'f.eks., MittHjemWiFi',
       wifiPassword: 'Ditt hemmelige passord',
       phoneNumber: 'f.eks., +47555123456',
-      smsMessage: 'Din forhåndsutfylte melding her...'
+      smsMessage: 'Din forhåndsutfylte melding her...',
+      emailTo: 'hei@example.com',
+      emailSubject: 'Hei fra QRTurbo',
+      emailBody: 'Skriv e-postmeldingen din her...',
+      eventTitle: 'Teammøte',
+      eventLocation: 'Møterom eller adresse',
+      eventDescription: 'Hendelsesdetaljer...',
+      locationAddress: 'Karl Johans gate 1, Oslo',
+      latitude: '59.9139',
+      longitude: '10.7522',
+      whatsappPhone: 'f.eks., +47555123456',
+      whatsappMessage: 'WhatsApp-meldingen din her...',
+      mecardName: 'Ola Nordmann',
+      address: 'Hovedgata 123, Oslo',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/your-app',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'Lag QR-Kode',
@@ -112,7 +153,9 @@
       dotExtraRounded: 'Ekstra Avrundet',
       cornerSquare: 'Firkant',
       cornerExtraRounded: 'Ekstra Avrundet',
-      cornerDot: 'Punkt'
+      cornerDot: 'Punkt',
+      appTargetIos: 'Bruk iOS hvis ingen web-URL',
+      appTargetAndroid: 'Bruk Android hvis ingen web-URL'
     },
     alerts: {
       enterText: 'Vennligst skriv inn en tekst eller en URL',
@@ -124,6 +167,16 @@
       wifiWepPasswordInvalid:
         'WEP-passord må være 5 eller 13 utskrivbare tegn, eller 10 eller 26 heksadesimale tegn.',
       phoneRequired: 'Vennligst skriv inn et telefonnummer.',
+      emailRequired: 'Skriv inn minst ett e-postfelt.',
+      emailInvalid: 'Skriv inn en gyldig e-postadresse.',
+      eventRequired: 'Skriv inn en hendelsestittel og starttid.',
+      eventEndInvalid: 'Sluttiden kan ikke være før starttiden.',
+      locationRequired: 'Skriv inn en adresse eller begge koordinatene.',
+      locationCoordinatesInvalid: 'Skriv inn gyldige bredde- og lengdegrader.',
+      whatsappPhoneRequired: 'Skriv inn et WhatsApp-telefonnummer med landskode.',
+      mecardRequired: 'Skriv inn minst ett av: Navn, Telefonnummer eller E-post.',
+      appLinkRequired: 'Skriv inn en web-, iOS- eller Android-app-URL.',
+      urlInvalid: 'Skriv inn en gyldig URL som starter med http:// eller https://.',
       lowContrast:
         '⚠️ Lav kontrast oppdaget. QR-koden din kan være vanskelig å skanne. Vurder å bruke mørkere forgrunn eller lysere bakgrunn.',
       dataEmpty: 'QR-kodedata er tomme.',

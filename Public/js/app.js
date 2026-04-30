@@ -1,6 +1,9 @@
 // QR Code Styling instance (global for download access)
 let qrCodeInstance = null;
 
+const THEME_STORAGE_KEY = 'qrturbo_theme';
+const DEFAULT_THEME = 'light';
+
 // Customization state
 let qrCustomization = {
     fgColor: '#000000',
@@ -15,6 +18,63 @@ let qrCustomization = {
     logoSize: 0.4,
     logoMargin: 4
 };
+
+function normalizeTheme(theme) {
+    return theme === 'dark' ? 'dark' : DEFAULT_THEME;
+}
+
+function getStoredTheme() {
+    try {
+        return normalizeTheme(localStorage.getItem(THEME_STORAGE_KEY));
+    } catch (error) {
+        console.warn('localStorage unavailable:', error);
+        return normalizeTheme(document.documentElement.dataset.theme);
+    }
+}
+
+function applyTheme(theme, persist = true) {
+    const normalizedTheme = normalizeTheme(theme);
+    document.documentElement.dataset.theme = normalizedTheme;
+
+    const themeSelect = document.getElementById('theme-select');
+    if (themeSelect) {
+        themeSelect.value = normalizedTheme;
+    }
+
+    document.querySelectorAll('[data-theme-choice]').forEach(button => {
+        const isActive = button.dataset.themeChoice === normalizedTheme;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+    });
+
+    if (persist) {
+        try {
+            localStorage.setItem(THEME_STORAGE_KEY, normalizedTheme);
+        } catch (error) {
+            console.warn('localStorage unavailable:', error);
+        }
+    }
+}
+
+function setupThemeSelector() {
+    const themeSelect = document.getElementById('theme-select');
+    const themeButtons = document.querySelectorAll('[data-theme-choice]');
+    if (!themeSelect && !themeButtons.length) return;
+
+    applyTheme(getStoredTheme(), false);
+
+    if (themeSelect) {
+        themeSelect.addEventListener('change', function() {
+            applyTheme(this.value);
+        });
+    }
+
+    themeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            applyTheme(this.dataset.themeChoice);
+        });
+    });
+}
 
 /**
  * @description Calculate luminance for color contrast validation
@@ -40,6 +100,49 @@ function validateColorContrast(fgColor, bgColor) {
         return false;
     }
     return true;
+}
+
+function getFieldValue(id) {
+    return document.getElementById(id).value.trim();
+}
+
+function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function isValidHttpUrl(value) {
+    try {
+        const url = new URL(value);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch {
+        return false;
+    }
+}
+
+function normalizeWhatsAppNumber(value) {
+    return value.replace(/\D/g, '');
+}
+
+function escapeICalText(value) {
+    return String(value)
+        .replace(/\\/g, '\\\\')
+        .replace(/\r\n|\r|\n/g, '\\n')
+        .replace(/;/g, '\\;')
+        .replace(/,/g, '\\,');
+}
+
+function formatICalDateTime(value) {
+    const compactValue = value.replace(/[-:]/g, '');
+    return compactValue.length === 13 ? `${compactValue}00` : compactValue.slice(0, 15);
+}
+
+function escapeMeCardField(value) {
+    return String(value)
+        .replace(/\\/g, '\\\\')
+        .replace(/;/g, '\\;')
+        .replace(/:/g, '\\:')
+        .replace(/,/g, '\\,')
+        .replace(/\r\n|\r|\n/g, ' ');
 }
 
 /**
@@ -166,6 +269,148 @@ function generateQRCode() {
             text = `SMSTO:${phoneNumber}:${message}`;
         } else { // type === 'phone'
             text = `tel:${phoneNumber}`;
+        }
+    } else if (activeTab === 'Email') {
+        const to = getFieldValue('email-to');
+        const subject = getFieldValue('email-subject');
+        const body = document.getElementById('email-body').value;
+
+        if (!to && !subject && !body.trim()) {
+            alert(t('alerts.emailRequired'));
+            return;
+        }
+
+        if (to && !isValidEmail(to)) {
+            alert(t('alerts.emailInvalid'));
+            return;
+        }
+
+        const params = new URLSearchParams();
+        if (subject) params.set('subject', subject);
+        if (body) params.set('body', body);
+        const query = params.toString();
+        text = `mailto:${to}${query ? `?${query}` : ''}`;
+    } else if (activeTab === 'CalendarEvent') {
+        const title = getFieldValue('event-title');
+        const location = getFieldValue('event-location');
+        const start = document.getElementById('event-start').value;
+        const end = document.getElementById('event-end').value;
+        const description = document.getElementById('event-description').value.trim();
+
+        if (!title || !start) {
+            alert(t('alerts.eventRequired'));
+            return;
+        }
+
+        if (end && new Date(end) < new Date(start)) {
+            alert(t('alerts.eventEndInvalid'));
+            return;
+        }
+
+        const eventLines = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//QRTurbo//QR Event//EN',
+            'BEGIN:VEVENT',
+            `UID:${Date.now()}@qrturbo.app`,
+            `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z')}`,
+            `DTSTART:${formatICalDateTime(start)}`,
+        ];
+
+        if (end) eventLines.push(`DTEND:${formatICalDateTime(end)}`);
+        eventLines.push(`SUMMARY:${escapeICalText(title)}`);
+        if (location) eventLines.push(`LOCATION:${escapeICalText(location)}`);
+        if (description) eventLines.push(`DESCRIPTION:${escapeICalText(description)}`);
+        eventLines.push('END:VEVENT', 'END:VCALENDAR');
+        text = eventLines.join('\r\n');
+    } else if (activeTab === 'Location') {
+        const address = getFieldValue('location-address');
+        const latitude = getFieldValue('location-lat');
+        const longitude = getFieldValue('location-lng');
+        const hasLat = latitude !== '';
+        const hasLng = longitude !== '';
+
+        if (!address && !hasLat && !hasLng) {
+            alert(t('alerts.locationRequired'));
+            return;
+        }
+
+        if (hasLat || hasLng) {
+            const lat = Number(latitude);
+            const lng = Number(longitude);
+            if (!hasLat || !hasLng || Number.isNaN(lat) || Number.isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+                alert(t('alerts.locationCoordinatesInvalid'));
+                return;
+            }
+            text = address
+                ? `geo:${lat},${lng}?q=${encodeURIComponent(address)}`
+                : `geo:${lat},${lng}`;
+        } else {
+            text = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+        }
+    } else if (activeTab === 'WhatsApp') {
+        const phone = getFieldValue('whatsapp-phone');
+        const message = document.getElementById('whatsapp-message').value;
+        const digits = normalizeWhatsAppNumber(phone);
+
+        if (!digits || digits.length < 7) {
+            alert(t('alerts.whatsappPhoneRequired'));
+            return;
+        }
+
+        text = `https://wa.me/${digits}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
+    } else if (activeTab === 'MeCard') {
+        const name = getFieldValue('mecard-name');
+        const phone = getFieldValue('mecard-phone');
+        const email = getFieldValue('mecard-email');
+        const url = getFieldValue('mecard-url');
+        const address = getFieldValue('mecard-address');
+
+        if (!name && !phone && !email) {
+            alert(t('alerts.mecardRequired'));
+            return;
+        }
+
+        if (email && !isValidEmail(email)) {
+            alert(t('alerts.emailInvalid'));
+            return;
+        }
+
+        if (url && !isValidHttpUrl(url)) {
+            alert(t('alerts.urlInvalid'));
+            return;
+        }
+
+        let meCardString = 'MECARD:';
+        if (name) meCardString += `N:${escapeMeCardField(name)};`;
+        if (phone) meCardString += `TEL:${escapeMeCardField(phone)};`;
+        if (email) meCardString += `EMAIL:${escapeMeCardField(email)};`;
+        if (url) meCardString += `URL:${escapeMeCardField(url)};`;
+        if (address) meCardString += `ADR:${escapeMeCardField(address)};`;
+        text = `${meCardString};`;
+    } else if (activeTab === 'AppLink') {
+        const webUrl = getFieldValue('app-web-url');
+        const iosUrl = getFieldValue('app-ios-url');
+        const androidUrl = getFieldValue('app-android-url');
+        const target = document.getElementById('app-link-target').value;
+        const urls = [webUrl, iosUrl, androidUrl].filter(Boolean);
+
+        if (!urls.length) {
+            alert(t('alerts.appLinkRequired'));
+            return;
+        }
+
+        if (urls.some(url => !isValidHttpUrl(url))) {
+            alert(t('alerts.urlInvalid'));
+            return;
+        }
+
+        if (webUrl) {
+            text = webUrl;
+        } else {
+            const selectedStoreUrl = target === 'ios' ? iosUrl : androidUrl;
+            const fallbackStoreUrl = target === 'ios' ? androidUrl : iosUrl;
+            text = selectedStoreUrl || fallbackStoreUrl;
         }
     }
     
@@ -345,6 +590,33 @@ function downloadQRCode() {
         } else {
             filename = `${type}_number`;
         }
+    } else if (activeTab === 'Email') {
+        const emailTo = document.getElementById('email-to').value.trim();
+        filename = emailTo ? `email_${emailTo.split('@')[0]}` : 'email_message';
+    } else if (activeTab === 'CalendarEvent') {
+        const eventTitle = document.getElementById('event-title').value.trim();
+        filename = eventTitle ? `event_${eventTitle}` : 'calendar_event';
+    } else if (activeTab === 'Location') {
+        const address = document.getElementById('location-address').value.trim();
+        filename = address ? `location_${address.substring(0, 30)}` : 'geo_location';
+    } else if (activeTab === 'WhatsApp') {
+        const phoneNumber = document.getElementById('whatsapp-phone').value.trim();
+        filename = phoneNumber ? `whatsapp_${phoneNumber.replace(/[^\d+]/g, '')}` : 'whatsapp_message';
+    } else if (activeTab === 'MeCard') {
+        const name = document.getElementById('mecard-name').value.trim();
+        const email = document.getElementById('mecard-email').value.trim();
+        filename = name ? `mecard_${name}` : email ? `mecard_${email.split('@')[0]}` : 'mecard_contact';
+    } else if (activeTab === 'AppLink') {
+        const webUrl = document.getElementById('app-web-url').value.trim();
+        if (webUrl) {
+            try {
+                filename = `app_${new URL(webUrl).hostname.replace(/^www\./, '')}`;
+            } catch {
+                filename = 'app_link';
+            }
+        } else {
+            filename = 'app_link';
+        }
     }
 
     // Sanitize the filename: allow alphanumeric, hyphens, underscores, limit length
@@ -373,6 +645,8 @@ function downloadQRCode() {
 
 // Setup page logic after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    setupThemeSelector();
+
     // --- Element Selectors ---
     const tabsContainer = document.getElementById('tabs');
     const wifiAuthSelect = document.getElementById('wifi-auth');
@@ -500,15 +774,8 @@ document.addEventListener('DOMContentLoaded', function() {
         qrCodeText.style.display = 'none';
         qrContainer.classList.remove('loading');
 
-        // Reset container animation to its initial slide-in state
         qrContainer.style.animation = 'none';
-        qrContainer.offsetHeight; // Force reflow
-        qrContainer.style.animation = 'slideInUp 0.8s ease-out 0.3s both';
     });
-
-    // Apply a staggered animation delay to elements on page load for a smoother appearance
-    const elements = document.querySelectorAll('input, button, select, textarea, .char-counter, .tab-link');
-    elements.forEach((element, index) => element.style.animationDelay = `${0.1 + (index * 0.05)}s`);
 
     // --- Customization Panel Event Handlers ---
 

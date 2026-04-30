@@ -24,7 +24,13 @@ const translations = {
       urlText: 'URL/Text',
       vcard: 'vCard',
       smsPhone: 'SMS/Phone',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: 'Email',
+      calendarEvent: 'Event',
+      location: 'Location',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: 'App Link'
     },
     fields: {
       textOrUrl: 'Text or URL',
@@ -59,7 +65,26 @@ const translations = {
       logoSize: 'Logo Size',
       logoMargin: 'Logo Margin',
       logo: 'Logo (Optional)',
-      styleOptions: 'Style Options'
+      styleOptions: 'Style Options',
+      emailTo: 'Recipient Email',
+      emailSubject: 'Subject',
+      emailBody: 'Message',
+      eventTitle: 'Event Title',
+      eventStart: 'Start',
+      eventEnd: 'End',
+      eventLocation: 'Location',
+      eventDescription: 'Description',
+      locationAddress: 'Address or Place',
+      latitude: 'Latitude',
+      longitude: 'Longitude',
+      whatsappPhone: 'WhatsApp Number',
+      whatsappMessage: 'Message (optional)',
+      mecardName: 'Name',
+      address: 'Address',
+      appWebUrl: 'Fallback / Web URL',
+      appIosUrl: 'iOS App Store URL',
+      appAndroidUrl: 'Android Play Store URL',
+      appLinkTarget: 'Store fallback'
     },
     placeholders: {
       url: 'e.g., https://www.example.com',
@@ -79,7 +104,23 @@ const translations = {
       ssid: 'e.g., MyHomeWiFi',
       wifiPassword: 'Your secret password',
       phoneNumber: 'e.g., +15551234567',
-      smsMessage: 'Your pre-filled message here...'
+      smsMessage: 'Your pre-filled message here...',
+      emailTo: 'hello@example.com',
+      emailSubject: 'Hello from QRTurbo',
+      emailBody: 'Write your email message here...',
+      eventTitle: 'Team meeting',
+      eventLocation: 'Conference room or address',
+      eventDescription: 'Event details...',
+      locationAddress: '1600 Amphitheatre Parkway, Mountain View',
+      latitude: '37.422',
+      longitude: '-122.084',
+      whatsappPhone: 'e.g., +15551234567',
+      whatsappMessage: 'Your WhatsApp message here...',
+      mecardName: 'John Appleseed',
+      address: '123 Main St, Anytown',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/...',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'Create QR Code',
@@ -111,7 +152,9 @@ const translations = {
       dotExtraRounded: 'Extra Rounded',
       cornerSquare: 'Square',
       cornerExtraRounded: 'Extra Rounded',
-      cornerDot: 'Dot'
+      cornerDot: 'Dot',
+      appTargetIos: 'Use iOS if no web URL',
+      appTargetAndroid: 'Use Android if no web URL'
     },
     alerts: {
       enterText: 'Please enter some text or a URL',
@@ -123,6 +166,16 @@ const translations = {
       wifiWepPasswordInvalid:
         'WEP passwords must be 5 or 13 printable characters, or 10 or 26 hexadecimal characters.',
       phoneRequired: 'Please enter a phone number.',
+      emailRequired: 'Please enter at least one email field.',
+      emailInvalid: 'Please enter a valid email address.',
+      eventRequired: 'Please enter an event title and start time.',
+      eventEndInvalid: 'Event end time cannot be before the start time.',
+      locationRequired: 'Please enter an address or both coordinates.',
+      locationCoordinatesInvalid: 'Please enter valid latitude and longitude coordinates.',
+      whatsappPhoneRequired: 'Please enter a WhatsApp phone number with country code.',
+      mecardRequired: 'Please enter at least one of: Name, Phone Number or Email.',
+      appLinkRequired: 'Please enter a web, iOS or Android app URL.',
+      urlInvalid: 'Please enter a valid URL starting with http:// or https://.',
       lowContrast:
         '⚠️ Low contrast detected. Your QR code may be difficult to scan. Consider using darker foreground or lighter background.',
       dataEmpty: 'QR code data is empty.',

@@ -25,7 +25,13 @@
       urlText: 'URL/Tekst',
       vcard: 'vCard',
       smsPhone: 'SMS/Telefon',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: 'Email',
+      calendarEvent: 'Begivenhed',
+      location: 'Placering',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: 'App-link'
     },
     fields: {
       textOrUrl: 'Tekst eller URL',
@@ -60,7 +66,26 @@
       logoSize: 'Logostørrelse',
       logoMargin: 'Logomargen',
       logo: 'Logo (Valgfrit)',
-      styleOptions: 'Stilindstillinger'
+      styleOptions: 'Stilindstillinger',
+      emailTo: 'Modtagerens e-mail',
+      emailSubject: 'Emne',
+      emailBody: 'Besked',
+      eventTitle: 'Begivenhedstitel',
+      eventStart: 'Start',
+      eventEnd: 'Slut',
+      eventLocation: 'Placering',
+      eventDescription: 'Beskrivelse',
+      locationAddress: 'Adresse eller sted',
+      latitude: 'Breddegrad',
+      longitude: 'Længdegrad',
+      whatsappPhone: 'WhatsApp-nummer',
+      whatsappMessage: 'Besked (valgfri)',
+      mecardName: 'Navn',
+      address: 'Adresse',
+      appWebUrl: 'Fallback / web-URL',
+      appIosUrl: 'iOS App Store-URL',
+      appAndroidUrl: 'Android Play Store-URL',
+      appLinkTarget: 'Butiksfallback'
     },
     placeholders: {
       url: 'f.eks., https://www.eksempel.com',
@@ -80,7 +105,23 @@
       ssid: 'f.eks., MitHjemWiFi',
       wifiPassword: 'Din hemmelige adgangskode',
       phoneNumber: 'f.eks., +45555123456',
-      smsMessage: 'Din forudfyldte besked her...'
+      smsMessage: 'Din forudfyldte besked her...',
+      emailTo: 'hej@example.com',
+      emailSubject: 'Hej fra QRTurbo',
+      emailBody: 'Skriv din e-mailbesked her...',
+      eventTitle: 'Teammøde',
+      eventLocation: 'Mødelokale eller adresse',
+      eventDescription: 'Begivenhedsdetaljer...',
+      locationAddress: 'Rådhuspladsen 1, København',
+      latitude: '55.6761',
+      longitude: '12.5683',
+      whatsappPhone: 'f.eks., +45555123456',
+      whatsappMessage: 'Din WhatsApp-besked her...',
+      mecardName: 'Hans Hansen',
+      address: 'Hovedgade 123, København',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/your-app',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'Opret QR-Kode',
@@ -112,7 +153,9 @@
       dotExtraRounded: 'Ekstra Afrundet',
       cornerSquare: 'Firkant',
       cornerExtraRounded: 'Ekstra Afrundet',
-      cornerDot: 'Punkt'
+      cornerDot: 'Punkt',
+      appTargetIos: 'Brug iOS hvis ingen web-URL',
+      appTargetAndroid: 'Brug Android hvis ingen web-URL'
     },
     alerts: {
       enterText: 'Indtast venligst en tekst eller en URL',
@@ -124,6 +167,16 @@
       wifiWepPasswordInvalid:
         'WEP-adgangskoder skal være 5 eller 13 udskrivbare tegn eller 10 eller 26 hexadecimale tegn.',
       phoneRequired: 'Indtast venligst et telefonnummer.',
+      emailRequired: 'Indtast mindst ét e-mailfelt.',
+      emailInvalid: 'Indtast en gyldig e-mailadresse.',
+      eventRequired: 'Indtast en begivenhedstitel og starttid.',
+      eventEndInvalid: 'Sluttidspunktet kan ikke være før starttidspunktet.',
+      locationRequired: 'Indtast en adresse eller begge koordinater.',
+      locationCoordinatesInvalid: 'Indtast gyldige bredde- og længdegrader.',
+      whatsappPhoneRequired: 'Indtast et WhatsApp-telefonnummer med landekode.',
+      mecardRequired: 'Indtast mindst én af: Navn, telefonnummer eller e-mail.',
+      appLinkRequired: 'Indtast en web-, iOS- eller Android-app-URL.',
+      urlInvalid: 'Indtast en gyldig URL, der starter med http:// eller https://.',
       lowContrast:
         '⚠️ Lav kontrast registreret. Din QR-kode kan være svær at scanne. Overvej at bruge mørkere forgrund eller lysere baggrund.',
       dataEmpty: 'QR-kodedata er tomme.',

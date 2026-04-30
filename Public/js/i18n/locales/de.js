@@ -25,7 +25,13 @@
       urlText: 'URL/Text',
       vcard: 'vCard',
       smsPhone: 'SMS/Telefon',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: 'E-Mail',
+      calendarEvent: 'Termin',
+      location: 'Standort',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: 'App-Link'
     },
     fields: {
       textOrUrl: 'Text oder URL',
@@ -60,7 +66,26 @@
       logoSize: 'Logo-Größe',
       logoMargin: 'Logo-Rand',
       logo: 'Logo (Optional)',
-      styleOptions: 'Stiloptionen'
+      styleOptions: 'Stiloptionen',
+      emailTo: 'Empfänger-E-Mail',
+      emailSubject: 'Betreff',
+      emailBody: 'Nachricht',
+      eventTitle: 'Termintitel',
+      eventStart: 'Start',
+      eventEnd: 'Ende',
+      eventLocation: 'Standort',
+      eventDescription: 'Beschreibung',
+      locationAddress: 'Adresse oder Ort',
+      latitude: 'Breitengrad',
+      longitude: 'Längengrad',
+      whatsappPhone: 'WhatsApp-Nummer',
+      whatsappMessage: 'Nachricht (optional)',
+      mecardName: 'Name',
+      address: 'Adresse',
+      appWebUrl: 'Fallback-/Web-URL',
+      appIosUrl: 'iOS App Store-URL',
+      appAndroidUrl: 'Android Play Store-URL',
+      appLinkTarget: 'Store-Fallback'
     },
     placeholders: {
       url: 'z.B., https://www.beispiel.com',
@@ -80,7 +105,23 @@
       ssid: 'z.B., MeinHeimWiFi',
       wifiPassword: 'Ihr geheimes Passwort',
       phoneNumber: 'z.B., +49555123456',
-      smsMessage: 'Ihre vorausgefüllte Nachricht hier...'
+      smsMessage: 'Ihre vorausgefüllte Nachricht hier...',
+      emailTo: 'hallo@example.com',
+      emailSubject: 'Hallo von QRTurbo',
+      emailBody: 'Schreiben Sie hier Ihre E-Mail-Nachricht...',
+      eventTitle: 'Teammeeting',
+      eventLocation: 'Konferenzraum oder Adresse',
+      eventDescription: 'Termindetails...',
+      locationAddress: 'Brandenburger Tor, Berlin',
+      latitude: '52.5163',
+      longitude: '13.3777',
+      whatsappPhone: 'z.B., +49555123456',
+      whatsappMessage: 'Ihre WhatsApp-Nachricht hier...',
+      mecardName: 'Max Mustermann',
+      address: 'Hauptstraße 123, Berlin',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/your-app',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'QR-Code Erstellen',
@@ -112,7 +153,9 @@
       dotExtraRounded: 'Extra Abgerundet',
       cornerSquare: 'Quadratisch',
       cornerExtraRounded: 'Extra Abgerundet',
-      cornerDot: 'Punkt'
+      cornerDot: 'Punkt',
+      appTargetIos: 'iOS verwenden, wenn keine Web-URL vorhanden ist',
+      appTargetAndroid: 'Android verwenden, wenn keine Web-URL vorhanden ist'
     },
     alerts: {
       enterText: 'Bitte geben Sie einen Text oder eine URL ein',
@@ -124,6 +167,16 @@
       wifiWepPasswordInvalid:
         'WEP-Passwörter müssen 5 oder 13 druckbare Zeichen oder 10 oder 26 hexadezimale Zeichen haben.',
       phoneRequired: 'Bitte geben Sie eine Telefonnummer ein.',
+      emailRequired: 'Bitte geben Sie mindestens ein E-Mail-Feld ein.',
+      emailInvalid: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+      eventRequired: 'Bitte geben Sie einen Termintitel und eine Startzeit ein.',
+      eventEndInvalid: 'Die Endzeit darf nicht vor der Startzeit liegen.',
+      locationRequired: 'Bitte geben Sie eine Adresse oder beide Koordinaten ein.',
+      locationCoordinatesInvalid: 'Bitte geben Sie gültige Breiten- und Längengrade ein.',
+      whatsappPhoneRequired: 'Bitte geben Sie eine WhatsApp-Telefonnummer mit Ländervorwahl ein.',
+      mecardRequired: 'Bitte geben Sie mindestens eines ein: Name, Telefonnummer oder E-Mail.',
+      appLinkRequired: 'Bitte geben Sie eine Web-, iOS- oder Android-App-URL ein.',
+      urlInvalid: 'Bitte geben Sie eine gültige URL ein, die mit http:// oder https:// beginnt.',
       lowContrast:
         '⚠️ Niedriger Kontrast erkannt. Ihr QR-Code könnte schwer zu scannen sein. Erwägen Sie einen dunkleren Vordergrund oder helleren Hintergrund.',
       dataEmpty: 'QR-Code-Daten sind leer.',

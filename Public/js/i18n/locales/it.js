@@ -25,7 +25,13 @@
       urlText: 'URL/Testo',
       vcard: 'vCard',
       smsPhone: 'SMS/Telefono',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: 'Email',
+      calendarEvent: 'Evento',
+      location: 'Posizione',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: 'Link app'
     },
     fields: {
       textOrUrl: 'Testo o URL',
@@ -60,7 +66,26 @@
       logoSize: 'Dimensione Logo',
       logoMargin: 'Margine Logo',
       logo: 'Logo (Opzionale)',
-      styleOptions: 'Opzioni di Stile'
+      styleOptions: 'Opzioni di Stile',
+      emailTo: 'Email destinatario',
+      emailSubject: 'Oggetto',
+      emailBody: 'Messaggio',
+      eventTitle: 'Titolo evento',
+      eventStart: 'Inizio',
+      eventEnd: 'Fine',
+      eventLocation: 'Posizione',
+      eventDescription: 'Descrizione',
+      locationAddress: 'Indirizzo o luogo',
+      latitude: 'Latitudine',
+      longitude: 'Longitudine',
+      whatsappPhone: 'Numero WhatsApp',
+      whatsappMessage: 'Messaggio (opzionale)',
+      mecardName: 'Nome',
+      address: 'Indirizzo',
+      appWebUrl: 'URL web/di fallback',
+      appIosUrl: 'URL iOS App Store',
+      appAndroidUrl: 'URL Android Play Store',
+      appLinkTarget: 'Fallback store'
     },
     placeholders: {
       url: 'es., https://www.esempio.com',
@@ -80,7 +105,23 @@
       ssid: 'es., MioWiFiCasa',
       wifiPassword: 'La tua password segreta',
       phoneNumber: 'es., +39555123456',
-      smsMessage: 'Il tuo messaggio precompilato qui...'
+      smsMessage: 'Il tuo messaggio precompilato qui...',
+      emailTo: 'ciao@example.com',
+      emailSubject: 'Ciao da QRTurbo',
+      emailBody: 'Scrivi qui il messaggio email...',
+      eventTitle: 'Riunione del team',
+      eventLocation: 'Sala riunioni o indirizzo',
+      eventDescription: 'Dettagli evento...',
+      locationAddress: 'Colosseo, Roma',
+      latitude: '41.8902',
+      longitude: '12.4922',
+      whatsappPhone: 'es., +39555123456',
+      whatsappMessage: 'Il tuo messaggio WhatsApp qui...',
+      mecardName: 'Mario Rossi',
+      address: 'Via Principale 123, Roma',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/your-app',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'Crea Codice QR',
@@ -112,7 +153,9 @@
       dotExtraRounded: 'Extra Arrotondato',
       cornerSquare: 'Quadrato',
       cornerExtraRounded: 'Extra Arrotondato',
-      cornerDot: 'Punto'
+      cornerDot: 'Punto',
+      appTargetIos: 'Usa iOS se non c’è URL web',
+      appTargetAndroid: 'Usa Android se non c’è URL web'
     },
     alerts: {
       enterText: 'Inserisci un testo o un URL',
@@ -124,6 +167,16 @@
       wifiWepPasswordInvalid:
         'Le password WEP devono avere 5 o 13 caratteri stampabili, oppure 10 o 26 caratteri esadecimali.',
       phoneRequired: 'Inserisci un numero di telefono.',
+      emailRequired: 'Inserisci almeno un campo email.',
+      emailInvalid: 'Inserisci un indirizzo email valido.',
+      eventRequired: 'Inserisci un titolo evento e un orario di inizio.',
+      eventEndInvalid: 'L’orario di fine non può essere precedente all’inizio.',
+      locationRequired: 'Inserisci un indirizzo o entrambe le coordinate.',
+      locationCoordinatesInvalid: 'Inserisci coordinate valide di latitudine e longitudine.',
+      whatsappPhoneRequired: 'Inserisci un numero WhatsApp con prefisso internazionale.',
+      mecardRequired: 'Inserisci almeno uno tra: Nome, Numero di telefono o Email.',
+      appLinkRequired: 'Inserisci un URL app web, iOS o Android.',
+      urlInvalid: 'Inserisci un URL valido che inizi con http:// o https://.',
       lowContrast:
         '⚠️ Contrasto basso rilevato. Il tuo codice QR potrebbe essere difficile da scansionare. Considera di usare un primo piano più scuro o uno sfondo più chiaro.',
       dataEmpty: 'I dati del codice QR sono vuoti.',

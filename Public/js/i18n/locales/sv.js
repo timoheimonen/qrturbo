@@ -25,7 +25,13 @@
       urlText: 'URL/Text',
       vcard: 'vCard',
       smsPhone: 'SMS/Telefon',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: 'E-post',
+      calendarEvent: 'Händelse',
+      location: 'Plats',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: 'App-länk'
     },
     fields: {
       textOrUrl: 'Text eller URL',
@@ -60,7 +66,26 @@
       logoSize: 'Logotypstorlek',
       logoMargin: 'Logotypmarginal',
       logo: 'Logotyp (Valfritt)',
-      styleOptions: 'Stilalternativ'
+      styleOptions: 'Stilalternativ',
+      emailTo: 'Mottagarens e-post',
+      emailSubject: 'Ämne',
+      emailBody: 'Meddelande',
+      eventTitle: 'Händelsetitel',
+      eventStart: 'Start',
+      eventEnd: 'Slut',
+      eventLocation: 'Plats',
+      eventDescription: 'Beskrivning',
+      locationAddress: 'Adress eller plats',
+      latitude: 'Latitud',
+      longitude: 'Longitud',
+      whatsappPhone: 'WhatsApp-nummer',
+      whatsappMessage: 'Meddelande (valfritt)',
+      mecardName: 'Namn',
+      address: 'Adress',
+      appWebUrl: 'Reserv-/webb-URL',
+      appIosUrl: 'iOS App Store-URL',
+      appAndroidUrl: 'Android Play Store-URL',
+      appLinkTarget: 'Butiksreserv'
     },
     placeholders: {
       url: 't.ex., https://www.exempel.com',
@@ -80,7 +105,23 @@
       ssid: 't.ex., MittHemWiFi',
       wifiPassword: 'Ditt hemliga lösenord',
       phoneNumber: 't.ex., +46555123456',
-      smsMessage: 'Ditt förifyllda meddelande här...'
+      smsMessage: 'Ditt förifyllda meddelande här...',
+      emailTo: 'hej@example.com',
+      emailSubject: 'Hej från QRTurbo',
+      emailBody: 'Skriv ditt e-postmeddelande här...',
+      eventTitle: 'Teammöte',
+      eventLocation: 'Mötesrum eller adress',
+      eventDescription: 'Händelsedetaljer...',
+      locationAddress: 'Drottninggatan 1, Stockholm',
+      latitude: '59.3293',
+      longitude: '18.0686',
+      whatsappPhone: 't.ex., +46555123456',
+      whatsappMessage: 'Ditt WhatsApp-meddelande här...',
+      mecardName: 'Anna Andersson',
+      address: 'Storgatan 123, Stockholm',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/your-app',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'Skapa QR-Kod',
@@ -112,7 +153,9 @@
       dotExtraRounded: 'Extra Rundad',
       cornerSquare: 'Fyrkant',
       cornerExtraRounded: 'Extra Rundad',
-      cornerDot: 'Punkt'
+      cornerDot: 'Punkt',
+      appTargetIos: 'Använd iOS om ingen webb-URL finns',
+      appTargetAndroid: 'Använd Android om ingen webb-URL finns'
     },
     alerts: {
       enterText: 'Ange en text eller en URL',
@@ -124,6 +167,16 @@
       wifiWepPasswordInvalid:
         'WEP-lösenord måste vara 5 eller 13 utskrivbara tecken, eller 10 eller 26 hexadecimala tecken.',
       phoneRequired: 'Ange ett telefonnummer.',
+      emailRequired: 'Ange minst ett e-postfält.',
+      emailInvalid: 'Ange en giltig e-postadress.',
+      eventRequired: 'Ange en händelsetitel och starttid.',
+      eventEndInvalid: 'Sluttiden kan inte vara före starttiden.',
+      locationRequired: 'Ange en adress eller båda koordinaterna.',
+      locationCoordinatesInvalid: 'Ange giltiga latitud- och longitudkoordinater.',
+      whatsappPhoneRequired: 'Ange ett WhatsApp-telefonnummer med landskod.',
+      mecardRequired: 'Ange minst ett av: Namn, Telefonnummer eller E-post.',
+      appLinkRequired: 'Ange en webb-, iOS- eller Android-app-URL.',
+      urlInvalid: 'Ange en giltig URL som börjar med http:// eller https://.',
       lowContrast:
         '⚠️ Låg kontrast upptäckt. Din QR-kod kan vara svår att skanna. Överväg att använda mörkare förgrund eller ljusare bakgrund.',
       dataEmpty: 'QR-koddata är tomma.',

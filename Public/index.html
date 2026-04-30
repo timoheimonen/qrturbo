@@ -72,11 +72,42 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="manifest" href="/manifest.json">
+    <script>
+        try {
+            const savedTheme = localStorage.getItem('qrturbo_theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.dataset.theme = 'dark';
+            }
+        } catch (e) {
+            document.documentElement.dataset.theme = 'light';
+        }
+    </script>
     <!-- External CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
+    <div class="theme-selector" role="group" aria-label="Theme">
+        <button type="button" class="theme-option" data-theme-choice="light" aria-label="Light theme" aria-pressed="true">
+            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+        </button>
+        <button type="button" class="theme-option" data-theme-choice="dark" aria-label="Dark theme" aria-pressed="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                <path d="M12 3a6.8 6.8 0 0 0 8.95 8.95 8 8 0 1 1-8.95-8.95Z"></path>
+            </svg>
+        </button>
+    </div>
+
     <header>
         <h1 data-i18n="app.title">QRTurbo.app - Free QR Code Generator</h1>
 
@@ -108,6 +139,12 @@
         <button class="tab-link" data-tab="VCard" role="tab" aria-selected="false" data-i18n="tabs.vcard">vCard</button>
         <button class="tab-link" data-tab="SMSPhone" role="tab" aria-selected="false" data-i18n="tabs.smsPhone">SMS/Phone</button>
         <button class="tab-link" data-tab="Wifi" role="tab" aria-selected="false" data-i18n="tabs.wifi">WiFi</button>
+        <button class="tab-link" data-tab="Email" role="tab" aria-selected="false" data-i18n="tabs.email">Email</button>
+        <button class="tab-link" data-tab="CalendarEvent" role="tab" aria-selected="false" data-i18n="tabs.calendarEvent">Event</button>
+        <button class="tab-link" data-tab="Location" role="tab" aria-selected="false" data-i18n="tabs.location">Location</button>
+        <button class="tab-link" data-tab="WhatsApp" role="tab" aria-selected="false" data-i18n="tabs.whatsapp">WhatsApp</button>
+        <button class="tab-link" data-tab="MeCard" role="tab" aria-selected="false" data-i18n="tabs.mecard">MeCard</button>
+        <button class="tab-link" data-tab="AppLink" role="tab" aria-selected="false" data-i18n="tabs.appLink">App Link</button>
     </nav>
 
     <!-- Tab Content: URL/Text Input -->
@@ -226,6 +263,133 @@
                 <textarea id="sms-message" rows="4" data-i18n-placeholder="placeholders.smsMessage" placeholder="Your pre-filled message here..."
                     maxlength="300"></textarea>
                 <div id="sms-char-count" class="char-counter">0 / 300 characters</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Email Input Form -->
+    <div id="Email" class="tab-content">
+        <div class="vcard-grid">
+            <div class="input-group full-width">
+                <label for="email-to" data-i18n="fields.emailTo">Recipient Email</label>
+                <input type="email" id="email-to" data-i18n-placeholder="placeholders.emailTo" placeholder="hello@example.com" maxlength="254">
+            </div>
+            <div class="input-group full-width">
+                <label for="email-subject" data-i18n="fields.emailSubject">Subject</label>
+                <input type="text" id="email-subject" data-i18n-placeholder="placeholders.emailSubject" placeholder="Hello from QRTurbo" maxlength="120">
+            </div>
+            <div class="input-group full-width">
+                <label for="email-body" data-i18n="fields.emailBody">Message</label>
+                <textarea id="email-body" rows="4" data-i18n-placeholder="placeholders.emailBody" placeholder="Write your email message here..." maxlength="1000"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Calendar Event Input Form -->
+    <div id="CalendarEvent" class="tab-content">
+        <div class="vcard-grid">
+            <div class="input-group full-width">
+                <label for="event-title" data-i18n="fields.eventTitle">Event Title</label>
+                <input type="text" id="event-title" data-i18n-placeholder="placeholders.eventTitle" placeholder="Team meeting" maxlength="120">
+            </div>
+            <div class="input-group">
+                <label for="event-start" data-i18n="fields.eventStart">Start</label>
+                <input type="datetime-local" id="event-start">
+            </div>
+            <div class="input-group">
+                <label for="event-end" data-i18n="fields.eventEnd">End</label>
+                <input type="datetime-local" id="event-end">
+            </div>
+            <div class="input-group full-width">
+                <label for="event-location" data-i18n="fields.eventLocation">Location</label>
+                <input type="text" id="event-location" data-i18n-placeholder="placeholders.eventLocation" placeholder="Conference room or address" maxlength="160">
+            </div>
+            <div class="input-group full-width">
+                <label for="event-description" data-i18n="fields.eventDescription">Description</label>
+                <textarea id="event-description" rows="4" data-i18n-placeholder="placeholders.eventDescription" placeholder="Event details..." maxlength="1000"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Location Input Form -->
+    <div id="Location" class="tab-content">
+        <div class="vcard-grid">
+            <div class="input-group full-width">
+                <label for="location-address" data-i18n="fields.locationAddress">Address or Place</label>
+                <input type="text" id="location-address" data-i18n-placeholder="placeholders.locationAddress" placeholder="1600 Amphitheatre Parkway, Mountain View" maxlength="240">
+            </div>
+            <div class="input-group">
+                <label for="location-lat" data-i18n="fields.latitude">Latitude</label>
+                <input type="number" id="location-lat" data-i18n-placeholder="placeholders.latitude" placeholder="37.422" min="-90" max="90" step="any">
+            </div>
+            <div class="input-group">
+                <label for="location-lng" data-i18n="fields.longitude">Longitude</label>
+                <input type="number" id="location-lng" data-i18n-placeholder="placeholders.longitude" placeholder="-122.084" min="-180" max="180" step="any">
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: WhatsApp Input Form -->
+    <div id="WhatsApp" class="tab-content">
+        <div class="vcard-grid">
+            <div class="input-group full-width">
+                <label for="whatsapp-phone" data-i18n="fields.whatsappPhone">WhatsApp Number</label>
+                <input type="tel" id="whatsapp-phone" data-i18n-placeholder="placeholders.whatsappPhone" placeholder="e.g., +15551234567" maxlength="30">
+            </div>
+            <div class="input-group full-width">
+                <label for="whatsapp-message" data-i18n="fields.whatsappMessage">Message (optional)</label>
+                <textarea id="whatsapp-message" rows="4" data-i18n-placeholder="placeholders.whatsappMessage" placeholder="Your WhatsApp message here..." maxlength="1000"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: MeCard Input Form -->
+    <div id="MeCard" class="tab-content">
+        <div class="vcard-grid">
+            <div class="input-group full-width">
+                <label for="mecard-name" data-i18n="fields.mecardName">Name</label>
+                <input type="text" id="mecard-name" data-i18n-placeholder="placeholders.mecardName" placeholder="John Appleseed" maxlength="100">
+            </div>
+            <div class="input-group">
+                <label for="mecard-phone" data-i18n="fields.phoneNumber">Phone Number</label>
+                <input type="tel" id="mecard-phone" data-i18n-placeholder="placeholders.phoneNumber" placeholder="e.g., +15551234567" maxlength="30">
+            </div>
+            <div class="input-group">
+                <label for="mecard-email" data-i18n="fields.email">Email</label>
+                <input type="email" id="mecard-email" data-i18n-placeholder="placeholders.email" placeholder="john.appleseed@example.com" maxlength="254">
+            </div>
+            <div class="input-group full-width">
+                <label for="mecard-url" data-i18n="fields.website">Website</label>
+                <input type="url" id="mecard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.example.com" maxlength="255">
+            </div>
+            <div class="input-group full-width">
+                <label for="mecard-address" data-i18n="fields.address">Address</label>
+                <input type="text" id="mecard-address" data-i18n-placeholder="placeholders.address" placeholder="123 Main St, Anytown" maxlength="240">
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: App Link Input Form -->
+    <div id="AppLink" class="tab-content">
+        <div class="vcard-grid">
+            <div class="input-group full-width">
+                <label for="app-web-url" data-i18n="fields.appWebUrl">Fallback / Web URL</label>
+                <input type="url" id="app-web-url" data-i18n-placeholder="placeholders.appWebUrl" placeholder="https://example.com/app" maxlength="255">
+            </div>
+            <div class="input-group full-width">
+                <label for="app-ios-url" data-i18n="fields.appIosUrl">iOS App Store URL</label>
+                <input type="url" id="app-ios-url" data-i18n-placeholder="placeholders.appIosUrl" placeholder="https://apps.apple.com/app/..." maxlength="255">
+            </div>
+            <div class="input-group full-width">
+                <label for="app-android-url" data-i18n="fields.appAndroidUrl">Android Play Store URL</label>
+                <input type="url" id="app-android-url" data-i18n-placeholder="placeholders.appAndroidUrl" placeholder="https://play.google.com/store/apps/details?id=..." maxlength="255">
+            </div>
+            <div class="input-group">
+                <label for="app-link-target" data-i18n="fields.appLinkTarget">Store fallback</label>
+                <select id="app-link-target">
+                    <option value="ios" data-i18n-option="options.appTargetIos">Use iOS if no web URL</option>
+                    <option value="android" data-i18n-option="options.appTargetAndroid">Use Android if no web URL</option>
+                </select>
             </div>
         </div>
     </div>

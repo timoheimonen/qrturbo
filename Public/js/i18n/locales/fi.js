@@ -25,7 +25,13 @@
       urlText: 'URL/Teksti',
       vcard: 'vCard',
       smsPhone: 'SMS/Puhelu',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: 'Sähköposti',
+      calendarEvent: 'Tapahtuma',
+      location: 'Sijainti',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: 'App-linkki'
     },
     fields: {
       textOrUrl: 'Teksti tai URL',
@@ -60,7 +66,26 @@
       logoSize: 'Logon Koko',
       logoMargin: 'Logon Marginaali',
       logo: 'Logo (Valinnainen)',
-      styleOptions: 'Tyylivaihtoehdot'
+      styleOptions: 'Tyylivaihtoehdot',
+      emailTo: 'Vastaanottajan sähköposti',
+      emailSubject: 'Aihe',
+      emailBody: 'Viesti',
+      eventTitle: 'Tapahtuman otsikko',
+      eventStart: 'Alku',
+      eventEnd: 'Loppu',
+      eventLocation: 'Sijainti',
+      eventDescription: 'Kuvaus',
+      locationAddress: 'Osoite tai paikka',
+      latitude: 'Leveysaste',
+      longitude: 'Pituusaste',
+      whatsappPhone: 'WhatsApp-numero',
+      whatsappMessage: 'Viesti (valinnainen)',
+      mecardName: 'Nimi',
+      address: 'Osoite',
+      appWebUrl: 'Varalla oleva / web-URL',
+      appIosUrl: 'iOS App Store -URL',
+      appAndroidUrl: 'Android Play Store -URL',
+      appLinkTarget: 'Kauppalinkin varavalinta'
     },
     placeholders: {
       url: 'esim., https://www.esimerkki.com',
@@ -80,7 +105,23 @@
       ssid: 'esim., MinunKotiWiFi',
       wifiPassword: 'Sinun salainen salasanasi',
       phoneNumber: 'esim., +358555123456',
-      smsMessage: 'Esitäytetty viestisi tähän...'
+      smsMessage: 'Esitäytetty viestisi tähän...',
+      emailTo: 'hei@example.com',
+      emailSubject: 'Terveiset QRTurbosta',
+      emailBody: 'Kirjoita sähköpostiviesti tähän...',
+      eventTitle: 'Tiimipalaveri',
+      eventLocation: 'Kokoushuone tai osoite',
+      eventDescription: 'Tapahtuman tiedot...',
+      locationAddress: 'Mannerheimintie 1, Helsinki',
+      latitude: '60.1699',
+      longitude: '24.9384',
+      whatsappPhone: 'esim., +358555123456',
+      whatsappMessage: 'WhatsApp-viestisi tähän...',
+      mecardName: 'Matti Meikäläinen',
+      address: 'Pääkatu 123, Helsinki',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/your-app',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'Luo QR-Koodi',
@@ -112,7 +153,9 @@
       dotExtraRounded: 'Erittäin Pyöristetty',
       cornerSquare: 'Neliö',
       cornerExtraRounded: 'Erittäin Pyöristetty',
-      cornerDot: 'Piste'
+      cornerDot: 'Piste',
+      appTargetIos: 'Käytä iOS-linkkiä, jos web-URL puuttuu',
+      appTargetAndroid: 'Käytä Android-linkkiä, jos web-URL puuttuu'
     },
     alerts: {
       enterText: 'Anna teksti tai URL',
@@ -123,6 +166,16 @@
       wifiWepPasswordInvalid:
         'WEP-salasanan on oltava 5 tai 13 tulostettavaa merkkiä tai 10 tai 26 heksadesimaalimerkkiä.',
       phoneRequired: 'Anna puhelinnumero.',
+      emailRequired: 'Täytä vähintään yksi sähköpostikenttä.',
+      emailInvalid: 'Anna kelvollinen sähköpostiosoite.',
+      eventRequired: 'Anna tapahtuman otsikko ja aloitusaika.',
+      eventEndInvalid: 'Loppuaika ei voi olla ennen aloitusaikaa.',
+      locationRequired: 'Anna osoite tai molemmat koordinaatit.',
+      locationCoordinatesInvalid: 'Anna kelvolliset leveys- ja pituusasteen koordinaatit.',
+      whatsappPhoneRequired: 'Anna WhatsApp-puhelinnumero maakoodin kanssa.',
+      mecardRequired: 'Täytä vähintään yksi: Nimi, puhelinnumero tai sähköposti.',
+      appLinkRequired: 'Anna web-, iOS- tai Android-sovelluksen URL.',
+      urlInvalid: 'Anna kelvollinen URL, joka alkaa http:// tai https://.',
       lowContrast:
         '⚠️ Matala kontrasti havaittu. QR-koodisi saattaa olla vaikea skannata. Harkitse tummempaa etualaa tai vaaleampaa taustaa.',
       dataEmpty: 'QR-koodin tiedot ovat tyhjiä.',

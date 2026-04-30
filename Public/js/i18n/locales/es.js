@@ -25,7 +25,13 @@
       urlText: 'URL/Texto',
       vcard: 'vCard',
       smsPhone: 'SMS/Teléfono',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: 'Correo',
+      calendarEvent: 'Evento',
+      location: 'Ubicación',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: 'Enlace de app'
     },
     fields: {
       textOrUrl: 'Texto o URL',
@@ -60,7 +66,26 @@
       logoSize: 'Tamaño del Logo',
       logoMargin: 'Margen del Logo',
       logo: 'Logo (Opcional)',
-      styleOptions: 'Opciones de Estilo'
+      styleOptions: 'Opciones de Estilo',
+      emailTo: 'Correo del destinatario',
+      emailSubject: 'Asunto',
+      emailBody: 'Mensaje',
+      eventTitle: 'Título del evento',
+      eventStart: 'Inicio',
+      eventEnd: 'Fin',
+      eventLocation: 'Ubicación',
+      eventDescription: 'Descripción',
+      locationAddress: 'Dirección o lugar',
+      latitude: 'Latitud',
+      longitude: 'Longitud',
+      whatsappPhone: 'Número de WhatsApp',
+      whatsappMessage: 'Mensaje (opcional)',
+      mecardName: 'Nombre',
+      address: 'Dirección',
+      appWebUrl: 'URL web/de respaldo',
+      appIosUrl: 'URL de iOS App Store',
+      appAndroidUrl: 'URL de Android Play Store',
+      appLinkTarget: 'Respaldo de tienda'
     },
     placeholders: {
       url: 'ej., https://www.ejemplo.com',
@@ -80,7 +105,23 @@
       ssid: 'ej., MiWiFiCasa',
       wifiPassword: 'Tu contraseña secreta',
       phoneNumber: 'ej., +34555123456',
-      smsMessage: 'Tu mensaje prellenado aquí...'
+      smsMessage: 'Tu mensaje prellenado aquí...',
+      emailTo: 'hola@example.com',
+      emailSubject: 'Hola desde QRTurbo',
+      emailBody: 'Escribe tu mensaje de correo aquí...',
+      eventTitle: 'Reunión de equipo',
+      eventLocation: 'Sala de reuniones o dirección',
+      eventDescription: 'Detalles del evento...',
+      locationAddress: 'Puerta del Sol, Madrid',
+      latitude: '40.4169',
+      longitude: '-3.7035',
+      whatsappPhone: 'ej., +34555123456',
+      whatsappMessage: 'Tu mensaje de WhatsApp aquí...',
+      mecardName: 'Juan Pérez',
+      address: 'Calle Principal 123, Madrid',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/your-app',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'Crear Código QR',
@@ -112,7 +153,9 @@
       dotExtraRounded: 'Extra Redondeado',
       cornerSquare: 'Cuadrado',
       cornerExtraRounded: 'Extra Redondeado',
-      cornerDot: 'Punto'
+      cornerDot: 'Punto',
+      appTargetIos: 'Usar iOS si no hay URL web',
+      appTargetAndroid: 'Usar Android si no hay URL web'
     },
     alerts: {
       enterText: 'Por favor ingresa un texto o una URL',
@@ -124,6 +167,16 @@
       wifiWepPasswordInvalid:
         'Las contraseñas WEP deben tener 5 o 13 caracteres imprimibles, o 10 o 26 caracteres hexadecimales.',
       phoneRequired: 'Por favor ingresa un número de teléfono.',
+      emailRequired: 'Por favor ingresa al menos un campo de correo.',
+      emailInvalid: 'Por favor ingresa una dirección de correo válida.',
+      eventRequired: 'Por favor ingresa un título de evento y hora de inicio.',
+      eventEndInvalid: 'La hora de fin no puede ser anterior a la de inicio.',
+      locationRequired: 'Por favor ingresa una dirección o ambas coordenadas.',
+      locationCoordinatesInvalid: 'Por favor ingresa coordenadas válidas de latitud y longitud.',
+      whatsappPhoneRequired: 'Por favor ingresa un número de WhatsApp con código de país.',
+      mecardRequired: 'Por favor ingresa al menos uno de: Nombre, Número de teléfono o Correo.',
+      appLinkRequired: 'Por favor ingresa una URL de app web, iOS o Android.',
+      urlInvalid: 'Por favor ingresa una URL válida que empiece con http:// o https://.',
       lowContrast:
         '⚠️ Contraste bajo detectado. Tu código QR puede ser difícil de escanear. Considera usar un color principal más oscuro o un fondo más claro.',
       dataEmpty: 'Los datos del código QR están vacíos.',

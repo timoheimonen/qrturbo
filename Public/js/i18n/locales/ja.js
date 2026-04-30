@@ -24,7 +24,13 @@
       urlText: 'URL/テキスト',
       vcard: 'vCard',
       smsPhone: 'SMS/電話',
-      wifi: 'WiFi'
+      wifi: 'WiFi',
+      email: 'メール',
+      calendarEvent: 'イベント',
+      location: '位置情報',
+      whatsapp: 'WhatsApp',
+      mecard: 'MeCard',
+      appLink: 'アプリリンク'
     },
     fields: {
       textOrUrl: 'テキストまたはURL',
@@ -59,7 +65,26 @@
       logoSize: 'ロゴサイズ',
       logoMargin: 'ロゴ余白',
       logo: 'ロゴ（任意）',
-      styleOptions: 'スタイルオプション'
+      styleOptions: 'スタイルオプション',
+      emailTo: '宛先メール',
+      emailSubject: '件名',
+      emailBody: 'メッセージ',
+      eventTitle: 'イベント名',
+      eventStart: '開始',
+      eventEnd: '終了',
+      eventLocation: '場所',
+      eventDescription: '説明',
+      locationAddress: '住所または場所',
+      latitude: '緯度',
+      longitude: '経度',
+      whatsappPhone: 'WhatsApp番号',
+      whatsappMessage: 'メッセージ（任意）',
+      mecardName: '名前',
+      address: '住所',
+      appWebUrl: '予備 / Web URL',
+      appIosUrl: 'iOS App Store URL',
+      appAndroidUrl: 'Android Play Store URL',
+      appLinkTarget: 'ストアの予備リンク'
     },
     placeholders: {
       url: '例：https://www.example.com',
@@ -79,7 +104,23 @@
       ssid: '例：マイホームWiFi',
       wifiPassword: 'あなたの秘密のパスワード',
       phoneNumber: '例：+819012345678',
-      smsMessage: 'あなたの事前入力メッセージをここに...'
+      smsMessage: 'あなたの事前入力メッセージをここに...',
+      emailTo: 'hello@example.com',
+      emailSubject: 'QRTurboからこんにちは',
+      emailBody: 'メール本文をここに入力...',
+      eventTitle: 'チームミーティング',
+      eventLocation: '会議室または住所',
+      eventDescription: 'イベント詳細...',
+      locationAddress: '東京駅, 東京',
+      latitude: '35.6812',
+      longitude: '139.7671',
+      whatsappPhone: '例：+81555123456',
+      whatsappMessage: 'WhatsAppメッセージをここに入力...',
+      mecardName: '山田太郎',
+      address: '東京都千代田区1-1',
+      appWebUrl: 'https://example.com/app',
+      appIosUrl: 'https://apps.apple.com/app/your-app',
+      appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
       generate: 'QRコードを作成',
@@ -111,7 +152,9 @@
       dotExtraRounded: '超丸み',
       cornerSquare: '四角',
       cornerExtraRounded: '超丸み',
-      cornerDot: 'ドット'
+      cornerDot: 'ドット',
+      appTargetIos: 'Web URLがない場合はiOSを使用',
+      appTargetAndroid: 'Web URLがない場合はAndroidを使用'
     },
     alerts: {
       enterText: 'テキストまたはURLを入力してください',
@@ -122,6 +165,16 @@
       wifiWepPasswordInvalid:
         'WEPパスワードは5文字または13文字の印刷可能文字、または10文字または26文字の16進数である必要があります。',
       phoneRequired: '電話番号を入力してください。',
+      emailRequired: '少なくとも1つのメール項目を入力してください。',
+      emailInvalid: '有効なメールアドレスを入力してください。',
+      eventRequired: 'イベント名と開始時刻を入力してください。',
+      eventEndInvalid: '終了時刻は開始時刻より前にできません。',
+      locationRequired: '住所または両方の座標を入力してください。',
+      locationCoordinatesInvalid: '有効な緯度と経度を入力してください。',
+      whatsappPhoneRequired: '国番号付きのWhatsApp電話番号を入力してください。',
+      mecardRequired: '名前、電話番号、メールのいずれかを入力してください。',
+      appLinkRequired: 'Web、iOS、またはAndroidアプリのURLを入力してください。',
+      urlInvalid: 'http:// または https:// で始まる有効なURLを入力してください。',
       lowContrast:
         '⚠️ 低コントラストが検出されました。QRコードがスキャンしにくい可能性があります。より暗い前景色またはより明るい背景色の使用を検討してください。',
       dataEmpty: 'QRコードデータが空です。',
