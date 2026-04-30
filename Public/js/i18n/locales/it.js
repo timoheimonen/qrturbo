@@ -11,11 +11,9 @@
   window.translations.it = {
     meta: {
       title:
-        'Generatore di Codici QR Gratuito - Personalizza Colori, Loghi e Stili | QRTurbo.app',
+        'Generatore di Codici QR Gratis con Loghi e Colori | QRTurbo',
       description:
-        'Genera codici QR personalizzabili gratuitamente e istantaneamente con QRTurbo.app. Aggiungi loghi, colori personalizzati e stili. Crea codici QR per URL, reti WiFi, vCard, SMS e chiamate telefoniche. Nessuna pubblicità, nessun tracciamento – completamente basato su browser e sicuro.',
-      keywords:
-        'generatore di codice QR, codice QR personalizzato, codice QR con logo, codice QR colorato, creatore di codice QR gratuito, codice QR WiFi, codice QR vCard, codice QR SMS, strumento QR online, generatore QR senza tracciamento'
+        'Crea codici QR personalizzati gratuiti per URL, WiFi, vCard, SMS e chiamate. Aggiungi loghi, colori e stili nel browser, senza tracciamento o caricamenti di dati.'
     },
     app: {
       title: 'QRTurbo.app - Generatore di Codici QR Gratuito',

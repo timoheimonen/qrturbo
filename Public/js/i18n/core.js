@@ -10,11 +10,9 @@ let currentLang = 'en';
 const translations = {
   en: {
     meta: {
-      title: 'Free QR Code Generator - Customize Colors, Logos & Styles | QRTurbo.app',
+      title: 'Free QR Code Generator with Logos & Colors | QRTurbo',
       description:
-        'Generate free customizable QR codes instantly with QRTurbo.app. Add logos, custom colors, and styles. Create QR codes for URLs, WiFi networks, vCards, SMS, and phone calls. No ads, no tracking – fully browser-based and secure.',
-      keywords:
-        'QR code generator, custom QR code, QR code with logo, colored QR code, free QR code maker, WiFi QR code, vCard QR code, SMS QR code, online QR tool, no tracking QR generator'
+        'Create free custom QR codes for URLs, WiFi, vCards, SMS and phone calls. Add logos, colors and styles in your browser with no tracking or data uploads.'
     },
     app: {
       title: 'QRTurbo.app - Free QR Code Generator',
@@ -378,11 +376,6 @@ function updateMetaTags() {
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) {
     metaDesc.setAttribute('content', t('meta.description'));
-  }
-
-  const metaKeywords = document.querySelector('meta[name="keywords"]');
-  if (metaKeywords) {
-    metaKeywords.setAttribute('content', t('meta.keywords'));
   }
 
   // Update Open Graph tags

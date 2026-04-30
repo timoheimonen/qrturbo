@@ -11,11 +11,9 @@
   window.translations.de = {
     meta: {
       title:
-        'Kostenloser QR-Code-Generator - Farben, Logos & Stile Anpassen | QRTurbo.app',
+        'Kostenloser QR-Code-Generator mit Logos & Farben | QRTurbo',
       description:
-        'Erstellen Sie sofort kostenlose anpassbare QR-Codes mit QRTurbo.app. Fügen Sie Logos, individuelle Farben und Stile hinzu. Erstellen Sie QR-Codes für URLs, WiFi-Netzwerke, vCards, SMS und Anrufe. Keine Werbung, kein Tracking – vollständig browserbasiert und sicher.',
-      keywords:
-        'QR-Code-Generator, individueller QR-Code, QR-Code mit Logo, farbiger QR-Code, kostenloser QR-Code-Ersteller, WiFi-QR-Code, vCard-QR-Code, SMS-QR-Code, Online-QR-Tool, Tracking-freier QR-Generator'
+        'Erstellen Sie kostenlose individuelle QR-Codes für URLs, WLAN, vCards, SMS und Anrufe. Fügen Sie Logos, Farben und Stile direkt im Browser hinzu, ohne Tracking oder Daten-Uploads.'
     },
     app: {
       title: 'QRTurbo.app - Kostenloser QR-Code-Generator',

@@ -10,11 +10,9 @@
 
   window.translations.ko = {
     meta: {
-      title: '무료 QR 코드 생성기 - 색상, 로고 및 스타일 사용자 정의 | QRTurbo.app',
+      title: '로고와 색상을 지원하는 무료 QR 코드 생성기 | QRTurbo',
       description:
-        'QRTurbo.app으로 무료로 사용자 정의 가능한 QR 코드를 즉시 생성하세요. 로고, 사용자 정의 색상 및 스타일을 추가하세요. URL, WiFi 네트워크, vCard, SMS 및 전화에 대한 QR 코드를 생성하세요. 광고 없음, 추적 없음 – 완전히 브라우저 기반이며 안전합니다.',
-      keywords:
-        'QR 코드 생성기, 사용자 정의 QR 코드, 로고가 있는 QR 코드, 컬러 QR 코드, 무료 QR 코드 제작자, WiFi QR 코드, vCard QR 코드, SMS QR 코드, 온라인 QR 도구, 추적 없는 QR 생성기'
+        'URL, WiFi, vCard, SMS, 전화용 맞춤 QR 코드를 무료로 만드세요. 브라우저에서 로고, 색상, 스타일을 추가하며 추적이나 데이터 업로드가 없습니다.'
     },
     app: {
       title: 'QRTurbo.app - 무료 QR 코드 생성기',

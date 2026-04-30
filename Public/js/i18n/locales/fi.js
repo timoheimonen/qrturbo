@@ -11,11 +11,9 @@
   window.translations.fi = {
     meta: {
       title:
-        'Ilmainen QR-Koodigeneraattori - Mukauta Värejä, Logoja ja Tyylejä | QRTurbo.app',
+        'Ilmainen QR-koodigeneraattori logoilla ja väreillä | QRTurbo',
       description:
-        'Luo ilmaisia mukautettavia QR-koodeja välittömästi QRTurbo.app:lla. Lisää logoja, mukautettuja värejä ja tyylejä. Luo QR-koodeja URL-osoitteille, WiFi-verkoille, vCardeille, tekstiviesteille ja puheluille. Ei mainoksia, ei seurantaa – täysin selainpohjainen ja turvallinen.',
-      keywords:
-        'QR-koodigeneraattori, mukautettu QR-koodi, QR-koodi logolla, värillinen QR-koodi, ilmainen QR-koodin luoja, WiFi QR-koodi, vCard QR-koodi, SMS QR-koodi, online QR-työkalu, seuraamaton QR-generaattori'
+        'Luo ilmaisia mukautettuja QR-koodeja URL-osoitteille, WiFi-verkoille, vCardeille, tekstiviesteille ja puheluille. Lisää logoja, värejä ja tyylejä selaimessa ilman seurantaa tai tiedostojen latausta palvelimelle.'
     },
     app: {
       title: 'QRTurbo.app - Ilmainen QR-Koodigeneraattori',

@@ -10,11 +10,9 @@
 
   window.translations.ja = {
     meta: {
-      title: '無料QRコードジェネレーター - 色、ロゴ、スタイルをカスタマイズ | QRTurbo.app',
+      title: 'ロゴと色を使える無料QRコードジェネレーター | QRTurbo',
       description:
-        'QRTurbo.appで無料のカスタマイズ可能なQRコードを即座に生成します。ロゴ、カスタムカラー、スタイルを追加できます。URL、WiFiネットワーク、vCard、SMS、電話用のQRコードを作成します。広告なし、トラッキングなし – 完全にブラウザベースで安全です。',
-      keywords:
-        'QRコードジェネレーター, カスタムQRコード, ロゴ付きQRコード, カラーQRコード, 無料QRコード作成, WiFi QRコード, vCard QRコード, SMS QRコード, オンラインQRツール, トラッキングなしQRジェネレーター'
+        'URL、WiFi、vCard、SMS、電話用のカスタムQRコードを無料で作成。ロゴ、色、スタイルをブラウザ内で追加でき、追跡やデータアップロードはありません。'
     },
     app: {
       title: 'QRTurbo.app - 無料QRコードジェネレーター',

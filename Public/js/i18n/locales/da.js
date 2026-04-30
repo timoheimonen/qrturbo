@@ -11,11 +11,9 @@
   window.translations.da = {
     meta: {
       title:
-        'Gratis QR-Kodegenerator - Tilpas Farver, Logoer & Stilarter | QRTurbo.app',
+        'Gratis QR-kodegenerator med logoer og farver | QRTurbo',
       description:
-        'Generer gratis tilpasselige QR-koder øjeblikkeligt med QRTurbo.app. Tilføj logoer, tilpassede farver og stilarter. Opret QR-koder til URL\'er, WiFi-netværk, vCard, SMS og telefonopkald. Ingen annoncer, ingen sporing – fuldt browserbaseret og sikkert.',
-      keywords:
-        'QR-kodegenerator, tilpasset QR-kode, QR-kode med logo, farvet QR-kode, gratis QR-kodeskaber, WiFi QR-kode, vCard QR-kode, SMS QR-kode, online QR-værktøj, sporingsfri QR-generator'
+        'Opret gratis tilpassede QR-koder til URLer, WiFi, vCards, SMS og opkald. Tilføj logoer, farver og stilarter i browseren uden sporing eller datauploads.'
     },
     app: {
       title: 'QRTurbo.app - Gratis QR-Kodegenerator',
