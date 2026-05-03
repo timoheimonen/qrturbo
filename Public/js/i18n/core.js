@@ -56,6 +56,7 @@ const translations = {
       qrSize: 'QR Code Size',
       foregroundColor: 'Foreground Color',
       backgroundColor: 'Background Color',
+      transparentBackground: 'Transparent background',
       errorCorrection: 'Error Correction',
       downloadFormat: 'Download Format',
       dotStyle: 'Dot Style',
@@ -195,9 +196,25 @@ const translations = {
       sms: 'SMS',
       phone: 'Phone Call'
     },
+    warnings: {
+      lowContrast:
+        'Low contrast may make this QR code difficult to scan. Use a darker foreground or lighter background.',
+      transparentBackground:
+        'Transparent backgrounds depend on the final surface. Test the QR code on the exact background before publishing.',
+      quietZoneSmall:
+        'The quiet zone is small. Use at least 8px, preferably 16px, for more reliable scanning.',
+      denseData:
+        'This QR code contains a lot of data for the selected size. Use a larger size or shorten the content.',
+      logoErrorCorrection:
+        'Large logos scan more reliably with High (H) error correction.',
+      logoLarge:
+        'The logo is large and may cover too much of the QR code. Test before printing or sharing.'
+    },
     footer: {
       privacy1: 'This free QR code generator runs entirely in your browser.',
       privacy2: 'No data is stored or sent anywhere. No tracking, no ads, no nonsense.',
+      privacyPolicy: 'Privacy Policy',
+      termsOfUse: 'Terms of Use',
       github: 'View source on GitHub'
     },
     helpers: {

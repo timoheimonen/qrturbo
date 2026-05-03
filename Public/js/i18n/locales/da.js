@@ -200,6 +200,8 @@
       privacy1: 'Denne gratis QR-kodegenerator kører helt i din browser.',
       privacy2:
         'Ingen data gemmes eller sendes nogen steder. Ingen sporing, ingen annoncer, ingen vrøvl.',
+      privacyPolicy: 'Privatlivspolitik',
+      termsOfUse: 'Brugsvilkår',
       github: 'Se kildekode på GitHub'
     },
     helpers: {

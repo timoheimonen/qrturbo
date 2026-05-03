@@ -194,6 +194,8 @@
     footer: {
       privacy1: '此免费二维码生成器完全在您的浏览器中运行。',
       privacy2: '不存储或发送任何数据。无跟踪、无广告、无废话。',
+      privacyPolicy: '隐私政策',
+      termsOfUse: '使用条款',
       github: '在 GitHub 上查看源代码'
     },
     helpers: {

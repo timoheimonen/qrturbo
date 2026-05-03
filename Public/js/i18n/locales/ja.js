@@ -197,6 +197,8 @@
     footer: {
       privacy1: 'この無料QRコードジェネレーターは完全にブラウザで実行されます。',
       privacy2: 'データは保存または送信されません。トラッキングなし、広告なし、ナンセンスなし。',
+      privacyPolicy: 'プライバシーポリシー',
+      termsOfUse: '利用規約',
       github: 'GitHubでソースコードを表示'
     },
     helpers: {

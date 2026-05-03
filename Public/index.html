@@ -422,6 +422,10 @@
                         <input type="color" id="qr-bg-color" value="#ffffff">
                         <input type="text" id="qr-bg-color-text" value="#ffffff" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$">
                     </div>
+                    <div class="checkbox-group compact-checkbox">
+                        <input type="checkbox" id="qr-transparent-bg">
+                        <label for="qr-transparent-bg" data-i18n="fields.transparentBackground">Transparent background</label>
+                    </div>
                 </div>
                 <div class="input-group">
                     <label for="qr-error-correction" data-i18n="fields.errorCorrection">Error Correction</label>
@@ -507,12 +511,11 @@
         </div>
     </div>
 
-    <button onclick="generateQRCode()" data-i18n="actions.generate">Create QR Code</button>
-
     <!-- QR Code Display Area -->
     <div id="qr-container">
         <p id="qr-placeholder" data-i18n="misc.qrPlaceholder">QR Code will appear here</p>
         <div id="qr-canvas-container"></div>
+        <div id="scan-warnings" class="scan-warnings" role="status" aria-live="polite" style="display:none;"></div>
         <img id="qr-image" src="" alt="QR Code" style="display:none;">
         <p id="qr-code-text" style="display:none;"></p>
         <button id="download-btn" onclick="downloadQRCode()" data-i18n="actions.download">Download QR Code</button>
@@ -522,6 +525,8 @@
     <footer style="font-size: 0.9em; color: #666; margin-top: 30px;">
         <p data-i18n="footer.privacy1">This free QR code generator runs entirely in your browser.</p>
         <p data-i18n="footer.privacy2">No data is stored or sent anywhere. No tracking, no ads, no nonsense.</p>
+        <p><a href="/privacy.html" data-i18n="footer.privacyPolicy">Privacy Policy</a></p>
+        <p><a href="/terms.html" data-i18n="footer.termsOfUse">Terms of Use</a></p>
         <p><a href="https://github.com/timoheimonen/qrturbo" target="_blank" style="color: #007acc;" data-i18n="footer.github">View source on
                 GitHub</a></p>
     </footer>
