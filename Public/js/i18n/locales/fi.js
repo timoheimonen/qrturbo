@@ -57,6 +57,7 @@
       qrSize: 'QR-Koodin Koko',
       foregroundColor: 'Edustaväri',
       backgroundColor: 'Taustaväri',
+      transparentBackground: 'Läpinäkyvä tausta',
       errorCorrection: 'Virheen Korjaus',
       downloadFormat: 'Latausmuoto',
       dotStyle: 'Pisteen Tyyli',
@@ -195,10 +196,26 @@
       sms: 'SMS',
       phone: 'Puhelu'
     },
+    warnings: {
+      lowContrast:
+        'Matala kontrasti voi tehdä QR-koodista vaikeasti skannattavan. Käytä tummempaa etualaa tai vaaleampaa taustaa.',
+      transparentBackground:
+        'Läpinäkyvä tausta riippuu lopullisesta pinnasta. Testaa QR-koodi oikealla taustalla ennen julkaisua.',
+      quietZoneSmall:
+        'Hiljainen vyöhyke on pieni. Käytä vähintään 8px, mieluiten 16px, luotettavampaan skannaukseen.',
+      denseData:
+        'QR-koodissa on paljon dataa valittuun kokoon nähden. Käytä suurempaa kokoa tai lyhennä sisältöä.',
+      logoErrorCorrection:
+        'Suuret logot toimivat luotettavammin korkealla (H) virheenkorjauksella.',
+      logoLarge:
+        'Logo on suuri ja voi peittää liikaa QR-koodista. Testaa ennen painatusta tai jakamista.'
+    },
     footer: {
       privacy1: 'Tämä ilmainen QR-koodigeneraattori toimii kokonaan selaimessasi.',
       privacy2:
         'Tietoja ei tallenneta tai lähetetä mihinkään. Ei seurantaa, ei mainoksia, ei hölynpölyä.',
+      privacyPolicy: 'Tietosuojakäytäntö',
+      termsOfUse: 'Käyttöehdot',
       github: 'Näytä lähdekoodi GitHubissa'
     },
     helpers: {

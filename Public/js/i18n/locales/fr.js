@@ -202,6 +202,8 @@
       privacy1: 'Ce générateur de code QR gratuit fonctionne entièrement dans votre navigateur.',
       privacy2:
         'Aucune donnée n\'est stockée ou envoyée nulle part. Pas de suivi, pas de publicités, pas de bêtises.',
+      privacyPolicy: 'Politique de Confidentialité',
+      termsOfUse: 'Conditions d\'Utilisation',
       github: 'Voir le code source sur GitHub'
     },
     helpers: {

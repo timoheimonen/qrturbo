@@ -196,6 +196,8 @@
     footer: {
       privacy1: '이 무료 QR 코드 생성기는 브라우저에서 완전히 실행됩니다.',
       privacy2: '데이터가 저장되거나 전송되지 않습니다. 추적 없음, 광고 없음, 헛소리 없음.',
+      privacyPolicy: '개인정보 처리방침',
+      termsOfUse: '이용 약관',
       github: 'GitHub에서 소스 코드 보기'
     },
     helpers: {

@@ -1,0 +1,16 @@
+{
+  "name": "qrturbo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test tests/**/*.test.js",
+    "test:unit": "node --test tests/unit/*.test.js tests/static/*.test.js",
+    "test:e2e": "playwright test",
+    "serve": "python3 -m http.server 4173 -d Public"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.52.0"
+  }
+}
