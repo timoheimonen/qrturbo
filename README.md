@@ -30,6 +30,27 @@ The app is served as static assets from Cloudflare's global network, with no ori
 - Supports UTF-8 and long messages
 - Download the QR code as an image
 
+## Testing
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the fast Node test suite:
+
+```bash
+npm test
+```
+
+Run browser end-to-end tests:
+
+```bash
+npx playwright install
+npm run test:e2e
+```
+
 ---
 
 ## Privacy
