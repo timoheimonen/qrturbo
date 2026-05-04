@@ -10,7 +10,7 @@
 
   window.translations.ja = {
     meta: {
-      title: 'ロゴと色を使える無料QRコードジェネレーター | QRTurbo',
+      title: 'ロゴと色を使える無料QRコードジェネレーター | QRTurbo.app',
       description:
         'URL、WiFi、vCard、SMS、電話用のカスタムQRコードを無料で作成。ロゴ、色、スタイルをブラウザ内で追加でき、追跡やデータアップロードはありません。'
     },
@@ -106,7 +106,7 @@
       phoneNumber: '例：+819012345678',
       smsMessage: 'あなたの事前入力メッセージをここに...',
       emailTo: 'hello@example.com',
-      emailSubject: 'QRTurboからこんにちは',
+      emailSubject: 'QRTurbo.appからこんにちは',
       emailBody: 'メール本文をここに入力...',
       eventTitle: 'チームミーティング',
       eventLocation: '会議室または住所',

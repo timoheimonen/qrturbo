@@ -10,7 +10,7 @@
 
   window.translations.zh = {
     meta: {
-      title: '支持标志和颜色的免费二维码生成器 | QRTurbo',
+      title: '支持标志和颜色的免费二维码生成器 | QRTurbo.app',
       description:
         '免费创建用于 URL、WiFi、vCard、短信和电话的自定义二维码。直接在浏览器中添加标志、颜色和样式，无跟踪，也无需上传数据。'
     },
@@ -105,7 +105,7 @@
       phoneNumber: '例如，+86555123456',
       smsMessage: '您预填的消息在此...',
       emailTo: 'hello@example.com',
-      emailSubject: '来自 QRTurbo 的问候',
+      emailSubject: '来自 QRTurbo.app 的问候',
       emailBody: '在这里输入邮件内容...',
       eventTitle: '团队会议',
       eventLocation: '会议室或地址',

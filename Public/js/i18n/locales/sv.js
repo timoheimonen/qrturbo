@@ -11,7 +11,7 @@
   window.translations.sv = {
     meta: {
       title:
-        'Gratis QR-kodgenerator med logotyper och färger | QRTurbo',
+        'Gratis QR-kodgenerator med logotyper och färger | QRTurbo.app',
       description:
         'Skapa gratis anpassade QR-koder för URL:er, WiFi, vCards, SMS och samtal. Lägg till logotyper, färger och stilar i webbläsaren utan spårning eller datauppladdningar.'
     },
@@ -107,7 +107,7 @@
       phoneNumber: 't.ex., +46555123456',
       smsMessage: 'Ditt förifyllda meddelande här...',
       emailTo: 'hej@example.com',
-      emailSubject: 'Hej från QRTurbo',
+      emailSubject: 'Hej från QRTurbo.app',
       emailBody: 'Skriv ditt e-postmeddelande här...',
       eventTitle: 'Teammöte',
       eventLocation: 'Mötesrum eller adress',

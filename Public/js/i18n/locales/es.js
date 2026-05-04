@@ -11,7 +11,7 @@
   window.translations.es = {
     meta: {
       title:
-        'Generador de Códigos QR Gratis con Logos y Colores | QRTurbo',
+        'Generador de Códigos QR Gratis con Logos y Colores | QRTurbo.app',
       description:
         'Crea códigos QR personalizados gratis para URLs, WiFi, vCards, SMS y llamadas. Agrega logos, colores y estilos en tu navegador, sin rastreo ni cargas de datos.'
     },
@@ -107,7 +107,7 @@
       phoneNumber: 'ej., +34555123456',
       smsMessage: 'Tu mensaje prellenado aquí...',
       emailTo: 'hola@example.com',
-      emailSubject: 'Hola desde QRTurbo',
+      emailSubject: 'Hola desde QRTurbo.app',
       emailBody: 'Escribe tu mensaje de correo aquí...',
       eventTitle: 'Reunión de equipo',
       eventLocation: 'Sala de reuniones o dirección',

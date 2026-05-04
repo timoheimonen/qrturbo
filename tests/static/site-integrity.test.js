@@ -67,7 +67,7 @@ test('service worker precache list points to existing public assets', () => {
 test('SEO metadata and structured data are present and parseable', () => {
   const html = readPublicFile('index.html');
 
-  assert.match(html, /<title>Free QR Code Generator with Logos & Colors \| QRTurbo<\/title>/);
+  assert.match(html, /<title>Free QR Code Generator with Logos & Colors \| QRTurbo\.app<\/title>/);
   assert.match(html, /<meta name="description"/);
   assert.match(html, /<link rel="canonical" href="https:\/\/qrturbo\.app\/">/);
   assert.match(html, /<meta property="og:title"/);
@@ -78,7 +78,7 @@ test('SEO metadata and structured data are present and parseable', () => {
 
   const jsonLd = JSON.parse(jsonLdMatch[1]);
   assert.equal(jsonLd['@type'], 'WebApplication');
-  assert.equal(jsonLd.name, 'QRTurbo');
+  assert.equal(jsonLd.name, 'QRTurbo.app');
   assert.equal(jsonLd.url, 'https://qrturbo.app/');
 });
 
