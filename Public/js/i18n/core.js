@@ -10,7 +10,7 @@ let currentLang = 'en';
 const translations = {
   en: {
     meta: {
-      title: 'Free QR Code Generator with Logos & Colors | QRTurbo',
+      title: 'Free QR Code Generator with Logos & Colors | QRTurbo.app',
       description:
         'Create free custom QR codes for URLs, WiFi, vCards, SMS and phone calls. Add logos, colors and styles in your browser with no tracking or data uploads.'
     },
@@ -107,7 +107,7 @@ const translations = {
       phoneNumber: 'e.g., +15551234567',
       smsMessage: 'Your pre-filled message here...',
       emailTo: 'hello@example.com',
-      emailSubject: 'Hello from QRTurbo',
+      emailSubject: 'Hello from QRTurbo.app',
       emailBody: 'Write your email message here...',
       eventTitle: 'Team meeting',
       eventLocation: 'Conference room or address',

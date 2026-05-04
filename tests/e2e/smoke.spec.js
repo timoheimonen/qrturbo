@@ -11,8 +11,8 @@ test('home page loads, generates a URL QR code and does not make external reques
   });
 
   await page.goto('/');
-  await expect(page).toHaveTitle(/QRTurbo/);
-  await expect(page.getByRole('heading', { name: /QRTurbo/i })).toBeVisible();
+  await expect(page).toHaveTitle(/QRTurbo\.app/);
+  await expect(page.getByRole('heading', { name: /QRTurbo\.app/i })).toBeVisible();
 
   await page.locator('#qr-text').fill('https://example.com');
   await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toBeVisible({

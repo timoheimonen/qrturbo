@@ -308,7 +308,7 @@ function collectQRCodeText(showAlerts = false) {
         const eventLines = [
             'BEGIN:VCALENDAR',
             'VERSION:2.0',
-            'PRODID:-//QRTurbo//QR Event//EN',
+            'PRODID:-//QRTurbo.app//QR Event//EN',
             'BEGIN:VEVENT',
             `UID:${Date.now()}@qrturbo.app`,
             `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z')}`,

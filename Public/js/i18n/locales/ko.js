@@ -10,7 +10,7 @@
 
   window.translations.ko = {
     meta: {
-      title: '로고와 색상을 지원하는 무료 QR 코드 생성기 | QRTurbo',
+      title: '로고와 색상을 지원하는 무료 QR 코드 생성기 | QRTurbo.app',
       description:
         'URL, WiFi, vCard, SMS, 전화용 맞춤 QR 코드를 무료로 만드세요. 브라우저에서 로고, 색상, 스타일을 추가하며 추적이나 데이터 업로드가 없습니다.'
     },
@@ -105,7 +105,7 @@
       phoneNumber: '예: +821012345678',
       smsMessage: '미리 작성된 메시지를 여기에...',
       emailTo: 'hello@example.com',
-      emailSubject: 'QRTurbo에서 안녕하세요',
+      emailSubject: 'QRTurbo.app에서 안녕하세요',
       emailBody: '이메일 메시지를 여기에 입력하세요...',
       eventTitle: '팀 회의',
       eventLocation: '회의실 또는 주소',

@@ -11,7 +11,7 @@
   window.translations.fi = {
     meta: {
       title:
-        'Ilmainen QR-koodigeneraattori logoilla ja väreillä | QRTurbo',
+        'Ilmainen QR-koodigeneraattori logoilla ja väreillä | QRTurbo.app',
       description:
         'Luo ilmaisia mukautettuja QR-koodeja URL-osoitteille, WiFi-verkoille, vCardeille, tekstiviesteille ja puheluille. Lisää logoja, värejä ja tyylejä selaimessa ilman seurantaa tai tiedostojen latausta palvelimelle.'
     },
@@ -108,7 +108,7 @@
       phoneNumber: 'esim., +358555123456',
       smsMessage: 'Esitäytetty viestisi tähän...',
       emailTo: 'hei@example.com',
-      emailSubject: 'Terveiset QRTurbosta',
+      emailSubject: 'Terveiset QRTurbo.appista',
       emailBody: 'Kirjoita sähköpostiviesti tähän...',
       eventTitle: 'Tiimipalaveri',
       eventLocation: 'Kokoushuone tai osoite',

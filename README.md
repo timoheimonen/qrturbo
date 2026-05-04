@@ -1,4 +1,4 @@
-# QR Turbo
+# QRTurbo.app
 
 A fast, ad-free, privacy-respecting QR code generator.
 
@@ -8,7 +8,7 @@ A fast, ad-free, privacy-respecting QR code generator.
 
 ## Edge Native
 
-QR Turbo is deployed on Cloudflare Pages and runs entirely at the edge.
+QRTurbo.app is deployed on Cloudflare Pages and runs entirely at the edge.
 The app is served as static assets from Cloudflare's global network, with no origin server or backend API required for QR code generation.
 
 ---
