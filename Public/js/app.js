@@ -718,9 +718,273 @@ function generateQRCode(options = {}) {
 }
 
 /**
- * @description Handles downloading the generated QR code image.
+ * @description Converts a string into byte values for PDF syntax.
  */
-function downloadQRCode() {
+function stringToPdfBytes(value) {
+    const bytes = new Uint8Array(value.length);
+    for (let i = 0; i < value.length; i++) {
+        bytes[i] = value.charCodeAt(i) & 0xff;
+    }
+    return bytes;
+}
+
+/**
+ * @description Joins binary and text parts into one Blob.
+ */
+function createBlobFromParts(parts, type) {
+    const totalLength = parts.reduce((sum, part) => sum + part.length, 0);
+    const bytes = new Uint8Array(totalLength);
+    let offset = 0;
+
+    for (const part of parts) {
+        bytes.set(part, offset);
+        offset += part.length;
+    }
+
+    return new Blob([bytes], { type });
+}
+
+function formatPdfNumber(value) {
+    return Number(value).toFixed(2).replace(/\.?0+$/, '');
+}
+
+function escapePdfText(value) {
+    return value
+        .replace(/\\/g, '\\\\')
+        .replace(/\(/g, '\\(')
+        .replace(/\)/g, '\\)');
+}
+
+function getPdfSafeText(value) {
+    return String(value || '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/[^\x20-\x7E]/g, '?');
+}
+
+function getPdfPayloadLines(payloadText) {
+    const cleanText = getPdfSafeText(payloadText);
+    if (!cleanText) return [];
+
+    const maxLines = 2;
+    const maxLineLength = 68;
+    const lines = [];
+    let remaining = cleanText;
+
+    while (remaining && lines.length < maxLines) {
+        if (remaining.length <= maxLineLength) {
+            lines.push(remaining);
+            remaining = '';
+            break;
+        }
+
+        let splitAt = remaining.lastIndexOf(' ', maxLineLength);
+        if (splitAt < 24) splitAt = maxLineLength;
+
+        lines.push(remaining.slice(0, splitAt).trim());
+        remaining = remaining.slice(splitAt).trim();
+    }
+
+    if (remaining && lines.length) {
+        lines[lines.length - 1] = `${lines[lines.length - 1].slice(0, maxLineLength - 3)}...`;
+    }
+
+    return lines;
+}
+
+function imageDataToRgbBytes(imageData) {
+    const rgbBytes = new Uint8Array(imageData.width * imageData.height * 3);
+    const rgbaBytes = imageData.data;
+    let rgbIndex = 0;
+
+    for (let i = 0; i < rgbaBytes.length; i += 4) {
+        rgbBytes[rgbIndex++] = rgbaBytes[i];
+        rgbBytes[rgbIndex++] = rgbaBytes[i + 1];
+        rgbBytes[rgbIndex++] = rgbaBytes[i + 2];
+    }
+
+    return rgbBytes;
+}
+
+function createQRCodePdfBlob(imageData, payloadText) {
+    const pageWidth = 595.28;
+    const pageHeight = 841.89;
+    const qrSize = 360;
+    const qrX = (pageWidth - qrSize) / 2;
+    const qrY = 292;
+    const payloadLines = getPdfPayloadLines(payloadText);
+    const rgbBytes = imageDataToRgbBytes(imageData);
+    const parts = [];
+    const offsets = [];
+    let position = 0;
+
+    function appendString(value) {
+        const bytes = stringToPdfBytes(value);
+        parts.push(bytes);
+        position += bytes.length;
+    }
+
+    function appendBytes(bytes) {
+        parts.push(bytes);
+        position += bytes.length;
+    }
+
+    function beginObject(id) {
+        offsets[id] = position;
+        appendString(`${id} 0 obj\n`);
+    }
+
+    function endObject() {
+        appendString('endobj\n');
+    }
+
+    const contentLines = [
+        'q',
+        `${formatPdfNumber(qrSize)} 0 0 ${formatPdfNumber(qrSize)} ${formatPdfNumber(qrX)} ${formatPdfNumber(qrY)} cm`,
+        '/Im0 Do',
+        'Q'
+    ];
+
+    if (payloadLines.length) {
+        contentLines.push(
+            'BT',
+            '/F1 10 Tf',
+            '0.25 g',
+            '12 TL',
+            `${formatPdfNumber(qrX)} ${formatPdfNumber(qrY - 24)} Td`
+        );
+
+        payloadLines.forEach((line, index) => {
+            if (index > 0) contentLines.push('T*');
+            contentLines.push(`(${escapePdfText(line)}) Tj`);
+        });
+
+        contentLines.push('ET');
+    }
+
+    const contentStream = `${contentLines.join('\n')}\n`;
+
+    appendString('%PDF-1.4\n% QRTurbo PDF export\n');
+
+    beginObject(1);
+    appendString('<< /Type /Catalog /Pages 2 0 R >>\n');
+    endObject();
+
+    beginObject(2);
+    appendString('<< /Type /Pages /Kids [3 0 R] /Count 1 >>\n');
+    endObject();
+
+    beginObject(3);
+    appendString(
+        `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${formatPdfNumber(pageWidth)} ${formatPdfNumber(pageHeight)}] ` +
+        '/Resources << /XObject << /Im0 4 0 R >> /Font << /F1 6 0 R >> >> /Contents 5 0 R >>\n'
+    );
+    endObject();
+
+    beginObject(4);
+    appendString(
+        `<< /Type /XObject /Subtype /Image /Width ${imageData.width} /Height ${imageData.height} ` +
+        `/ColorSpace /DeviceRGB /BitsPerComponent 8 /Length ${rgbBytes.length} >>\nstream\n`
+    );
+    appendBytes(rgbBytes);
+    appendString('\nendstream\n');
+    endObject();
+
+    beginObject(5);
+    appendString(`<< /Length ${stringToPdfBytes(contentStream).length} >>\nstream\n`);
+    appendString(contentStream);
+    appendString('endstream\n');
+    endObject();
+
+    beginObject(6);
+    appendString('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\n');
+    endObject();
+
+    const xrefOffset = position;
+    appendString('xref\n0 7\n');
+    appendString('0000000000 65535 f \n');
+    for (let i = 1; i <= 6; i++) {
+        appendString(`${String(offsets[i]).padStart(10, '0')} 00000 n \n`);
+    }
+    appendString(`trailer\n<< /Size 7 /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`);
+
+    return createBlobFromParts(parts, 'application/pdf');
+}
+
+function blobToDataURL(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(reader.error || new Error('Blob reading failed'));
+        reader.readAsDataURL(blob);
+    });
+}
+
+function loadImageFromDataURL(dataUrl) {
+    return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error('Image loading failed'));
+        image.src = dataUrl;
+    });
+}
+
+async function getOpaqueImageDataFromBlob(blob) {
+    const dataUrl = await blobToDataURL(blob);
+    const image = await loadImageFromDataURL(dataUrl);
+    const width = image.naturalWidth || image.width;
+    const height = image.naturalHeight || image.height;
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    canvas.width = width;
+    canvas.height = height;
+    context.fillStyle = '#ffffff';
+    context.fillRect(0, 0, width, height);
+    context.imageSmoothingEnabled = false;
+    context.drawImage(image, 0, 0, width, height);
+
+    return context.getImageData(0, 0, width, height);
+}
+
+function triggerBlobDownload(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function downloadQRCodePdf(finalFilename) {
+    const qrPngBlob = await qrCodeInstance.getRawData('png');
+    if (!qrPngBlob) {
+        throw new Error('QR PNG data was not available');
+    }
+
+    const qrCodeText = document.getElementById('qr-code-text');
+    const payloadText = qrCodeText && qrCodeText.textContent
+        ? qrCodeText.textContent
+        : collectQRCodeText(false);
+    const imageData = await getOpaqueImageDataFromBlob(qrPngBlob);
+    const pdfBlob = createQRCodePdfBlob(imageData, payloadText);
+
+    triggerBlobDownload(pdfBlob, `${finalFilename}.pdf`);
+}
+
+function animateDownloadButton() {
+    const downloadBtn = document.getElementById('download-btn');
+    downloadBtn.style.animation = 'none';
+    downloadBtn.offsetHeight; // Force reflow
+    downloadBtn.style.animation = 'bounceIn 0.6s ease-out';
+}
+
+/**
+ * @description Handles downloading the generated QR code image or PDF.
+ */
+async function downloadQRCode() {
     if (!qrCodeInstance) {
         alert(t('alerts.generateFirst'));
         return;
@@ -822,19 +1086,28 @@ function downloadQRCode() {
         || 'qrcode_unknown';             // Fallback if empty
 
     const finalFilename = `qrcode_${safeText}`;
-    const extension = qrCustomization.format; // 'png' or 'svg'
-
-    // Download using QRCodeStyling API
-    qrCodeInstance.download({
-        name: finalFilename,
-        extension: extension
-    });
-
-    // Re-trigger the download button's animation for user feedback
+    const extension = qrCustomization.format; // 'png', 'svg' or 'pdf'
     const downloadBtn = document.getElementById('download-btn');
-    downloadBtn.style.animation = 'none';
-    downloadBtn.offsetHeight; // Force reflow
-    downloadBtn.style.animation = 'bounceIn 0.6s ease-out';
+
+    try {
+        downloadBtn.disabled = true;
+
+        if (extension === 'pdf') {
+            await downloadQRCodePdf(finalFilename);
+        } else {
+            await qrCodeInstance.download({
+                name: finalFilename,
+                extension: extension
+            });
+        }
+
+        animateDownloadButton();
+    } catch (error) {
+        console.error('Download failed:', error);
+        alert(extension === 'pdf' ? t('alerts.pdfExportFailed') : t('alerts.generationError'));
+    } finally {
+        downloadBtn.disabled = false;
+    }
 }
 
 // Setup page logic after the DOM is fully loaded

@@ -146,6 +146,7 @@
       errorHigh: 'H - 高（30%）',
       formatPng: 'PNG（ラスター）',
       formatSvg: 'SVG（ベクター）',
+      formatPdf: 'PDF（ドキュメント）',
       authWpa: 'WPA/WPA2',
       authWep: 'WEP',
       authNone: 'なし',
@@ -204,6 +205,7 @@
       noData: 'QRコードのデータが提供されていません。',
       libraryLoadFailed: 'QRコードライブラリの読み込みに失敗しました。ページを更新してください。',
       generationError: 'QRコード生成エラー',
+      pdfExportFailed: 'PDFのエクスポートに失敗しました。もう一度お試しください。',
       generateFirst: '最初にQRコードを生成してください。',
       resetSuccess: 'カスタマイズがデフォルトにリセットされました',
       largeImageWarning:

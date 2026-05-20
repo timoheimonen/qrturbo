@@ -145,6 +145,7 @@
       errorHigh: 'H - 높음（30%）',
       formatPng: 'PNG（래스터）',
       formatSvg: 'SVG（벡터）',
+      formatPdf: 'PDF（문서）',
       authWpa: 'WPA/WPA2',
       authWep: 'WEP',
       authNone: '없음',
@@ -203,6 +204,7 @@
       noData: 'QR 코드에 대한 데이터가 제공되지 않았습니다.',
       libraryLoadFailed: 'QR 코드 라이브러리를 로드하지 못했습니다. 페이지를 새로 고침하세요.',
       generationError: 'QR 코드 생성 오류',
+      pdfExportFailed: 'PDF 내보내기에 실패했습니다. 다시 시도하세요.',
       generateFirst: '먼저 QR 코드를 생성하세요.',
       resetSuccess: '사용자 정의가 기본값으로 재설정되었습니다',
       largeImageWarning:

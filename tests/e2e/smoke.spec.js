@@ -1,3 +1,4 @@
+const fs = require('node:fs');
 const { test, expect } = require('@playwright/test');
 
 test('home page loads, generates a URL QR code and does not make external requests', async ({ page }) => {
@@ -62,6 +63,28 @@ test('Social Media QR generation supports single-platform profile links', async 
   await expect(page.locator('#qr-code-text')).toContainText('https://www.linkedin.com/company/qr-turbo', {
     timeout: 10_000
   });
+});
+
+test('PDF export downloads a valid PDF file in the browser', async ({ page }) => {
+  await page.goto('/');
+
+  await page.locator('#qr-text').fill('https://example.com/pdf-export');
+  await page.locator('#customize-toggle').click();
+  await expect(page.locator('#customize-panel')).toBeVisible();
+  await page.locator('#qr-format').selectOption('pdf');
+  await expect(page.locator('#qr-canvas-container canvas')).toBeVisible({
+    timeout: 10_000
+  });
+
+  const downloadPromise = page.waitForEvent('download');
+  await page.locator('#download-btn').click();
+  const download = await downloadPromise;
+  const downloadPath = await download.path();
+  const buffer = fs.readFileSync(downloadPath);
+
+  expect(download.suggestedFilename()).toMatch(/\.pdf$/);
+  expect(buffer.subarray(0, 5).toString('latin1')).toBe('%PDF-');
+  expect(buffer.toString('latin1')).toContain('/Subtype /Image');
 });
 
 test('customization panel updates controls and transparent background state', async ({ page }) => {

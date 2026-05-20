@@ -148,6 +148,7 @@
       errorHigh: 'H - Korkea (30%)',
       formatPng: 'PNG (rasteri)',
       formatSvg: 'SVG (vektori)',
+      formatPdf: 'PDF (dokumentti)',
       authWpa: 'WPA/WPA2',
       authWep: 'WEP',
       authNone: 'Ei mitään',
@@ -206,6 +207,7 @@
       noData: 'Ei tietoja QR-koodille.',
       libraryLoadFailed: 'QR-koodikirjastoa ei voitu ladata. Päivitä sivu.',
       generationError: 'Virhe QR-koodin luomisessa',
+      pdfExportFailed: 'PDF-vienti epäonnistui. Yritä uudelleen.',
       generateFirst: 'Luo ensin QR-koodi.',
       resetSuccess: 'Mukautus palautettu oletusasetuksiin',
       largeImageWarning:
