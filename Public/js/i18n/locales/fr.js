@@ -147,6 +147,7 @@
       errorHigh: 'H - Élevé (30%)',
       formatPng: 'PNG (matriciel)',
       formatSvg: 'SVG (vectoriel)',
+      formatPdf: 'PDF (document)',
       authWpa: 'WPA/WPA2',
       authWep: 'WEP',
       authNone: 'Aucun',
@@ -207,6 +208,7 @@
       libraryLoadFailed:
         'La bibliothèque de code QR n\'a pas pu être chargée. Veuillez actualiser la page.',
       generationError: 'Erreur lors de la génération du code QR',
+      pdfExportFailed: 'L’export PDF a échoué. Veuillez réessayer.',
       generateFirst: 'Veuillez d\'abord générer un code QR.',
       resetSuccess: 'Personnalisation réinitialisée aux valeurs par défaut',
       largeImageWarning:

@@ -147,6 +147,7 @@
       errorHigh: 'H - Høj (30%)',
       formatPng: 'PNG (raster)',
       formatSvg: 'SVG (vektor)',
+      formatPdf: 'PDF (dokument)',
       authWpa: 'WPA/WPA2',
       authWep: 'WEP',
       authNone: 'Ingen',
@@ -206,6 +207,7 @@
       noData: 'Ingen data angivet til QR-kode.',
       libraryLoadFailed: 'QR-kodebiblioteket kunne ikke indlæses. Opdater venligst siden.',
       generationError: 'Fejl ved generering af QR-kode',
+      pdfExportFailed: 'PDF-eksport mislykkedes. Prøv igen.',
       generateFirst: 'Generer venligst en QR-kode først.',
       resetSuccess: 'Tilpasning nulstillet til standard',
       largeImageWarning:

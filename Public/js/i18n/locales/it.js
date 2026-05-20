@@ -147,6 +147,7 @@
       errorHigh: 'H - Alto (30%)',
       formatPng: 'PNG (raster)',
       formatSvg: 'SVG (vettoriale)',
+      formatPdf: 'PDF (documento)',
       authWpa: 'WPA/WPA2',
       authWep: 'WEP',
       authNone: 'Nessuno',
@@ -207,6 +208,7 @@
       libraryLoadFailed:
         'La libreria del codice QR non è riuscita a caricarsi. Ricarica la pagina.',
       generationError: 'Errore nella generazione del codice QR',
+      pdfExportFailed: 'Esportazione PDF non riuscita. Riprova.',
       generateFirst: 'Genera prima un codice QR.',
       resetSuccess: 'Personalizzazione ripristinata ai predefiniti',
       largeImageWarning:

@@ -22,7 +22,7 @@ The app is served as static assets from Cloudflare's global network, with no ori
 - Choose dot styles, corner square styles, and corner dot styles
 - Select QR code size: 256px, 512px, or 1024px
 - Error correction levels: L, M, Q, H
-- Export formats: PNG and SVG
+- Export formats: PNG, SVG and PDF
 - Light and dark themes
 - Multilingual UI with 12 supported languages
 - No external API calls

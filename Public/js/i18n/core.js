@@ -147,6 +147,7 @@ const translations = {
       errorHigh: 'H - High (30%)',
       formatPng: 'PNG (raster)',
       formatSvg: 'SVG (vector)',
+      formatPdf: 'PDF (document)',
       authWpa: 'WPA/WPA2',
       authWep: 'WEP',
       authNone: 'None',
@@ -206,6 +207,7 @@ const translations = {
       noData: 'No data provided for QR code.',
       libraryLoadFailed: 'QR Code library failed to load. Please refresh the page.',
       generationError: 'Error generating QR code',
+      pdfExportFailed: 'PDF export failed. Please try again.',
       generateFirst: 'Please generate a QR code first.',
       resetSuccess: 'Customization reset to defaults',
       largeImageWarning:

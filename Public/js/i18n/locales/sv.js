@@ -147,6 +147,7 @@
       errorHigh: 'H - Hög (30%)',
       formatPng: 'PNG (raster)',
       formatSvg: 'SVG (vektor)',
+      formatPdf: 'PDF (dokument)',
       authWpa: 'WPA/WPA2',
       authWep: 'WEP',
       authNone: 'Ingen',
@@ -206,6 +207,7 @@
       noData: 'Ingen data tillhandahållen för QR-kod.',
       libraryLoadFailed: 'QR-kodbiblioteket kunde inte laddas. Uppdatera sidan.',
       generationError: 'Fel vid generering av QR-kod',
+      pdfExportFailed: 'PDF-export misslyckades. Försök igen.',
       generateFirst: 'Generera en QR-kod först.',
       resetSuccess: 'Anpassning återställd till standard',
       largeImageWarning:

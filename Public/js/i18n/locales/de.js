@@ -147,6 +147,7 @@
       errorHigh: 'H - Hoch (30%)',
       formatPng: 'PNG (Raster)',
       formatSvg: 'SVG (Vektor)',
+      formatPdf: 'PDF (Dokument)',
       authWpa: 'WPA/WPA2',
       authWep: 'WEP',
       authNone: 'Keine',
@@ -207,6 +208,7 @@
       libraryLoadFailed:
         'QR-Code-Bibliothek konnte nicht geladen werden. Bitte aktualisieren Sie die Seite.',
       generationError: 'Fehler beim Erstellen des QR-Codes',
+      pdfExportFailed: 'PDF-Export fehlgeschlagen. Bitte versuchen Sie es erneut.',
       generateFirst: 'Bitte erstellen Sie zuerst einen QR-Code.',
       resetSuccess: 'Anpassung auf Standard zurückgesetzt',
       largeImageWarning:
