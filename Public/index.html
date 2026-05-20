@@ -142,6 +142,7 @@
         <button class="tab-link" data-tab="Email" role="tab" aria-selected="false" data-i18n="tabs.email">Email</button>
         <button class="tab-link" data-tab="CalendarEvent" role="tab" aria-selected="false" data-i18n="tabs.calendarEvent">Event</button>
         <button class="tab-link" data-tab="Location" role="tab" aria-selected="false" data-i18n="tabs.location">Location</button>
+        <button class="tab-link" data-tab="SocialMedia" role="tab" aria-selected="false" data-i18n="tabs.socialMedia">Social Media</button>
         <button class="tab-link" data-tab="WhatsApp" role="tab" aria-selected="false" data-i18n="tabs.whatsapp">WhatsApp</button>
         <button class="tab-link" data-tab="MeCard" role="tab" aria-selected="false" data-i18n="tabs.mecard">MeCard</button>
         <button class="tab-link" data-tab="AppLink" role="tab" aria-selected="false" data-i18n="tabs.appLink">App Link</button>
@@ -325,6 +326,46 @@
             <div class="input-group">
                 <label for="location-lng" data-i18n="fields.longitude">Longitude</label>
                 <input type="number" id="location-lng" data-i18n-placeholder="placeholders.longitude" placeholder="-122.084" min="-180" max="180" step="any">
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Social Media Input Form -->
+    <div id="SocialMedia" class="tab-content">
+        <div class="vcard-grid">
+            <div class="input-group">
+                <label for="social-platform" data-i18n="fields.socialPlatform">Platform</label>
+                <select id="social-platform">
+                    <option value="instagram" selected data-i18n-option="options.socialInstagram">Instagram</option>
+                    <option value="tiktok" data-i18n-option="options.socialTikTok">TikTok</option>
+                    <option value="youtube" data-i18n-option="options.socialYouTube">YouTube</option>
+                    <option value="facebook" data-i18n-option="options.socialFacebook">Facebook</option>
+                    <option value="x" data-i18n-option="options.socialX">X / Twitter</option>
+                    <option value="linkedin" data-i18n-option="options.socialLinkedIn">LinkedIn</option>
+                    <option value="snapchat" data-i18n-option="options.socialSnapchat">Snapchat</option>
+                    <option value="pinterest" data-i18n-option="options.socialPinterest">Pinterest</option>
+                    <option value="reddit" data-i18n-option="options.socialReddit">Reddit</option>
+                    <option value="threads" data-i18n-option="options.socialThreads">Threads</option>
+                    <option value="bluesky" data-i18n-option="options.socialBluesky">Bluesky</option>
+                    <option value="other" data-i18n-option="options.socialOther">Other URL</option>
+                </select>
+            </div>
+            <div id="social-profile-type-group" class="input-group" style="display:none;">
+                <label for="social-profile-type" data-i18n="fields.socialProfileType">Profile type</label>
+                <select id="social-profile-type">
+                    <option value="person" selected data-i18n-option="options.socialTypePerson">Person/Profile</option>
+                    <option value="company" data-i18n-option="options.socialTypeCompany">Company</option>
+                    <option value="subreddit" data-i18n-option="options.socialTypeSubreddit">Subreddit</option>
+                </select>
+            </div>
+            <div class="input-group full-width">
+                <label for="social-handle" data-i18n="fields.socialHandleOrUrl">Handle or profile URL</label>
+                <input type="text" id="social-handle" data-i18n-placeholder="placeholders.socialHandle" placeholder="@username or https://..." maxlength="255">
+                <p class="helper-text" data-i18n="helpers.socialHandleHelper">Enter a handle such as @username or paste a full https:// profile URL.</p>
+            </div>
+            <div class="input-group full-width social-preview">
+                <span class="social-preview-label" data-i18n="misc.socialPreview">QR target</span>
+                <code id="social-preview-url">-</code>
             </div>
         </div>
     </div>

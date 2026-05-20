@@ -6,6 +6,45 @@ const THEME_STORAGE_KEY = 'qrturbo_theme';
 const DEFAULT_THEME = 'light';
 const AUTO_PREVIEW_DELAY = 450;
 
+const SOCIAL_PLATFORM_CONFIG = {
+    instagram: {
+        buildUrl: handle => `https://www.instagram.com/${handle}/`
+    },
+    tiktok: {
+        buildUrl: handle => `https://www.tiktok.com/@${handle}`
+    },
+    youtube: {
+        buildUrl: handle => `https://www.youtube.com/@${handle}`
+    },
+    facebook: {
+        buildUrl: handle => `https://www.facebook.com/${handle}`
+    },
+    x: {
+        buildUrl: handle => `https://x.com/${handle}`
+    },
+    linkedin: {
+        buildUrl: (handle, type) => `https://www.linkedin.com/${type === 'company' ? 'company' : 'in'}/${handle}`
+    },
+    snapchat: {
+        buildUrl: handle => `https://www.snapchat.com/add/${handle}`
+    },
+    pinterest: {
+        buildUrl: handle => `https://www.pinterest.com/${handle}/`
+    },
+    reddit: {
+        buildUrl: (handle, type) => `https://www.reddit.com/${type === 'subreddit' ? 'r' : 'user'}/${handle}`
+    },
+    threads: {
+        buildUrl: handle => `https://www.threads.net/@${handle}`
+    },
+    bluesky: {
+        buildUrl: handle => `https://bsky.app/profile/${handle}`
+    },
+    other: {
+        requiresUrl: true
+    }
+};
+
 function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) {
         return;
@@ -132,6 +171,65 @@ function isValidHttpUrl(value) {
     } catch {
         return false;
     }
+}
+
+function cleanSocialHandle(value, platform, type) {
+    let handle = String(value)
+        .trim()
+        .replace(/^@+/, '')
+        .replace(/^\/+/, '')
+        .replace(/^@+/, '')
+        .replace(/\/+$/, '');
+
+    if (platform === 'linkedin') {
+        handle = type === 'company'
+            ? handle.replace(/^company\//i, '')
+            : handle.replace(/^in\//i, '');
+    }
+
+    if (platform === 'reddit') {
+        handle = type === 'subreddit'
+            ? handle.replace(/^r\//i, '')
+            : handle.replace(/^(?:u|user)\//i, '');
+    }
+
+    if (platform === 'youtube') {
+        handle = handle.replace(/^@+/, '');
+    }
+
+    return handle;
+}
+
+function isValidSocialHandle(value) {
+    return /^[A-Za-z0-9._-]+$/.test(value);
+}
+
+function getSocialQRCodeUrl(showAlerts = false) {
+    const platform = getFieldValue('social-platform') || 'instagram';
+    const profileType = getFieldValue('social-profile-type') || 'person';
+    const rawValue = getFieldValue('social-handle');
+    const config = SOCIAL_PLATFORM_CONFIG[platform] || SOCIAL_PLATFORM_CONFIG.instagram;
+
+    if (!rawValue) {
+        return notifyValidation('alerts.socialRequired', showAlerts);
+    }
+
+    if (/^https?:\/\//i.test(rawValue)) {
+        return isValidHttpUrl(rawValue)
+            ? rawValue
+            : notifyValidation('alerts.socialUrlInvalid', showAlerts);
+    }
+
+    if (config.requiresUrl) {
+        return notifyValidation('alerts.socialUrlInvalid', showAlerts);
+    }
+
+    const handle = cleanSocialHandle(rawValue, platform, profileType);
+    if (!isValidSocialHandle(handle)) {
+        return notifyValidation('alerts.socialHandleInvalid', showAlerts);
+    }
+
+    return config.buildUrl(handle, profileType);
 }
 
 function normalizeWhatsAppNumber(value) {
@@ -346,6 +444,10 @@ function collectQRCodeText(showAlerts = false) {
         }
 
         return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+    }
+
+    if (activeTab === 'SocialMedia') {
+        return getSocialQRCodeUrl(showAlerts);
     }
 
     if (activeTab === 'WhatsApp') {
@@ -685,6 +787,12 @@ function downloadQRCode() {
     } else if (activeTab === 'Location') {
         const address = document.getElementById('location-address').value.trim();
         filename = address ? `location_${address.substring(0, 30)}` : 'geo_location';
+    } else if (activeTab === 'SocialMedia') {
+        const platform = document.getElementById('social-platform').value;
+        const handle = document.getElementById('social-handle').value.trim();
+        filename = handle
+            ? `social_${platform}_${handle.replace(/^https?:\/\//i, '').substring(0, 30)}`
+            : `social_${platform}`;
     } else if (activeTab === 'WhatsApp') {
         const phoneNumber = document.getElementById('whatsapp-phone').value.trim();
         filename = phoneNumber ? `whatsapp_${phoneNumber.replace(/[^\d+]/g, '')}` : 'whatsapp_message';
@@ -745,6 +853,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const charCountDisplay = document.getElementById('char-count');
     const smsMessageInput = document.getElementById('sms-message');
     const smsCharCountDisplay = document.getElementById('sms-char-count');
+    const socialPlatformSelect = document.getElementById('social-platform');
+    const socialProfileTypeSelect = document.getElementById('social-profile-type');
+    const socialProfileTypeGroup = document.getElementById('social-profile-type-group');
+    const socialHandleInput = document.getElementById('social-handle');
+    const socialPreviewUrl = document.getElementById('social-preview-url');
 
     // --- Event Listeners ---
 
@@ -816,7 +929,47 @@ document.addEventListener('DOMContentLoaded', function() {
         updateWifiPasswordToggleLabel();
     });
 
+    // --- Social Media Form Logic ---
+    function updateSocialProfileTypeUI() {
+        if (!socialPlatformSelect || !socialProfileTypeSelect || !socialProfileTypeGroup) return;
 
+        const platform = socialPlatformSelect.value;
+        const allowedTypes = platform === 'linkedin'
+            ? ['person', 'company']
+            : platform === 'reddit'
+                ? ['person', 'subreddit']
+                : ['person'];
+
+        socialProfileTypeGroup.style.display = allowedTypes.length > 1 ? 'flex' : 'none';
+
+        Array.from(socialProfileTypeSelect.options).forEach(option => {
+            option.hidden = !allowedTypes.includes(option.value);
+        });
+
+        if (!allowedTypes.includes(socialProfileTypeSelect.value)) {
+            socialProfileTypeSelect.value = 'person';
+        }
+    }
+
+    function updateSocialPreview() {
+        if (!socialPreviewUrl) return;
+        socialPreviewUrl.textContent = getSocialQRCodeUrl(false) || '-';
+    }
+
+    function updateSocialMediaUI() {
+        updateSocialProfileTypeUI();
+        updateSocialPreview();
+    }
+
+    [socialPlatformSelect, socialProfileTypeSelect, socialHandleInput].forEach(element => {
+        if (!element) return;
+        const eventName = element.tagName === 'SELECT' ? 'change' : 'input';
+        element.addEventListener(eventName, function() {
+            updateSocialMediaUI();
+            schedulePreview();
+        });
+    });
+    updateSocialMediaUI();
 
 
     // --- Tab Switching Logic ---
@@ -849,6 +1002,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Keep form values when switching tabs, but refresh dependent UI states.
         document.getElementById('wifi-auth').dispatchEvent(new Event('change'));
         updateSmsPhoneUI();
+        updateSocialMediaUI();
 
         updateDynamicTranslations();
 

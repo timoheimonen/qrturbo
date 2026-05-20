@@ -29,6 +29,7 @@
       email: 'Email',
       calendarEvent: 'Begivenhed',
       location: 'Placering',
+      socialMedia: 'Sociale medier',
       whatsapp: 'WhatsApp',
       mecard: 'MeCard',
       appLink: 'App-link'
@@ -78,6 +79,9 @@
       locationAddress: 'Adresse eller sted',
       latitude: 'Breddegrad',
       longitude: 'Længdegrad',
+      socialPlatform: 'Platform',
+      socialProfileType: 'Profiltype',
+      socialHandleOrUrl: 'Brugernavn eller profil-URL',
       whatsappPhone: 'WhatsApp-nummer',
       whatsappMessage: 'Besked (valgfri)',
       mecardName: 'Navn',
@@ -115,6 +119,7 @@
       locationAddress: 'Rådhuspladsen 1, København',
       latitude: '55.6761',
       longitude: '12.5683',
+      socialHandle: '@brugernavn eller https://...',
       whatsappPhone: 'f.eks., +45555123456',
       whatsappMessage: 'Din WhatsApp-besked her...',
       mecardName: 'Hans Hansen',
@@ -154,6 +159,21 @@
       cornerSquare: 'Firkant',
       cornerExtraRounded: 'Ekstra Afrundet',
       cornerDot: 'Punkt',
+      socialInstagram: 'Instagram',
+      socialTikTok: 'TikTok',
+      socialYouTube: 'YouTube',
+      socialFacebook: 'Facebook',
+      socialX: 'X / Twitter',
+      socialLinkedIn: 'LinkedIn',
+      socialSnapchat: 'Snapchat',
+      socialPinterest: 'Pinterest',
+      socialReddit: 'Reddit',
+      socialThreads: 'Threads',
+      socialBluesky: 'Bluesky',
+      socialOther: 'Anden URL',
+      socialTypePerson: 'Person/Profil',
+      socialTypeCompany: 'Virksomhed',
+      socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Brug iOS hvis ingen web-URL',
       appTargetAndroid: 'Brug Android hvis ingen web-URL'
     },
@@ -173,6 +193,9 @@
       eventEndInvalid: 'Sluttidspunktet kan ikke være før starttidspunktet.',
       locationRequired: 'Indtast en adresse eller begge koordinater.',
       locationCoordinatesInvalid: 'Indtast gyldige bredde- og længdegrader.',
+      socialRequired: 'Indtast et brugernavn til sociale medier eller en profil-URL.',
+      socialHandleInvalid: 'Indtast et gyldigt brugernavn med bogstaver, tal, punktummer, understreger eller bindestreger.',
+      socialUrlInvalid: 'Indtast en gyldig social profil-URL, der starter med http:// eller https://.',
       whatsappPhoneRequired: 'Indtast et WhatsApp-telefonnummer med landekode.',
       mecardRequired: 'Indtast mindst én af: Navn, telefonnummer eller e-mail.',
       appLinkRequired: 'Indtast en web-, iOS- eller Android-app-URL.',
@@ -205,10 +228,13 @@
       github: 'Se kildekode på GitHub'
     },
     helpers: {
-      quietZoneHelper: 'Plads omkring QR-koden (anbefalet: 4-16px for pålidelig scanning)'
+      quietZoneHelper: 'Plads omkring QR-koden (anbefalet: 4-16px for pålidelig scanning)',
+      socialHandleHelper:
+        'Indtast et brugernavn som @brugernavn, eller indsæt en fuld https:// profil-URL.'
     },
     misc: {
-      qrPlaceholder: 'QR-koden vil blive vist her'
+      qrPlaceholder: 'QR-koden vil blive vist her',
+      socialPreview: 'QR-mål'
     }
   };
 })();

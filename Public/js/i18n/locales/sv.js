@@ -29,6 +29,7 @@
       email: 'E-post',
       calendarEvent: 'Händelse',
       location: 'Plats',
+      socialMedia: 'Sociala medier',
       whatsapp: 'WhatsApp',
       mecard: 'MeCard',
       appLink: 'App-länk'
@@ -78,6 +79,9 @@
       locationAddress: 'Adress eller plats',
       latitude: 'Latitud',
       longitude: 'Longitud',
+      socialPlatform: 'Plattform',
+      socialProfileType: 'Profiltyp',
+      socialHandleOrUrl: 'Användarnamn eller profil-URL',
       whatsappPhone: 'WhatsApp-nummer',
       whatsappMessage: 'Meddelande (valfritt)',
       mecardName: 'Namn',
@@ -115,6 +119,7 @@
       locationAddress: 'Drottninggatan 1, Stockholm',
       latitude: '59.3293',
       longitude: '18.0686',
+      socialHandle: '@anvandarnamn eller https://...',
       whatsappPhone: 't.ex., +46555123456',
       whatsappMessage: 'Ditt WhatsApp-meddelande här...',
       mecardName: 'Anna Andersson',
@@ -154,6 +159,21 @@
       cornerSquare: 'Fyrkant',
       cornerExtraRounded: 'Extra Rundad',
       cornerDot: 'Punkt',
+      socialInstagram: 'Instagram',
+      socialTikTok: 'TikTok',
+      socialYouTube: 'YouTube',
+      socialFacebook: 'Facebook',
+      socialX: 'X / Twitter',
+      socialLinkedIn: 'LinkedIn',
+      socialSnapchat: 'Snapchat',
+      socialPinterest: 'Pinterest',
+      socialReddit: 'Reddit',
+      socialThreads: 'Threads',
+      socialBluesky: 'Bluesky',
+      socialOther: 'Annan URL',
+      socialTypePerson: 'Person/Profil',
+      socialTypeCompany: 'Företag',
+      socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Använd iOS om ingen webb-URL finns',
       appTargetAndroid: 'Använd Android om ingen webb-URL finns'
     },
@@ -173,6 +193,9 @@
       eventEndInvalid: 'Sluttiden kan inte vara före starttiden.',
       locationRequired: 'Ange en adress eller båda koordinaterna.',
       locationCoordinatesInvalid: 'Ange giltiga latitud- och longitudkoordinater.',
+      socialRequired: 'Ange ett användarnamn för sociala medier eller en profil-URL.',
+      socialHandleInvalid: 'Ange ett giltigt användarnamn med bokstäver, siffror, punkter, understreck eller bindestreck.',
+      socialUrlInvalid: 'Ange en giltig social profil-URL som börjar med http:// eller https://.',
       whatsappPhoneRequired: 'Ange ett WhatsApp-telefonnummer med landskod.',
       mecardRequired: 'Ange minst ett av: Namn, Telefonnummer eller E-post.',
       appLinkRequired: 'Ange en webb-, iOS- eller Android-app-URL.',
@@ -205,10 +228,13 @@
       github: 'Visa källkod på GitHub'
     },
     helpers: {
-      quietZoneHelper: 'Utrymme runt QR-koden (rekommenderat: 4-16px för pålitlig skanning)'
+      quietZoneHelper: 'Utrymme runt QR-koden (rekommenderat: 4-16px för pålitlig skanning)',
+      socialHandleHelper:
+        'Ange ett användarnamn som @anvandarnamn eller klistra in en fullständig https:// profil-URL.'
     },
     misc: {
-      qrPlaceholder: 'QR-koden kommer att visas här'
+      qrPlaceholder: 'QR-koden kommer att visas här',
+      socialPreview: 'QR-mål'
     }
   };
 })();
