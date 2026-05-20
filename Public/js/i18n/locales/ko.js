@@ -27,6 +27,7 @@
       email: '이메일',
       calendarEvent: '이벤트',
       location: '위치',
+      socialMedia: '소셜 미디어',
       whatsapp: 'WhatsApp',
       mecard: 'MeCard',
       appLink: '앱 링크'
@@ -76,6 +77,9 @@
       locationAddress: '주소 또는 장소',
       latitude: '위도',
       longitude: '경도',
+      socialPlatform: '플랫폼',
+      socialProfileType: '프로필 유형',
+      socialHandleOrUrl: '사용자 이름 또는 프로필 URL',
       whatsappPhone: 'WhatsApp 번호',
       whatsappMessage: '메시지 (선택 사항)',
       mecardName: '이름',
@@ -113,6 +117,7 @@
       locationAddress: '서울역, 서울',
       latitude: '37.5547',
       longitude: '126.9706',
+      socialHandle: '@username 또는 https://...',
       whatsappPhone: '예: +82555123456',
       whatsappMessage: 'WhatsApp 메시지를 여기에 입력하세요...',
       mecardName: '홍길동',
@@ -152,6 +157,21 @@
       cornerSquare: '사각형',
       cornerExtraRounded: '매우 둥근',
       cornerDot: '점',
+      socialInstagram: 'Instagram',
+      socialTikTok: 'TikTok',
+      socialYouTube: 'YouTube',
+      socialFacebook: 'Facebook',
+      socialX: 'X / Twitter',
+      socialLinkedIn: 'LinkedIn',
+      socialSnapchat: 'Snapchat',
+      socialPinterest: 'Pinterest',
+      socialReddit: 'Reddit',
+      socialThreads: 'Threads',
+      socialBluesky: 'Bluesky',
+      socialOther: '기타 URL',
+      socialTypePerson: '개인/프로필',
+      socialTypeCompany: '회사',
+      socialTypeSubreddit: 'Subreddit',
       appTargetIos: '웹 URL이 없으면 iOS 사용',
       appTargetAndroid: '웹 URL이 없으면 Android 사용'
     },
@@ -170,6 +190,9 @@
       eventEndInvalid: '종료 시간은 시작 시간보다 빠를 수 없습니다.',
       locationRequired: '주소 또는 두 좌표를 모두 입력하세요.',
       locationCoordinatesInvalid: '유효한 위도와 경도 좌표를 입력하세요.',
+      socialRequired: '소셜 미디어 사용자 이름 또는 프로필 URL을 입력하세요.',
+      socialHandleInvalid: '문자, 숫자, 점, 밑줄 또는 하이픈을 사용하는 유효한 사용자 이름을 입력하세요.',
+      socialUrlInvalid: 'http:// 또는 https:// 로 시작하는 유효한 소셜 프로필 URL을 입력하세요.',
       whatsappPhoneRequired: '국가 코드가 포함된 WhatsApp 전화번호를 입력하세요.',
       mecardRequired: '이름, 전화번호 또는 이메일 중 하나 이상을 입력하세요.',
       appLinkRequired: '웹, iOS 또는 Android 앱 URL을 입력하세요.',
@@ -201,10 +224,13 @@
       github: 'GitHub에서 소스 코드 보기'
     },
     helpers: {
-      quietZoneHelper: 'QR 코드 주변 공간（권장: 안정적인 스캔을 위해 4-16px）'
+      quietZoneHelper: 'QR 코드 주변 공간（권장: 안정적인 스캔을 위해 4-16px）',
+      socialHandleHelper:
+        '@username 같은 사용자 이름을 입력하거나 전체 https:// 프로필 URL을 붙여넣으세요.'
     },
     misc: {
-      qrPlaceholder: 'QR 코드가 여기에 표시됩니다'
+      qrPlaceholder: 'QR 코드가 여기에 표시됩니다',
+      socialPreview: 'QR 대상'
     }
   };
 })();

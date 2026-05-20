@@ -28,6 +28,7 @@
       email: 'メール',
       calendarEvent: 'イベント',
       location: '位置情報',
+      socialMedia: 'ソーシャルメディア',
       whatsapp: 'WhatsApp',
       mecard: 'MeCard',
       appLink: 'アプリリンク'
@@ -77,6 +78,9 @@
       locationAddress: '住所または場所',
       latitude: '緯度',
       longitude: '経度',
+      socialPlatform: 'プラットフォーム',
+      socialProfileType: 'プロフィール種別',
+      socialHandleOrUrl: 'ユーザー名またはプロフィールURL',
       whatsappPhone: 'WhatsApp番号',
       whatsappMessage: 'メッセージ（任意）',
       mecardName: '名前',
@@ -114,6 +118,7 @@
       locationAddress: '東京駅, 東京',
       latitude: '35.6812',
       longitude: '139.7671',
+      socialHandle: '@username または https://...',
       whatsappPhone: '例：+81555123456',
       whatsappMessage: 'WhatsAppメッセージをここに入力...',
       mecardName: '山田太郎',
@@ -153,6 +158,21 @@
       cornerSquare: '四角',
       cornerExtraRounded: '超丸み',
       cornerDot: 'ドット',
+      socialInstagram: 'Instagram',
+      socialTikTok: 'TikTok',
+      socialYouTube: 'YouTube',
+      socialFacebook: 'Facebook',
+      socialX: 'X / Twitter',
+      socialLinkedIn: 'LinkedIn',
+      socialSnapchat: 'Snapchat',
+      socialPinterest: 'Pinterest',
+      socialReddit: 'Reddit',
+      socialThreads: 'Threads',
+      socialBluesky: 'Bluesky',
+      socialOther: 'その他のURL',
+      socialTypePerson: '個人/プロフィール',
+      socialTypeCompany: '会社',
+      socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Web URLがない場合はiOSを使用',
       appTargetAndroid: 'Web URLがない場合はAndroidを使用'
     },
@@ -171,6 +191,9 @@
       eventEndInvalid: '終了時刻は開始時刻より前にできません。',
       locationRequired: '住所または両方の座標を入力してください。',
       locationCoordinatesInvalid: '有効な緯度と経度を入力してください。',
+      socialRequired: 'ソーシャルメディアのユーザー名またはプロフィールURLを入力してください。',
+      socialHandleInvalid: '英数字、ドット、アンダースコア、ハイフンを使った有効なユーザー名を入力してください。',
+      socialUrlInvalid: 'http:// または https:// で始まる有効なソーシャルプロフィールURLを入力してください。',
       whatsappPhoneRequired: '国番号付きのWhatsApp電話番号を入力してください。',
       mecardRequired: '名前、電話番号、メールのいずれかを入力してください。',
       appLinkRequired: 'Web、iOS、またはAndroidアプリのURLを入力してください。',
@@ -202,10 +225,13 @@
       github: 'GitHubでソースコードを表示'
     },
     helpers: {
-      quietZoneHelper: 'QRコード周辺のスペース（推奨：信頼性の高いスキャンのために4-16px）'
+      quietZoneHelper: 'QRコード周辺のスペース（推奨：信頼性の高いスキャンのために4-16px）',
+      socialHandleHelper:
+        '@username のようなユーザー名を入力するか、完全な https:// プロフィールURLを貼り付けてください。'
     },
     misc: {
-      qrPlaceholder: 'QRコードがここに表示されます'
+      qrPlaceholder: 'QRコードがここに表示されます',
+      socialPreview: 'QRのリンク先'
     }
   };
 })();

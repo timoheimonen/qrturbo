@@ -27,6 +27,7 @@
       email: '电子邮件',
       calendarEvent: '活动',
       location: '位置',
+      socialMedia: '社交媒体',
       whatsapp: 'WhatsApp',
       mecard: 'MeCard',
       appLink: '应用链接'
@@ -76,6 +77,9 @@
       locationAddress: '地址或地点',
       latitude: '纬度',
       longitude: '经度',
+      socialPlatform: '平台',
+      socialProfileType: '资料类型',
+      socialHandleOrUrl: '用户名或资料 URL',
       whatsappPhone: 'WhatsApp 号码',
       whatsappMessage: '消息（可选）',
       mecardName: '姓名',
@@ -113,6 +117,7 @@
       locationAddress: '北京天安门, 北京',
       latitude: '39.9087',
       longitude: '116.3975',
+      socialHandle: '@username 或 https://...',
       whatsappPhone: '例如，+86555123456',
       whatsappMessage: '在这里输入 WhatsApp 消息...',
       mecardName: '张三',
@@ -152,6 +157,21 @@
       cornerSquare: '方形',
       cornerExtraRounded: '超圆角',
       cornerDot: '点',
+      socialInstagram: 'Instagram',
+      socialTikTok: 'TikTok',
+      socialYouTube: 'YouTube',
+      socialFacebook: 'Facebook',
+      socialX: 'X / Twitter',
+      socialLinkedIn: 'LinkedIn',
+      socialSnapchat: 'Snapchat',
+      socialPinterest: 'Pinterest',
+      socialReddit: 'Reddit',
+      socialThreads: 'Threads',
+      socialBluesky: 'Bluesky',
+      socialOther: '其他 URL',
+      socialTypePerson: '个人/资料',
+      socialTypeCompany: '公司',
+      socialTypeSubreddit: 'Subreddit',
       appTargetIos: '没有 Web URL 时使用 iOS',
       appTargetAndroid: '没有 Web URL 时使用 Android'
     },
@@ -170,6 +190,9 @@
       eventEndInvalid: '结束时间不能早于开始时间。',
       locationRequired: '请输入地址或完整坐标。',
       locationCoordinatesInvalid: '请输入有效的纬度和经度坐标。',
+      socialRequired: '请输入社交媒体用户名或资料 URL。',
+      socialHandleInvalid: '请输入有效用户名，可使用字母、数字、点、下划线或连字符。',
+      socialUrlInvalid: '请输入以 http:// 或 https:// 开头的有效社交资料 URL。',
       whatsappPhoneRequired: '请输入带国家/地区代码的 WhatsApp 电话号码。',
       mecardRequired: '请至少填写以下之一：姓名、电话号码或电子邮件。',
       appLinkRequired: '请输入 Web、iOS 或 Android 应用 URL。',
@@ -199,10 +222,12 @@
       github: '在 GitHub 上查看源代码'
     },
     helpers: {
-      quietZoneHelper: '二维码周围的空间（推荐：4-16像素以确保可靠扫描）'
+      quietZoneHelper: '二维码周围的空间（推荐：4-16像素以确保可靠扫描）',
+      socialHandleHelper: '输入 @username 这样的用户名，或粘贴完整的 https:// 资料 URL。'
     },
     misc: {
-      qrPlaceholder: '二维码将显示在此处'
+      qrPlaceholder: '二维码将显示在此处',
+      socialPreview: '二维码目标'
     }
   };
 })();

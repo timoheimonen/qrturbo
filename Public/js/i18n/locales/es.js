@@ -29,6 +29,7 @@
       email: 'Correo',
       calendarEvent: 'Evento',
       location: 'Ubicación',
+      socialMedia: 'Redes sociales',
       whatsapp: 'WhatsApp',
       mecard: 'MeCard',
       appLink: 'Enlace de app'
@@ -78,6 +79,9 @@
       locationAddress: 'Dirección o lugar',
       latitude: 'Latitud',
       longitude: 'Longitud',
+      socialPlatform: 'Plataforma',
+      socialProfileType: 'Tipo de perfil',
+      socialHandleOrUrl: 'Usuario o URL del perfil',
       whatsappPhone: 'Número de WhatsApp',
       whatsappMessage: 'Mensaje (opcional)',
       mecardName: 'Nombre',
@@ -115,6 +119,7 @@
       locationAddress: 'Puerta del Sol, Madrid',
       latitude: '40.4169',
       longitude: '-3.7035',
+      socialHandle: '@usuario o https://...',
       whatsappPhone: 'ej., +34555123456',
       whatsappMessage: 'Tu mensaje de WhatsApp aquí...',
       mecardName: 'Juan Pérez',
@@ -154,6 +159,21 @@
       cornerSquare: 'Cuadrado',
       cornerExtraRounded: 'Extra Redondeado',
       cornerDot: 'Punto',
+      socialInstagram: 'Instagram',
+      socialTikTok: 'TikTok',
+      socialYouTube: 'YouTube',
+      socialFacebook: 'Facebook',
+      socialX: 'X / Twitter',
+      socialLinkedIn: 'LinkedIn',
+      socialSnapchat: 'Snapchat',
+      socialPinterest: 'Pinterest',
+      socialReddit: 'Reddit',
+      socialThreads: 'Threads',
+      socialBluesky: 'Bluesky',
+      socialOther: 'Otra URL',
+      socialTypePerson: 'Persona/Perfil',
+      socialTypeCompany: 'Empresa',
+      socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Usar iOS si no hay URL web',
       appTargetAndroid: 'Usar Android si no hay URL web'
     },
@@ -173,6 +193,9 @@
       eventEndInvalid: 'La hora de fin no puede ser anterior a la de inicio.',
       locationRequired: 'Por favor ingresa una dirección o ambas coordenadas.',
       locationCoordinatesInvalid: 'Por favor ingresa coordenadas válidas de latitud y longitud.',
+      socialRequired: 'Por favor ingresa un usuario de red social o una URL de perfil.',
+      socialHandleInvalid: 'Por favor ingresa un usuario válido con letras, números, puntos, guiones bajos o guiones.',
+      socialUrlInvalid: 'Por favor ingresa una URL válida de perfil social que empiece con http:// o https://.',
       whatsappPhoneRequired: 'Por favor ingresa un número de WhatsApp con código de país.',
       mecardRequired: 'Por favor ingresa al menos uno de: Nombre, Número de teléfono o Correo.',
       appLinkRequired: 'Por favor ingresa una URL de app web, iOS o Android.',
@@ -208,10 +231,13 @@
     },
     helpers: {
       quietZoneHelper:
-        'Espacio alrededor del código QR (recomendado: 4-16px para escaneo confiable)'
+        'Espacio alrededor del código QR (recomendado: 4-16px para escaneo confiable)',
+      socialHandleHelper:
+        'Ingresa un usuario como @usuario o pega una URL completa de perfil https://.'
     },
     misc: {
-      qrPlaceholder: 'El código QR aparecerá aquí'
+      qrPlaceholder: 'El código QR aparecerá aquí',
+      socialPreview: 'Destino del QR'
     }
   };
 })();

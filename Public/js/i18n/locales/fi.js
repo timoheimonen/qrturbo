@@ -29,6 +29,7 @@
       email: 'Sähköposti',
       calendarEvent: 'Tapahtuma',
       location: 'Sijainti',
+      socialMedia: 'Sosiaalinen media',
       whatsapp: 'WhatsApp',
       mecard: 'MeCard',
       appLink: 'App-linkki'
@@ -79,6 +80,9 @@
       locationAddress: 'Osoite tai paikka',
       latitude: 'Leveysaste',
       longitude: 'Pituusaste',
+      socialPlatform: 'Alusta',
+      socialProfileType: 'Profiilityyppi',
+      socialHandleOrUrl: 'Käyttäjänimi tai profiilin URL',
       whatsappPhone: 'WhatsApp-numero',
       whatsappMessage: 'Viesti (valinnainen)',
       mecardName: 'Nimi',
@@ -116,6 +120,7 @@
       locationAddress: 'Mannerheimintie 1, Helsinki',
       latitude: '60.1699',
       longitude: '24.9384',
+      socialHandle: '@kayttajanimi tai https://...',
       whatsappPhone: 'esim., +358555123456',
       whatsappMessage: 'WhatsApp-viestisi tähän...',
       mecardName: 'Matti Meikäläinen',
@@ -155,6 +160,21 @@
       cornerSquare: 'Neliö',
       cornerExtraRounded: 'Erittäin Pyöristetty',
       cornerDot: 'Piste',
+      socialInstagram: 'Instagram',
+      socialTikTok: 'TikTok',
+      socialYouTube: 'YouTube',
+      socialFacebook: 'Facebook',
+      socialX: 'X / Twitter',
+      socialLinkedIn: 'LinkedIn',
+      socialSnapchat: 'Snapchat',
+      socialPinterest: 'Pinterest',
+      socialReddit: 'Reddit',
+      socialThreads: 'Threads',
+      socialBluesky: 'Bluesky',
+      socialOther: 'Muu URL',
+      socialTypePerson: 'Henkilö/Profiili',
+      socialTypeCompany: 'Yritys',
+      socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Käytä iOS-linkkiä, jos web-URL puuttuu',
       appTargetAndroid: 'Käytä Android-linkkiä, jos web-URL puuttuu'
     },
@@ -173,6 +193,9 @@
       eventEndInvalid: 'Loppuaika ei voi olla ennen aloitusaikaa.',
       locationRequired: 'Anna osoite tai molemmat koordinaatit.',
       locationCoordinatesInvalid: 'Anna kelvolliset leveys- ja pituusasteen koordinaatit.',
+      socialRequired: 'Anna sosiaalisen median käyttäjänimi tai profiilin URL.',
+      socialHandleInvalid: 'Anna kelvollinen käyttäjänimi, jossa on kirjaimia, numeroita, pisteitä, alaviivoja tai yhdysmerkkejä.',
+      socialUrlInvalid: 'Anna kelvollinen sosiaalisen median profiilin URL, joka alkaa http:// tai https://.',
       whatsappPhoneRequired: 'Anna WhatsApp-puhelinnumero maakoodin kanssa.',
       mecardRequired: 'Täytä vähintään yksi: Nimi, puhelinnumero tai sähköposti.',
       appLinkRequired: 'Anna web-, iOS- tai Android-sovelluksen URL.',
@@ -220,10 +243,13 @@
     },
     helpers: {
       quietZoneHelper:
-        'Tila QR-koodin ympärillä (suositus: 4-16px luotettavaa skannausta varten)'
+        'Tila QR-koodin ympärillä (suositus: 4-16px luotettavaa skannausta varten)',
+      socialHandleHelper:
+        'Anna käyttäjänimi kuten @kayttajanimi tai liitä koko https://-profiili-URL.'
     },
     misc: {
-      qrPlaceholder: 'QR-koodi näkyy tässä'
+      qrPlaceholder: 'QR-koodi näkyy tässä',
+      socialPreview: 'QR-kohde'
     }
   };
 })();

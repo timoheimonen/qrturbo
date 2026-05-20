@@ -16,7 +16,7 @@ The app is served as static assets from Cloudflare's global network, with no ori
 ## Features
 
 - Create QR codes instantly in your browser
-- Generate QR codes for URL/Text, vCard, MeCard, WiFi, SMS/Phone, Email, Calendar Events, Locations, WhatsApp, and App Links
+- Generate QR codes for URL/Text, vCard, MeCard, WiFi, SMS/Phone, Email, Calendar Events, Locations, Social Media, WhatsApp, and App Links
 - Customize foreground and background colors
 - Add an optional logo with adjustable size and margin
 - Choose dot styles, corner square styles, and corner dot styles

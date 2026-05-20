@@ -450,6 +450,29 @@ label {
     grid-column: 1 / -1; /* Span across both columns in the grid */
 }
 
+.social-preview {
+    gap: 6px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    background-color: var(--surface-muted);
+}
+
+.social-preview-label {
+    color: var(--text-muted);
+    font-size: 0.82em;
+    font-weight: bold;
+    text-align: left;
+}
+
+#social-preview-url {
+    color: var(--text);
+    font-size: 0.88em;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
 /* --- Loading Spinner Animation --- */
 /* Applied to qr-container during generation */
 .loading {

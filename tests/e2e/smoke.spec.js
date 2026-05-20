@@ -39,6 +39,31 @@ test('tabs switch correctly and WiFi QR generation validates the main controls',
   });
 });
 
+test('Social Media QR generation supports single-platform profile links', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('tab', { name: 'Social Media' }).click();
+  await expect(page.locator('#SocialMedia')).toBeVisible();
+  await expect(page.getByRole('tab', { name: 'Social Media' })).toHaveAttribute('aria-selected', 'true');
+
+  await page.locator('#social-platform').selectOption('instagram');
+  await page.locator('#social-handle').fill('@qr.turbo');
+
+  await expect(page.locator('#social-preview-url')).toHaveText('https://www.instagram.com/qr.turbo/');
+  await expect(page.locator('#qr-code-text')).toContainText('https://www.instagram.com/qr.turbo/', {
+    timeout: 10_000
+  });
+  await expect(page.locator('#download-btn')).toBeVisible();
+
+  await page.locator('#social-platform').selectOption('linkedin');
+  await expect(page.locator('#social-profile-type-group')).toBeVisible();
+  await page.locator('#social-profile-type').selectOption('company');
+  await page.locator('#social-handle').fill('qr-turbo');
+  await expect(page.locator('#qr-code-text')).toContainText('https://www.linkedin.com/company/qr-turbo', {
+    timeout: 10_000
+  });
+});
+
 test('customization panel updates controls and transparent background state', async ({ page }) => {
   await page.goto('/');
 

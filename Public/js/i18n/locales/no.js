@@ -29,6 +29,7 @@
       email: 'E-post',
       calendarEvent: 'Hendelse',
       location: 'Plassering',
+      socialMedia: 'Sosiale medier',
       whatsapp: 'WhatsApp',
       mecard: 'MeCard',
       appLink: 'App-lenke'
@@ -78,6 +79,9 @@
       locationAddress: 'Adresse eller sted',
       latitude: 'Breddegrad',
       longitude: 'Lengdegrad',
+      socialPlatform: 'Plattform',
+      socialProfileType: 'Profiltype',
+      socialHandleOrUrl: 'Brukernavn eller profil-URL',
       whatsappPhone: 'WhatsApp-nummer',
       whatsappMessage: 'Melding (valgfritt)',
       mecardName: 'Navn',
@@ -115,6 +119,7 @@
       locationAddress: 'Karl Johans gate 1, Oslo',
       latitude: '59.9139',
       longitude: '10.7522',
+      socialHandle: '@brukernavn eller https://...',
       whatsappPhone: 'f.eks., +47555123456',
       whatsappMessage: 'WhatsApp-meldingen din her...',
       mecardName: 'Ola Nordmann',
@@ -154,6 +159,21 @@
       cornerSquare: 'Firkant',
       cornerExtraRounded: 'Ekstra Avrundet',
       cornerDot: 'Punkt',
+      socialInstagram: 'Instagram',
+      socialTikTok: 'TikTok',
+      socialYouTube: 'YouTube',
+      socialFacebook: 'Facebook',
+      socialX: 'X / Twitter',
+      socialLinkedIn: 'LinkedIn',
+      socialSnapchat: 'Snapchat',
+      socialPinterest: 'Pinterest',
+      socialReddit: 'Reddit',
+      socialThreads: 'Threads',
+      socialBluesky: 'Bluesky',
+      socialOther: 'Annen URL',
+      socialTypePerson: 'Person/Profil',
+      socialTypeCompany: 'Bedrift',
+      socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Bruk iOS hvis ingen web-URL',
       appTargetAndroid: 'Bruk Android hvis ingen web-URL'
     },
@@ -173,6 +193,9 @@
       eventEndInvalid: 'Sluttiden kan ikke være før starttiden.',
       locationRequired: 'Skriv inn en adresse eller begge koordinatene.',
       locationCoordinatesInvalid: 'Skriv inn gyldige bredde- og lengdegrader.',
+      socialRequired: 'Skriv inn et brukernavn for sosiale medier eller en profil-URL.',
+      socialHandleInvalid: 'Skriv inn et gyldig brukernavn med bokstaver, tall, punktum, understreker eller bindestreker.',
+      socialUrlInvalid: 'Skriv inn en gyldig sosial profil-URL som starter med http:// eller https://.',
       whatsappPhoneRequired: 'Skriv inn et WhatsApp-telefonnummer med landskode.',
       mecardRequired: 'Skriv inn minst ett av: Navn, Telefonnummer eller E-post.',
       appLinkRequired: 'Skriv inn en web-, iOS- eller Android-app-URL.',
@@ -205,10 +228,13 @@
       github: 'Vis kildekode på GitHub'
     },
     helpers: {
-      quietZoneHelper: 'Plass rundt QR-koden (anbefalt: 4-16px for pålitelig skanning)'
+      quietZoneHelper: 'Plass rundt QR-koden (anbefalt: 4-16px for pålitelig skanning)',
+      socialHandleHelper:
+        'Skriv inn et brukernavn som @brukernavn, eller lim inn en full https:// profil-URL.'
     },
     misc: {
-      qrPlaceholder: 'QR-koden vil vises her'
+      qrPlaceholder: 'QR-koden vil vises her',
+      socialPreview: 'QR-mål'
     }
   };
 })();

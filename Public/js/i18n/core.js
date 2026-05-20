@@ -28,6 +28,7 @@ const translations = {
       email: 'Email',
       calendarEvent: 'Event',
       location: 'Location',
+      socialMedia: 'Social Media',
       whatsapp: 'WhatsApp',
       mecard: 'MeCard',
       appLink: 'App Link'
@@ -78,6 +79,9 @@ const translations = {
       locationAddress: 'Address or Place',
       latitude: 'Latitude',
       longitude: 'Longitude',
+      socialPlatform: 'Platform',
+      socialProfileType: 'Profile type',
+      socialHandleOrUrl: 'Handle or profile URL',
       whatsappPhone: 'WhatsApp Number',
       whatsappMessage: 'Message (optional)',
       mecardName: 'Name',
@@ -115,6 +119,7 @@ const translations = {
       locationAddress: '1600 Amphitheatre Parkway, Mountain View',
       latitude: '37.422',
       longitude: '-122.084',
+      socialHandle: '@username or https://...',
       whatsappPhone: 'e.g., +15551234567',
       whatsappMessage: 'Your WhatsApp message here...',
       mecardName: 'John Appleseed',
@@ -154,6 +159,21 @@ const translations = {
       cornerSquare: 'Square',
       cornerExtraRounded: 'Extra Rounded',
       cornerDot: 'Dot',
+      socialInstagram: 'Instagram',
+      socialTikTok: 'TikTok',
+      socialYouTube: 'YouTube',
+      socialFacebook: 'Facebook',
+      socialX: 'X / Twitter',
+      socialLinkedIn: 'LinkedIn',
+      socialSnapchat: 'Snapchat',
+      socialPinterest: 'Pinterest',
+      socialReddit: 'Reddit',
+      socialThreads: 'Threads',
+      socialBluesky: 'Bluesky',
+      socialOther: 'Other URL',
+      socialTypePerson: 'Person/Profile',
+      socialTypeCompany: 'Company',
+      socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Use iOS if no web URL',
       appTargetAndroid: 'Use Android if no web URL'
     },
@@ -173,6 +193,9 @@ const translations = {
       eventEndInvalid: 'Event end time cannot be before the start time.',
       locationRequired: 'Please enter an address or both coordinates.',
       locationCoordinatesInvalid: 'Please enter valid latitude and longitude coordinates.',
+      socialRequired: 'Please enter a social media handle or profile URL.',
+      socialHandleInvalid: 'Please enter a valid handle using letters, numbers, dots, underscores or hyphens.',
+      socialUrlInvalid: 'Please enter a valid social profile URL starting with http:// or https://.',
       whatsappPhoneRequired: 'Please enter a WhatsApp phone number with country code.',
       mecardRequired: 'Please enter at least one of: Name, Phone Number or Email.',
       appLinkRequired: 'Please enter a web, iOS or Android app URL.',
@@ -219,10 +242,13 @@ const translations = {
     },
     helpers: {
       quietZoneHelper:
-        'Space around the QR code (recommended: 4-16px for reliable scanning)'
+        'Space around the QR code (recommended: 4-16px for reliable scanning)',
+      socialHandleHelper:
+        'Enter a handle such as @username or paste a full https:// profile URL.'
     },
     misc: {
-      qrPlaceholder: 'QR Code will appear here'
+      qrPlaceholder: 'QR Code will appear here',
+      socialPreview: 'QR target'
     }
   }
 };

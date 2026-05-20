@@ -160,6 +160,53 @@ test('Location payload supports address and coordinate modes', () => {
   assert.equal(app.alerts.at(-1), 'alerts.locationCoordinatesInvalid');
 });
 
+test('Social Media payload builds single-platform profile URLs', () => {
+  const app = createAppHarness();
+
+  app.setActiveTab('SocialMedia');
+  app.setValue('social-platform', 'instagram');
+  app.setValue('social-handle', '@qr.turbo');
+  assert.equal(app.collect(), 'https://www.instagram.com/qr.turbo/');
+
+  app.setValue('social-platform', 'tiktok');
+  app.setValue('social-handle', 'qrturbo_app');
+  assert.equal(app.collect(), 'https://www.tiktok.com/@qrturbo_app');
+
+  app.setValue('social-platform', 'linkedin');
+  app.setValue('social-profile-type', 'company');
+  app.setValue('social-handle', 'qr-turbo');
+  assert.equal(app.collect(), 'https://www.linkedin.com/company/qr-turbo');
+
+  app.setValue('social-platform', 'reddit');
+  app.setValue('social-profile-type', 'subreddit');
+  app.setValue('social-handle', 'r/qrcode');
+  assert.equal(app.collect(), 'https://www.reddit.com/r/qrcode');
+
+  app.setValue('social-platform', 'bluesky');
+  app.setValue('social-profile-type', 'person');
+  app.setValue('social-handle', 'qrturbo.bsky.social');
+  assert.equal(app.collect(), 'https://bsky.app/profile/qrturbo.bsky.social');
+});
+
+test('Social Media payload accepts full URLs and validates URL-only or invalid handles', () => {
+  const app = createAppHarness();
+
+  app.setActiveTab('SocialMedia');
+  app.setValue('social-platform', 'youtube');
+  app.setValue('social-handle', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+  assert.equal(app.collect(), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+
+  app.setValue('social-platform', 'other');
+  app.setValue('social-handle', 'qrturbo');
+  assert.equal(app.collect(true), null);
+  assert.equal(app.alerts.at(-1), 'alerts.socialUrlInvalid');
+
+  app.setValue('social-platform', 'instagram');
+  app.setValue('social-handle', 'bad handle!');
+  assert.equal(app.collect(true), null);
+  assert.equal(app.alerts.at(-1), 'alerts.socialHandleInvalid');
+});
+
 test('WhatsApp payload normalizes number and encodes message', () => {
   const app = createAppHarness();
 
