@@ -5,6 +5,7 @@ let previewDebounceTimer = null;
 const THEME_STORAGE_KEY = 'qrturbo_theme';
 const DEFAULT_THEME = 'light';
 const AUTO_PREVIEW_DELAY = 450;
+const WHATSAPP_USERNAME_PATTERN = /^@[A-Za-z0-9._]{3,35}$/;
 
 const SOCIAL_PLATFORM_CONFIG = {
     instagram: {
@@ -236,6 +237,33 @@ function normalizeWhatsAppNumber(value) {
     return value.replace(/\D/g, '');
 }
 
+function normalizeWhatsAppUsername(value) {
+    const username = String(value).trim();
+    return username.startsWith('@') ? `@${username.replace(/^@+/, '')}` : '';
+}
+
+function getWhatsAppQRCodeUrl(showAlerts = false) {
+    const target = getFieldValue('whatsapp-phone');
+    const message = document.getElementById('whatsapp-message').value;
+    const username = normalizeWhatsAppUsername(target);
+
+    if (username) {
+        if (!WHATSAPP_USERNAME_PATTERN.test(username)) {
+            return notifyValidation('alerts.whatsappPhoneRequired', showAlerts);
+        }
+
+        return `https://wa.me/${username}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
+    }
+
+    const digits = normalizeWhatsAppNumber(target);
+
+    if (!digits || digits.length < 7) {
+        return notifyValidation('alerts.whatsappPhoneRequired', showAlerts);
+    }
+
+    return `https://wa.me/${digits}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
+}
+
 function escapeICalText(value) {
     return String(value)
         .replace(/\\/g, '\\\\')
@@ -451,15 +479,7 @@ function collectQRCodeText(showAlerts = false) {
     }
 
     if (activeTab === 'WhatsApp') {
-        const phone = getFieldValue('whatsapp-phone');
-        const message = document.getElementById('whatsapp-message').value;
-        const digits = normalizeWhatsAppNumber(phone);
-
-        if (!digits || digits.length < 7) {
-            return notifyValidation('alerts.whatsappPhoneRequired', showAlerts);
-        }
-
-        return `https://wa.me/${digits}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
+        return getWhatsAppQRCodeUrl(showAlerts);
     }
 
     if (activeTab === 'MeCard') {
@@ -1058,8 +1078,10 @@ async function downloadQRCode() {
             ? `social_${platform}_${handle.replace(/^https?:\/\//i, '').substring(0, 30)}`
             : `social_${platform}`;
     } else if (activeTab === 'WhatsApp') {
-        const phoneNumber = document.getElementById('whatsapp-phone').value.trim();
-        filename = phoneNumber ? `whatsapp_${phoneNumber.replace(/[^\d+]/g, '')}` : 'whatsapp_message';
+        const whatsappTarget = document.getElementById('whatsapp-phone').value.trim();
+        filename = whatsappTarget
+            ? `whatsapp_${whatsappTarget.replace(/^@/, '').replace(/[^\dA-Za-z._-]/g, '')}`
+            : 'whatsapp_message';
     } else if (activeTab === 'MeCard') {
         const name = document.getElementById('mecard-name').value.trim();
         const email = document.getElementById('mecard-email').value.trim();

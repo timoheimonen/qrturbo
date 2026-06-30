@@ -221,6 +221,20 @@ test('WhatsApp payload normalizes number and encodes message', () => {
   assert.equal(app.alerts.at(-1), 'alerts.whatsappPhoneRequired');
 });
 
+test('WhatsApp payload accepts usernames and encodes message', () => {
+  const app = createAppHarness();
+
+  app.setActiveTab('WhatsApp');
+  app.setValue('whatsapp-phone', '@qr.turbo');
+  app.setValue('whatsapp-message', 'Hello username!');
+
+  assert.equal(app.collect(), 'https://wa.me/@qr.turbo?text=Hello%20username!');
+
+  app.setValue('whatsapp-phone', '@bad handle!');
+  assert.equal(app.collect(true), null);
+  assert.equal(app.alerts.at(-1), 'alerts.whatsappPhoneRequired');
+});
+
 test('MeCard payload validates email and URL and escapes reserved characters', () => {
   const app = createAppHarness();
 
