@@ -65,6 +65,8 @@ Logo images are processed using the browser's FileReader API - they never leave 
 
 MIT License.
 This project includes the [qr-code-styling](https://github.com/kozakdenys/qr-code-styling) library.
+Third-party copyright and license notices are listed in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## Author
 Timo Heimonen (timo.heimonen@proton.me)
