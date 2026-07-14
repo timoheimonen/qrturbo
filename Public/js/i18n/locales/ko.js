@@ -80,7 +80,7 @@
       socialPlatform: '플랫폼',
       socialProfileType: '프로필 유형',
       socialHandleOrUrl: '사용자 이름 또는 프로필 URL',
-      whatsappPhone: 'WhatsApp 번호',
+      whatsappPhone: 'WhatsApp 번호 또는 @사용자 이름',
       whatsappMessage: '메시지 (선택 사항)',
       mecardName: '이름',
       address: '주소',
@@ -118,7 +118,7 @@
       latitude: '37.5547',
       longitude: '126.9706',
       socialHandle: '@username 또는 https://...',
-      whatsappPhone: '예: +82555123456',
+      whatsappPhone: '예: +82555123456 또는 @username',
       whatsappMessage: 'WhatsApp 메시지를 여기에 입력하세요...',
       mecardName: '홍길동',
       address: '서울특별시 중구 세종대로 1',
@@ -194,7 +194,7 @@
       socialRequired: '소셜 미디어 사용자 이름 또는 프로필 URL을 입력하세요.',
       socialHandleInvalid: '문자, 숫자, 점, 밑줄 또는 하이픈을 사용하는 유효한 사용자 이름을 입력하세요.',
       socialUrlInvalid: 'http:// 또는 https:// 로 시작하는 유효한 소셜 프로필 URL을 입력하세요.',
-      whatsappPhoneRequired: '국가 코드가 포함된 WhatsApp 전화번호를 입력하세요.',
+      whatsappPhoneRequired: '국가 코드가 포함된 WhatsApp 전화번호 또는 올바른 @사용자 이름을 입력하세요.',
       mecardRequired: '이름, 전화번호 또는 이메일 중 하나 이상을 입력하세요.',
       appLinkRequired: '웹, iOS 또는 Android 앱 URL을 입력하세요.',
       urlInvalid: 'http:// 또는 https:// 로 시작하는 유효한 URL을 입력하세요.',
@@ -226,7 +226,7 @@
       github: 'GitHub에서 소스 코드 보기'
     },
     helpers: {
-      quietZoneHelper: 'QR 코드 주변 공간（권장: 안정적인 스캔을 위해 4-16px）',
+      quietZoneHelper: 'QR 코드 주변 공간(안정적인 스캔을 위해 최소 4모듈)',
       socialHandleHelper:
         '@username 같은 사용자 이름을 입력하거나 전체 https:// 프로필 URL을 붙여넣으세요.'
     },

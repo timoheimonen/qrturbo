@@ -82,7 +82,7 @@
       socialPlatform: 'Platform',
       socialProfileType: 'Profiltype',
       socialHandleOrUrl: 'Brugernavn eller profil-URL',
-      whatsappPhone: 'WhatsApp-nummer',
+      whatsappPhone: 'WhatsApp-nummer eller @brugernavn',
       whatsappMessage: 'Besked (valgfri)',
       mecardName: 'Navn',
       address: 'Adresse',
@@ -120,7 +120,7 @@
       latitude: '55.6761',
       longitude: '12.5683',
       socialHandle: '@brugernavn eller https://...',
-      whatsappPhone: 'f.eks., +45555123456',
+      whatsappPhone: 'f.eks., +45555123456 eller @brugernavn',
       whatsappMessage: 'Din WhatsApp-besked her...',
       mecardName: 'Hans Hansen',
       address: 'Hovedgade 123, København',
@@ -197,7 +197,7 @@
       socialRequired: 'Indtast et brugernavn til sociale medier eller en profil-URL.',
       socialHandleInvalid: 'Indtast et gyldigt brugernavn med bogstaver, tal, punktummer, understreger eller bindestreger.',
       socialUrlInvalid: 'Indtast en gyldig social profil-URL, der starter med http:// eller https://.',
-      whatsappPhoneRequired: 'Indtast et WhatsApp-telefonnummer med landekode.',
+      whatsappPhoneRequired: 'Indtast et WhatsApp-telefonnummer med landekode eller et gyldigt @brugernavn.',
       mecardRequired: 'Indtast mindst én af: Navn, telefonnummer eller e-mail.',
       appLinkRequired: 'Indtast en web-, iOS- eller Android-app-URL.',
       urlInvalid: 'Indtast en gyldig URL, der starter med http:// eller https://.',
@@ -230,7 +230,7 @@
       github: 'Se kildekode på GitHub'
     },
     helpers: {
-      quietZoneHelper: 'Plads omkring QR-koden (anbefalet: 4-16px for pålidelig scanning)',
+      quietZoneHelper: 'Plads omkring QR-koden (mindst 4 moduler for pålidelig scanning)',
       socialHandleHelper:
         'Indtast et brugernavn som @brugernavn, eller indsæt en fuld https:// profil-URL.'
     },

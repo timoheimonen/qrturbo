@@ -80,7 +80,7 @@
       socialPlatform: '平台',
       socialProfileType: '资料类型',
       socialHandleOrUrl: '用户名或资料 URL',
-      whatsappPhone: 'WhatsApp 号码',
+      whatsappPhone: 'WhatsApp 号码或 @用户名',
       whatsappMessage: '消息（可选）',
       mecardName: '姓名',
       address: '地址',
@@ -118,7 +118,7 @@
       latitude: '39.9087',
       longitude: '116.3975',
       socialHandle: '@username 或 https://...',
-      whatsappPhone: '例如，+86555123456',
+      whatsappPhone: '例如，+86555123456 或 @username',
       whatsappMessage: '在这里输入 WhatsApp 消息...',
       mecardName: '张三',
       address: '北京市东城区长安街1号',
@@ -194,7 +194,7 @@
       socialRequired: '请输入社交媒体用户名或资料 URL。',
       socialHandleInvalid: '请输入有效用户名，可使用字母、数字、点、下划线或连字符。',
       socialUrlInvalid: '请输入以 http:// 或 https:// 开头的有效社交资料 URL。',
-      whatsappPhoneRequired: '请输入带国家/地区代码的 WhatsApp 电话号码。',
+      whatsappPhoneRequired: '请输入带国家/地区代码的 WhatsApp 电话号码，或有效的 @用户名。',
       mecardRequired: '请至少填写以下之一：姓名、电话号码或电子邮件。',
       appLinkRequired: '请输入 Web、iOS 或 Android 应用 URL。',
       urlInvalid: '请输入以 http:// 或 https:// 开头的有效 URL。',
@@ -224,7 +224,7 @@
       github: '在 GitHub 上查看源代码'
     },
     helpers: {
-      quietZoneHelper: '二维码周围的空间（推荐：4-16像素以确保可靠扫描）',
+      quietZoneHelper: '二维码周围的空白区域（可靠扫描至少需要4个模块）',
       socialHandleHelper: '输入 @username 这样的用户名，或粘贴完整的 https:// 资料 URL。'
     },
     misc: {

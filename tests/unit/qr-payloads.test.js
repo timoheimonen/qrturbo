@@ -10,7 +10,10 @@ test('URL/Text returns the exact entered value and validates empty input', () =>
   app.setValue('qr-text', 'https://example.com/path?q=1');
   assert.equal(app.collect(), 'https://example.com/path?q=1');
 
-  app.setValue('qr-text', '');
+  app.setValue('qr-text', '  exact surrounding whitespace  ');
+  assert.equal(app.collect(), '  exact surrounding whitespace  ');
+
+  app.setValue('qr-text', ' \n\t ');
   assert.equal(app.collect(true), null);
   assert.deepEqual(app.alerts, ['alerts.enterText']);
 });
@@ -48,18 +51,18 @@ test('vCard requires at least one identity or contact field', () => {
   assert.deepEqual(app.alerts, ['alerts.vcardRequired']);
 });
 
-test('WiFi payload validates WPA/WEP and escapes QR WiFi delimiters', () => {
+test('WiFi payload preserves SSID exactly and validates/escapes QR WiFi data', () => {
   const app = createAppHarness();
 
   app.setActiveTab('Wifi');
-  app.setValue('wifi-ssid', 'Cafe;Net,Main');
+  app.setValue('wifi-ssid', ' Cafe:;Net,Main ');
   app.setValue('wifi-password', 'pass"word\\123');
   app.setValue('wifi-auth', 'WPA');
   app.setChecked('wifi-hidden', true);
 
   assert.equal(
     app.collect(),
-    'WIFI:S:Cafe\\;Net\\,Main;T:WPA;P:pass\\"word\\\\123;H:true;'
+    'WIFI:S: Cafe\\:\\;Net\\,Main ;T:WPA;P:pass\\"word\\\\123;H:true;'
   );
 
   app.setValue('wifi-password', 'short');
@@ -73,6 +76,10 @@ test('WiFi payload validates WPA/WEP and escapes QR WiFi delimiters', () => {
   app.setValue('wifi-password', 'abcdef');
   assert.equal(app.collect(true), null);
   assert.equal(app.alerts.at(-1), 'alerts.wifiWepPasswordInvalid');
+
+  app.setValue('wifi-ssid', '界'.repeat(11));
+  assert.equal(app.collect(true), null);
+  assert.equal(app.alerts.at(-1), 'alerts.wifiSsidLengthInvalid');
 });
 
 test('WiFi nopass omits the password field', () => {
@@ -109,7 +116,7 @@ test('Email payload validates recipient and URL-encodes subject and body', () =>
 
   const payload = app.collect();
 
-  assert.equal(payload, 'mailto:hello@example.com?subject=Hello+QR&body=Line+1%0ALine+2');
+  assert.equal(payload, 'mailto:hello@example.com?subject=Hello%20QR&body=Line%201%0D%0ALine%202');
 
   app.setValue('email-to', 'not-an-email');
   assert.equal(app.collect(true), null);
@@ -219,6 +226,30 @@ test('WhatsApp payload normalizes number and encodes message', () => {
   app.setValue('whatsapp-phone', '123');
   assert.equal(app.collect(true), null);
   assert.equal(app.alerts.at(-1), 'alerts.whatsappPhoneRequired');
+
+  app.setValue('whatsapp-phone', '1234567abc');
+  assert.equal(app.collect(true), null);
+  assert.equal(app.alerts.at(-1), 'alerts.whatsappPhoneRequired');
+});
+
+test('WhatsApp payload accepts usernames and encodes message', () => {
+  const app = createAppHarness();
+
+  app.setActiveTab('WhatsApp');
+  app.setValue('whatsapp-phone', '@qr.turbo');
+  app.setValue('whatsapp-message', 'Hello username!');
+
+  assert.equal(app.collect(), 'https://wa.me/qr.turbo?text=Hello%20username!');
+
+  app.setValue('whatsapp-phone', '@bad handle!');
+  assert.equal(app.collect(true), null);
+  assert.equal(app.alerts.at(-1), 'alerts.whatsappPhoneRequired');
+
+  for (const invalidUsername of ['@1234567', '@UPPER', '@@qr.turbo', 'qr.turbo']) {
+    app.setValue('whatsapp-phone', invalidUsername);
+    assert.equal(app.collect(true), null, `${invalidUsername} must not become a WhatsApp URL`);
+    assert.equal(app.alerts.at(-1), 'alerts.whatsappPhoneRequired');
+  }
 });
 
 test('MeCard payload validates email and URL and escapes reserved characters', () => {

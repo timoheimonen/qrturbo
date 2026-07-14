@@ -82,7 +82,7 @@
       socialPlatform: 'Plateforme',
       socialProfileType: 'Type de profil',
       socialHandleOrUrl: 'Identifiant ou URL du profil',
-      whatsappPhone: 'Numéro WhatsApp',
+      whatsappPhone: 'Numéro WhatsApp ou @utilisateur',
       whatsappMessage: 'Message (optionnel)',
       mecardName: 'Nom',
       address: 'Adresse',
@@ -120,7 +120,7 @@
       latitude: '48.8584',
       longitude: '2.2945',
       socialHandle: '@identifiant ou https://...',
-      whatsappPhone: 'ex., +33655123456',
+      whatsappPhone: 'ex., +33655123456 ou @utilisateur',
       whatsappMessage: 'Votre message WhatsApp ici...',
       mecardName: 'Jean Dupont',
       address: '123 rue Principale, Paris',
@@ -197,7 +197,7 @@
       socialRequired: 'Veuillez saisir un identifiant de réseau social ou une URL de profil.',
       socialHandleInvalid: 'Veuillez saisir un identifiant valide avec des lettres, chiffres, points, tirets bas ou tirets.',
       socialUrlInvalid: 'Veuillez saisir une URL de profil social valide commençant par http:// ou https://.',
-      whatsappPhoneRequired: 'Veuillez saisir un numéro WhatsApp avec indicatif pays.',
+      whatsappPhoneRequired: 'Veuillez saisir un numéro WhatsApp avec indicatif pays ou un @utilisateur valide.',
       mecardRequired: 'Veuillez saisir au moins un de : Nom, numéro de téléphone ou e-mail.',
       appLinkRequired: 'Veuillez saisir une URL d’app web, iOS ou Android.',
       urlInvalid: 'Veuillez saisir une URL valide commençant par http:// ou https://.',
@@ -233,7 +233,7 @@
     },
     helpers: {
       quietZoneHelper:
-        'Espace autour du code QR (recommandé: 4-16px pour un scan fiable)',
+        'Espace autour du code QR (au moins 4 modules pour un scan fiable)',
       socialHandleHelper:
         'Saisissez un identifiant comme @identifiant ou collez une URL complète de profil https://.'
     },

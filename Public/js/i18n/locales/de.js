@@ -82,7 +82,7 @@
       socialPlatform: 'Plattform',
       socialProfileType: 'Profiltyp',
       socialHandleOrUrl: 'Benutzername oder Profil-URL',
-      whatsappPhone: 'WhatsApp-Nummer',
+      whatsappPhone: 'WhatsApp-Nummer oder @Benutzername',
       whatsappMessage: 'Nachricht (optional)',
       mecardName: 'Name',
       address: 'Adresse',
@@ -120,7 +120,7 @@
       latitude: '52.5163',
       longitude: '13.3777',
       socialHandle: '@benutzername oder https://...',
-      whatsappPhone: 'z.B., +49555123456',
+      whatsappPhone: 'z.B., +49555123456 oder @benutzername',
       whatsappMessage: 'Ihre WhatsApp-Nachricht hier...',
       mecardName: 'Max Mustermann',
       address: 'Hauptstraße 123, Berlin',
@@ -197,7 +197,7 @@
       socialRequired: 'Bitte geben Sie einen Social-Media-Benutzernamen oder eine Profil-URL ein.',
       socialHandleInvalid: 'Bitte geben Sie einen gültigen Benutzernamen mit Buchstaben, Zahlen, Punkten, Unterstrichen oder Bindestrichen ein.',
       socialUrlInvalid: 'Bitte geben Sie eine gültige Social-Profil-URL ein, die mit http:// oder https:// beginnt.',
-      whatsappPhoneRequired: 'Bitte geben Sie eine WhatsApp-Telefonnummer mit Ländervorwahl ein.',
+      whatsappPhoneRequired: 'Bitte geben Sie eine WhatsApp-Telefonnummer mit Ländervorwahl oder einen gültigen @Benutzernamen ein.',
       mecardRequired: 'Bitte geben Sie mindestens eines ein: Name, Telefonnummer oder E-Mail.',
       appLinkRequired: 'Bitte geben Sie eine Web-, iOS- oder Android-App-URL ein.',
       urlInvalid: 'Bitte geben Sie eine gültige URL ein, die mit http:// oder https:// beginnt.',
@@ -233,7 +233,7 @@
     },
     helpers: {
       quietZoneHelper:
-        'Platz um den QR-Code (empfohlen: 4-16px für zuverlässiges Scannen)',
+        'Platz um den QR-Code (mindestens 4 Module für zuverlässiges Scannen)',
       socialHandleHelper:
         'Geben Sie einen Benutzernamen wie @benutzername ein oder fügen Sie eine vollständige https:// Profil-URL ein.'
     },

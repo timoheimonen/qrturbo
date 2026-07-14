@@ -5,7 +5,7 @@
     --surface-hover: #f5f5f5;
     --text: #27272a;
     --text-strong: #18181b;
-    --text-muted: #71717a;
+    --text-muted: #686872;
     --border: #e4e4e7;
     --border-soft: #f0f0f0;
     --shadow: rgba(39, 39, 42, 0.08);
@@ -58,8 +58,8 @@ html[data-theme="dark"] {
     --field-border-hover: #71717a;
     --field-shadow: rgba(0, 0, 0, 0.22);
     --field-inner-shadow: rgba(255, 255, 255, 0.03);
-    --download: #a1a1aa;
-    --download-hover: #d4d4d8;
+    --download: #52525b;
+    --download-hover: #3f3f46;
     --download-soft: rgba(161, 161, 170, 0.18);
     --download-shadow: rgba(161, 161, 170, 0.24);
     --tab-active-bg: linear-gradient(135deg, rgba(161, 161, 170, 0.18), rgba(212, 212, 216, 0.12));
@@ -252,7 +252,7 @@ html[data-theme="dark"] select {
 input::placeholder,
 textarea::placeholder {
     color: var(--text-muted);
-    opacity: 0.72;
+    opacity: 1;
 }
 
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):hover,
@@ -344,11 +344,12 @@ button:hover::before {
     display: none; /* Initially hidden */
     margin-top: 15px;
     background: linear-gradient(135deg, var(--download), var(--download-hover));
+    color: #ffffff;
     animation: bounceIn 0.4s ease-out;
 }
 
 #download-btn:hover {
-    background: linear-gradient(135deg, var(--download-hover), var(--accent-deep));
+    background: linear-gradient(135deg, var(--download-hover), var(--download));
     box-shadow: 0 5px 15px var(--download-shadow);
 }
 
@@ -371,6 +372,24 @@ button:hover::before {
 
 .scan-warnings p + p {
     margin-top: 8px;
+}
+
+.form-error {
+    width: 100%;
+    margin: 0 0 14px;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid var(--danger);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--danger) 12%, var(--surface));
+    color: var(--text-strong);
+    text-align: left;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.form-error[hidden] {
+    display: none;
 }
 
 /* Bounce-in animation for the download button */
@@ -533,6 +552,14 @@ label {
     border: 1px solid var(--border-soft);
 }
 
+.payload-display {
+    width: 100%;
+}
+
+#payload-reveal-btn {
+    margin-top: 12px;
+}
+
 #qr-placeholder {
     color: var(--text-muted);
     margin-top: 20px;
@@ -597,6 +624,10 @@ label {
 
 .tab-content {
     display: none; /* Hidden by default, shown via JS */
+}
+
+.tab-content[hidden] {
+    display: none !important;
 }
 
 /* --- vCard Form Grid Layout --- */
@@ -707,6 +738,11 @@ footer {
     margin-top: 40px;
     text-align: center;
     color: var(--text-muted) !important;
+}
+
+.site-footer {
+    margin-top: 30px;
+    font-size: 0.9em;
 }
 
 footer p {

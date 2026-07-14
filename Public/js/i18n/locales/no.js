@@ -82,7 +82,7 @@
       socialPlatform: 'Plattform',
       socialProfileType: 'Profiltype',
       socialHandleOrUrl: 'Brukernavn eller profil-URL',
-      whatsappPhone: 'WhatsApp-nummer',
+      whatsappPhone: 'WhatsApp-nummer eller @brukernavn',
       whatsappMessage: 'Melding (valgfritt)',
       mecardName: 'Navn',
       address: 'Adresse',
@@ -120,7 +120,7 @@
       latitude: '59.9139',
       longitude: '10.7522',
       socialHandle: '@brukernavn eller https://...',
-      whatsappPhone: 'f.eks., +47555123456',
+      whatsappPhone: 'f.eks., +47555123456 eller @brukernavn',
       whatsappMessage: 'WhatsApp-meldingen din her...',
       mecardName: 'Ola Nordmann',
       address: 'Hovedgata 123, Oslo',
@@ -197,7 +197,7 @@
       socialRequired: 'Skriv inn et brukernavn for sosiale medier eller en profil-URL.',
       socialHandleInvalid: 'Skriv inn et gyldig brukernavn med bokstaver, tall, punktum, understreker eller bindestreker.',
       socialUrlInvalid: 'Skriv inn en gyldig sosial profil-URL som starter med http:// eller https://.',
-      whatsappPhoneRequired: 'Skriv inn et WhatsApp-telefonnummer med landskode.',
+      whatsappPhoneRequired: 'Skriv inn et WhatsApp-telefonnummer med landskode eller et gyldig @brukernavn.',
       mecardRequired: 'Skriv inn minst ett av: Navn, Telefonnummer eller E-post.',
       appLinkRequired: 'Skriv inn en web-, iOS- eller Android-app-URL.',
       urlInvalid: 'Skriv inn en gyldig URL som starter med http:// eller https://.',
@@ -230,7 +230,7 @@
       github: 'Vis kildekode på GitHub'
     },
     helpers: {
-      quietZoneHelper: 'Plass rundt QR-koden (anbefalt: 4-16px for pålitelig skanning)',
+      quietZoneHelper: 'Plass rundt QR-koden (minst 4 moduler for pålitelig skanning)',
       socialHandleHelper:
         'Skriv inn et brukernavn som @brukernavn, eller lim inn en full https:// profil-URL.'
     },

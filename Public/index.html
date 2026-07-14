@@ -87,8 +87,8 @@
 </head>
 
 <body>
-    <div class="theme-selector" role="group" aria-label="Theme">
-        <button type="button" class="theme-option" data-theme-choice="light" aria-label="Light theme" aria-pressed="true">
+    <div class="theme-selector" role="group" aria-label="Theme" data-i18n-aria-label="aria.themeGroup">
+        <button type="button" class="theme-option" data-theme-choice="light" aria-label="Light theme" data-i18n-aria-label="aria.lightTheme" aria-pressed="true">
             <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
                 <circle cx="12" cy="12" r="4"></circle>
                 <path d="M12 2v2"></path>
@@ -101,7 +101,7 @@
                 <path d="m19.07 4.93-1.41 1.41"></path>
             </svg>
         </button>
-        <button type="button" class="theme-option" data-theme-choice="dark" aria-label="Dark theme" aria-pressed="false">
+        <button type="button" class="theme-option" data-theme-choice="dark" aria-label="Dark theme" data-i18n-aria-label="aria.darkTheme" aria-pressed="false">
             <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
                 <path d="M12 3a6.8 6.8 0 0 0 8.95 8.95 8 8 0 1 1-8.95-8.95Z"></path>
             </svg>
@@ -114,7 +114,7 @@
         <!-- Language Selector -->
         <div class="language-selector">
             <label for="lang-select" class="sr-only" data-i18n="app.selectLanguage">Select Language</label>
-            <select id="lang-select" aria-label="Language">
+            <select id="lang-select" aria-label="Language" data-i18n-aria-label="aria.language">
                 <option value="en">English</option>
                 <option value="es">Español</option>
                 <option value="fr">Français</option>
@@ -134,29 +134,29 @@
     </header>
 
     <!-- Tab navigation for switching between QR code types -->
-    <nav id="tabs" role="tablist" aria-label="QR Code Types">
-        <button class="tab-link active" data-tab="URLText" role="tab" aria-selected="true" data-i18n="tabs.urlText">URL/Text</button>
-        <button class="tab-link" data-tab="VCard" role="tab" aria-selected="false" data-i18n="tabs.vcard">vCard</button>
-        <button class="tab-link" data-tab="SMSPhone" role="tab" aria-selected="false" data-i18n="tabs.smsPhone">SMS/Phone</button>
-        <button class="tab-link" data-tab="Wifi" role="tab" aria-selected="false" data-i18n="tabs.wifi">WiFi</button>
-        <button class="tab-link" data-tab="Email" role="tab" aria-selected="false" data-i18n="tabs.email">Email</button>
-        <button class="tab-link" data-tab="CalendarEvent" role="tab" aria-selected="false" data-i18n="tabs.calendarEvent">Event</button>
-        <button class="tab-link" data-tab="Location" role="tab" aria-selected="false" data-i18n="tabs.location">Location</button>
-        <button class="tab-link" data-tab="SocialMedia" role="tab" aria-selected="false" data-i18n="tabs.socialMedia">Social Media</button>
-        <button class="tab-link" data-tab="WhatsApp" role="tab" aria-selected="false" data-i18n="tabs.whatsapp">WhatsApp</button>
-        <button class="tab-link" data-tab="MeCard" role="tab" aria-selected="false" data-i18n="tabs.mecard">MeCard</button>
-        <button class="tab-link" data-tab="AppLink" role="tab" aria-selected="false" data-i18n="tabs.appLink">App Link</button>
+    <nav id="tabs" role="tablist" aria-label="QR Code Types" data-i18n-aria-label="aria.qrTypes">
+        <button type="button" id="tab-URLText" class="tab-link active" data-tab="URLText" role="tab" aria-controls="URLText" aria-selected="true" tabindex="0" data-i18n="tabs.urlText">URL/Text</button>
+        <button type="button" id="tab-VCard" class="tab-link" data-tab="VCard" role="tab" aria-controls="VCard" aria-selected="false" tabindex="-1" data-i18n="tabs.vcard">vCard</button>
+        <button type="button" id="tab-SMSPhone" class="tab-link" data-tab="SMSPhone" role="tab" aria-controls="SMSPhone" aria-selected="false" tabindex="-1" data-i18n="tabs.smsPhone">SMS/Phone</button>
+        <button type="button" id="tab-Wifi" class="tab-link" data-tab="Wifi" role="tab" aria-controls="Wifi" aria-selected="false" tabindex="-1" data-i18n="tabs.wifi">WiFi</button>
+        <button type="button" id="tab-Email" class="tab-link" data-tab="Email" role="tab" aria-controls="Email" aria-selected="false" tabindex="-1" data-i18n="tabs.email">Email</button>
+        <button type="button" id="tab-CalendarEvent" class="tab-link" data-tab="CalendarEvent" role="tab" aria-controls="CalendarEvent" aria-selected="false" tabindex="-1" data-i18n="tabs.calendarEvent">Event</button>
+        <button type="button" id="tab-Location" class="tab-link" data-tab="Location" role="tab" aria-controls="Location" aria-selected="false" tabindex="-1" data-i18n="tabs.location">Location</button>
+        <button type="button" id="tab-SocialMedia" class="tab-link" data-tab="SocialMedia" role="tab" aria-controls="SocialMedia" aria-selected="false" tabindex="-1" data-i18n="tabs.socialMedia">Social Media</button>
+        <button type="button" id="tab-WhatsApp" class="tab-link" data-tab="WhatsApp" role="tab" aria-controls="WhatsApp" aria-selected="false" tabindex="-1" data-i18n="tabs.whatsapp">WhatsApp</button>
+        <button type="button" id="tab-MeCard" class="tab-link" data-tab="MeCard" role="tab" aria-controls="MeCard" aria-selected="false" tabindex="-1" data-i18n="tabs.mecard">MeCard</button>
+        <button type="button" id="tab-AppLink" class="tab-link" data-tab="AppLink" role="tab" aria-controls="AppLink" aria-selected="false" tabindex="-1" data-i18n="tabs.appLink">App Link</button>
     </nav>
 
     <!-- Tab Content: URL/Text Input -->
-    <div id="URLText" class="tab-content" style="display: block;">
+    <div id="URLText" class="tab-content" role="tabpanel" aria-labelledby="tab-URLText" tabindex="0" style="display: block;">
         <label for="qr-text" data-i18n="fields.textOrUrl">Text or URL</label>
         <textarea id="qr-text" data-i18n-placeholder="placeholders.url" placeholder="e.g., https://www.example.com" maxlength="2000" rows="4"></textarea>
         <div id="char-count" class="char-counter">0 / 2000 characters</div>
     </div>
 
     <!-- Tab Content: vCard Input Form -->
-    <div id="VCard" class="tab-content">
+    <div id="VCard" class="tab-content" role="tabpanel" aria-labelledby="tab-VCard" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="input-group">
                 <!-- vCard Fields -->
@@ -215,7 +215,7 @@
     </div>
 
     <!-- Tab Content: Wifi Input Form -->
-    <div id="Wifi" class="tab-content">
+    <div id="Wifi" class="tab-content" role="tabpanel" aria-labelledby="tab-Wifi" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="input-group full-width">
                 <label for="wifi-ssid" data-i18n="fields.ssid">Network Name (SSID)</label>
@@ -243,7 +243,7 @@
     </div>
 
     <!-- Tab Content: SMS/Phone Input Form -->
-    <div id="SMSPhone" class="tab-content">
+    <div id="SMSPhone" class="tab-content" role="tabpanel" aria-labelledby="tab-SMSPhone" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="radio-group-container">
                 <div class="radio-group">
@@ -269,7 +269,7 @@
     </div>
 
     <!-- Tab Content: Email Input Form -->
-    <div id="Email" class="tab-content">
+    <div id="Email" class="tab-content" role="tabpanel" aria-labelledby="tab-Email" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="input-group full-width">
                 <label for="email-to" data-i18n="fields.emailTo">Recipient Email</label>
@@ -287,7 +287,7 @@
     </div>
 
     <!-- Tab Content: Calendar Event Input Form -->
-    <div id="CalendarEvent" class="tab-content">
+    <div id="CalendarEvent" class="tab-content" role="tabpanel" aria-labelledby="tab-CalendarEvent" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="input-group full-width">
                 <label for="event-title" data-i18n="fields.eventTitle">Event Title</label>
@@ -313,7 +313,7 @@
     </div>
 
     <!-- Tab Content: Location Input Form -->
-    <div id="Location" class="tab-content">
+    <div id="Location" class="tab-content" role="tabpanel" aria-labelledby="tab-Location" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="input-group full-width">
                 <label for="location-address" data-i18n="fields.locationAddress">Address or Place</label>
@@ -331,7 +331,7 @@
     </div>
 
     <!-- Tab Content: Social Media Input Form -->
-    <div id="SocialMedia" class="tab-content">
+    <div id="SocialMedia" class="tab-content" role="tabpanel" aria-labelledby="tab-SocialMedia" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="input-group">
                 <label for="social-platform" data-i18n="fields.socialPlatform">Platform</label>
@@ -371,11 +371,11 @@
     </div>
 
     <!-- Tab Content: WhatsApp Input Form -->
-    <div id="WhatsApp" class="tab-content">
+    <div id="WhatsApp" class="tab-content" role="tabpanel" aria-labelledby="tab-WhatsApp" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="input-group full-width">
-                <label for="whatsapp-phone" data-i18n="fields.whatsappPhone">WhatsApp Number</label>
-                <input type="tel" id="whatsapp-phone" data-i18n-placeholder="placeholders.whatsappPhone" placeholder="e.g., +15551234567" maxlength="30">
+                <label for="whatsapp-phone" data-i18n="fields.whatsappPhone">WhatsApp Number or @username</label>
+                <input type="text" id="whatsapp-phone" data-i18n-placeholder="placeholders.whatsappPhone" placeholder="e.g., +15551234567 or @username" maxlength="40">
             </div>
             <div class="input-group full-width">
                 <label for="whatsapp-message" data-i18n="fields.whatsappMessage">Message (optional)</label>
@@ -385,7 +385,7 @@
     </div>
 
     <!-- Tab Content: MeCard Input Form -->
-    <div id="MeCard" class="tab-content">
+    <div id="MeCard" class="tab-content" role="tabpanel" aria-labelledby="tab-MeCard" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="input-group full-width">
                 <label for="mecard-name" data-i18n="fields.mecardName">Name</label>
@@ -411,7 +411,7 @@
     </div>
 
     <!-- Tab Content: App Link Input Form -->
-    <div id="AppLink" class="tab-content">
+    <div id="AppLink" class="tab-content" role="tabpanel" aria-labelledby="tab-AppLink" tabindex="0" hidden>
         <div class="vcard-grid">
             <div class="input-group full-width">
                 <label for="app-web-url" data-i18n="fields.appWebUrl">Fallback / Web URL</label>
@@ -445,23 +445,23 @@
 
     <!-- Customization Section -->
     <div class="customization-section">
-        <button type="button" id="customize-toggle" class="customize-toggle" aria-expanded="false">
+        <button type="button" id="customize-toggle" class="customize-toggle" aria-expanded="false" aria-controls="customize-panel">
             <span id="customize-icon">▶</span> <span data-i18n="actions.customize">Customize Appearance (Optional)</span>
         </button>
         <div id="customize-panel" class="customize-panel" style="display:none;">
             <div class="customize-grid">
                 <div class="input-group">
-                    <label for="qr-fg-color" data-i18n="fields.foregroundColor">Foreground Color</label>
+                    <label id="qr-fg-color-label" for="qr-fg-color" data-i18n="fields.foregroundColor">Foreground Color</label>
                     <div class="color-input-wrapper">
                         <input type="color" id="qr-fg-color" value="#000000">
-                        <input type="text" id="qr-fg-color-text" value="#000000" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$">
+                        <input type="text" id="qr-fg-color-text" value="#000000" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="qr-fg-color-label">
                     </div>
                 </div>
                 <div class="input-group">
-                    <label for="qr-bg-color" data-i18n="fields.backgroundColor">Background Color</label>
+                    <label id="qr-bg-color-label" for="qr-bg-color" data-i18n="fields.backgroundColor">Background Color</label>
                     <div class="color-input-wrapper">
                         <input type="color" id="qr-bg-color" value="#ffffff">
-                        <input type="text" id="qr-bg-color-text" value="#ffffff" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$">
+                        <input type="text" id="qr-bg-color-text" value="#ffffff" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="qr-bg-color-label">
                     </div>
                     <div class="checkbox-group compact-checkbox">
                         <input type="checkbox" id="qr-transparent-bg">
@@ -543,9 +543,9 @@
                     </div>
                 </div>
                 <div class="slider-group">
-                    <label for="qr-margin" data-i18n="fields.quietZone">Quiet Zone (Margin)</label>: <span id="qr-margin-value">16px</span>
-                    <input type="range" id="qr-margin" min="0" max="40" step="4" value="16">
-                    <p class="helper-text" data-i18n="helpers.quietZoneHelper">Space around the QR code (recommended: 4-16px for reliable scanning)</p>
+                    <label for="qr-margin" data-i18n="fields.quietZone">Quiet Zone (Margin)</label>: <span id="qr-margin-value">4 modules</span>
+                    <input type="range" id="qr-margin" min="4" max="12" step="1" value="4" aria-describedby="quiet-zone-helper">
+                    <p id="quiet-zone-helper" class="helper-text" data-i18n="helpers.quietZoneHelper">Space around the QR code (minimum: 4 modules for reliable scanning)</p>
                 </div>
             </div>
 
@@ -554,22 +554,26 @@
     </div>
 
     <!-- QR Code Display Area -->
-    <div id="qr-container">
-        <p id="qr-placeholder" data-i18n="misc.qrPlaceholder">QR Code will appear here</p>
+    <div id="qr-container" aria-busy="false">
+        <p id="form-error" class="form-error" role="alert" aria-live="assertive" aria-atomic="true" hidden></p>
+        <p id="qr-placeholder" role="status" aria-live="polite" data-i18n="misc.qrPlaceholder">QR Code will appear here</p>
         <div id="qr-canvas-container"></div>
         <div id="scan-warnings" class="scan-warnings" role="status" aria-live="polite" style="display:none;"></div>
         <img id="qr-image" src="" alt="QR Code" style="display:none;">
-        <p id="qr-code-text" style="display:none;"></p>
-        <button id="download-btn" onclick="downloadQRCode()" data-i18n="actions.download">Download QR Code</button>
+        <div class="payload-display">
+            <p id="qr-code-text" style="display:none;"></p>
+            <button type="button" id="payload-reveal-btn" class="secondary-btn small-btn" data-i18n="actions.showPayload" hidden>Show QR data</button>
+        </div>
+        <button type="button" id="download-btn" data-i18n="actions.download">Download QR Code</button>
     </div>
 
     <!-- Footer / Info Section -->
-    <footer style="font-size: 0.9em; color: #666; margin-top: 30px;">
+    <footer class="site-footer">
         <p data-i18n="footer.privacy1">This free QR code generator runs entirely in your browser.</p>
         <p data-i18n="footer.privacy2">No data is stored or sent anywhere. No tracking, no ads, no nonsense.</p>
         <p><a href="/privacy.html" data-i18n="footer.privacyPolicy">Privacy Policy</a></p>
         <p><a href="/terms.html" data-i18n="footer.termsOfUse">Terms of Use</a></p>
-        <p><a href="https://github.com/timoheimonen/qrturbo" target="_blank" style="color: #007acc;" data-i18n="footer.github">View source on
+        <p><a href="https://github.com/timoheimonen/qrturbo" target="_blank" data-i18n="footer.github">View source on
                 GitHub</a></p>
     </footer>
 

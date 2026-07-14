@@ -82,7 +82,7 @@
       socialPlatform: 'Plataforma',
       socialProfileType: 'Tipo de perfil',
       socialHandleOrUrl: 'Usuario o URL del perfil',
-      whatsappPhone: 'Número de WhatsApp',
+      whatsappPhone: 'Número de WhatsApp o @usuario',
       whatsappMessage: 'Mensaje (opcional)',
       mecardName: 'Nombre',
       address: 'Dirección',
@@ -120,7 +120,7 @@
       latitude: '40.4169',
       longitude: '-3.7035',
       socialHandle: '@usuario o https://...',
-      whatsappPhone: 'ej., +34555123456',
+      whatsappPhone: 'ej., +34555123456 o @usuario',
       whatsappMessage: 'Tu mensaje de WhatsApp aquí...',
       mecardName: 'Juan Pérez',
       address: 'Calle Principal 123, Madrid',
@@ -197,7 +197,7 @@
       socialRequired: 'Por favor ingresa un usuario de red social o una URL de perfil.',
       socialHandleInvalid: 'Por favor ingresa un usuario válido con letras, números, puntos, guiones bajos o guiones.',
       socialUrlInvalid: 'Por favor ingresa una URL válida de perfil social que empiece con http:// o https://.',
-      whatsappPhoneRequired: 'Por favor ingresa un número de WhatsApp con código de país.',
+      whatsappPhoneRequired: 'Por favor ingresa un número de WhatsApp con código de país o un @usuario válido.',
       mecardRequired: 'Por favor ingresa al menos uno de: Nombre, Número de teléfono o Correo.',
       appLinkRequired: 'Por favor ingresa una URL de app web, iOS o Android.',
       urlInvalid: 'Por favor ingresa una URL válida que empiece con http:// o https://.',
@@ -233,7 +233,7 @@
     },
     helpers: {
       quietZoneHelper:
-        'Espacio alrededor del código QR (recomendado: 4-16px para escaneo confiable)',
+        'Espacio alrededor del código QR (mínimo 4 módulos para un escaneo fiable)',
       socialHandleHelper:
         'Ingresa un usuario como @usuario o pega una URL completa de perfil https://.'
     },
