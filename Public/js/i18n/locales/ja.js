@@ -227,7 +227,7 @@
       github: 'GitHubでソースコードを表示'
     },
     helpers: {
-      quietZoneHelper: 'QRコード周辺のスペース（推奨：信頼性の高いスキャンのために4-16px）',
+      quietZoneHelper: 'QRコード周辺のスペース（確実な読み取りには最低4モジュール）',
       socialHandleHelper:
         '@username のようなユーザー名を入力するか、完全な https:// プロフィールURLを貼り付けてください。'
     },

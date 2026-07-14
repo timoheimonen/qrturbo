@@ -14,6 +14,7 @@ test('home page loads, generates a URL QR code and does not make external reques
   await page.goto('/');
   await expect(page).toHaveTitle(/QRTurbo\.app/);
   await expect(page.getByRole('heading', { name: /QRTurbo\.app/i })).toBeVisible();
+  await expect(page.locator('#char-count')).toHaveText('0 / 2000 characters');
 
   await page.locator('#qr-text').fill('https://example.com');
   await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toBeVisible({
@@ -65,6 +66,20 @@ test('Social Media QR generation supports single-platform profile links', async 
   });
 });
 
+test('WhatsApp username QR omits the at sign and keeps the encoded message', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('tab', { name: 'WhatsApp' }).click();
+  await page.locator('#whatsapp-phone').fill('@qr.turbo');
+  await page.locator('#whatsapp-message').fill('Hello username!');
+
+  await expect(page.locator('#qr-code-text')).toHaveText(
+    'https://wa.me/qr.turbo?text=Hello%20username!',
+    { timeout: 10_000 }
+  );
+  await expect(page.locator('#download-btn')).toBeVisible();
+});
+
 test('PDF export downloads a valid PDF file in the browser', async ({ page }) => {
   await page.goto('/');
 
@@ -99,7 +114,7 @@ test('customization panel updates controls and transparent background state', as
   await expect(page.locator('#qr-bg-color-text')).toBeDisabled();
 
   await page.locator('#qr-margin').fill('4');
-  await expect(page.locator('#qr-margin-value')).toHaveText('4px');
+  await expect(page.locator('#qr-margin-value')).toHaveText('4 modules');
 });
 
 test('language and theme selectors persist browser state', async ({ page }) => {
@@ -109,7 +124,7 @@ test('language and theme selectors persist browser state', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
   await expect(page.locator('[data-i18n="fields.textOrUrl"]')).toHaveText('Teksti tai URL');
 
-  await page.getByLabel('Dark theme').click();
+  await page.locator('[data-theme-choice="dark"]').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 
   await page.reload();

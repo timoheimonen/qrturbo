@@ -230,7 +230,7 @@
       github: 'Se kildekode på GitHub'
     },
     helpers: {
-      quietZoneHelper: 'Plads omkring QR-koden (anbefalet: 4-16px for pålidelig scanning)',
+      quietZoneHelper: 'Plads omkring QR-koden (mindst 4 moduler for pålidelig scanning)',
       socialHandleHelper:
         'Indtast et brugernavn som @brugernavn, eller indsæt en fuld https:// profil-URL.'
     },

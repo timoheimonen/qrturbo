@@ -20,6 +20,13 @@ const translations = {
         'Create customizable QR codes with logos, colors, and styles. Support for URLs, WiFi, vCards, SMS, and phone calls',
       selectLanguage: 'Select Language'
     },
+    aria: {
+      themeGroup: 'Theme',
+      lightTheme: 'Light theme',
+      darkTheme: 'Dark theme',
+      language: 'Language',
+      qrTypes: 'QR code types'
+    },
     tabs: {
       urlText: 'URL/Text',
       vcard: 'vCard',
@@ -135,7 +142,9 @@ const translations = {
       customize: 'Customize Appearance (Optional)',
       chooseLogo: 'Choose Image',
       showPassword: 'Show password',
-      hidePassword: 'Hide password'
+      hidePassword: 'Hide password',
+      showPayload: 'Show QR data',
+      hidePayload: 'Hide QR data'
     },
     options: {
       sizeSmall: 'Small (256px)',
@@ -183,6 +192,7 @@ const translations = {
       vcardRequired:
         'Please fill at least one of: First Name, Last Name, Email or Phone number.',
       wifiSsidRequired: 'Please enter the Network Name (SSID).',
+      wifiSsidLengthInvalid: 'A WiFi network name can be at most 32 UTF-8 bytes.',
       wifiWpaPasswordInvalid:
         'WPA/WPA2 passwords must be 8-63 printable characters, or exactly 64 hexadecimal characters.',
       wifiWepPasswordInvalid:
@@ -207,6 +217,7 @@ const translations = {
       noData: 'No data provided for QR code.',
       libraryLoadFailed: 'QR Code library failed to load. Please refresh the page.',
       generationError: 'Error generating QR code',
+      dataTooLong: 'This content is too large for the selected QR error correction level. Shorten it or choose a lower level.',
       pdfExportFailed: 'PDF export failed. Please try again.',
       generateFirst: 'Please generate a QR code first.',
       resetSuccess: 'Customization reset to defaults',
@@ -216,6 +227,9 @@ const translations = {
     },
     counters: {
       characters: '{{current}} / {{max}} characters'
+    },
+    units: {
+      modules: '{{count}} modules'
     },
     labels: {
       sms: 'SMS',
@@ -227,7 +241,7 @@ const translations = {
       transparentBackground:
         'Transparent backgrounds depend on the final surface. Test the QR code on the exact background before publishing.',
       quietZoneSmall:
-        'The quiet zone is small. Use at least 8px, preferably 16px, for more reliable scanning.',
+        'The quiet zone is too small. Use at least 4 modules for reliable scanning.',
       denseData:
         'This QR code contains a lot of data for the selected size. Use a larger size or shorten the content.',
       logoErrorCorrection:
@@ -244,13 +258,14 @@ const translations = {
     },
     helpers: {
       quietZoneHelper:
-        'Space around the QR code (recommended: 4-16px for reliable scanning)',
+        'Space around the QR code (minimum: 4 modules for reliable scanning)',
       socialHandleHelper:
         'Enter a handle such as @username or paste a full https:// profile URL.'
     },
     misc: {
       qrPlaceholder: 'QR Code will appear here',
-      socialPreview: 'QR target'
+      socialPreview: 'QR target',
+      wifiPayloadHidden: 'WiFi configuration — password hidden'
     }
   }
 };
@@ -272,7 +287,7 @@ function getNestedValue(obj, path) {
 
 // Helper function to replace variables in template strings
 function replaceVars(str, vars) {
-  return str.replace(/\{\{(\w+)\}\}/g, (_, name) => vars[name] || '');
+  return str.replace(/\{\{(\w+)\}\}/g, (_, name) => vars[name] ?? '');
 }
 
 // Helper function to check if a language is available
@@ -439,6 +454,12 @@ function translatePage() {
     el.setAttribute('placeholder', t(key));
   });
 
+  // Translate accessible names that are not visible text.
+  document.querySelectorAll('[data-i18n-aria-label]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-aria-label');
+    el.setAttribute('aria-label', t(key));
+  });
+
   // Translate option values (for select dropdowns)
   document.querySelectorAll('[data-i18n-option]').forEach((el) => {
     const key = el.getAttribute('data-i18n-option');
@@ -470,6 +491,29 @@ function updateDynamicTranslations() {
       current: currentLength,
       max: 300
     });
+  }
+
+  const marginInput = document.getElementById('qr-margin');
+  const marginValue = document.getElementById('qr-margin-value');
+  if (marginInput && marginValue) {
+    marginValue.textContent = t('units.modules', { count: Number(marginInput.value) });
+  }
+
+  const revealButton = document.getElementById('payload-reveal-btn');
+  if (revealButton) {
+    revealButton.textContent = t(
+      revealButton.dataset.revealed === 'true' ? 'actions.hidePayload' : 'actions.showPayload'
+    );
+  }
+
+  const qrCodeText = document.getElementById('qr-code-text');
+  if (revealButton && qrCodeText && !revealButton.hidden && revealButton.dataset.revealed !== 'true') {
+    qrCodeText.textContent = t('misc.wifiPayloadHidden');
+  }
+
+  const formError = document.getElementById('form-error');
+  if (formError?.dataset.i18nKey) {
+    formError.textContent = t(formError.dataset.i18nKey);
   }
 }
 

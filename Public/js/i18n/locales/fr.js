@@ -233,7 +233,7 @@
     },
     helpers: {
       quietZoneHelper:
-        'Espace autour du code QR (recommandé: 4-16px pour un scan fiable)',
+        'Espace autour du code QR (au moins 4 modules pour un scan fiable)',
       socialHandleHelper:
         'Saisissez un identifiant comme @identifiant ou collez une URL complète de profil https://.'
     },

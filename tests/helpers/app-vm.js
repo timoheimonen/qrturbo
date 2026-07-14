@@ -9,6 +9,9 @@ function createElement(initial = {}) {
     value: '',
     checked: false,
     disabled: false,
+    hidden: false,
+    textContent: '',
+    innerHTML: '',
     dataset: {},
     style: {},
     classList: {
@@ -17,8 +20,10 @@ function createElement(initial = {}) {
       toggle() {}
     },
     setAttribute() {},
+    removeAttribute() {},
     addEventListener() {},
     dispatchEvent() {},
+    focus() {},
     ...initial
   };
 }
@@ -38,7 +43,11 @@ function createAppHarness() {
   const document = {
     documentElement: createElement({ dataset: {} }),
     addEventListener() {},
-    getElementById: getElement,
+    getElementById(id) {
+      // Payload unit tests intentionally exercise the non-DOM alert fallback;
+      // browser tests cover the real inline error region in index.html.
+      return id === 'form-error' ? null : getElement(id);
+    },
     querySelector(selector) {
       if (selector === '.tab-link.active') {
         return createElement({ dataset: { tab: activeTab } });
@@ -85,6 +94,8 @@ function createAppHarness() {
     Blob,
     URL,
     URLSearchParams,
+    TextEncoder,
+    TextDecoder,
     FileReader: class FileReader {},
     Event: class Event {
       constructor(type) {

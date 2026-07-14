@@ -21,6 +21,13 @@
         'Luo mukautettavia QR-koodeja logoilla, väreillä ja tyyleillä. Tuki URL-osoitteille, WiFi:lle, vCardeille, tekstiviesteille ja puheluille',
       selectLanguage: 'Valitse Kieli'
     },
+    aria: {
+      themeGroup: 'Teema',
+      lightTheme: 'Vaalea teema',
+      darkTheme: 'Tumma teema',
+      language: 'Kieli',
+      qrTypes: 'QR-koodityypit'
+    },
     tabs: {
       urlText: 'URL/Teksti',
       vcard: 'vCard',
@@ -136,7 +143,9 @@
       customize: 'Mukauta Ulkoasu (Valinnainen)',
       chooseLogo: 'Valitse Kuva',
       showPassword: 'Näytä salasana',
-      hidePassword: 'Piilota salasana'
+      hidePassword: 'Piilota salasana',
+      showPayload: 'Näytä QR-tiedot',
+      hidePayload: 'Piilota QR-tiedot'
     },
     options: {
       sizeSmall: 'Pieni (256px)',
@@ -183,6 +192,7 @@
       enterText: 'Anna teksti tai URL',
       vcardRequired: 'Täytä vähintään yksi: Etunimi, Sukunimi, Sähköposti tai Puhelinnumero.',
       wifiSsidRequired: 'Anna Verkon Nimi (SSID).',
+      wifiSsidLengthInvalid: 'WiFi-verkon nimi voi olla enintään 32 UTF-8-tavua.',
       wifiWpaPasswordInvalid:
         'WPA/WPA2-salasanan on oltava 8-63 tulostettavaa merkkiä tai täsmälleen 64 heksadesimaalimerkkiä.',
       wifiWepPasswordInvalid:
@@ -207,6 +217,7 @@
       noData: 'Ei tietoja QR-koodille.',
       libraryLoadFailed: 'QR-koodikirjastoa ei voitu ladata. Päivitä sivu.',
       generationError: 'Virhe QR-koodin luomisessa',
+      dataTooLong: 'Sisältö on liian suuri valitulle QR-virheenkorjaustasolle. Lyhennä sisältöä tai valitse matalampi taso.',
       pdfExportFailed: 'PDF-vienti epäonnistui. Yritä uudelleen.',
       generateFirst: 'Luo ensin QR-koodi.',
       resetSuccess: 'Mukautus palautettu oletusasetuksiin',
@@ -216,6 +227,9 @@
     },
     counters: {
       characters: '{{current}} / {{max}} merkkiä'
+    },
+    units: {
+      modules: '{{count}} moduulia'
     },
     labels: {
       sms: 'SMS',
@@ -227,7 +241,7 @@
       transparentBackground:
         'Läpinäkyvä tausta riippuu lopullisesta pinnasta. Testaa QR-koodi oikealla taustalla ennen julkaisua.',
       quietZoneSmall:
-        'Hiljainen vyöhyke on pieni. Käytä vähintään 8px, mieluiten 16px, luotettavampaan skannaukseen.',
+        'Hiljainen vyöhyke on liian pieni. Käytä vähintään 4 moduulia luotettavaan skannaukseen.',
       denseData:
         'QR-koodissa on paljon dataa valittuun kokoon nähden. Käytä suurempaa kokoa tai lyhennä sisältöä.',
       logoErrorCorrection:
@@ -245,13 +259,14 @@
     },
     helpers: {
       quietZoneHelper:
-        'Tila QR-koodin ympärillä (suositus: 4-16px luotettavaa skannausta varten)',
+        'Tila QR-koodin ympärillä (vähintään 4 moduulia luotettavaa skannausta varten)',
       socialHandleHelper:
         'Anna käyttäjänimi kuten @kayttajanimi tai liitä koko https://-profiili-URL.'
     },
     misc: {
       qrPlaceholder: 'QR-koodi näkyy tässä',
-      socialPreview: 'QR-kohde'
+      socialPreview: 'QR-kohde',
+      wifiPayloadHidden: 'WiFi-määritys — salasana piilotettu'
     }
   };
 })();

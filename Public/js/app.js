@@ -1,11 +1,16 @@
 // QR Code Styling instance (global for download access)
 let qrCodeInstance = null;
 let previewDebounceTimer = null;
+let generationRevision = 0;
+let generatedQRCode = null;
+let activeGenerationPromise = null;
 
 const THEME_STORAGE_KEY = 'qrturbo_theme';
 const DEFAULT_THEME = 'light';
 const AUTO_PREVIEW_DELAY = 450;
-const WHATSAPP_USERNAME_PATTERN = /^@[A-Za-z0-9._]{3,35}$/;
+const WHATSAPP_USERNAME_PATTERN = /^@(?![0-9]{3,35}$)[a-z0-9._]{3,35}$/;
+const WHATSAPP_PHONE_PATTERN = /^\+?[0-9\s().-]+$/;
+const MIN_QUIET_ZONE_MODULES = 4;
 
 const SOCIAL_PLATFORM_CONFIG = {
     instagram: {
@@ -67,7 +72,7 @@ let qrCustomization = {
     dotStyle: 'square',
     cornerSquareStyle: 'extra-rounded',
     cornerDotStyle: 'dot',
-    margin: 16,
+    margin: MIN_QUIET_ZONE_MODULES,
     logoImage: null,
     logoSize: 0.4,
     logoMargin: 4,
@@ -174,6 +179,35 @@ function isValidHttpUrl(value) {
     }
 }
 
+function getUtf8Bytes(value) {
+    const text = String(value);
+    if (typeof TextEncoder !== 'undefined') {
+        return new TextEncoder().encode(text);
+    }
+
+    const encoded = unescape(encodeURIComponent(text));
+    return Uint8Array.from(encoded, character => character.charCodeAt(0));
+}
+
+// The bundled QR renderer consumes one JavaScript character per byte. Passing
+// this byte string preserves the original UTF-8 payload instead of truncating
+// non-ASCII UTF-16 code units to their low byte.
+function encodeTextForQRCode(value) {
+    return Array.from(getUtf8Bytes(value), byte => String.fromCharCode(byte)).join('');
+}
+
+function calculateQuietZonePixels(size, moduleCount, quietZoneModules = MIN_QUIET_ZONE_MODULES) {
+    const safeSize = Math.max(1, Number(size) || 1);
+    const safeModuleCount = Math.max(1, Number(moduleCount) || 1);
+    const safeQuietZone = Math.max(MIN_QUIET_ZONE_MODULES, Number(quietZoneModules) || 0);
+
+    return Math.ceil((safeQuietZone * safeSize) / (safeModuleCount + (2 * safeQuietZone)));
+}
+
+function formatQuietZoneValue(value) {
+    return t('units.modules', { count: Number(value) });
+}
+
 function cleanSocialHandle(value, platform, type) {
     let handle = String(value)
         .trim()
@@ -212,22 +246,22 @@ function getSocialQRCodeUrl(showAlerts = false) {
     const config = SOCIAL_PLATFORM_CONFIG[platform] || SOCIAL_PLATFORM_CONFIG.instagram;
 
     if (!rawValue) {
-        return notifyValidation('alerts.socialRequired', showAlerts);
+        return notifyValidation('alerts.socialRequired', showAlerts, 'social-handle');
     }
 
     if (/^https?:\/\//i.test(rawValue)) {
         return isValidHttpUrl(rawValue)
             ? rawValue
-            : notifyValidation('alerts.socialUrlInvalid', showAlerts);
+            : notifyValidation('alerts.socialUrlInvalid', showAlerts, 'social-handle');
     }
 
     if (config.requiresUrl) {
-        return notifyValidation('alerts.socialUrlInvalid', showAlerts);
+        return notifyValidation('alerts.socialUrlInvalid', showAlerts, 'social-handle');
     }
 
     const handle = cleanSocialHandle(rawValue, platform, profileType);
     if (!isValidSocialHandle(handle)) {
-        return notifyValidation('alerts.socialHandleInvalid', showAlerts);
+        return notifyValidation('alerts.socialHandleInvalid', showAlerts, 'social-handle');
     }
 
     return config.buildUrl(handle, profileType);
@@ -239,7 +273,7 @@ function normalizeWhatsAppNumber(value) {
 
 function normalizeWhatsAppUsername(value) {
     const username = String(value).trim();
-    return username.startsWith('@') ? `@${username.replace(/^@+/, '')}` : '';
+    return username.startsWith('@') ? username : '';
 }
 
 function getWhatsAppQRCodeUrl(showAlerts = false) {
@@ -249,16 +283,21 @@ function getWhatsAppQRCodeUrl(showAlerts = false) {
 
     if (username) {
         if (!WHATSAPP_USERNAME_PATTERN.test(username)) {
-            return notifyValidation('alerts.whatsappPhoneRequired', showAlerts);
+            return notifyValidation('alerts.whatsappPhoneRequired', showAlerts, 'whatsapp-phone');
         }
 
-        return `https://wa.me/${username}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
+        return `https://wa.me/${username.slice(1)}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
     }
 
-    const digits = normalizeWhatsAppNumber(target);
+    const phoneTarget = String(target).trim();
+    if (!WHATSAPP_PHONE_PATTERN.test(phoneTarget)) {
+        return notifyValidation('alerts.whatsappPhoneRequired', showAlerts, 'whatsapp-phone');
+    }
 
-    if (!digits || digits.length < 7) {
-        return notifyValidation('alerts.whatsappPhoneRequired', showAlerts);
+    const digits = normalizeWhatsAppNumber(phoneTarget);
+
+    if (!digits || digits.length < 7 || digits.length > 15) {
+        return notifyValidation('alerts.whatsappPhoneRequired', showAlerts, 'whatsapp-phone');
     }
 
     return `https://wa.me/${digits}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
@@ -286,9 +325,47 @@ function escapeMeCardField(value) {
         .replace(/\r\n|\r|\n/g, ' ');
 }
 
-function notifyValidation(messageKey, showAlerts) {
-    if (showAlerts) {
-        alert(t(messageKey));
+function clearFormError() {
+    const errorContainer = document.getElementById('form-error');
+    if (errorContainer) {
+        errorContainer.textContent = '';
+        errorContainer.hidden = true;
+        delete errorContainer.dataset.i18nKey;
+    }
+
+    document.querySelectorAll?.('[aria-invalid="true"]').forEach(field => {
+        field.removeAttribute('aria-invalid');
+        field.removeAttribute('aria-errormessage');
+    });
+}
+
+function showFormError(message, fieldId, messageKey) {
+    const errorContainer = document.getElementById('form-error');
+    if (!errorContainer) return false;
+
+    errorContainer.textContent = message;
+    errorContainer.hidden = false;
+    if (messageKey) {
+        errorContainer.dataset.i18nKey = messageKey;
+    } else {
+        delete errorContainer.dataset.i18nKey;
+    }
+
+    if (fieldId) {
+        const field = document.getElementById(fieldId);
+        field?.setAttribute('aria-invalid', 'true');
+        field?.setAttribute('aria-errormessage', 'form-error');
+    }
+
+    return true;
+}
+
+function notifyValidation(messageKey, showErrors, fieldId) {
+    if (showErrors) {
+        const message = t(messageKey);
+        if (!showFormError(message, fieldId, messageKey)) {
+            alert(message);
+        }
     }
     return null;
 }
@@ -300,7 +377,7 @@ function collectQRCodeText(showAlerts = false) {
 
     if (activeTab === 'URLText') {
         const text = document.getElementById('qr-text').value;
-        return text ? text : notifyValidation('alerts.enterText', showAlerts);
+        return text.trim() ? text : notifyValidation('alerts.enterText', showAlerts, 'qr-text');
     }
 
     if (activeTab === 'VCard') {
@@ -321,7 +398,15 @@ function collectQRCodeText(showAlerts = false) {
         };
 
         if (!vcard.fn && !vcard.ln && !vcard.email && !vcard.telMobile && !vcard.telWork) {
-            return notifyValidation('alerts.vcardRequired', showAlerts);
+            return notifyValidation('alerts.vcardRequired', showAlerts, 'vcard-fn');
+        }
+
+        if (vcard.email && !isValidEmail(vcard.email)) {
+            return notifyValidation('alerts.emailInvalid', showAlerts, 'vcard-email');
+        }
+
+        if (vcard.url && !isValidHttpUrl(vcard.url)) {
+            return notifyValidation('alerts.urlInvalid', showAlerts, 'vcard-url');
         }
 
         const escapeVCardField = (value) => {
@@ -355,24 +440,28 @@ function collectQRCodeText(showAlerts = false) {
     }
 
     if (activeTab === 'Wifi') {
-        const ssid = document.getElementById('wifi-ssid').value.trim();
+        const ssid = document.getElementById('wifi-ssid').value;
         const password = document.getElementById('wifi-password').value;
         const authType = document.getElementById('wifi-auth').value;
         const isHidden = document.getElementById('wifi-hidden').checked;
 
-        if (!ssid) {
-            return notifyValidation('alerts.wifiSsidRequired', showAlerts);
+        if (!ssid.length) {
+            return notifyValidation('alerts.wifiSsidRequired', showAlerts, 'wifi-ssid');
+        }
+
+        if (getUtf8Bytes(ssid).length > 32) {
+            return notifyValidation('alerts.wifiSsidLengthInvalid', showAlerts, 'wifi-ssid');
         }
 
         if (authType === 'WPA' && !/^(?:[ -~]{8,63}|[0-9A-Fa-f]{64})$/.test(password)) {
-            return notifyValidation('alerts.wifiWpaPasswordInvalid', showAlerts);
+            return notifyValidation('alerts.wifiWpaPasswordInvalid', showAlerts, 'wifi-password');
         }
 
         if (authType === 'WEP' && !/^(?:[ -~]{5}|[ -~]{13}|[0-9A-Fa-f]{10}|[0-9A-Fa-f]{26})$/.test(password)) {
-            return notifyValidation('alerts.wifiWepPasswordInvalid', showAlerts);
+            return notifyValidation('alerts.wifiWepPasswordInvalid', showAlerts, 'wifi-password');
         }
 
-        const escapeWifi = (s) => s.replace(/([\\;,"])/g, '\\$1');
+        const escapeWifi = (s) => s.replace(/([\\;,":])/g, '\\$1');
         let wifiString = `WIFI:S:${escapeWifi(ssid)};T:${authType};`;
         if (authType !== 'nopass') {
             wifiString += `P:${escapeWifi(password)};`;
@@ -388,7 +477,7 @@ function collectQRCodeText(showAlerts = false) {
         const phoneNumber = document.getElementById('sms-phone-number').value.trim();
 
         if (!phoneNumber) {
-            return notifyValidation('alerts.phoneRequired', showAlerts);
+            return notifyValidation('alerts.phoneRequired', showAlerts, 'sms-phone-number');
         }
 
         return type === 'sms'
@@ -402,17 +491,20 @@ function collectQRCodeText(showAlerts = false) {
         const body = document.getElementById('email-body').value;
 
         if (!to && !subject && !body.trim()) {
-            return notifyValidation('alerts.emailRequired', showAlerts);
+            return notifyValidation('alerts.emailRequired', showAlerts, 'email-to');
         }
 
         if (to && !isValidEmail(to)) {
-            return notifyValidation('alerts.emailInvalid', showAlerts);
+            return notifyValidation('alerts.emailInvalid', showAlerts, 'email-to');
         }
 
-        const params = new URLSearchParams();
-        if (subject) params.set('subject', subject);
-        if (body) params.set('body', body);
-        const query = params.toString();
+        const params = [];
+        const encodeMailtoValue = value => encodeURIComponent(
+            String(value).replace(/\r\n|\r|\n/g, '\r\n')
+        );
+        if (subject) params.push(`subject=${encodeMailtoValue(subject)}`);
+        if (body) params.push(`body=${encodeMailtoValue(body)}`);
+        const query = params.join('&');
         return `mailto:${to}${query ? `?${query}` : ''}`;
     }
 
@@ -424,11 +516,11 @@ function collectQRCodeText(showAlerts = false) {
         const description = document.getElementById('event-description').value.trim();
 
         if (!title || !start) {
-            return notifyValidation('alerts.eventRequired', showAlerts);
+            return notifyValidation('alerts.eventRequired', showAlerts, !title ? 'event-title' : 'event-start');
         }
 
         if (end && new Date(end) < new Date(start)) {
-            return notifyValidation('alerts.eventEndInvalid', showAlerts);
+            return notifyValidation('alerts.eventEndInvalid', showAlerts, 'event-end');
         }
 
         const eventLines = [
@@ -457,14 +549,18 @@ function collectQRCodeText(showAlerts = false) {
         const hasLng = longitude !== '';
 
         if (!address && !hasLat && !hasLng) {
-            return notifyValidation('alerts.locationRequired', showAlerts);
+            return notifyValidation('alerts.locationRequired', showAlerts, 'location-address');
         }
 
         if (hasLat || hasLng) {
             const lat = Number(latitude);
             const lng = Number(longitude);
             if (!hasLat || !hasLng || Number.isNaN(lat) || Number.isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-                return notifyValidation('alerts.locationCoordinatesInvalid', showAlerts);
+                return notifyValidation(
+                    'alerts.locationCoordinatesInvalid',
+                    showAlerts,
+                    !hasLat || Number.isNaN(lat) || lat < -90 || lat > 90 ? 'location-lat' : 'location-lng'
+                );
             }
             return address
                 ? `geo:${lat},${lng}?q=${encodeURIComponent(address)}`
@@ -490,15 +586,15 @@ function collectQRCodeText(showAlerts = false) {
         const address = getFieldValue('mecard-address');
 
         if (!name && !phone && !email) {
-            return notifyValidation('alerts.mecardRequired', showAlerts);
+            return notifyValidation('alerts.mecardRequired', showAlerts, 'mecard-name');
         }
 
         if (email && !isValidEmail(email)) {
-            return notifyValidation('alerts.emailInvalid', showAlerts);
+            return notifyValidation('alerts.emailInvalid', showAlerts, 'mecard-email');
         }
 
         if (url && !isValidHttpUrl(url)) {
-            return notifyValidation('alerts.urlInvalid', showAlerts);
+            return notifyValidation('alerts.urlInvalid', showAlerts, 'mecard-url');
         }
 
         let meCardString = 'MECARD:';
@@ -518,11 +614,16 @@ function collectQRCodeText(showAlerts = false) {
         const urls = [webUrl, iosUrl, androidUrl].filter(Boolean);
 
         if (!urls.length) {
-            return notifyValidation('alerts.appLinkRequired', showAlerts);
+            return notifyValidation('alerts.appLinkRequired', showAlerts, 'app-web-url');
         }
 
         if (urls.some(url => !isValidHttpUrl(url))) {
-            return notifyValidation('alerts.urlInvalid', showAlerts);
+            const invalidField = [
+                ['app-web-url', webUrl],
+                ['app-ios-url', iosUrl],
+                ['app-android-url', androidUrl]
+            ].find(([, url]) => url && !isValidHttpUrl(url));
+            return notifyValidation('alerts.urlInvalid', showAlerts, invalidField?.[0]);
         }
 
         if (webUrl) {
@@ -560,7 +661,7 @@ function getScannabilityWarnings(text, size) {
         warnings.push(t('warnings.transparentBackground'));
     }
 
-    if (qrCustomization.margin < 8) {
+    if (qrCustomization.margin < MIN_QUIET_ZONE_MODULES) {
         warnings.push(t('warnings.quietZoneSmall'));
     }
 
@@ -602,8 +703,10 @@ function clearGeneratedQRCode() {
     const downloadBtn = document.getElementById('download-btn');
     const qrCodeText = document.getElementById('qr-code-text');
     const qrPlaceholder = document.getElementById('qr-placeholder');
+    const payloadRevealBtn = document.getElementById('payload-reveal-btn');
 
     qrCodeInstance = null;
+    generatedQRCode = null;
     if (qrCanvasContainer) {
         qrCanvasContainer.innerHTML = '';
         qrCanvasContainer.classList.remove('transparent-preview');
@@ -613,31 +716,78 @@ function clearGeneratedQRCode() {
         qrImage.src = '';
         qrImage.style.display = 'none';
     }
-    if (downloadBtn) downloadBtn.style.display = 'none';
-    if (qrCodeText) qrCodeText.style.display = 'none';
-    if (qrContainer) qrContainer.classList.remove('loading');
+    if (downloadBtn) {
+        downloadBtn.style.display = 'none';
+        downloadBtn.disabled = true;
+    }
+    if (qrCodeText) {
+        qrCodeText.textContent = '';
+        qrCodeText.style.display = 'none';
+    }
+    if (payloadRevealBtn) {
+        payloadRevealBtn.hidden = true;
+        payloadRevealBtn.dataset.revealed = 'false';
+    }
+    if (qrContainer) {
+        qrContainer.classList.remove('loading');
+        qrContainer.setAttribute('aria-busy', 'false');
+    }
     renderScannabilityWarnings([]);
 }
 
-function schedulePreview() {
+function invalidateGeneratedQRCode() {
+    generationRevision += 1;
+    clearFormError();
+    clearGeneratedQRCode();
+    return generationRevision;
+}
+
+function schedulePreview({ showErrors = false } = {}) {
     window.clearTimeout(previewDebounceTimer);
+    const revision = invalidateGeneratedQRCode();
     previewDebounceTimer = window.setTimeout(() => {
-        generateQRCode({ silent: true });
+        activeGenerationPromise = generateQRCode({ revision, animate: false, showErrors });
+        activeGenerationPromise.finally(() => {
+            if (generationRevision === revision) activeGenerationPromise = null;
+        });
     }, AUTO_PREVIEW_DELAY);
+}
+
+function getActiveTabName() {
+    return document.querySelector('.tab-link.active')?.dataset.tab || null;
+}
+
+function getPayloadPresentation(activeTab, payload) {
+    const isSensitive = activeTab === 'Wifi' && document.getElementById('wifi-auth')?.value !== 'nopass';
+    return {
+        isSensitive,
+        displayText: isSensitive ? t('misc.wifiPayloadHidden') : payload
+    };
+}
+
+function getGenerationErrorMessage(error) {
+    const details = String(error?.message || error || '');
+    return /code length overflow|data too long|capacity/i.test(details)
+        ? t('alerts.dataTooLong')
+        : `${t('alerts.generationError')}${details ? `: ${details}` : ''}`;
 }
 
 /**
  * @description Main function to generate the QR code based on the active tab and user input.
  */
-function generateQRCode(options = {}) {
-    const silent = Boolean(options.silent);
-    const text = collectQRCodeText(!silent);
+async function generateQRCode(options = {}) {
+    const revision = Number.isInteger(options.revision) ? options.revision : generationRevision;
+    const animate = options.animate !== false;
+    const showErrors = Boolean(options.showErrors);
+
+    clearFormError();
+    const text = collectQRCodeText(showErrors);
 
     if (!text) {
-        if (silent) {
+        if (revision === generationRevision) {
             clearGeneratedQRCode();
         }
-        return;
+        return null;
     }
 
     const qrContainer = document.getElementById('qr-container');
@@ -646,36 +796,29 @@ function generateQRCode(options = {}) {
     const downloadBtn = document.getElementById('download-btn');
     const qrCodeText = document.getElementById('qr-code-text');
     const qrPlaceholder = document.getElementById('qr-placeholder');
+    const payloadRevealBtn = document.getElementById('payload-reveal-btn');
     const size = parseInt(document.getElementById('size-select').value);
-    const qrText = String(text).trim();
+    const qrText = String(text);
+    const activeTab = getActiveTabName();
 
     if (typeof QRCodeStyling === 'undefined') {
-        if (!silent) {
-            alert(t('alerts.libraryLoadFailed'));
-        }
-        return;
+        showFormError(t('alerts.libraryLoadFailed'));
+        return null;
     }
 
-    if (!qrText) {
-        if (!silent) {
-            alert(t('alerts.dataEmpty'));
-        }
-        return;
-    }
-
-    if (!silent) {
-        qrContainer.classList.add('loading');
-    }
+    qrContainer.classList.add('loading');
+    qrContainer.setAttribute('aria-busy', 'true');
     qrPlaceholder.style.display = 'none';
     qrImage.style.display = 'none';
     downloadBtn.style.display = 'none';
+    downloadBtn.disabled = true;
     qrCodeText.style.display = 'none';
 
     const config = {
         width: size,
         height: size,
         type: qrCustomization.format === 'svg' ? 'svg' : 'canvas',
-        data: qrText,
+        data: encodeTextForQRCode(qrText),
         dotsOptions: {
             color: qrCustomization.fgColor,
             type: qrCustomization.dotStyle
@@ -694,7 +837,7 @@ function generateQRCode(options = {}) {
         qrOptions: {
             errorCorrectionLevel: qrCustomization.errorCorrection
         },
-        margin: qrCustomization.margin
+        margin: 0
     };
 
     if (qrCustomization.logoImage) {
@@ -708,32 +851,77 @@ function generateQRCode(options = {}) {
     }
 
     try {
+        const candidate = new QRCodeStyling(config);
+        const renderType = qrCustomization.format === 'svg' ? 'svg' : 'png';
+
+        // First render resolves automatic QR version selection and therefore
+        // the exact module count used for a standards-sized quiet zone.
+        await candidate.getRawData(renderType);
+        if (revision !== generationRevision) return null;
+
+        const moduleCount = candidate._qr?.getModuleCount?.();
+        if (!moduleCount) {
+            throw new Error('QR module count was not available');
+        }
+
+        const margin = calculateQuietZonePixels(size, moduleCount, qrCustomization.margin);
+        candidate.update({ margin });
+        await candidate.getRawData(renderType);
+        if (revision !== generationRevision) return null;
+
         qrCanvasContainer.innerHTML = '';
         qrCanvasContainer.classList.toggle('transparent-preview', qrCustomization.transparentBackground);
+        candidate.append(qrCanvasContainer);
 
-        qrCodeInstance = new QRCodeStyling(config);
-        qrCodeInstance.append(qrCanvasContainer);
+        const presentation = getPayloadPresentation(activeTab, qrText);
+        const snapshot = {
+            revision,
+            activeTab,
+            payload: qrText,
+            format: qrCustomization.format,
+            filename: buildQRCodeFilename(activeTab, qrText),
+            isSensitive: presentation.isSensitive,
+            instance: candidate,
+            moduleCount,
+            margin
+        };
+        qrCodeInstance = candidate;
+        generatedQRCode = snapshot;
 
         renderScannabilityWarnings(getScannabilityWarnings(qrText, size));
 
-        qrCodeText.textContent = text;
+        qrCodeText.textContent = presentation.displayText;
         qrCodeText.style.display = 'block';
+        if (payloadRevealBtn) {
+            payloadRevealBtn.hidden = !presentation.isSensitive;
+            payloadRevealBtn.dataset.revealed = 'false';
+            payloadRevealBtn.textContent = t('actions.showPayload');
+        }
 
         qrContainer.classList.remove('loading');
+        qrContainer.setAttribute('aria-busy', 'false');
+        downloadBtn.disabled = false;
         downloadBtn.style.display = 'block';
 
-        if (!silent) {
+        if (animate) {
             qrContainer.style.animation = 'none';
             qrContainer.offsetHeight;
             qrContainer.style.animation = 'qrAppear 0.6s ease-out';
         }
+        return snapshot;
     } catch (error) {
         console.error('QR Code Generation Error:', error);
-        if (!silent) {
-            alert(t('alerts.generationError') + ': ' + error.message);
+        if (revision === generationRevision) {
+            clearGeneratedQRCode();
+            showFormError(getGenerationErrorMessage(error));
+            qrPlaceholder.style.display = 'block';
         }
-        qrContainer.classList.remove('loading');
-        qrPlaceholder.style.display = 'block';
+        return null;
+    } finally {
+        if (revision === generationRevision) {
+            qrContainer.classList.remove('loading');
+            qrContainer.setAttribute('aria-busy', 'false');
+        }
     }
 }
 
@@ -826,13 +1014,13 @@ function imageDataToRgbBytes(imageData) {
     return rgbBytes;
 }
 
-function createQRCodePdfBlob(imageData, payloadText) {
+function createQRCodePdfBlob(imageData, payloadText = '', includePayload = false) {
     const pageWidth = 595.28;
     const pageHeight = 841.89;
     const qrSize = 360;
     const qrX = (pageWidth - qrSize) / 2;
     const qrY = 292;
-    const payloadLines = getPdfPayloadLines(payloadText);
+    const payloadLines = includePayload ? getPdfPayloadLines(payloadText) : [];
     const rgbBytes = imageDataToRgbBytes(imageData);
     const parts = [];
     const offsets = [];
@@ -978,20 +1166,18 @@ function triggerBlobDownload(blob, filename) {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-async function downloadQRCodePdf(finalFilename) {
-    const qrPngBlob = await qrCodeInstance.getRawData('png');
+async function downloadQRCodePdf(snapshot) {
+    const qrPngBlob = await snapshot.instance.getRawData('png');
     if (!qrPngBlob) {
         throw new Error('QR PNG data was not available');
     }
 
-    const qrCodeText = document.getElementById('qr-code-text');
-    const payloadText = qrCodeText && qrCodeText.textContent
-        ? qrCodeText.textContent
-        : collectQRCodeText(false);
     const imageData = await getOpaqueImageDataFromBlob(qrPngBlob);
-    const pdfBlob = createQRCodePdfBlob(imageData, payloadText);
+    // The PDF intentionally contains only the QR image. Payload captions can
+    // leak Wi-Fi passwords and other private data into otherwise shared files.
+    const pdfBlob = createQRCodePdfBlob(imageData);
 
-    triggerBlobDownload(pdfBlob, `${finalFilename}.pdf`);
+    triggerBlobDownload(pdfBlob, `${snapshot.filename}.pdf`);
 }
 
 function animateDownloadButton() {
@@ -1001,26 +1187,12 @@ function animateDownloadButton() {
     downloadBtn.style.animation = 'bounceIn 0.6s ease-out';
 }
 
-/**
- * @description Handles downloading the generated QR code image or PDF.
- */
-async function downloadQRCode() {
-    if (!qrCodeInstance) {
-        alert(t('alerts.generateFirst'));
-        return;
-    }
-
-    const activeTabButton = document.querySelector('.tab-link.active');
-    if (!activeTabButton) return;
-    const activeTab = activeTabButton.dataset.tab;
-
-    // Generate a user-friendly filename based on the input
+function buildQRCodeFilename(activeTab, payload = '') {
     let filename = 'qrcode_unknown';
-    
+
     if (activeTab === 'URLText') {
-        const urlText = document.getElementById('qr-text').value.trim();
+        const urlText = String(payload).trim();
         if (urlText) {
-            // For URLs, try to extract domain name, otherwise use first 30 chars
             if (urlText.startsWith('http')) {
                 try {
                     const url = new URL(urlText);
@@ -1048,7 +1220,7 @@ async function downloadQRCode() {
             filename = 'vcard_contact';
         }
     } else if (activeTab === 'Wifi') {
-        const ssid = document.getElementById('wifi-ssid').value.trim();
+        const ssid = document.getElementById('wifi-ssid').value;
         if (ssid) {
             filename = `wifi_${ssid}`;
         } else {
@@ -1099,36 +1271,69 @@ async function downloadQRCode() {
         }
     }
 
-    // Sanitize the filename: allow alphanumeric, hyphens, underscores, limit length
     const safeText = filename
-        .replace(/[^a-z0-9\-_]/gi, '_')  // Replace invalid chars with underscore
-        .replace(/_+/g, '_')             // Replace multiple underscores with single
-        .replace(/^_|_$/g, '')           // Remove leading/trailing underscores
-        .substring(0, 50)                // Limit length
-        || 'qrcode_unknown';             // Fallback if empty
+        .replace(/[^a-z0-9\-_]/gi, '_')
+        .replace(/_+/g, '_')
+        .replace(/^_|_$/g, '')
+        .substring(0, 50)
+        || 'qrcode_unknown';
 
-    const finalFilename = `qrcode_${safeText}`;
-    const extension = qrCustomization.format; // 'png', 'svg' or 'pdf'
+    return `qrcode_${safeText}`;
+}
+
+/**
+ * @description Downloads only the immutable, fully rendered input revision.
+ */
+async function downloadQRCode() {
+    window.clearTimeout(previewDebounceTimer);
+
+    if (activeGenerationPromise) {
+        await activeGenerationPromise;
+    }
+
+    let snapshot = generatedQRCode;
+    if (!snapshot || snapshot.revision !== generationRevision) {
+        activeGenerationPromise = generateQRCode({
+            revision: generationRevision,
+            animate: false,
+            showErrors: true
+        });
+        snapshot = await activeGenerationPromise;
+        activeGenerationPromise = null;
+    }
+
+    if (!snapshot || snapshot.revision !== generationRevision) {
+        showFormError(t('alerts.generateFirst'));
+        return;
+    }
+
+    const extension = snapshot.format;
     const downloadBtn = document.getElementById('download-btn');
 
     try {
         downloadBtn.disabled = true;
 
         if (extension === 'pdf') {
-            await downloadQRCodePdf(finalFilename);
+            await downloadQRCodePdf(snapshot);
         } else {
-            await qrCodeInstance.download({
-                name: finalFilename,
+            await snapshot.instance.download({
+                name: snapshot.filename,
                 extension: extension
             });
         }
 
-        animateDownloadButton();
+        if (generatedQRCode === snapshot) {
+            animateDownloadButton();
+        }
     } catch (error) {
         console.error('Download failed:', error);
-        alert(extension === 'pdf' ? t('alerts.pdfExportFailed') : t('alerts.generationError'));
+        if (generatedQRCode === snapshot) {
+            showFormError(extension === 'pdf' ? t('alerts.pdfExportFailed') : t('alerts.generationError'));
+        }
     } finally {
-        downloadBtn.disabled = false;
+        if (generatedQRCode === snapshot) {
+            downloadBtn.disabled = false;
+        }
     }
 }
 
@@ -1153,15 +1358,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const socialProfileTypeGroup = document.getElementById('social-profile-type-group');
     const socialHandleInput = document.getElementById('social-handle');
     const socialPreviewUrl = document.getElementById('social-preview-url');
+    const downloadBtn = document.getElementById('download-btn');
+    const payloadRevealBtn = document.getElementById('payload-reveal-btn');
 
     // --- Event Listeners ---
+
+    downloadBtn?.addEventListener('click', downloadQRCode);
+    payloadRevealBtn?.addEventListener('click', function() {
+        if (!generatedQRCode?.isSensitive || generatedQRCode.revision !== generationRevision) {
+            return;
+        }
+
+        const qrCodeText = document.getElementById('qr-code-text');
+        const isRevealed = this.dataset.revealed !== 'true';
+        this.dataset.revealed = String(isRevealed);
+        this.textContent = t(isRevealed ? 'actions.hidePayload' : 'actions.showPayload');
+        qrCodeText.textContent = isRevealed
+            ? generatedQRCode.payload
+            : t('misc.wifiPayloadHidden');
+    });
 
     // Track character count for the URL/Text input
     qrTextInput.addEventListener('input', function() {
         const currentLength = this.value.length;
         charCountDisplay.textContent = t('counters.characters', { current: currentLength, max: 2000 });
         charCountDisplay.classList.toggle('warning', currentLength >= 1800);
-        schedulePreview();
+        schedulePreview({ showErrors: true });
     });
 
     // Track character count for the SMS message input
@@ -1169,7 +1391,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentLength = this.value.length;
         smsCharCountDisplay.textContent = t('counters.characters', { current: currentLength, max: 300 });
         smsCharCountDisplay.classList.toggle('warning', currentLength >= 250);
-        schedulePreview();
+        schedulePreview({ showErrors: true });
     });
 
     // Add a subtle scale effect on input focus for better UX
@@ -1203,9 +1425,8 @@ document.addEventListener('DOMContentLoaded', function() {
         );
     }
 
-    // Toggle password field enabled state based on authentication type
-    wifiAuthSelect.addEventListener('change', function() {
-        const isPasswordNeeded = this.value !== 'nopass';
+    function updateWifiPasswordState() {
+        const isPasswordNeeded = wifiAuthSelect.value !== 'nopass';
         wifiPasswordField.disabled = !isPasswordNeeded;
         wifiPasswordToggle.disabled = !isPasswordNeeded;
         if (!isPasswordNeeded) {
@@ -1213,10 +1434,14 @@ document.addEventListener('DOMContentLoaded', function() {
             wifiPasswordField.type = 'password';
         }
         updateWifiPasswordToggleLabel();
+    }
+
+    // Toggle password field enabled state based on authentication type
+    wifiAuthSelect.addEventListener('change', function() {
+        updateWifiPasswordState();
         schedulePreview();
     });
-    // Trigger change on load to set initial state
-    wifiAuthSelect.dispatchEvent(new Event('change'));
+    updateWifiPasswordState();
 
     wifiPasswordToggle.addEventListener('click', function() {
         const isHidden = wifiPasswordField.type === 'password';
@@ -1261,62 +1486,71 @@ document.addEventListener('DOMContentLoaded', function() {
         const eventName = element.tagName === 'SELECT' ? 'change' : 'input';
         element.addEventListener(eventName, function() {
             updateSocialMediaUI();
-            schedulePreview();
         });
     });
     updateSocialMediaUI();
 
 
     // --- Tab Switching Logic ---
-    tabsContainer.addEventListener('click', function(event) {
-        const clickedTab = event.target.closest('.tab-link');
-        // Ignore clicks that are not on a a tab link or are on the already active tab
-        if (!clickedTab || clickedTab.classList.contains('active')) {
+    function activateTab(nextTab, { focus = false } = {}) {
+        if (!nextTab || nextTab.classList.contains('active')) {
+            if (focus) nextTab?.focus();
             return;
         }
 
-        const tabName = clickedTab.dataset.tab;
-
-        // Store current scroll position before switching tabs
+        const tabName = nextTab.dataset.tab;
         const currentScrollY = window.scrollY;
 
         tabsContainer.querySelectorAll('.tab-link').forEach(tab => {
-            const isSelected = tab === clickedTab;
+            const isSelected = tab === nextTab;
             tab.classList.toggle('active', isSelected);
             tab.setAttribute('aria-selected', String(isSelected));
+            tab.tabIndex = isSelected ? 0 : -1;
         });
 
         document.querySelectorAll('.tab-content').forEach(content => {
-            content.style.display = 'none';
+            const isSelected = content.id === tabName;
+            content.hidden = !isSelected;
+            content.style.display = isSelected ? 'block' : 'none';
         });
-        document.getElementById(tabName).style.display = 'block';
 
-        // Restore scroll position after tab switch to prevent page jumping
         window.scrollTo(0, currentScrollY);
 
-        // Keep form values when switching tabs, but refresh dependent UI states.
-        document.getElementById('wifi-auth').dispatchEvent(new Event('change'));
+        updateWifiPasswordState();
         updateSmsPhoneUI();
         updateSocialMediaUI();
-
         updateDynamicTranslations();
-
-        const qrContainer = document.getElementById('qr-container');
-        const qrImage = document.getElementById('qr-image');
-        const downloadBtn = document.getElementById('download-btn');
-        const qrCodeText = document.getElementById('qr-code-text');
-        const qrPlaceholder = document.getElementById('qr-placeholder');
-        
-        qrPlaceholder.style.display = 'block';
-        qrImage.src = "";
-        qrImage.style.display = 'none';
-        downloadBtn.style.display = 'none';
-        qrCodeText.style.display = 'none';
-        qrContainer.classList.remove('loading');
-
-        qrContainer.style.animation = 'none';
-        clearGeneratedQRCode();
         schedulePreview();
+
+        if (focus) nextTab.focus();
+    }
+
+    tabsContainer.addEventListener('click', function(event) {
+        activateTab(event.target.closest('.tab-link'));
+    });
+
+    tabsContainer.addEventListener('keydown', function(event) {
+        const currentTab = event.target.closest('.tab-link');
+        if (!currentTab) return;
+
+        const tabs = Array.from(tabsContainer.querySelectorAll('.tab-link'));
+        const currentIndex = tabs.indexOf(currentTab);
+        let nextIndex = null;
+
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+            nextIndex = (currentIndex + 1) % tabs.length;
+        } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+            nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        } else if (event.key === 'Home') {
+            nextIndex = 0;
+        } else if (event.key === 'End') {
+            nextIndex = tabs.length - 1;
+        }
+
+        if (nextIndex !== null) {
+            event.preventDefault();
+            activateTab(tabs[nextIndex], { focus: true });
+        }
     });
 
     // --- Customization Panel Event Handlers ---
@@ -1408,7 +1642,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const eventName = element.type === 'checkbox' || element.type === 'radio' || element.tagName === 'SELECT'
             ? 'change'
             : 'input';
-        element.addEventListener(eventName, schedulePreview);
+        element.addEventListener(eventName, () => schedulePreview({
+            showErrors: eventName === 'input'
+        }));
     });
 
     // Reset customization button
@@ -1424,7 +1660,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 dotStyle: 'square',
                 cornerSquareStyle: 'extra-rounded',
                 cornerDotStyle: 'dot',
-                margin: 16,
+                margin: MIN_QUIET_ZONE_MODULES,
                 logoImage: null,
                 logoSize: 0.4,
                 logoMargin: 4,
@@ -1459,8 +1695,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('qr-dot-style').value = 'square';
             document.getElementById('qr-corner-square-style').value = 'extra-rounded';
             document.getElementById('qr-corner-dot-style').value = 'dot';
-            document.getElementById('qr-margin').value = '16';
-            document.getElementById('qr-margin-value').textContent = '16px';
+            document.getElementById('qr-margin').value = String(MIN_QUIET_ZONE_MODULES);
+            document.getElementById('qr-margin-value').textContent = formatQuietZoneValue(MIN_QUIET_ZONE_MODULES);
 
             alert(t('alerts.resetSuccess'));
             schedulePreview();
@@ -1582,10 +1818,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const marginValue = document.getElementById('qr-margin-value');
     if (marginSlider && marginValue) {
         marginSlider.addEventListener('input', function() {
-            marginValue.textContent = this.value + 'px';
+            marginValue.textContent = formatQuietZoneValue(this.value);
             qrCustomization.margin = parseInt(this.value);
             schedulePreview();
         });
+        marginValue.textContent = formatQuietZoneValue(marginSlider.value);
     }
 
 });

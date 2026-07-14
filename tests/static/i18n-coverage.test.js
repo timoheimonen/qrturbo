@@ -96,7 +96,7 @@ test('all translation keys used by HTML and JavaScript exist in English translat
   const appJs = fs.readFileSync(path.join(publicDir, 'js/app.js'), 'utf8');
   const coreJs = fs.readFileSync(corePath, 'utf8');
   const usedKeys = [
-    ...html.matchAll(/data-i18n(?:-placeholder|-option)?="([^"]+)"/g),
+    ...html.matchAll(/data-i18n(?:-placeholder|-option|-aria-label)?="([^"]+)"/g),
     ...appJs.matchAll(/\bt\(['"]([^'"]+)['"]/g),
     ...coreJs.matchAll(/\bt\(['"]([^'"]+)['"]/g)
   ].map(match => match[1]);

@@ -226,7 +226,7 @@
       github: 'GitHub에서 소스 코드 보기'
     },
     helpers: {
-      quietZoneHelper: 'QR 코드 주변 공간（권장: 안정적인 스캔을 위해 4-16px）',
+      quietZoneHelper: 'QR 코드 주변 공간(안정적인 스캔을 위해 최소 4모듈)',
       socialHandleHelper:
         '@username 같은 사용자 이름을 입력하거나 전체 https:// 프로필 URL을 붙여넣으세요.'
     },

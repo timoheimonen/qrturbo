@@ -224,7 +224,7 @@
       github: '在 GitHub 上查看源代码'
     },
     helpers: {
-      quietZoneHelper: '二维码周围的空间（推荐：4-16像素以确保可靠扫描）',
+      quietZoneHelper: '二维码周围的空白区域（可靠扫描至少需要4个模块）',
       socialHandleHelper: '输入 @username 这样的用户名，或粘贴完整的 https:// 资料 URL。'
     },
     misc: {
