@@ -114,12 +114,9 @@ function createAppHarness() {
   context.window.t = context.t;
 
   vm.createContext(context);
-  const appSource = fs.readFileSync(path.join(repoRoot, 'Public/js/app.js'), 'utf8');
-  vm.runInContext(
-    `${appSource}\nglobalThis.__qrCustomization = qrCustomization;`,
-    context,
-    { filename: 'Public/js/app.js' }
-  );
+  const appPath = path.join(repoRoot, 'Public/js/app.js');
+  const appSource = fs.readFileSync(appPath, 'utf8');
+  vm.runInContext(appSource, context, { filename: appPath });
 
   return {
     context,

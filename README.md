@@ -32,13 +32,13 @@ The app is served as static assets from Cloudflare's global network, with no ori
 
 ## Testing
 
-Prerequisites are Node.js 20 or newer, npm, and Python 3 (used by the local test server).
+Prerequisites are Node.js 22.5 or newer, npm, and Python 3 (used by the local test server).
 
-From a clean checkout, install the locked dependencies and Chromium with its system dependencies,
+From a clean checkout, install the locked dependencies and the tested browsers with their system dependencies,
 then run the complete acceptance suite with one command:
 
 ```bash
-npm ci && npx playwright install --with-deps chromium && npm run test:all
+npm ci && npx playwright install --with-deps chromium webkit && npm run test:all
 ```
 
 After that initial setup, run only the fast Node and static checks with:
@@ -52,6 +52,19 @@ Run only the browser end-to-end tests with:
 ```bash
 npm run test:e2e
 ```
+
+Generate the diagnostic production-code coverage report with:
+
+```bash
+npm run test:coverage
+```
+
+The report contains `Public/js/app.js` and `Public/sw.js`. It intentionally excludes the vendor
+QR library and test harnesses, and it does not enforce an arbitrary percentage threshold.
+
+The browser suite runs fully on desktop Chromium. Pixel 7 runs one responsive mobile smoke test,
+while WebKit runs the core generation, PNG/SVG download, and logo/FileReader paths. PWA cache tests
+run once on desktop Chromium.
 
 Run the complete acceptance suite again without reinstalling dependencies:
 

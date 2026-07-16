@@ -60,7 +60,8 @@ async function downloadArtifact(page) {
 
 for (const format of ['png', 'svg']) {
   for (const payloadCase of payloadCases) {
-    test(`downloaded ${format.toUpperCase()} decodes exact ${payloadCase.name}`, async ({ page }) => {
+    const webkitCoreTag = payloadCase.name === 'ASCII URL' ? ' @webkit-core' : '';
+    test(`downloaded ${format.toUpperCase()} decodes exact ${payloadCase.name}${webkitCoreTag}`, async ({ page }) => {
       await page.goto('/');
       await payloadCase.fill(page);
       await selectArtifactFormat(page, format);
@@ -78,7 +79,7 @@ for (const format of ['png', 'svg']) {
   }
 }
 
-test('customized QR changes the artifact, remains decodable and resets the UI', async ({ page }) => {
+test('customized QR changes the artifact, remains decodable and resets the UI @webkit-core', async ({ page }) => {
   const payload = 'https://example.com/customized-qr';
   const downloadButton = page.locator('#download-btn');
 

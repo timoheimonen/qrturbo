@@ -1,5 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
+const { decodeQrDownload } = require('../helpers/qr-decoder');
+
 async function waitForControlledServiceWorker(page) {
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;
@@ -87,4 +89,32 @@ test('an online load replaces a stale precached app asset', async ({ page }) => 
     return response.text();
   }, cacheName);
   expect(refreshedSource).not.toContain('__staleAppLoaded');
+});
+
+test('offline app reload generates and downloads a decodable PNG', async ({ page, context }) => {
+  const payload = 'https://example.com/offline-qr';
+
+  await page.goto('/');
+  await waitForControlledServiceWorker(page);
+  await expect.poll(() => getAppStaticCacheName(page)).not.toBeNull();
+
+  await context.setOffline(true);
+  try {
+    const response = await page.reload({ waitUntil: 'domcontentloaded' });
+    expect(response.fromServiceWorker()).toBe(true);
+    await expect(page.getByRole('heading', { name: /QRTurbo\.app/i })).toBeVisible();
+
+    await page.locator('#qr-text').fill(payload);
+    await expect(page.locator('#qr-code-text')).toHaveText(payload, { timeout: 10_000 });
+    await expect(page.locator('#qr-canvas-container canvas')).toBeVisible();
+
+    const downloadPromise = page.waitForEvent('download');
+    await page.locator('#download-btn').click();
+    const decoded = await decodeQrDownload(page, await downloadPromise);
+
+    expect(decoded.filename).toMatch(/\.png$/i);
+    expect(decoded.data).toBe(payload);
+  } finally {
+    await context.setOffline(false);
+  }
 });

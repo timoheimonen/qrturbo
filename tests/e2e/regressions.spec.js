@@ -48,6 +48,24 @@ test('capacity failures are visible and leave no stale downloadable QR', async (
   await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toHaveCount(0);
 });
 
+test('representative scan risks render translated user-facing warnings', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#qr-text').fill('a'.repeat(800));
+  await page.locator('#customize-toggle').click();
+  await page.locator('#qr-fg-color-text').fill('#eeeeee');
+  await page.locator('#qr-transparent-bg').check();
+
+  const warnings = page.locator('#scan-warnings');
+  await expect(warnings).toBeVisible({ timeout: 10_000 });
+  const expectedWarnings = await page.evaluate(() => [
+    t('warnings.lowContrast'),
+    t('warnings.transparentBackground'),
+    t('warnings.denseData')
+  ]);
+  await expect(warnings.locator('p')).toHaveText(expectedWarnings);
+  await expect(warnings).not.toContainText('warnings.');
+});
+
 test('WiFi password is hidden by default, can be revealed, and is not copied into PDF text', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('tab', { name: 'WiFi' }).click();
