@@ -9,7 +9,10 @@ const { repoRoot } = require('../helpers/app-vm');
 const publicDir = path.join(repoRoot, 'Public');
 const corePath = path.join(publicDir, 'js/i18n/core.js');
 const localeDir = path.join(publicDir, 'js/i18n/locales');
-const supportedLanguages = ['da', 'de', 'es', 'fi', 'fr', 'it', 'ja', 'ko', 'no', 'sv', 'zh'];
+const supportedLanguages = fs.readdirSync(localeDir)
+  .filter(fileName => fileName.endsWith('.js'))
+  .map(fileName => path.basename(fileName, '.js'))
+  .sort();
 
 function loadTranslations() {
   const context = {
@@ -78,15 +81,23 @@ function flattenKeys(value, prefix = '') {
   });
 }
 
-test('locale files do not contain unknown translation keys', () => {
+test('every locale has exactly the same translation keys as English', () => {
   const translations = loadTranslations();
-  const englishKeys = new Set(flattenKeys(translations.en));
+  const englishKeys = flattenKeys(translations.en).sort();
+  const englishKeySet = new Set(englishKeys);
 
   for (const lang of supportedLanguages) {
     assert.ok(translations[lang], `Missing translations for ${lang}`);
-    for (const key of flattenKeys(translations[lang])) {
-      assert.ok(englishKeys.has(key), `${lang} defines unknown translation key ${key}`);
-    }
+    const localeKeys = flattenKeys(translations[lang]).sort();
+    const localeKeySet = new Set(localeKeys);
+    const missing = englishKeys.filter(key => !localeKeySet.has(key));
+    const unexpected = localeKeys.filter(key => !englishKeySet.has(key));
+
+    assert.deepEqual(
+      { missing, unexpected },
+      { missing: [], unexpected: [] },
+      `${lang} translation keys must match English`
+    );
   }
 });
 

@@ -21,6 +21,13 @@
         'Opret tilpasselige QR-koder med logoer, farver og stilarter. Support til URL\'er, WiFi, vCard, SMS og opkald',
       selectLanguage: 'Vælg Sprog'
     },
+    aria: {
+      themeGroup: 'Tema',
+      lightTheme: 'Lyst tema',
+      darkTheme: 'Mørkt tema',
+      language: 'Sprog',
+      qrTypes: 'QR-kodetyper'
+    },
     tabs: {
       urlText: 'URL/Tekst',
       vcard: 'vCard',
@@ -58,6 +65,7 @@
       qrSize: 'QR-Kodestørrelse',
       foregroundColor: 'Forgrundsfarve',
       backgroundColor: 'Baggrundsfarve',
+      transparentBackground: 'Gennemsigtig baggrund',
       errorCorrection: 'Fejlrettelse',
       downloadFormat: 'Downloadformat',
       dotStyle: 'Punktstil',
@@ -135,7 +143,9 @@
       customize: 'Tilpas Udseende (Valgfrit)',
       chooseLogo: 'Vælg Billede',
       showPassword: 'Vis adgangskode',
-      hidePassword: 'Skjul adgangskode'
+      hidePassword: 'Skjul adgangskode',
+      showPayload: 'Vis QR-data',
+      hidePayload: 'Skjul QR-data'
     },
     options: {
       sizeSmall: 'Lille (256px)',
@@ -183,6 +193,7 @@
       vcardRequired:
         'Udfyld venligst mindst én af: Fornavn, Efternavn, E-mail eller Telefonnummer.',
       wifiSsidRequired: 'Indtast venligst Netværksnavn (SSID).',
+      wifiSsidLengthInvalid: 'Et WiFi-netværksnavn må højst fylde 32 UTF-8-bytes.',
       wifiWpaPasswordInvalid:
         'WPA/WPA2-adgangskoder skal være 8-63 udskrivbare tegn eller præcis 64 hexadecimale tegn.',
       wifiWepPasswordInvalid:
@@ -207,6 +218,8 @@
       noData: 'Ingen data angivet til QR-kode.',
       libraryLoadFailed: 'QR-kodebiblioteket kunne ikke indlæses. Opdater venligst siden.',
       generationError: 'Fejl ved generering af QR-kode',
+      dataTooLong:
+        'Dette indhold er for stort til det valgte QR-fejlrettelsesniveau. Forkort indholdet, eller vælg et lavere niveau.',
       pdfExportFailed: 'PDF-eksport mislykkedes. Prøv igen.',
       generateFirst: 'Generer venligst en QR-kode først.',
       resetSuccess: 'Tilpasning nulstillet til standard',
@@ -217,9 +230,26 @@
     counters: {
       characters: '{{current}} / {{max}} tegn'
     },
+    units: {
+      modules: '{{count}} moduler'
+    },
     labels: {
       sms: 'SMS',
       phone: 'Telefonopkald'
+    },
+    warnings: {
+      lowContrast:
+        'Lav kontrast kan gøre denne QR-kode svær at scanne. Brug en mørkere forgrund eller en lysere baggrund.',
+      transparentBackground:
+        'Gennemsigtige baggrunde afhænger af den endelige overflade. Test QR-koden på præcis den baggrund, den skal bruges på, før udgivelse.',
+      quietZoneSmall:
+        'Den rolige zone er for lille. Brug mindst 4 moduler for pålidelig scanning.',
+      denseData:
+        'Denne QR-kode indeholder mange data i forhold til den valgte størrelse. Vælg en større størrelse, eller forkort indholdet.',
+      logoErrorCorrection:
+        'Store logoer scannes mere pålideligt med høj (H) fejlrettelse.',
+      logoLarge:
+        'Logoet er stort og kan dække for meget af QR-koden. Test koden, før du udskriver eller deler den.'
     },
     footer: {
       privacy1: 'Denne gratis QR-kodegenerator kører helt i din browser.',
@@ -236,7 +266,8 @@
     },
     misc: {
       qrPlaceholder: 'QR-koden vil blive vist her',
-      socialPreview: 'QR-mål'
+      socialPreview: 'QR-mål',
+      wifiPayloadHidden: 'WiFi-konfiguration — adgangskode skjult'
     }
   };
 })();

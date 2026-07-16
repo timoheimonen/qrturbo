@@ -8,7 +8,8 @@ const vm = require('node:vm');
 const { repoRoot } = require('../helpers/app-vm');
 
 const publicDir = path.join(repoRoot, 'Public');
-const workerSource = fs.readFileSync(path.join(publicDir, 'sw.js'), 'utf8');
+const workerPath = path.join(publicDir, 'sw.js');
+const workerSource = fs.readFileSync(workerPath, 'utf8');
 const origin = 'https://qrturbo.test';
 
 function extractWorkerMetadata() {
@@ -149,7 +150,7 @@ function makeHarness({ cacheNames = [], fetchImpl, cachePutError = false } = {})
     Set,
     URL
   });
-  vm.runInContext(workerSource, context, { filename: 'Public/sw.js' });
+  vm.runInContext(workerSource, context, { filename: workerPath });
 
   async function dispatchLifecycle(type) {
     let work;

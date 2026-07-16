@@ -19,6 +19,13 @@
       subtitle: '로고, 색상 및 스타일로 사용자 정의 가능한 QR 코드를 만드세요. URL, WiFi, vCard, SMS 및 통화 지원',
       selectLanguage: '언어 선택'
     },
+    aria: {
+      themeGroup: '테마',
+      lightTheme: '라이트 테마',
+      darkTheme: '다크 테마',
+      language: '언어',
+      qrTypes: 'QR 코드 유형'
+    },
     tabs: {
       urlText: 'URL/텍스트',
       vcard: 'vCard',
@@ -56,6 +63,7 @@
       qrSize: 'QR 코드 크기',
       foregroundColor: '전경색',
       backgroundColor: '배경색',
+      transparentBackground: '투명 배경',
       errorCorrection: '오류 수정',
       downloadFormat: '다운로드 형식',
       dotStyle: '점 스타일',
@@ -133,7 +141,9 @@
       customize: '외관 사용자 정의（선택 사항）',
       chooseLogo: '이미지 선택',
       showPassword: '비밀번호 표시',
-      hidePassword: '비밀번호 숨기기'
+      hidePassword: '비밀번호 숨기기',
+      showPayload: 'QR 데이터 표시',
+      hidePayload: 'QR 데이터 숨기기'
     },
     options: {
       sizeSmall: '소（256px）',
@@ -180,6 +190,7 @@
       enterText: '텍스트 또는 URL을 입력하세요',
       vcardRequired: '다음 중 하나 이상을 입력하세요: 이름, 성, 이메일 또는 전화번호.',
       wifiSsidRequired: '네트워크 이름（SSID）을 입력하세요.',
+      wifiSsidLengthInvalid: 'WiFi 네트워크 이름은 UTF-8 기준 최대 32바이트여야 합니다.',
       wifiWpaPasswordInvalid:
         'WPA/WPA2 비밀번호는 8-63자의 출력 가능한 문자이거나 정확히 64자의 16진수 문자여야 합니다.',
       wifiWepPasswordInvalid:
@@ -204,6 +215,8 @@
       noData: 'QR 코드에 대한 데이터가 제공되지 않았습니다.',
       libraryLoadFailed: 'QR 코드 라이브러리를 로드하지 못했습니다. 페이지를 새로 고침하세요.',
       generationError: 'QR 코드 생성 오류',
+      dataTooLong:
+        '선택한 QR 오류 수정 수준에 비해 내용이 너무 큽니다. 내용을 줄이거나 더 낮은 수준을 선택하세요.',
       pdfExportFailed: 'PDF 내보내기에 실패했습니다. 다시 시도하세요.',
       generateFirst: '먼저 QR 코드를 생성하세요.',
       resetSuccess: '사용자 정의가 기본값으로 재설정되었습니다',
@@ -214,9 +227,26 @@
     counters: {
       characters: '{{current}} / {{max}} 자'
     },
+    units: {
+      modules: '{{count}}개 모듈'
+    },
     labels: {
       sms: 'SMS',
       phone: '전화'
+    },
+    warnings: {
+      lowContrast:
+        '대비가 낮으면 QR 코드를 스캔하기 어려울 수 있습니다. 전경색을 더 어둡게 하거나 배경색을 더 밝게 하세요.',
+      transparentBackground:
+        '투명 배경은 최종적으로 배치되는 표면에 따라 달라집니다. 게시하기 전에 실제 배경에서 QR 코드를 테스트하세요.',
+      quietZoneSmall:
+        '여백 영역이 너무 작습니다. 안정적인 스캔을 위해 최소 4개 모듈을 사용하세요.',
+      denseData:
+        '선택한 크기에 비해 QR 코드에 데이터가 많습니다. 더 큰 크기를 사용하거나 내용을 줄이세요.',
+      logoErrorCorrection:
+        '큰 로고는 높은(H) 오류 수정 수준에서 더 안정적으로 작동합니다.',
+      logoLarge:
+        '로고가 너무 커서 QR 코드를 과도하게 가릴 수 있습니다. 인쇄하거나 공유하기 전에 테스트하세요.'
     },
     footer: {
       privacy1: '이 무료 QR 코드 생성기는 브라우저에서 완전히 실행됩니다.',
@@ -232,7 +262,8 @@
     },
     misc: {
       qrPlaceholder: 'QR 코드가 여기에 표시됩니다',
-      socialPreview: 'QR 대상'
+      socialPreview: 'QR 대상',
+      wifiPayloadHidden: 'WiFi 설정 — 비밀번호 숨김'
     }
   };
 })();

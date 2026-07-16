@@ -20,6 +20,13 @@
         'ロゴ、色、スタイルを使用してカスタマイズ可能なQRコードを作成します。URL、WiFi、vCard、SMS、通話に対応',
       selectLanguage: '言語を選択'
     },
+    aria: {
+      themeGroup: 'テーマ',
+      lightTheme: 'ライトテーマ',
+      darkTheme: 'ダークテーマ',
+      language: '言語',
+      qrTypes: 'QRコードの種類'
+    },
     tabs: {
       urlText: 'URL/テキスト',
       vcard: 'vCard',
@@ -57,6 +64,7 @@
       qrSize: 'QRコードサイズ',
       foregroundColor: '前景色',
       backgroundColor: '背景色',
+      transparentBackground: '透明な背景',
       errorCorrection: '誤り訂正',
       downloadFormat: 'ダウンロード形式',
       dotStyle: 'ドットスタイル',
@@ -134,7 +142,9 @@
       customize: '外観をカスタマイズ（任意）',
       chooseLogo: '画像を選択',
       showPassword: 'パスワードを表示',
-      hidePassword: 'パスワードを非表示'
+      hidePassword: 'パスワードを非表示',
+      showPayload: 'QRデータを表示',
+      hidePayload: 'QRデータを非表示'
     },
     options: {
       sizeSmall: '小（256px）',
@@ -181,6 +191,7 @@
       enterText: 'テキストまたはURLを入力してください',
       vcardRequired: '次のうち少なくとも1つを入力してください：名、姓、メール、または電話番号。',
       wifiSsidRequired: 'ネットワーク名（SSID）を入力してください。',
+      wifiSsidLengthInvalid: 'WiFiネットワーク名はUTF-8で32バイト以内にしてください。',
       wifiWpaPasswordInvalid:
         'WPA/WPA2パスワードは8〜63文字の印刷可能文字、または正確に64文字の16進数である必要があります。',
       wifiWepPasswordInvalid:
@@ -205,6 +216,8 @@
       noData: 'QRコードのデータが提供されていません。',
       libraryLoadFailed: 'QRコードライブラリの読み込みに失敗しました。ページを更新してください。',
       generationError: 'QRコード生成エラー',
+      dataTooLong:
+        '選択したQR誤り訂正レベルではデータが大きすぎます。内容を短くするか、より低いレベルを選択してください。',
       pdfExportFailed: 'PDFのエクスポートに失敗しました。もう一度お試しください。',
       generateFirst: '最初にQRコードを生成してください。',
       resetSuccess: 'カスタマイズがデフォルトにリセットされました',
@@ -215,9 +228,26 @@
     counters: {
       characters: '{{current}} / {{max}} 文字'
     },
+    units: {
+      modules: '{{count}}モジュール'
+    },
     labels: {
       sms: 'SMS',
       phone: '電話'
+    },
+    warnings: {
+      lowContrast:
+        'コントラストが低いとQRコードをスキャンしにくくなることがあります。前景色を暗くするか、背景色を明るくしてください。',
+      transparentBackground:
+        '透明な背景の見え方は配置先の背景によって変わります。公開前に実際の背景でQRコードをテストしてください。',
+      quietZoneSmall:
+        '静穏ゾーンが小さすぎます。確実にスキャンできるよう、4モジュール以上に設定してください。',
+      denseData:
+        '選択したサイズに対してQRコードのデータ量が多すぎます。サイズを大きくするか、内容を短くしてください。',
+      logoErrorCorrection:
+        '大きなロゴは、高い（H）誤り訂正レベルを使用するとより確実に機能します。',
+      logoLarge:
+        'ロゴが大きいため、QRコードを覆いすぎる可能性があります。印刷または共有する前にテストしてください。'
     },
     footer: {
       privacy1: 'この無料QRコードジェネレーターは完全にブラウザで実行されます。',
@@ -233,7 +263,8 @@
     },
     misc: {
       qrPlaceholder: 'QRコードがここに表示されます',
-      socialPreview: 'QRのリンク先'
+      socialPreview: 'QRのリンク先',
+      wifiPayloadHidden: 'WiFi設定 — パスワードは非表示'
     }
   };
 })();

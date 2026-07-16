@@ -19,6 +19,13 @@
       subtitle: '创建带有徽标、颜色和样式的可定制二维码。支持网址、WiFi、电子名片、短信和电话',
       selectLanguage: '选择语言'
     },
+    aria: {
+      themeGroup: '主题',
+      lightTheme: '浅色主题',
+      darkTheme: '深色主题',
+      language: '语言',
+      qrTypes: '二维码类型'
+    },
     tabs: {
       urlText: '网址/文本',
       vcard: '电子名片',
@@ -56,6 +63,7 @@
       qrSize: '二维码大小',
       foregroundColor: '前景色',
       backgroundColor: '背景色',
+      transparentBackground: '透明背景',
       errorCorrection: '纠错级别',
       downloadFormat: '下载格式',
       dotStyle: '点样式',
@@ -133,7 +141,9 @@
       customize: '自定义外观（可选）',
       chooseLogo: '选择图像',
       showPassword: '显示密码',
-      hidePassword: '隐藏密码'
+      hidePassword: '隐藏密码',
+      showPayload: '显示二维码数据',
+      hidePayload: '隐藏二维码数据'
     },
     options: {
       sizeSmall: '小（256像素）',
@@ -180,6 +190,7 @@
       enterText: '请输入文本或网址',
       vcardRequired: '请至少填写以下之一：名、姓、电子邮件或电话号码。',
       wifiSsidRequired: '请输入网络名称（SSID）。',
+      wifiSsidLengthInvalid: 'WiFi 网络名称最多可包含 32 个 UTF-8 字节。',
       wifiWpaPasswordInvalid:
         'WPA/WPA2 密码必须为 8-63 个可打印字符，或正好 64 个十六进制字符。',
       wifiWepPasswordInvalid:
@@ -203,6 +214,7 @@
       noData: '未提供二维码数据。',
       libraryLoadFailed: '二维码库加载失败。请刷新页面。',
       generationError: '生成二维码时出错',
+      dataTooLong: '内容对于所选的二维码纠错级别过大。请缩短内容或选择较低的级别。',
       pdfExportFailed: 'PDF 导出失败。请重试。',
       generateFirst: '请先生成二维码。',
       resetSuccess: '自定义已重置为默认值',
@@ -212,9 +224,21 @@
     counters: {
       characters: '{{current}} / {{max}} 个字符'
     },
+    units: {
+      modules: '{{count}} 个模块'
+    },
     labels: {
       sms: '短信',
       phone: '电话'
+    },
+    warnings: {
+      lowContrast: '低对比度可能会使二维码难以扫描。请使用更深的前景色或更浅的背景色。',
+      transparentBackground:
+        '透明背景的效果取决于最终承载表面。发布前请在实际背景上测试二维码。',
+      quietZoneSmall: '静区太小。请至少保留 4 个模块，以确保可靠扫描。',
+      denseData: '所选尺寸的二维码包含过多数据。请使用更大尺寸或缩短内容。',
+      logoErrorCorrection: '大尺寸徽标在高（H）纠错级别下更可靠。',
+      logoLarge: '徽标较大，可能会遮挡过多二维码。请在打印或分享前进行测试。'
     },
     footer: {
       privacy1: '此免费二维码生成器完全在您的浏览器中运行。',
@@ -229,7 +253,8 @@
     },
     misc: {
       qrPlaceholder: '二维码将显示在此处',
-      socialPreview: '二维码目标'
+      socialPreview: '二维码目标',
+      wifiPayloadHidden: 'WiFi 配置 — 密码已隐藏'
     }
   };
 })();

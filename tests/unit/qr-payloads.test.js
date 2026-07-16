@@ -270,6 +270,11 @@ test('MeCard payload validates email and URL and escapes reserved characters', (
   app.setValue('mecard-email', 'bad');
   assert.equal(app.collect(true), null);
   assert.equal(app.alerts.at(-1), 'alerts.emailInvalid');
+
+  app.setValue('mecard-email', 'ada@example.com');
+  app.setValue('mecard-url', 'ftp://example.com');
+  assert.equal(app.collect(true), null);
+  assert.equal(app.alerts.at(-1), 'alerts.urlInvalid');
 });
 
 test('App Link prefers web URL and falls back to selected store URL', () => {

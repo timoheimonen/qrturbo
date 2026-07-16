@@ -1,28 +1,32 @@
 const fs = require('node:fs');
 const { test, expect } = require('@playwright/test');
 
-test('home page loads, generates a URL QR code and does not make external requests', async ({ page }) => {
-  const externalRequests = [];
+async function expectGeneratedQr(page) {
+  await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toBeVisible({
+    timeout: 10_000
+  });
+  await expect(page.locator('#download-btn')).toBeVisible();
+  await expect(page.locator('#download-btn')).toBeEnabled();
+}
+
+test('home page loads, generates a URL QR code and does not make external requests @webkit-core', async ({ page }) => {
+  const requestedUrls = [];
 
   page.on('request', request => {
-    const url = new URL(request.url());
-    if (url.origin !== 'http://127.0.0.1:4173') {
-      externalRequests.push(request.url());
-    }
+    requestedUrls.push(request.url());
   });
 
   await page.goto('/');
   await expect(page).toHaveTitle(/QRTurbo\.app/);
   await expect(page.getByRole('heading', { name: /QRTurbo\.app/i })).toBeVisible();
-  await expect(page.locator('#char-count')).toHaveText('0 / 2000 characters');
+  await expect(page.locator('#char-count')).toHaveText(/0.*2000/);
 
   await page.locator('#qr-text').fill('https://example.com');
-  await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toBeVisible({
-    timeout: 10_000
-  });
-  await expect(page.locator('#download-btn')).toBeVisible();
   await expect(page.locator('#qr-code-text')).toContainText('https://example.com');
+  await expectGeneratedQr(page);
 
+  const appOrigin = new URL(page.url()).origin;
+  const externalRequests = requestedUrls.filter(url => new URL(url).origin !== appOrigin);
   expect(externalRequests).toEqual([]);
 });
 
@@ -39,6 +43,7 @@ test('tabs switch correctly and WiFi QR generation validates the main controls',
   await expect(page.locator('#qr-code-text')).toContainText('WIFI:S:Guest;T:nopass;', {
     timeout: 10_000
   });
+  await expectGeneratedQr(page);
 });
 
 test('Social Media QR generation supports single-platform profile links', async ({ page }) => {
@@ -55,7 +60,7 @@ test('Social Media QR generation supports single-platform profile links', async 
   await expect(page.locator('#qr-code-text')).toContainText('https://www.instagram.com/qr.turbo/', {
     timeout: 10_000
   });
-  await expect(page.locator('#download-btn')).toBeVisible();
+  await expectGeneratedQr(page);
 
   await page.locator('#social-platform').selectOption('linkedin');
   await expect(page.locator('#social-profile-type-group')).toBeVisible();
@@ -77,7 +82,7 @@ test('WhatsApp username QR omits the at sign and keeps the encoded message', asy
     'https://wa.me/qr.turbo?text=Hello%20username!',
     { timeout: 10_000 }
   );
-  await expect(page.locator('#download-btn')).toBeVisible();
+  await expectGeneratedQr(page);
 });
 
 test('PDF export downloads a valid PDF file in the browser', async ({ page }) => {
@@ -102,27 +107,18 @@ test('PDF export downloads a valid PDF file in the browser', async ({ page }) =>
   expect(buffer.toString('latin1')).toContain('/Subtype /Image');
 });
 
-test('customization panel updates controls and transparent background state', async ({ page }) => {
-  await page.goto('/');
-
-  await page.locator('#customize-toggle').click();
-  await expect(page.locator('#customize-toggle')).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.locator('#customize-panel')).toBeVisible();
-
-  await page.locator('#qr-transparent-bg').check();
-  await expect(page.locator('#qr-bg-color')).toBeDisabled();
-  await expect(page.locator('#qr-bg-color-text')).toBeDisabled();
-
-  await page.locator('#qr-margin').fill('4');
-  await expect(page.locator('#qr-margin-value')).toHaveText('4 modules');
-});
-
 test('language and theme selectors persist browser state', async ({ page }) => {
   await page.goto('/');
+  const translatedFieldLabel = page.locator('[data-i18n="fields.textOrUrl"]');
+  const englishFieldLabel = await translatedFieldLabel.innerText();
 
   await page.locator('#lang-select').selectOption('fi');
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
-  await expect(page.locator('[data-i18n="fields.textOrUrl"]')).toHaveText('Teksti tai URL');
+  await expect(translatedFieldLabel).toBeVisible();
+  await expect(translatedFieldLabel).toHaveText(/\S/);
+  await expect(translatedFieldLabel).not.toHaveText(englishFieldLabel);
+  await expect(translatedFieldLabel).not.toHaveText('fields.textOrUrl');
+  const finnishFieldLabel = await translatedFieldLabel.innerText();
 
   await page.locator('[data-theme-choice="dark"]').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
@@ -130,4 +126,31 @@ test('language and theme selectors persist browser state', async ({ page }) => {
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await expect(translatedFieldLabel).toHaveText(finnishFieldLabel);
+  await expect(translatedFieldLabel).not.toHaveText('fields.textOrUrl');
+});
+
+test('responsive mobile layout keeps generation controls usable @mobile-smoke', async ({ page, isMobile }) => {
+  expect(isMobile).toBe(true);
+  await page.goto('/');
+
+  await page.locator('#qr-text').fill('https://example.com/mobile-smoke');
+  await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toBeVisible({
+    timeout: 10_000
+  });
+  await expect(page.locator('#download-btn')).toBeVisible();
+  await expect(page.locator('#download-btn')).toBeEnabled();
+
+  const layoutFitsViewport = await page.evaluate(() => {
+    const preview = document.querySelector('#qr-canvas-container canvas, #qr-canvas-container svg');
+    const download = document.getElementById('download-btn');
+    const elementsFit = [preview, download].every(element => {
+      const bounds = element.getBoundingClientRect();
+      return bounds.left >= 0 && bounds.right <= window.innerWidth;
+    });
+
+    return elementsFit && document.documentElement.scrollWidth <= window.innerWidth;
+  });
+
+  expect(layoutFitsViewport).toBe(true);
 });

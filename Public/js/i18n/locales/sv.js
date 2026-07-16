@@ -21,6 +21,13 @@
         'Skapa anpassningsbara QR-koder med logotyper, färger och stilar. Stöd för URL:er, WiFi, vCard, SMS och samtal',
       selectLanguage: 'Välj Språk'
     },
+    aria: {
+      themeGroup: 'Tema',
+      lightTheme: 'Ljust tema',
+      darkTheme: 'Mörkt tema',
+      language: 'Språk',
+      qrTypes: 'QR-kodtyper'
+    },
     tabs: {
       urlText: 'URL/Text',
       vcard: 'vCard',
@@ -58,6 +65,7 @@
       qrSize: 'QR-Kodstorlek',
       foregroundColor: 'Förgrundsfärg',
       backgroundColor: 'Bakgrundsfärg',
+      transparentBackground: 'Transparent bakgrund',
       errorCorrection: 'Felkorrigering',
       downloadFormat: 'Nedladdningsformat',
       dotStyle: 'Punktstil',
@@ -135,7 +143,9 @@
       customize: 'Anpassa Utseende (Valfritt)',
       chooseLogo: 'Välj Bild',
       showPassword: 'Visa lösenord',
-      hidePassword: 'Dölj lösenord'
+      hidePassword: 'Dölj lösenord',
+      showPayload: 'Visa QR-data',
+      hidePayload: 'Dölj QR-data'
     },
     options: {
       sizeSmall: 'Liten (256px)',
@@ -183,6 +193,7 @@
       vcardRequired:
         'Fyll i minst en av: Förnamn, Efternamn, E-post eller Telefonnummer.',
       wifiSsidRequired: 'Ange Nätverksnamn (SSID).',
+      wifiSsidLengthInvalid: 'WiFi-nätverkets namn får vara högst 32 UTF-8-byte.',
       wifiWpaPasswordInvalid:
         'WPA/WPA2-lösenord måste vara 8-63 utskrivbara tecken eller exakt 64 hexadecimala tecken.',
       wifiWepPasswordInvalid:
@@ -207,6 +218,8 @@
       noData: 'Ingen data tillhandahållen för QR-kod.',
       libraryLoadFailed: 'QR-kodbiblioteket kunde inte laddas. Uppdatera sidan.',
       generationError: 'Fel vid generering av QR-kod',
+      dataTooLong:
+        'Innehållet är för stort för den valda QR-felkorrigeringsnivån. Förkorta innehållet eller välj en lägre nivå.',
       pdfExportFailed: 'PDF-export misslyckades. Försök igen.',
       generateFirst: 'Generera en QR-kod först.',
       resetSuccess: 'Anpassning återställd till standard',
@@ -217,9 +230,26 @@
     counters: {
       characters: '{{current}} / {{max}} tecken'
     },
+    units: {
+      modules: '{{count}} moduler'
+    },
     labels: {
       sms: 'SMS',
       phone: 'Telefonsamtal'
+    },
+    warnings: {
+      lowContrast:
+        'Låg kontrast kan göra QR-koden svår att skanna. Använd en mörkare förgrund eller ljusare bakgrund.',
+      transparentBackground:
+        'En transparent bakgrund beror på den slutliga ytan. Testa QR-koden mot den verkliga bakgrunden före publicering.',
+      quietZoneSmall:
+        'Den tysta zonen är för liten. Använd minst 4 moduler för tillförlitlig skanning.',
+      denseData:
+        'QR-koden innehåller mycket data för den valda storleken. Använd en större storlek eller förkorta innehållet.',
+      logoErrorCorrection:
+        'Stora logotyper fungerar mer tillförlitligt med hög felkorrigering (H).',
+      logoLarge:
+        'Logotypen är stor och kan täcka för mycket av QR-koden. Testa före utskrift eller delning.'
     },
     footer: {
       privacy1: 'Denna gratis QR-kodgenerator körs helt i din webbläsare.',
@@ -236,7 +266,8 @@
     },
     misc: {
       qrPlaceholder: 'QR-koden kommer att visas här',
-      socialPreview: 'QR-mål'
+      socialPreview: 'QR-mål',
+      wifiPayloadHidden: 'WiFi-konfiguration — lösenord dolt'
     }
   };
 })();

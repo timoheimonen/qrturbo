@@ -21,6 +21,13 @@
         'Crea códigos QR personalizables con logos, colores y estilos. Compatible con URLs, WiFi, vCards, SMS y llamadas',
       selectLanguage: 'Seleccionar Idioma'
     },
+    aria: {
+      themeGroup: 'Tema',
+      lightTheme: 'Tema claro',
+      darkTheme: 'Tema oscuro',
+      language: 'Idioma',
+      qrTypes: 'Tipos de código QR'
+    },
     tabs: {
       urlText: 'URL/Texto',
       vcard: 'vCard',
@@ -58,6 +65,7 @@
       qrSize: 'Tamaño del Código QR',
       foregroundColor: 'Color Principal',
       backgroundColor: 'Color de Fondo',
+      transparentBackground: 'Fondo transparente',
       errorCorrection: 'Corrección de Errores',
       downloadFormat: 'Formato de Descarga',
       dotStyle: 'Estilo de Puntos',
@@ -135,7 +143,9 @@
       customize: 'Personalizar Apariencia (Opcional)',
       chooseLogo: 'Elegir Imagen',
       showPassword: 'Mostrar contraseña',
-      hidePassword: 'Ocultar contraseña'
+      hidePassword: 'Ocultar contraseña',
+      showPayload: 'Mostrar datos del QR',
+      hidePayload: 'Ocultar datos del QR'
     },
     options: {
       sizeSmall: 'Pequeño (256px)',
@@ -183,6 +193,7 @@
       vcardRequired:
         'Por favor completa al menos uno de: Nombre, Apellido, Correo Electrónico o Número de Teléfono.',
       wifiSsidRequired: 'Por favor ingresa el Nombre de Red (SSID).',
+      wifiSsidLengthInvalid: 'El nombre de una red WiFi puede ocupar como máximo 32 bytes UTF-8.',
       wifiWpaPasswordInvalid:
         'Las contraseñas WPA/WPA2 deben tener 8-63 caracteres imprimibles o exactamente 64 caracteres hexadecimales.',
       wifiWepPasswordInvalid:
@@ -208,6 +219,8 @@
       libraryLoadFailed:
         'La biblioteca de código QR no se pudo cargar. Por favor actualiza la página.',
       generationError: 'Error al generar el código QR',
+      dataTooLong:
+        'Este contenido es demasiado grande para el nivel de corrección de errores QR seleccionado. Acorta el contenido o elige un nivel inferior.',
       pdfExportFailed: 'No se pudo exportar el PDF. Inténtalo de nuevo.',
       generateFirst: 'Por favor genera primero un código QR.',
       resetSuccess: 'Personalización restablecida a predeterminados',
@@ -219,9 +232,26 @@
     counters: {
       characters: '{{current}} / {{max}} caracteres'
     },
+    units: {
+      modules: '{{count}} módulos'
+    },
     labels: {
       sms: 'SMS',
       phone: 'Llamada Telefónica'
+    },
+    warnings: {
+      lowContrast:
+        'El contraste bajo puede dificultar el escaneo de este código QR. Usa un color principal más oscuro o un fondo más claro.',
+      transparentBackground:
+        'Los fondos transparentes dependen de la superficie final. Prueba el código QR sobre el fondo exacto antes de publicarlo.',
+      quietZoneSmall:
+        'La zona tranquila es demasiado pequeña. Usa al menos 4 módulos para garantizar un escaneo fiable.',
+      denseData:
+        'Este código QR contiene demasiados datos para el tamaño seleccionado. Usa un tamaño mayor o acorta el contenido.',
+      logoErrorCorrection:
+        'Los logos grandes se escanean con mayor fiabilidad usando corrección de errores alta (H).',
+      logoLarge:
+        'El logo es grande y puede cubrir demasiado espacio del código QR. Pruébalo antes de imprimirlo o compartirlo.'
     },
     footer: {
       privacy1: 'Este generador de códigos QR gratuito se ejecuta completamente en tu navegador.',
@@ -239,7 +269,8 @@
     },
     misc: {
       qrPlaceholder: 'El código QR aparecerá aquí',
-      socialPreview: 'Destino del QR'
+      socialPreview: 'Destino del QR',
+      wifiPayloadHidden: 'Configuración WiFi — contraseña oculta'
     }
   };
 })();

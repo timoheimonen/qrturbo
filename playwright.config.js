@@ -18,11 +18,18 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
+      grepInvert: /@mobile-smoke/,
       use: { ...devices['Desktop Chrome'] }
     },
     {
       name: 'mobile-chrome',
+      grep: /@mobile-smoke/,
       use: { ...devices['Pixel 7'] }
+    },
+    {
+      name: 'webkit',
+      grep: /@webkit-core/,
+      use: { ...devices['Desktop Safari'] }
     }
   ]
 });
