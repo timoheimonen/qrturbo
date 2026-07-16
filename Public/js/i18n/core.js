@@ -4,6 +4,7 @@
 
 // Current language (default: English)
 let currentLang = 'en';
+const assetVersionQuery = document.currentScript?.src.match(/\?v=[^#&]+/)?.[0] || '';
 
 // Translation database (English embedded, others lazy-loaded)
 // Expose on window so locale files can register their translations
@@ -354,7 +355,7 @@ async function loadLanguage(langCode) {
   // Create loading promise
   const loadPromise = new Promise((resolve, reject) => {
     const script = document.createElement('script');
-    script.src = `js/i18n/locales/${langCode}.js`;
+    script.src = `js/i18n/locales/${langCode}.js${assetVersionQuery}`;
     script.async = true;
 
     script.onload = () => {

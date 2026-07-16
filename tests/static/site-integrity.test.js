@@ -25,12 +25,30 @@ function assertPublicAssetExists(assetPath) {
     return;
   }
 
-  const normalized = assetPath.replace(/^\//, '');
+  const normalized = assetPath.replace(/^\//, '').split(/[?#]/, 1)[0];
   assert.ok(
     fs.existsSync(path.join(publicDir, normalized)),
     `Expected public asset to exist: ${assetPath}`
   );
 }
+
+test('index asset URLs use the package version as their cache key', () => {
+  const html = readPublicFile('index.html');
+  const { version } = JSON.parse(fs.readFileSync(path.join(repoRoot, 'package.json'), 'utf8'));
+  const localAssets = [
+    ...extractAttributeValues(html, 'src'),
+    ...extractAttributeValues(html, 'href')
+  ].filter(assetPath => /^(?:\/|css\/|js\/).+\.(?:css|ico|js|json|png)(?:\?|$)/.test(assetPath));
+
+  assert.ok(localAssets.length > 0, 'Expected index.html to reference local assets');
+  for (const assetPath of localAssets) {
+    assert.equal(
+      new URL(assetPath, 'https://qrturbo.test').searchParams.get('v'),
+      version,
+      `Asset URL must use package version ${version}: ${assetPath}`
+    );
+  }
+});
 
 test('HTML references only existing local scripts, styles, icons and manifest assets', () => {
   const html = readPublicFile('index.html');

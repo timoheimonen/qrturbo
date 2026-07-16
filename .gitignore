@@ -1,5 +1,6 @@
 .DS_Store
 .git/
+AGENTS.md
 uploads/
 node_modules/
 test-results/

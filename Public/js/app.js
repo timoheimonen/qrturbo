@@ -8,6 +8,7 @@ let activeGenerationPromise = null;
 const THEME_STORAGE_KEY = 'qrturbo_theme';
 const DEFAULT_THEME = 'light';
 const AUTO_PREVIEW_DELAY = 450;
+const ASSET_VERSION_QUERY = document.currentScript?.src.match(/\?v=[^#&]+/)?.[0] || '';
 const WHATSAPP_USERNAME_PATTERN = /^@(?![0-9]{3,35}$)[a-z0-9._]{3,35}$/;
 const WHATSAPP_PHONE_PATTERN = /^\+?[0-9\s().-]+$/;
 const MIN_QUIET_ZONE_MODULES = 4;
@@ -57,7 +58,7 @@ function registerServiceWorker() {
     }
 
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(error => {
+        navigator.serviceWorker.register(`/sw.js${ASSET_VERSION_QUERY}`).catch(error => {
             console.warn('Service worker registration failed:', error);
         });
     });
