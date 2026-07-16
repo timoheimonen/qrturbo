@@ -1,5 +1,5 @@
 {
-  "name": "qrturbo",
+  "name": "qrturbo.app",
   "version": "1.0.0",
   "private": true,
   "type": "commonjs",
@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
-    "@playwright/test": "^1.52.0"
+    "@playwright/test": "^1.52.0",
+    "jsqr": "1.4.0"
   }
 }

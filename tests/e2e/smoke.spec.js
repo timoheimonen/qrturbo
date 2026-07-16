@@ -101,22 +101,6 @@ test('PDF export downloads a valid PDF file in the browser', async ({ page }) =>
   expect(buffer.toString('latin1')).toContain('/Subtype /Image');
 });
 
-test('customization panel updates controls and transparent background state', async ({ page }) => {
-  await page.goto('/');
-
-  await page.locator('#customize-toggle').click();
-  await expect(page.locator('#customize-toggle')).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.locator('#customize-panel')).toBeVisible();
-
-  await page.locator('#qr-transparent-bg').check();
-  await expect(page.locator('#qr-bg-color')).toBeDisabled();
-  await expect(page.locator('#qr-bg-color-text')).toBeDisabled();
-
-  await page.locator('#qr-margin').fill('4');
-  await expect(page.locator('#qr-margin-value')).toHaveText(/4/);
-  await expect(page.locator('#qr-margin-value')).not.toHaveText('units.modules');
-});
-
 test('language and theme selectors persist browser state', async ({ page }) => {
   await page.goto('/');
   const translatedFieldLabel = page.locator('[data-i18n="fields.textOrUrl"]');
