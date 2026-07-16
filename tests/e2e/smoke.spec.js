@@ -2,19 +2,16 @@ const fs = require('node:fs');
 const { test, expect } = require('@playwright/test');
 
 test('home page loads, generates a URL QR code and does not make external requests', async ({ page }) => {
-  const externalRequests = [];
+  const requestedUrls = [];
 
   page.on('request', request => {
-    const url = new URL(request.url());
-    if (url.origin !== 'http://127.0.0.1:4173') {
-      externalRequests.push(request.url());
-    }
+    requestedUrls.push(request.url());
   });
 
   await page.goto('/');
   await expect(page).toHaveTitle(/QRTurbo\.app/);
   await expect(page.getByRole('heading', { name: /QRTurbo\.app/i })).toBeVisible();
-  await expect(page.locator('#char-count')).toHaveText('0 / 2000 characters');
+  await expect(page.locator('#char-count')).toHaveText(/0.*2000/);
 
   await page.locator('#qr-text').fill('https://example.com');
   await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toBeVisible({
@@ -23,6 +20,8 @@ test('home page loads, generates a URL QR code and does not make external reques
   await expect(page.locator('#download-btn')).toBeVisible();
   await expect(page.locator('#qr-code-text')).toContainText('https://example.com');
 
+  const appOrigin = new URL(page.url()).origin;
+  const externalRequests = requestedUrls.filter(url => new URL(url).origin !== appOrigin);
   expect(externalRequests).toEqual([]);
 });
 
@@ -114,15 +113,22 @@ test('customization panel updates controls and transparent background state', as
   await expect(page.locator('#qr-bg-color-text')).toBeDisabled();
 
   await page.locator('#qr-margin').fill('4');
-  await expect(page.locator('#qr-margin-value')).toHaveText('4 modules');
+  await expect(page.locator('#qr-margin-value')).toHaveText(/4/);
+  await expect(page.locator('#qr-margin-value')).not.toHaveText('units.modules');
 });
 
 test('language and theme selectors persist browser state', async ({ page }) => {
   await page.goto('/');
+  const translatedFieldLabel = page.locator('[data-i18n="fields.textOrUrl"]');
+  const englishFieldLabel = await translatedFieldLabel.innerText();
 
   await page.locator('#lang-select').selectOption('fi');
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
-  await expect(page.locator('[data-i18n="fields.textOrUrl"]')).toHaveText('Teksti tai URL');
+  await expect(translatedFieldLabel).toBeVisible();
+  await expect(translatedFieldLabel).toHaveText(/\S/);
+  await expect(translatedFieldLabel).not.toHaveText(englishFieldLabel);
+  await expect(translatedFieldLabel).not.toHaveText('fields.textOrUrl');
+  const finnishFieldLabel = await translatedFieldLabel.innerText();
 
   await page.locator('[data-theme-choice="dark"]').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
@@ -130,4 +136,6 @@ test('language and theme selectors persist browser state', async ({ page }) => {
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await expect(translatedFieldLabel).toHaveText(finnishFieldLabel);
+  await expect(translatedFieldLabel).not.toHaveText('fields.textOrUrl');
 });

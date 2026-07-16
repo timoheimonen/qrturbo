@@ -21,6 +21,13 @@
         'Créez des codes QR personnalisables avec logos, couleurs et styles. Support pour URLs, WiFi, vCards, SMS et appels',
       selectLanguage: 'Sélectionner la Langue'
     },
+    aria: {
+      themeGroup: 'Thème',
+      lightTheme: 'Thème clair',
+      darkTheme: 'Thème sombre',
+      language: 'Langue',
+      qrTypes: 'Types de codes QR'
+    },
     tabs: {
       urlText: 'URL/Texte',
       vcard: 'vCard',
@@ -58,6 +65,7 @@
       qrSize: 'Taille du Code QR',
       foregroundColor: 'Couleur de Premier Plan',
       backgroundColor: 'Couleur de Fond',
+      transparentBackground: 'Fond transparent',
       errorCorrection: 'Correction d\'Erreurs',
       downloadFormat: 'Format de Téléchargement',
       dotStyle: 'Style de Points',
@@ -135,7 +143,9 @@
       customize: 'Personnaliser l\'Apparence (Optionnel)',
       chooseLogo: 'Choisir une Image',
       showPassword: 'Afficher le mot de passe',
-      hidePassword: 'Masquer le mot de passe'
+      hidePassword: 'Masquer le mot de passe',
+      showPayload: 'Afficher les données du code QR',
+      hidePayload: 'Masquer les données du code QR'
     },
     options: {
       sizeSmall: 'Petit (256px)',
@@ -183,6 +193,7 @@
       vcardRequired:
         'Veuillez remplir au moins un de: Prénom, Nom, E-mail ou Numéro de Téléphone.',
       wifiSsidRequired: 'Veuillez saisir le Nom du Réseau (SSID).',
+      wifiSsidLengthInvalid: 'Le nom d’un réseau WiFi ne peut pas dépasser 32 octets UTF-8.',
       wifiWpaPasswordInvalid:
         'Les mots de passe WPA/WPA2 doivent contenir 8 à 63 caractères imprimables ou exactement 64 caractères hexadécimaux.',
       wifiWepPasswordInvalid:
@@ -208,6 +219,8 @@
       libraryLoadFailed:
         'La bibliothèque de code QR n\'a pas pu être chargée. Veuillez actualiser la page.',
       generationError: 'Erreur lors de la génération du code QR',
+      dataTooLong:
+        'Ce contenu est trop volumineux pour le niveau de correction d’erreurs QR sélectionné. Raccourcissez-le ou choisissez un niveau inférieur.',
       pdfExportFailed: 'L’export PDF a échoué. Veuillez réessayer.',
       generateFirst: 'Veuillez d\'abord générer un code QR.',
       resetSuccess: 'Personnalisation réinitialisée aux valeurs par défaut',
@@ -219,9 +232,26 @@
     counters: {
       characters: '{{current}} / {{max}} caractères'
     },
+    units: {
+      modules: '{{count}} modules'
+    },
     labels: {
       sms: 'SMS',
       phone: 'Appel Téléphonique'
+    },
+    warnings: {
+      lowContrast:
+        'Un faible contraste peut rendre ce code QR difficile à scanner. Utilisez un premier plan plus foncé ou un fond plus clair.',
+      transparentBackground:
+        'Les arrière-plans transparents dépendent de la surface finale. Testez le code QR sur l’arrière-plan exact avant de le publier.',
+      quietZoneSmall:
+        'La zone calme est trop petite. Utilisez au moins 4 modules pour un scan fiable.',
+      denseData:
+        'Ce code QR contient beaucoup de données pour la taille sélectionnée. Utilisez une taille supérieure ou raccourcissez le contenu.',
+      logoErrorCorrection:
+        'Les logos de grande taille sont scannés de manière plus fiable avec une correction d’erreurs élevée (H).',
+      logoLarge:
+        'Le logo est grand et peut couvrir une trop grande partie du code QR. Testez-le avant de l’imprimer ou de le partager.'
     },
     footer: {
       privacy1: 'Ce générateur de code QR gratuit fonctionne entièrement dans votre navigateur.',
@@ -239,7 +269,8 @@
     },
     misc: {
       qrPlaceholder: 'Le code QR apparaîtra ici',
-      socialPreview: 'Cible du QR'
+      socialPreview: 'Cible du QR',
+      wifiPayloadHidden: 'Configuration WiFi — mot de passe masqué'
     }
   };
 })();

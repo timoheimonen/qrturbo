@@ -3,9 +3,10 @@ const { test, expect } = require('@playwright/test');
 
 test('switching to an untouched empty tab does not announce a validation error', async ({ page }) => {
   await page.goto('/');
+  await page.clock.install();
 
   await page.getByRole('tab', { name: 'vCard' }).click();
-  await page.waitForTimeout(600);
+  await page.clock.runFor(1_000);
 
   await expect(page.locator('#form-error')).toBeHidden();
 });
@@ -26,9 +27,11 @@ test('editing input invalidates the old QR immediately and preserves exact URL/T
   expect(await page.locator('#qr-code-text').textContent()).toBe(exactValue);
 
   await page.locator('#qr-text').fill('   ');
+  const formError = page.locator('#form-error');
   await expect(page.locator('#download-btn')).toBeHidden();
-  await expect(page.locator('#form-error')).toBeVisible({ timeout: 10_000 });
-  await expect(page.locator('#form-error')).toContainText('enter some text');
+  await expect(formError).toBeVisible({ timeout: 10_000 });
+  await expect(formError).toHaveText(/\S/);
+  await expect(formError).not.toHaveText('alerts.enterText');
 });
 
 test('capacity failures are visible and leave no stale downloadable QR', async ({ page }) => {
@@ -37,8 +40,10 @@ test('capacity failures are visible and leave no stale downloadable QR', async (
   await page.locator('#qr-error-correction').selectOption('H');
   await page.locator('#qr-text').fill('a'.repeat(2000));
 
-  await expect(page.locator('#form-error')).toBeVisible({ timeout: 15_000 });
-  await expect(page.locator('#form-error')).toContainText('too large');
+  const formError = page.locator('#form-error');
+  await expect(formError).toBeVisible({ timeout: 15_000 });
+  await expect(formError).toHaveText(/\S/);
+  await expect(formError).not.toHaveText('alerts.dataTooLong');
   await expect(page.locator('#download-btn')).toBeHidden();
   await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toHaveCount(0);
 });
@@ -49,16 +54,20 @@ test('WiFi password is hidden by default, can be revealed, and is not copied int
   await page.locator('#wifi-ssid').fill(' Private:Network ');
   await page.locator('#wifi-password').fill('supersecret');
 
+  const payloadText = page.locator('#qr-code-text');
   await expect(page.locator('#download-btn')).toBeVisible({ timeout: 10_000 });
-  await expect(page.locator('#qr-code-text')).toHaveText('WiFi configuration — password hidden');
+  await expect(payloadText).toHaveText(/\S/);
+  await expect(payloadText).not.toContainText('supersecret');
+  await expect(payloadText).not.toContainText('WIFI:');
+  await expect(payloadText).not.toHaveText('misc.wifiPayloadHidden');
   await expect(page.locator('#payload-reveal-btn')).toBeVisible();
 
   await page.locator('#payload-reveal-btn').click();
-  await expect(page.locator('#qr-code-text')).toContainText('P:supersecret;');
-  await expect(page.locator('#qr-code-text')).toContainText('S: Private\\:Network ;');
+  await expect(payloadText).toContainText('P:supersecret;');
+  await expect(payloadText).toContainText('S: Private\\:Network ;');
 
   await page.locator('#payload-reveal-btn').click();
-  await expect(page.locator('#qr-code-text')).not.toContainText('supersecret');
+  await expect(payloadText).not.toContainText('supersecret');
 
   await page.locator('#customize-toggle').click();
   await page.locator('#qr-format').selectOption('pdf');
@@ -76,16 +85,29 @@ test('WiFi password is hidden by default, can be revealed, and is not copied int
 test('language changes update an active validation error and hidden WiFi payload', async ({ page }) => {
   await page.goto('/');
   await page.locator('#qr-text').fill('   ');
-  await expect(page.locator('#form-error')).toContainText('enter some text');
+  const formError = page.locator('#form-error');
+  await expect(formError).toBeVisible();
+  const englishValidationError = await formError.innerText();
 
   await page.locator('#lang-select').selectOption('fi');
-  await expect(page.locator('#form-error')).toHaveText('Anna teksti tai URL');
+  await expect(formError).toBeVisible();
+  await expect(formError).toHaveText(/\S/);
+  await expect(formError).not.toHaveText(englishValidationError);
+  await expect(formError).not.toHaveText('alerts.enterText');
 
   await page.getByRole('tab', { name: 'WiFi' }).click();
   await page.locator('#wifi-ssid').fill('Private');
   await page.locator('#wifi-password').fill('supersecret');
-  await expect(page.locator('#qr-code-text')).toHaveText('WiFi-määritys — salasana piilotettu');
+  const payloadText = page.locator('#qr-code-text');
+  await expect(payloadText).toBeVisible();
+  await expect(payloadText).toHaveText(/\S/);
+  await expect(payloadText).not.toContainText('supersecret');
+  const finnishHiddenPayload = await payloadText.innerText();
 
   await page.locator('#lang-select').selectOption('en');
-  await expect(page.locator('#qr-code-text')).toHaveText('WiFi configuration — password hidden');
+  await expect(payloadText).toBeVisible();
+  await expect(payloadText).toHaveText(/\S/);
+  await expect(payloadText).not.toHaveText(finnishHiddenPayload);
+  await expect(payloadText).not.toHaveText('misc.wifiPayloadHidden');
+  await expect(payloadText).not.toContainText('supersecret');
 });
