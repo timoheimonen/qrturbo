@@ -248,6 +248,49 @@
       logoLarge:
         '로고가 너무 커서 QR 코드를 과도하게 가릴 수 있습니다. 인쇄하거나 공유하기 전에 테스트하세요.'
     },
+    brand: {
+      tagline: 'QR 코드를 비공개로 만드는 곳'
+    },
+    hero: {
+      display: '기기 밖으로 나가지 않는 QR 코드.'
+    },
+    trust: {
+      local: '브라우저에서 생성',
+      noUploads: '업로드 없음',
+      noTracking: '추적·쿠키 없음',
+      offline: '오프라인 작동',
+      openSource: '오픈 소스'
+    },
+    workspace: {
+      chooseType: '유형 선택',
+      addContent: '내용 입력',
+      adjustLook: '크기와 스타일'
+    },
+    preview: {
+      title: '미리보기',
+      localBadge: '이 기기에서 생성됨'
+    },
+    how: {
+      title: '사용 방법',
+      step1Title: '선택',
+      step1Text: '코드가 할 일을 고르세요. 링크 열기, WiFi 연결, 연락처 저장 등이 가능합니다.',
+      step2Title: '입력',
+      step2Text: '내용을 입력하면 브라우저 안에서 미리보기가 바로 업데이트됩니다.',
+      step3Title: '다운로드',
+      step3Text: 'PNG, SVG 또는 PDF로 저장하세요. 인쇄하거나 공유하기 전에 스캔을 테스트하세요.'
+    },
+    privacyInfo: {
+      title: '설계부터 비공개',
+      intro: 'QR 코드에는 WiFi 비밀번호, 전화번호, 집 주소 같은 개인 정보가 담기는 경우가 많습니다. QRTurbo.app은 이런 정보가 절대 서버에 닿지 않도록 만들어졌습니다.',
+      localTitle: '기기에만 남습니다',
+      localText: 'QR 코드와 로고는 브라우저에서 실행되는 코드로 생성됩니다. 입력한 내용을 받을 서버가 없습니다.',
+      staticTitle: '리디렉션 없음, 만료 없음',
+      staticText: '내용은 QR 코드에 직접 인코딩됩니다. 스캔이 저희를 거치지 않으며 코드는 만료되지 않습니다.',
+      noTrackingTitle: '추적 없음',
+      noTrackingText: '분석, 광고, 쿠키, 계정이 없습니다. 언어와 테마 선택만 브라우저에 로컬로 저장됩니다.',
+      openSourceTitle: '누구나 검증 가능',
+      openSourceText: '전체 소스 코드가 GitHub에 공개되어 있어 누구나 이 내용을 확인할 수 있습니다.'
+    },
     footer: {
       privacy1: '이 무료 QR 코드 생성기는 브라우저에서 완전히 실행됩니다.',
       privacy2: '데이터가 저장되거나 전송되지 않습니다. 추적 없음, 광고 없음, 헛소리 없음.',

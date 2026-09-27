@@ -253,6 +253,49 @@
       logoLarge:
         'Das Logo ist groß und könnte einen zu großen Teil des QR-Codes verdecken. Testen Sie ihn vor dem Drucken oder Teilen.'
     },
+    brand: {
+      tagline: 'Ihr privater Ort für QR-Codes'
+    },
+    hero: {
+      display: 'QR-Codes, die Ihr Gerät nie verlassen.'
+    },
+    trust: {
+      local: 'Im Browser erstellt',
+      noUploads: 'Keine Uploads',
+      noTracking: 'Kein Tracking, keine Cookies',
+      offline: 'Funktioniert offline',
+      openSource: 'Open Source'
+    },
+    workspace: {
+      chooseType: 'Typ wählen',
+      addContent: 'Inhalt eingeben',
+      adjustLook: 'Größe und Stil'
+    },
+    preview: {
+      title: 'Vorschau',
+      localBadge: 'Auf diesem Gerät erstellt'
+    },
+    how: {
+      title: 'So funktioniert es',
+      step1Title: 'Wählen',
+      step1Text: 'Legen Sie fest, was der Code tun soll: einen Link öffnen, sich mit einem WLAN verbinden, einen Kontakt speichern und mehr.',
+      step2Title: 'Ausfüllen',
+      step2Text: 'Geben Sie Ihren Inhalt ein. Die Vorschau aktualisiert sich beim Tippen, direkt in Ihrem Browser.',
+      step3Title: 'Herunterladen',
+      step3Text: 'Speichern Sie den Code als PNG, SVG oder PDF. Testen Sie den Scan, bevor Sie drucken oder teilen.'
+    },
+    privacyInfo: {
+      title: 'Privat von Grund auf',
+      intro: 'QR-Codes enthalten oft persönliche Daten: ein WLAN-Passwort, eine Telefonnummer, eine Wohnadresse. QRTurbo.app ist so gebaut, dass nichts davon jemals einen Server erreicht.',
+      localTitle: 'Bleibt auf Ihrem Gerät',
+      localText: 'QR-Codes und Logos werden von Code erzeugt, der in Ihrem Browser läuft. Es gibt keinen Server, der Ihre Eingaben empfangen könnte.',
+      staticTitle: 'Keine Weiterleitungen, kein Ablaufdatum',
+      staticText: 'Ihr Inhalt steckt direkt im QR-Code. Scans laufen nie über uns, und der Code läuft nie ab.',
+      noTrackingTitle: 'Kein Tracking',
+      noTrackingText: 'Keine Analyse, keine Werbung, keine Cookies, keine Konten. Nur Sprache und Design werden lokal in Ihrem Browser gespeichert.',
+      openSourceTitle: 'Offen überprüfbar',
+      openSourceText: 'Der komplette Quellcode ist öffentlich auf GitHub, sodass jeder diese Aussagen überprüfen kann.'
+    },
     footer: {
       privacy1: 'Dieser kostenlose QR-Code-Generator läuft vollständig in Ihrem Browser.',
       privacy2:

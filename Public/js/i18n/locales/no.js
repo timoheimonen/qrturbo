@@ -251,6 +251,49 @@
       logoLarge:
         'Logoen er stor og kan dekke for mye av QR-koden. Test før utskrift eller deling.'
     },
+    brand: {
+      tagline: 'ditt private sted for QR-koder'
+    },
+    hero: {
+      display: 'QR-koder som aldri forlater enheten din.'
+    },
+    trust: {
+      local: 'Lages i nettleseren din',
+      noUploads: 'Ingenting lastes opp',
+      noTracking: 'Ingen sporing eller informasjonskapsler',
+      offline: 'Fungerer uten nett',
+      openSource: 'Åpen kildekode'
+    },
+    workspace: {
+      chooseType: 'Velg type',
+      addContent: 'Legg til innhold',
+      adjustLook: 'Størrelse og stil'
+    },
+    preview: {
+      title: 'Forhåndsvisning',
+      localBadge: 'Laget på denne enheten'
+    },
+    how: {
+      title: 'Slik fungerer det',
+      step1Title: 'Velg',
+      step1Text: 'Bestem hva koden skal gjøre: åpne en lenke, koble til et WiFi-nettverk, lagre en kontakt og mye mer.',
+      step2Title: 'Fyll ut',
+      step2Text: 'Skriv inn innholdet. Forhåndsvisningen oppdateres mens du skriver, rett i nettleseren.',
+      step3Title: 'Last ned',
+      step3Text: 'Lagre som PNG, SVG eller PDF. Test skanningen før du skriver ut eller deler koden.'
+    },
+    privacyInfo: {
+      title: 'Privat fra grunnen av',
+      intro: 'QR-koder inneholder ofte personlige opplysninger: et WiFi-passord, et telefonnummer, en hjemmeadresse. QRTurbo.app er laget slik at ingenting av dette noen gang når en server.',
+      localTitle: 'Blir på enheten din',
+      localText: 'QR-koder og logoer lages av kode som kjører i nettleseren din. Det finnes ingen server som kan motta det du skriver.',
+      staticTitle: 'Ingen omdirigeringer, ingen utløpsdato',
+      staticText: 'Innholdet kodes direkte i QR-koden. Skanninger går aldri via oss, og koden utløper aldri.',
+      noTrackingTitle: 'Ingen sporing',
+      noTrackingText: 'Ingen analyse, annonser, informasjonskapsler eller kontoer. Bare språk- og temavalget ditt lagres, lokalt i nettleseren.',
+      openSourceTitle: 'Åpen for innsyn',
+      openSourceText: 'All kildekode er offentlig på GitHub, så hvem som helst kan kontrollere dette.'
+    },
     footer: {
       privacy1: 'Denne gratis QR-kodegeneratoren kjører helt i nettleseren din.',
       privacy2:

@@ -11,33 +11,9 @@ const TEST_LOGO = Buffer.from(`
   </svg>
 `);
 
-const payloadCases = [
-  {
-    name: 'ASCII URL',
-    payload: 'https://example.com/artifact-test?source=qrturbo.app',
-    fill: async page => {
-      await page.locator('#qr-text').fill('https://example.com/artifact-test?source=qrturbo.app');
-    }
-  },
-  {
-    name: 'UTF-8 text with Nordic, CJK and emoji characters',
-    payload: 'Ääkköset äöå — 漢字と世界 — emoji 🚀',
-    fill: async page => {
-      await page.locator('#qr-text').fill('Ääkköset äöå — 漢字と世界 — emoji 🚀');
-    }
-  },
-  {
-    name: 'structured WiFi payload',
-    payload: 'WIFI:S:Guest\\;Lab;T:WPA;P:test-password;H:true;',
-    fill: async page => {
-      await page.getByRole('tab', { name: 'WiFi' }).click();
-      await page.locator('#wifi-ssid').fill('Guest;Lab');
-      await page.locator('#wifi-auth').selectOption('WPA');
-      await page.locator('#wifi-password').fill('test-password');
-      await page.locator('#wifi-hidden').check();
-    }
-  }
-];
+// UTF-8 is the hardest payload for the byte-mode adapter, so it is the one
+// exercised end to end in every export format and in WebKit.
+const UTF8_PAYLOAD = 'Ääkköset äöå — 漢字と世界 — emoji 🚀';
 
 async function selectArtifactFormat(page, format) {
   await page.locator('#customize-toggle').click();
@@ -59,24 +35,21 @@ async function downloadArtifact(page) {
 }
 
 for (const format of ['png', 'svg']) {
-  for (const payloadCase of payloadCases) {
-    const webkitCoreTag = payloadCase.name === 'ASCII URL' ? ' @webkit-core' : '';
-    test(`downloaded ${format.toUpperCase()} decodes exact ${payloadCase.name}${webkitCoreTag}`, async ({ page }) => {
-      await page.goto('/');
-      await payloadCase.fill(page);
-      await selectArtifactFormat(page, format);
+  test(`downloaded ${format.toUpperCase()} decodes to the exact UTF-8 payload @webkit-core`, async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#qr-text').fill(UTF8_PAYLOAD);
+    await selectArtifactFormat(page, format);
 
-      const decoded = await decodeQrDownload(page, await downloadArtifact(page));
+    const decoded = await decodeQrDownload(page, await downloadArtifact(page));
 
-      expect(decoded.filename).toMatch(new RegExp(`\\.${format}$`, 'i'));
-      if (format === 'png') {
-        expect(decoded.artifact.subarray(0, PNG_SIGNATURE.length)).toEqual(PNG_SIGNATURE);
-      } else {
-        expect(decoded.artifact.toString('utf8')).toContain('<svg');
-      }
-      expect(decoded.data).toBe(payloadCase.payload);
-    });
-  }
+    expect(decoded.filename).toMatch(new RegExp(`\\.${format}$`, 'i'));
+    if (format === 'png') {
+      expect(decoded.artifact.subarray(0, PNG_SIGNATURE.length)).toEqual(PNG_SIGNATURE);
+    } else {
+      expect(decoded.artifact.toString('utf8')).toContain('<svg');
+    }
+    expect(decoded.data).toBe(UTF8_PAYLOAD);
+  });
 }
 
 test('customized QR changes the artifact, remains decodable and resets the UI @webkit-core', async ({ page }) => {

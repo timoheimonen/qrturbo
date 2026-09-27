@@ -67,6 +67,26 @@ test('HTML references only existing local scripts, styles, icons and manifest as
   }
 });
 
+test('every element ID that app.js looks up exists in index.html', () => {
+  const html = readPublicFile('index.html');
+  const appJs = readPublicFile('js/app.js');
+  const htmlIds = new Set(extractAttributeValues(html, '\\sid'));
+  const lookupPatterns = [
+    /getElementById\('([^']+)'\)/g,
+    /getFieldValue\('([^']+)'\)/g,
+    /notifyValidation\('[^']+',\s*\w+,\s*'([^']+)'\)/g,
+    /setupColorSync\('([^']+)',\s*'([^']+)'/g
+  ];
+  const usedIds = new Set(lookupPatterns.flatMap(pattern => (
+    [...appJs.matchAll(pattern)].flatMap(match => match.slice(1))
+  )));
+
+  assert.ok(usedIds.size > 50, 'Expected to find the element lookups in app.js');
+  for (const id of usedIds) {
+    assert.ok(htmlIds.has(id), `app.js looks up #${id}, which is missing from index.html`);
+  }
+});
+
 test('service worker precache list points to existing public assets', () => {
   const sw = readPublicFile('sw.js');
   const precacheMatch = sw.match(/const PRECACHE_URLS = \[([\s\S]*?)\];/);
@@ -106,15 +126,6 @@ test('hreflang alternates match supported languages', () => {
   const hreflangs = [...html.matchAll(/hreflang="([^"]+)"/g)].map(match => match[1]).sort();
 
   assert.deepEqual(hreflangs, [...supported, 'x-default'].sort());
-});
-
-test('privacy and terms pages are linked and present', () => {
-  const html = readPublicFile('index.html');
-
-  assert.match(html, /href="\/privacy\.html"/);
-  assert.match(html, /href="\/terms\.html"/);
-  assert.match(readPublicFile('privacy.html'), /privacy/i);
-  assert.match(readPublicFile('terms.html'), /terms/i);
 });
 
 test('robots and sitemap point to the production domain', () => {

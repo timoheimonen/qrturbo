@@ -252,6 +252,49 @@
       logoLarge:
         'Il logo è grande e potrebbe coprire una parte eccessiva del codice QR. Provalo prima di stamparlo o condividerlo.'
     },
+    brand: {
+      tagline: 'il tuo spazio privato per i codici QR'
+    },
+    hero: {
+      display: 'Codici QR che non lasciano mai il tuo dispositivo.'
+    },
+    trust: {
+      local: 'Generato nel tuo browser',
+      noUploads: 'Nessun caricamento',
+      noTracking: 'Nessun tracciamento né cookie',
+      offline: 'Funziona offline',
+      openSource: 'Open source'
+    },
+    workspace: {
+      chooseType: 'Scegli un tipo',
+      addContent: 'Aggiungi il contenuto',
+      adjustLook: 'Dimensione e stile'
+    },
+    preview: {
+      title: 'Anteprima',
+      localBadge: 'Creato su questo dispositivo'
+    },
+    how: {
+      title: 'Come funziona',
+      step1Title: 'Scegli',
+      step1Text: 'Decidi cosa farà il codice: aprire un link, collegarsi a una rete WiFi, salvare un contatto e altro ancora.',
+      step2Title: 'Compila',
+      step2Text: 'Inserisci il contenuto. L’anteprima si aggiorna mentre scrivi, direttamente nel tuo browser.',
+      step3Title: 'Scarica',
+      step3Text: 'Salvalo come PNG, SVG o PDF. Prova la scansione prima di stamparlo o condividerlo.'
+    },
+    privacyInfo: {
+      title: 'Privato per progettazione',
+      intro: 'I codici QR contengono spesso dati personali: una password WiFi, un numero di telefono, un indirizzo di casa. QRTurbo.app è progettato perché nulla di tutto ciò raggiunga mai un server.',
+      localTitle: 'Resta sul tuo dispositivo',
+      localText: 'Codici QR e loghi sono generati da codice eseguito nel tuo browser. Non esiste alcun server che possa ricevere ciò che scrivi.',
+      staticTitle: 'Nessun reindirizzamento, nessuna scadenza',
+      staticText: 'Il contenuto è codificato direttamente nel codice QR. Le scansioni non passano mai da noi e il codice non scade mai.',
+      noTrackingTitle: 'Nessun tracciamento',
+      noTrackingText: 'Niente analisi, pubblicità, cookie o account. Solo la lingua e il tema scelti vengono salvati, localmente nel tuo browser.',
+      openSourceTitle: 'Verificabile',
+      openSourceText: 'L’intero codice sorgente è pubblico su GitHub, così chiunque può verificare queste affermazioni.'
+    },
     footer: {
       privacy1: 'Questo generatore di codici QR gratuito funziona interamente nel tuo browser.',
       privacy2:
