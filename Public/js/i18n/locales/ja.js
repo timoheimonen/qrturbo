@@ -249,6 +249,49 @@
       logoLarge:
         'ロゴが大きいため、QRコードを覆いすぎる可能性があります。印刷または共有する前にテストしてください。'
     },
+    brand: {
+      tagline: 'QRコードをプライベートに作れる場所'
+    },
+    hero: {
+      display: 'デバイスの外に出ないQRコード。'
+    },
+    trust: {
+      local: 'ブラウザ内で生成',
+      noUploads: 'アップロードなし',
+      noTracking: 'トラッキング・Cookieなし',
+      offline: 'オフラインで動作',
+      openSource: 'オープンソース'
+    },
+    workspace: {
+      chooseType: '種類を選択',
+      addContent: '内容を入力',
+      adjustLook: 'サイズとスタイル'
+    },
+    preview: {
+      title: 'プレビュー',
+      localBadge: 'このデバイスで作成'
+    },
+    how: {
+      title: '使い方',
+      step1Title: '選ぶ',
+      step1Text: 'コードの用途を選びます。リンクを開く、WiFiに接続する、連絡先を保存するなど。',
+      step2Title: '入力する',
+      step2Text: '内容を入力すると、ブラウザ内でプレビューがすぐに更新されます。',
+      step3Title: 'ダウンロード',
+      step3Text: 'PNG、SVG、PDFで保存できます。印刷や共有の前にスキャンをテストしてください。'
+    },
+    privacyInfo: {
+      title: '設計からプライベート',
+      intro: 'QRコードにはWiFiのパスワード、電話番号、住所などの個人情報が含まれることがよくあります。QRTurbo.appは、それらが決してサーバーに届かないように作られています。',
+      localTitle: 'デバイス内にとどまる',
+      localText: 'QRコードとロゴはブラウザ内で動作するコードで生成されます。入力内容を受け取るサーバーは存在しません。',
+      staticTitle: 'リダイレクトなし・期限なし',
+      staticText: '内容はQRコードに直接エンコードされます。スキャンが当サイトを経由することはなく、コードが期限切れになることもありません。',
+      noTrackingTitle: 'トラッキングなし',
+      noTrackingText: '分析、広告、Cookie、アカウントは一切ありません。言語とテーマの設定だけがブラウザ内に保存されます。',
+      openSourceTitle: '誰でも検証可能',
+      openSourceText: 'ソースコードはすべてGitHubで公開されているため、誰でもこれらの内容を確認できます。'
+    },
     footer: {
       privacy1: 'この無料QRコードジェネレーターは完全にブラウザで実行されます。',
       privacy2: 'データは保存または送信されません。トラッキングなし、広告なし、ナンセンスなし。',

@@ -48,36 +48,50 @@
     <script>
         try {
             const savedTheme = localStorage.getItem('qrturbo_theme');
-            if (savedTheme === 'dark') {
-                document.documentElement.dataset.theme = 'dark';
-            }
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.dataset.theme =
+                savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : (prefersDark ? 'dark' : 'light');
         } catch (e) {
             document.documentElement.dataset.theme = 'light';
         }
     </script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=1.1.0">
 </head>
 
 <body class="content-page">
-    <div class="theme-selector" role="group" aria-label="Theme">
-        <button type="button" class="theme-option" data-theme-choice="light" aria-label="Light theme" aria-pressed="true">
-            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-                <circle cx="12" cy="12" r="4"></circle>
-                <path d="M12 2v2"></path>
-                <path d="M12 20v2"></path>
-                <path d="m4.93 4.93 1.41 1.41"></path>
-                <path d="m17.66 17.66 1.41 1.41"></path>
-                <path d="M2 12h2"></path>
-                <path d="M20 12h2"></path>
-                <path d="m6.34 17.66-1.41 1.41"></path>
-                <path d="m19.07 4.93-1.41 1.41"></path>
+    <div class="topbar">
+        <a class="brand" href="/">
+            <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="2.5" y="2.5" width="7" height="7" rx="2"></rect>
+                <rect x="14.5" y="2.5" width="7" height="7" rx="2"></rect>
+                <rect x="2.5" y="14.5" width="7" height="7" rx="2"></rect>
+                <path d="M14.5 14.5h3v3h-3zM18.5 18.5h3v3h-3z" class="brand-mark-fill"></path>
             </svg>
-        </button>
-        <button type="button" class="theme-option" data-theme-choice="dark" aria-label="Dark theme" aria-pressed="false">
-            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-                <path d="M12 3a6.8 6.8 0 0 0 8.95 8.95 8 8 0 1 1-8.95-8.95Z"></path>
-            </svg>
-        </button>
+            <span class="logo-mark">qrturbo<span class="logo-tld">.app</span></span>
+        </a>
+        <div class="topbar-actions">
+            <a class="topbar-link" href="/">Create a QR code <span aria-hidden="true">→</span></a>
+        <div class="theme-selector" role="group" aria-label="Theme">
+            <button type="button" class="theme-option" data-theme-choice="light" aria-label="Light theme" aria-pressed="true">
+                <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2"></path>
+                    <path d="M12 20v2"></path>
+                    <path d="m4.93 4.93 1.41 1.41"></path>
+                    <path d="m17.66 17.66 1.41 1.41"></path>
+                    <path d="M2 12h2"></path>
+                    <path d="M20 12h2"></path>
+                    <path d="m6.34 17.66-1.41 1.41"></path>
+                    <path d="m19.07 4.93-1.41 1.41"></path>
+                </svg>
+            </button>
+            <button type="button" class="theme-option" data-theme-choice="dark" aria-label="Dark theme" aria-pressed="false">
+                <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                    <path d="M12 3a6.8 6.8 0 0 0 8.95 8.95 8 8 0 1 1-8.95-8.95Z"></path>
+                </svg>
+            </button>
+        </div>
+        </div>
     </div>
 
     <header class="content-header">
@@ -199,14 +213,14 @@
                 }
             }
 
-            let savedTheme = 'light';
+            let savedTheme = null;
             try {
-                savedTheme = localStorage.getItem(storageKey) || 'light';
+                savedTheme = localStorage.getItem(storageKey);
             } catch (e) {
-                savedTheme = document.documentElement.dataset.theme || 'light';
+                savedTheme = null;
             }
 
-            applyTheme(savedTheme, false);
+            applyTheme(savedTheme || document.documentElement.dataset.theme, false);
             document.querySelectorAll('[data-theme-choice]').forEach(button => {
                 button.addEventListener('click', function() {
                     applyTheme(this.dataset.themeChoice, true);

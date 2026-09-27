@@ -84,23 +84,27 @@ function normalizeTheme(theme) {
     return theme === 'dark' ? 'dark' : DEFAULT_THEME;
 }
 
+function getSystemTheme() {
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : DEFAULT_THEME;
+}
+
 function getStoredTheme() {
     try {
-        return normalizeTheme(localStorage.getItem(THEME_STORAGE_KEY));
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        return savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : null;
     } catch (error) {
         console.warn('localStorage unavailable:', error);
-        return normalizeTheme(document.documentElement.dataset.theme);
+        return null;
     }
+}
+
+function getInitialTheme() {
+    return getStoredTheme() || getSystemTheme();
 }
 
 function applyTheme(theme, persist = true) {
     const normalizedTheme = normalizeTheme(theme);
     document.documentElement.dataset.theme = normalizedTheme;
-
-    const themeSelect = document.getElementById('theme-select');
-    if (themeSelect) {
-        themeSelect.value = normalizedTheme;
-    }
 
     document.querySelectorAll('[data-theme-choice]').forEach(button => {
         const isActive = button.dataset.themeChoice === normalizedTheme;
@@ -118,17 +122,16 @@ function applyTheme(theme, persist = true) {
 }
 
 function setupThemeSelector() {
-    const themeSelect = document.getElementById('theme-select');
     const themeButtons = document.querySelectorAll('[data-theme-choice]');
-    if (!themeSelect && !themeButtons.length) return;
+    if (!themeButtons.length) return;
 
-    applyTheme(getStoredTheme(), false);
+    applyTheme(getInitialTheme(), false);
 
-    if (themeSelect) {
-        themeSelect.addEventListener('change', function() {
-            applyTheme(this.value);
-        });
-    }
+    // Follow the system theme until the user explicitly picks one.
+    const systemDark = window.matchMedia?.('(prefers-color-scheme: dark)');
+    systemDark?.addEventListener?.('change', event => {
+        if (!getStoredTheme()) applyTheme(event.matches ? 'dark' : 'light', false);
+    });
 
     themeButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -874,6 +877,13 @@ async function generateQRCode(options = {}) {
         qrCanvasContainer.classList.toggle('transparent-preview', qrCustomization.transparentBackground);
         candidate.append(qrCanvasContainer);
 
+        // The library sizes SVG output with width/height only. A viewBox lets
+        // the preview (and the downloaded vector) scale instead of cropping.
+        const renderedSvg = qrCanvasContainer.querySelector('svg');
+        if (renderedSvg && !renderedSvg.hasAttribute('viewBox')) {
+            renderedSvg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+        }
+
         const presentation = getPayloadPresentation(activeTab, qrText);
         const snapshot = {
             revision,
@@ -1559,13 +1569,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Toggle customization panel
     const customizeToggle = document.getElementById('customize-toggle');
     const customizePanel = document.getElementById('customize-panel');
-    const customizeIcon = document.getElementById('customize-icon');
 
     if (customizeToggle) {
         customizeToggle.addEventListener('click', function() {
             const isExpanded = customizePanel.style.display === 'block';
             customizePanel.style.display = isExpanded ? 'none' : 'block';
-            customizeIcon.textContent = isExpanded ? '▶' : '▼';
             customizeToggle.setAttribute('aria-expanded', !isExpanded);
         });
     }

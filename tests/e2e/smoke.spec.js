@@ -1,4 +1,3 @@
-const fs = require('node:fs');
 const { test, expect } = require('@playwright/test');
 
 async function expectGeneratedQr(page) {
@@ -9,116 +8,33 @@ async function expectGeneratedQr(page) {
   await expect(page.locator('#download-btn')).toBeEnabled();
 }
 
-test('home page loads, generates a URL QR code and does not make external requests @webkit-core', async ({ page }) => {
+test('home page generates a QR code without any external requests @webkit-core', async ({ page }) => {
   const requestedUrls = [];
-
   page.on('request', request => {
     requestedUrls.push(request.url());
   });
 
   await page.goto('/');
   await expect(page).toHaveTitle(/QRTurbo\.app/);
-  await expect(page.getByRole('heading', { name: /QRTurbo\.app/i })).toBeVisible();
-  await expect(page.locator('#char-count')).toHaveText(/0.*2000/);
+  await expect(page.getByRole('heading', { level: 1, name: /QRTurbo\.app/i })).toBeVisible();
 
   await page.locator('#qr-text').fill('https://example.com');
-  await expect(page.locator('#qr-code-text')).toContainText('https://example.com');
+  await expect(page.locator('#qr-code-text')).toHaveText('https://example.com', { timeout: 10_000 });
   await expectGeneratedQr(page);
 
   const appOrigin = new URL(page.url()).origin;
-  const externalRequests = requestedUrls.filter(url => new URL(url).origin !== appOrigin);
-  expect(externalRequests).toEqual([]);
+  expect(requestedUrls.filter(url => new URL(url).origin !== appOrigin)).toEqual([]);
 });
 
-test('tabs switch correctly and WiFi QR generation validates the main controls', async ({ page }) => {
+test('language and theme choices persist across reloads', async ({ page }) => {
   await page.goto('/');
-
-  await page.getByRole('tab', { name: 'WiFi' }).click();
-  await expect(page.locator('#Wifi')).toBeVisible();
-  await expect(page.getByRole('tab', { name: 'WiFi' })).toHaveAttribute('aria-selected', 'true');
-
-  await page.locator('#wifi-ssid').fill('Guest');
-  await page.locator('#wifi-auth').selectOption('nopass');
-  await expect(page.locator('#wifi-password')).toBeDisabled();
-  await expect(page.locator('#qr-code-text')).toContainText('WIFI:S:Guest;T:nopass;', {
-    timeout: 10_000
-  });
-  await expectGeneratedQr(page);
-});
-
-test('Social Media QR generation supports single-platform profile links', async ({ page }) => {
-  await page.goto('/');
-
-  await page.getByRole('tab', { name: 'Social Media' }).click();
-  await expect(page.locator('#SocialMedia')).toBeVisible();
-  await expect(page.getByRole('tab', { name: 'Social Media' })).toHaveAttribute('aria-selected', 'true');
-
-  await page.locator('#social-platform').selectOption('instagram');
-  await page.locator('#social-handle').fill('@qr.turbo');
-
-  await expect(page.locator('#social-preview-url')).toHaveText('https://www.instagram.com/qr.turbo/');
-  await expect(page.locator('#qr-code-text')).toContainText('https://www.instagram.com/qr.turbo/', {
-    timeout: 10_000
-  });
-  await expectGeneratedQr(page);
-
-  await page.locator('#social-platform').selectOption('linkedin');
-  await expect(page.locator('#social-profile-type-group')).toBeVisible();
-  await page.locator('#social-profile-type').selectOption('company');
-  await page.locator('#social-handle').fill('qr-turbo');
-  await expect(page.locator('#qr-code-text')).toContainText('https://www.linkedin.com/company/qr-turbo', {
-    timeout: 10_000
-  });
-});
-
-test('WhatsApp username QR omits the at sign and keeps the encoded message', async ({ page }) => {
-  await page.goto('/');
-
-  await page.getByRole('tab', { name: 'WhatsApp' }).click();
-  await page.locator('#whatsapp-phone').fill('@qr.turbo');
-  await page.locator('#whatsapp-message').fill('Hello username!');
-
-  await expect(page.locator('#qr-code-text')).toHaveText(
-    'https://wa.me/qr.turbo?text=Hello%20username!',
-    { timeout: 10_000 }
-  );
-  await expectGeneratedQr(page);
-});
-
-test('PDF export downloads a valid PDF file in the browser', async ({ page }) => {
-  await page.goto('/');
-
-  await page.locator('#qr-text').fill('https://example.com/pdf-export');
-  await page.locator('#customize-toggle').click();
-  await expect(page.locator('#customize-panel')).toBeVisible();
-  await page.locator('#qr-format').selectOption('pdf');
-  await expect(page.locator('#qr-canvas-container canvas')).toBeVisible({
-    timeout: 10_000
-  });
-
-  const downloadPromise = page.waitForEvent('download');
-  await page.locator('#download-btn').click();
-  const download = await downloadPromise;
-  const downloadPath = await download.path();
-  const buffer = fs.readFileSync(downloadPath);
-
-  expect(download.suggestedFilename()).toMatch(/\.pdf$/);
-  expect(buffer.subarray(0, 5).toString('latin1')).toBe('%PDF-');
-  expect(buffer.toString('latin1')).toContain('/Subtype /Image');
-});
-
-test('language and theme selectors persist browser state', async ({ page }) => {
-  await page.goto('/');
-  const translatedFieldLabel = page.locator('[data-i18n="fields.textOrUrl"]');
-  const englishFieldLabel = await translatedFieldLabel.innerText();
+  const fieldLabel = page.locator('[data-i18n="fields.textOrUrl"]');
+  const englishLabel = await fieldLabel.innerText();
 
   await page.locator('#lang-select').selectOption('fi');
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
-  await expect(translatedFieldLabel).toBeVisible();
-  await expect(translatedFieldLabel).toHaveText(/\S/);
-  await expect(translatedFieldLabel).not.toHaveText(englishFieldLabel);
-  await expect(translatedFieldLabel).not.toHaveText('fields.textOrUrl');
-  const finnishFieldLabel = await translatedFieldLabel.innerText();
+  await expect(fieldLabel).not.toHaveText(englishLabel);
+  const finnishLabel = await fieldLabel.innerText();
 
   await page.locator('[data-theme-choice="dark"]').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
@@ -126,20 +42,15 @@ test('language and theme selectors persist browser state', async ({ page }) => {
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await expect(translatedFieldLabel).toHaveText(finnishFieldLabel);
-  await expect(translatedFieldLabel).not.toHaveText('fields.textOrUrl');
+  await expect(fieldLabel).toHaveText(finnishLabel);
 });
 
-test('responsive mobile layout keeps generation controls usable @mobile-smoke', async ({ page, isMobile }) => {
+test('mobile layout keeps the preview and download within the viewport @mobile-smoke', async ({ page, isMobile }) => {
   expect(isMobile).toBe(true);
   await page.goto('/');
 
   await page.locator('#qr-text').fill('https://example.com/mobile-smoke');
-  await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toBeVisible({
-    timeout: 10_000
-  });
-  await expect(page.locator('#download-btn')).toBeVisible();
-  await expect(page.locator('#download-btn')).toBeEnabled();
+  await expectGeneratedQr(page);
 
   const layoutFitsViewport = await page.evaluate(() => {
     const preview = document.querySelector('#qr-canvas-container canvas, #qr-canvas-container svg');

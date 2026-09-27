@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-09-27
+
+### Added
+
+- Introduction section with privacy highlights: generated in the browser, no uploads, no tracking or cookies, offline support, and open source.
+- "How it works" and "Private by design" sections explaining how QR content stays on the device and why generated codes have no redirects or expiry.
+- Icons for every QR code type.
+- Translations for all new text in all 12 supported languages.
+
+### Changed
+
+- Redesigned the interface with the same visual language as diffvoid.com: a sticky header, serif display headline, calm monochrome surfaces, and a single blue accent.
+- Two-column workspace on wide screens with a sticky live preview beside the form, so the QR code stays visible while editing content and style.
+- Clearer preview card with a "created on this device" indicator and a prominent download button.
+- The theme follows the system light or dark setting until a theme is chosen explicitly.
+- Privacy policy and terms of use pages use the new layout.
+
+### Fixed
+
+- SVG QR codes now include a `viewBox`, so the preview scales to fit instead of being cropped and downloaded SVG files scale correctly in other applications.
+
 ## [1.0.1] - 2026-07-16
 
 ### Added
