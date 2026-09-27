@@ -253,6 +253,49 @@
       logoLarge:
         'Le logo est grand et peut couvrir une trop grande partie du code QR. Testez-le avant de l’imprimer ou de le partager.'
     },
+    brand: {
+      tagline: 'votre espace privé pour créer des codes QR'
+    },
+    hero: {
+      display: 'Des codes QR qui ne quittent jamais votre appareil.'
+    },
+    trust: {
+      local: 'Généré dans votre navigateur',
+      noUploads: 'Aucun envoi',
+      noTracking: 'Ni pistage ni cookies',
+      offline: 'Fonctionne hors ligne',
+      openSource: 'Open source'
+    },
+    workspace: {
+      chooseType: 'Choisissez un type',
+      addContent: 'Ajoutez votre contenu',
+      adjustLook: 'Taille et style'
+    },
+    preview: {
+      title: 'Aperçu',
+      localBadge: 'Créé sur cet appareil'
+    },
+    how: {
+      title: 'Comment ça marche',
+      step1Title: 'Choisissez',
+      step1Text: 'Décidez de ce que fera le code : ouvrir un lien, rejoindre un réseau WiFi, enregistrer un contact, et plus encore.',
+      step2Title: 'Remplissez',
+      step2Text: 'Saisissez votre contenu. L’aperçu se met à jour pendant que vous tapez, directement dans votre navigateur.',
+      step3Title: 'Téléchargez',
+      step3Text: 'Enregistrez-le en PNG, SVG ou PDF. Testez la lecture avant d’imprimer ou de partager.'
+    },
+    privacyInfo: {
+      title: 'Confidentiel par conception',
+      intro: 'Un code QR contient souvent des informations personnelles : un mot de passe WiFi, un numéro de téléphone, une adresse. QRTurbo.app est conçu pour qu’aucune d’elles n’atteigne jamais un serveur.',
+      localTitle: 'Reste sur votre appareil',
+      localText: 'Les codes QR et les logos sont générés par du code exécuté dans votre navigateur. Aucun serveur ne peut recevoir ce que vous saisissez.',
+      staticTitle: 'Ni redirection ni expiration',
+      staticText: 'Votre contenu est encodé directement dans le code QR. Les scans ne passent jamais par nous et le code n’expire jamais.',
+      noTrackingTitle: 'Aucun pistage',
+      noTrackingText: 'Ni statistiques, ni publicités, ni cookies, ni comptes. Seuls vos choix de langue et de thème sont enregistrés, localement dans votre navigateur.',
+      openSourceTitle: 'Vérifiable',
+      openSourceText: 'L’intégralité du code source est publique sur GitHub : chacun peut vérifier ces affirmations.'
+    },
     footer: {
       privacy1: 'Ce générateur de code QR gratuit fonctionne entièrement dans votre navigateur.',
       privacy2:

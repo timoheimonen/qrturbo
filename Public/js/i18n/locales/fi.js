@@ -249,6 +249,49 @@
       logoLarge:
         'Logo on suuri ja voi peittää liikaa QR-koodista. Testaa ennen painatusta tai jakamista.'
     },
+    brand: {
+      tagline: 'yksityinen paikka tehdä QR-koodeja'
+    },
+    hero: {
+      display: 'QR-koodit, jotka eivät koskaan lähde laitteeltasi.'
+    },
+    trust: {
+      local: 'Luodaan selaimessasi',
+      noUploads: 'Mitään ei lähetetä',
+      noTracking: 'Ei seurantaa eikä evästeitä',
+      offline: 'Toimii ilman verkkoa',
+      openSource: 'Avoin lähdekoodi'
+    },
+    workspace: {
+      chooseType: 'Valitse tyyppi',
+      addContent: 'Lisää sisältö',
+      adjustLook: 'Koko ja tyyli'
+    },
+    preview: {
+      title: 'Esikatselu',
+      localBadge: 'Luotu tällä laitteella'
+    },
+    how: {
+      title: 'Näin se toimii',
+      step1Title: 'Valitse',
+      step1Text: 'Päätä, mitä koodi tekee: avaa linkin, yhdistää WiFi-verkkoon, tallentaa yhteystiedon ja paljon muuta.',
+      step2Title: 'Täytä',
+      step2Text: 'Kirjoita sisältö. Esikatselu päivittyy kirjoittaessasi, suoraan selaimessasi.',
+      step3Title: 'Lataa',
+      step3Text: 'Tallenna PNG-, SVG- tai PDF-muodossa. Testaa skannaus ennen tulostamista tai jakamista.'
+    },
+    privacyInfo: {
+      title: 'Yksityinen alusta asti',
+      intro: 'QR-koodi sisältää usein henkilökohtaisia tietoja: WiFi-salasanan, puhelinnumeron tai kotiosoitteen. QRTurbo.app on rakennettu niin, ettei mikään niistä päädy palvelimelle.',
+      localTitle: 'Pysyy laitteellasi',
+      localText: 'QR-koodit ja logot luodaan selaimessasi suoritettavalla koodilla. Palvelinta, joka voisi vastaanottaa kirjoittamasi, ei ole.',
+      staticTitle: 'Ei uudelleenohjauksia, ei vanhenemista',
+      staticText: 'Sisältö koodataan suoraan QR-koodiin. Skannaukset eivät kulje kauttamme, eikä koodi koskaan vanhene.',
+      noTrackingTitle: 'Ei seurantaa',
+      noTrackingText: 'Ei analytiikkaa, mainoksia, evästeitä eikä käyttäjätilejä. Vain kieli- ja teemavalintasi tallennetaan paikallisesti selaimeesi.',
+      openSourceTitle: 'Tarkistettavissa',
+      openSourceText: 'Koko lähdekoodi on julkisesti GitHubissa, joten kuka tahansa voi varmistaa nämä väitteet.'
+    },
     footer: {
       privacy1: 'Tämä ilmainen QR-koodigeneraattori toimii kokonaan selaimessasi.',
       privacy2:

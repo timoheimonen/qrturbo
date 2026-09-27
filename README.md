@@ -32,7 +32,7 @@ The app is served as static assets from Cloudflare's global network, with no ori
 
 ## Testing
 
-Prerequisites are Node.js 22.5 or newer, npm, and Python 3 (used by the local test server).
+Prerequisites are Node.js 22.5 or newer and npm.
 
 From a clean checkout, install the locked dependencies and the tested browsers with their system dependencies,
 then run the complete acceptance suite with one command:

@@ -240,6 +240,49 @@
       logoErrorCorrection: '大尺寸徽标在高（H）纠错级别下更可靠。',
       logoLarge: '徽标较大，可能会遮挡过多二维码。请在打印或分享前进行测试。'
     },
+    brand: {
+      tagline: '私密制作二维码的地方'
+    },
+    hero: {
+      display: '永不离开您设备的二维码。'
+    },
+    trust: {
+      local: '在浏览器中生成',
+      noUploads: '不上传任何内容',
+      noTracking: '无跟踪、无 Cookie',
+      offline: '可离线使用',
+      openSource: '开源'
+    },
+    workspace: {
+      chooseType: '选择类型',
+      addContent: '填写内容',
+      adjustLook: '尺寸与样式'
+    },
+    preview: {
+      title: '预览',
+      localBadge: '在此设备上生成'
+    },
+    how: {
+      title: '使用方法',
+      step1Title: '选择',
+      step1Text: '决定二维码的用途：打开链接、连接 WiFi、保存联系人等。',
+      step2Title: '填写',
+      step2Text: '输入内容，预览会在浏览器中随输入实时更新。',
+      step3Title: '下载',
+      step3Text: '保存为 PNG、SVG 或 PDF。打印或分享前请先测试扫描。'
+    },
+    privacyInfo: {
+      title: '隐私优先的设计',
+      intro: '二维码常常包含个人信息：WiFi 密码、电话号码、家庭住址。QRTurbo.app 的设计确保这些信息永远不会到达任何服务器。',
+      localTitle: '留在您的设备上',
+      localText: '二维码和徽标由在您浏览器中运行的代码生成。没有任何服务器可以接收您输入的内容。',
+      staticTitle: '无跳转、不过期',
+      staticText: '内容直接编码在二维码中。扫描不会经过我们，二维码也永不过期。',
+      noTrackingTitle: '无跟踪',
+      noTrackingText: '没有分析、广告、Cookie 或账户。只有语言和主题选择会保存在您的浏览器本地。',
+      openSourceTitle: '公开可查',
+      openSourceText: '完整源代码在 GitHub 上公开，任何人都可以验证这些说法。'
+    },
     footer: {
       privacy1: '此免费二维码生成器完全在您的浏览器中运行。',
       privacy2: '不存储或发送任何数据。无跟踪、无广告、无废话。',

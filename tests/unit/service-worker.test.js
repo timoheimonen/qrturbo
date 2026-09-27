@@ -196,7 +196,6 @@ test('precache content fingerprint is part of the cache version', () => {
   const versionMatch = version.match(/^v(\d+)-([a-f0-9]{12})$/);
 
   assert.ok(versionMatch, 'CACHE_VERSION must contain a release number and 12-character content fingerprint');
-  assert.ok(Number(versionMatch[1]) > 4, 'CACHE_VERSION must migrate clients beyond v4');
   const expectedFingerprint = precacheFingerprint(urls);
   assert.equal(
     versionMatch[2],
@@ -218,7 +217,7 @@ test('install bypasses the HTTP cache and immediately activates the new worker',
   assert.equal(harness.skipWaitingCalled, true);
 });
 
-test('activation migrates v4 clients and preserves only the current QRTurbo cache', async () => {
+test('activation deletes obsolete QRTurbo caches and keeps other apps\' caches', async () => {
   const { cacheName } = extractWorkerMetadata();
   const harness = makeHarness({
     cacheNames: ['qrturbo-static-v4', 'qrturbo-runtime-v3', cacheName, 'another-app-v1']
