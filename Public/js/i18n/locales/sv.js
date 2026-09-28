@@ -9,16 +9,7 @@
   }
 
   window.translations.sv = {
-    meta: {
-      title:
-        'Gratis QR-kodgenerator med logotyper och färger | QRTurbo.app',
-      description:
-        'Skapa gratis anpassade QR-koder för URL:er, WiFi, vCards, SMS och samtal. Lägg till logotyper, färger och stilar i webbläsaren utan spårning eller datauppladdningar.'
-    },
     app: {
-      title: 'QRTurbo.app - Gratis QR-Kodgenerator',
-      subtitle:
-        'Skapa anpassningsbara QR-koder med logotyper, färger och stilar. Stöd för URL:er, WiFi, vCard, SMS och samtal',
       selectLanguage: 'Välj Språk'
     },
     aria: {
@@ -97,7 +88,10 @@
       appWebUrl: 'Reserv-/webb-URL',
       appIosUrl: 'iOS App Store-URL',
       appAndroidUrl: 'Android Play Store-URL',
-      appLinkTarget: 'Butiksreserv'
+      appLinkTarget: 'Butiksreserv',
+      frame: 'Ram',
+      frameText: 'Ramtext',
+      frameColor: 'Ramfärg'
     },
     placeholders: {
       url: 't.ex., https://www.exempel.com',
@@ -148,9 +142,14 @@
       hidePayload: 'Dölj QR-data'
     },
     options: {
-      sizeSmall: 'Liten (256px)',
-      sizeMedium: 'Medium (512px)',
-      sizeLarge: 'Stor (1024px)',
+      sizeMedium: 'Skärm (512 px)',
+      sizeLarge: 'Stor (1024 px)',
+      sizePrint: 'Utskrift (2048 px)',
+      sizePoster: 'Affisch (4096 px)',
+      frameNone: 'Ingen ram',
+      frameBannerBottom: 'Etikett under',
+      frameBannerTop: 'Etikett över',
+      frameOutline: 'Kantlinje med etikett',
       errorLow: 'L - Låg (7%)',
       errorMedium: 'M - Medium (15%)',
       errorQuartile: 'Q - Kvartil (25%)',
@@ -254,15 +253,14 @@
     brand: {
       tagline: 'din privata plats för QR-koder'
     },
-    hero: {
-      display: 'QR-koder som aldrig lämnar din enhet.'
-    },
     trust: {
       local: 'Skapas i din webbläsare',
       noUploads: 'Inget laddas upp',
       noTracking: 'Ingen spårning eller cookies',
       offline: 'Fungerar offline',
-      openSource: 'Öppen källkod'
+      openSource: 'Öppen källkod',
+      noExpiry: 'Slutar aldrig fungera',
+      noSignup: 'Ingen registrering'
     },
     workspace: {
       chooseType: 'Välj typ',
@@ -306,6 +304,9 @@
       quietZoneHelper: 'Utrymme runt QR-koden (minst 4 moduler för pålitlig skanning)',
       socialHandleHelper:
         'Ange ett användarnamn som @anvandarnamn eller klistra in en fullständig https:// profil-URL.'
+    },
+    frame: {
+      defaultText: 'SKANNA MIG'
     },
     misc: {
       qrPlaceholder: 'QR-koden kommer att visas här',

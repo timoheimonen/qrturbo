@@ -9,16 +9,7 @@
   }
 
   window.translations.fr = {
-    meta: {
-      title:
-        'Générateur de QR Code Gratuit avec Logos et Couleurs | QRTurbo.app',
-      description:
-        'Créez gratuitement des QR codes personnalisés pour URLs, WiFi, vCards, SMS et appels. Ajoutez logos, couleurs et styles dans votre navigateur, sans suivi ni envoi de données.'
-    },
     app: {
-      title: 'QRTurbo.app - Générateur de Code QR Gratuit',
-      subtitle:
-        'Créez des codes QR personnalisables avec logos, couleurs et styles. Support pour URLs, WiFi, vCards, SMS et appels',
       selectLanguage: 'Sélectionner la Langue'
     },
     aria: {
@@ -97,7 +88,10 @@
       appWebUrl: 'URL web/de secours',
       appIosUrl: 'URL iOS App Store',
       appAndroidUrl: 'URL Android Play Store',
-      appLinkTarget: 'Secours de boutique'
+      appLinkTarget: 'Secours de boutique',
+      frame: 'Cadre',
+      frameText: 'Texte du cadre',
+      frameColor: 'Couleur du cadre'
     },
     placeholders: {
       url: 'ex., https://www.exemple.com',
@@ -148,9 +142,14 @@
       hidePayload: 'Masquer les données du code QR'
     },
     options: {
-      sizeSmall: 'Petit (256px)',
-      sizeMedium: 'Moyen (512px)',
-      sizeLarge: 'Grand (1024px)',
+      sizeMedium: 'Écran (512 px)',
+      sizeLarge: 'Grand (1024 px)',
+      sizePrint: 'Impression (2048 px)',
+      sizePoster: 'Affiche (4096 px)',
+      frameNone: 'Sans cadre',
+      frameBannerBottom: 'Étiquette en dessous',
+      frameBannerTop: 'Étiquette au-dessus',
+      frameOutline: 'Contour avec étiquette',
       errorLow: 'L - Faible (7%)',
       errorMedium: 'M - Moyen (15%)',
       errorQuartile: 'Q - Quartile (25%)',
@@ -256,15 +255,14 @@
     brand: {
       tagline: 'votre espace privé pour créer des codes QR'
     },
-    hero: {
-      display: 'Des codes QR qui ne quittent jamais votre appareil.'
-    },
     trust: {
       local: 'Généré dans votre navigateur',
       noUploads: 'Aucun envoi',
       noTracking: 'Ni pistage ni cookies',
       offline: 'Fonctionne hors ligne',
-      openSource: 'Open source'
+      openSource: 'Open source',
+      noExpiry: 'N’expire jamais',
+      noSignup: 'Sans inscription'
     },
     workspace: {
       chooseType: 'Choisissez un type',
@@ -309,6 +307,9 @@
         'Espace autour du code QR (au moins 4 modules pour un scan fiable)',
       socialHandleHelper:
         'Saisissez un identifiant comme @identifiant ou collez une URL complète de profil https://.'
+    },
+    frame: {
+      defaultText: 'SCANNEZ-MOI'
     },
     misc: {
       qrPlaceholder: 'Le code QR apparaîtra ici',

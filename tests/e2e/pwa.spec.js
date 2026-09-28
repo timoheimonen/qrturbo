@@ -40,7 +40,7 @@ test('offline app reload generates and downloads a decodable PNG', async ({ page
   try {
     const response = await page.reload({ waitUntil: 'domcontentloaded' });
     expect(response.fromServiceWorker()).toBe(true);
-    await expect(page.getByRole('heading', { name: /QRTurbo\.app/i })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
     await page.locator('#qr-text').fill(payload);
     await expect(page.locator('#qr-code-text')).toHaveText(payload, { timeout: 10_000 });

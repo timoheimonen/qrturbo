@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="robots" content="index, follow">
+    <title>명함용 무료 vCard QR코드 생성기 | QRTurbo.app</title>
+    <meta name="description" content="명함에 넣을 무료 vCard QR코드를 만드세요. 스캔 한 번으로 이름, 전화번호, 이메일, 주소가 연락처에 저장됩니다. 가입 불필요, 만료 없음.">
+    <link rel="canonical" href="https://qrturbo.app/ko/vcard-qr-code/">
+
+    <!-- Language Alternates (hreflang) -->
+    <link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/" />
+    <link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/" />
+    <link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/" />
+    <link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/" />
+    <link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/" />
+    <link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/" />
+    <link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/" />
+    <link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/" />
+    <link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/" />
+    <link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/" />
+    <link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/" />
+    <link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/" />
+    <link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="명함용 무료 vCard QR코드 생성기 | QRTurbo.app" />
+    <meta property="og:description" content="명함에 넣을 무료 vCard QR코드를 만드세요. 스캔 한 번으로 이름, 전화번호, 이메일, 주소가 연락처에 저장됩니다. 가입 불필요, 만료 없음." />
+    <meta property="og:image" content="https://qrturbo.app/android-chrome-512x512.png" />
+    <meta property="og:url" content="https://qrturbo.app/ko/vcard-qr-code/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="QRTurbo.app" />
+    <meta property="og:locale" content="ko_KR" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="명함용 무료 vCard QR코드 생성기 | QRTurbo.app" />
+    <meta name="twitter:description" content="명함에 넣을 무료 vCard QR코드를 만드세요. 스캔 한 번으로 이름, 전화번호, 이메일, 주소가 연락처에 저장됩니다. 가입 불필요, 만료 없음." />
+    <meta name="twitter:image" content="https://qrturbo.app/android-chrome-512x512.png" />
+
+    <!-- Structured Data Schema Markup -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "QRTurbo.app",
+            "url": "https://qrturbo.app/ko/vcard-qr-code/",
+            "description": "명함에 넣을 무료 vCard QR코드를 만드세요. 스캔 한 번으로 이름, 전화번호, 이메일, 주소가 연락처에 저장됩니다. 가입 불필요, 만료 없음.",
+            "inLanguage": "ko",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any",
+            "isAccessibleForFree": true,
+            "offers": {
+                "@type": "Offer",
+                "price": 0,
+                "priceCurrency": "USD"
+            },
+            "author": {
+                "@type": "Organization",
+                "name": "QRTurbo.app"
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "inLanguage": "ko",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "QRTurbo.app으로 만든 QR코드에 유효기간이 있나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "없습니다. QRTurbo.app은 정적 QR코드를 만듭니다. 링크, 텍스트, 연락처 정보가 코드에 직접 인코딩되며 중간에 서버가 없기 때문에 만료되거나 차단될 일이 없습니다. 내용이 유효한 동안, 예를 들어 연결된 웹사이트가 남아 있는 동안에는 코드가 계속 작동합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "다른 사이트에서 만든 QR코드가 왜 갑자기 작동하지 않나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "많은 생성기는 기본적으로 동적 QR코드를 만듭니다. 이런 코드에는 업체 서버로 가는 짧은 링크가 담겨 있고, 스캔할 때마다 서버가 실제 주소로 리디렉션합니다. 무료 체험이나 구독이 끝나면 업체가 리디렉션을 끊어 버리고, 인쇄된 코드는 더 이상 작동하지 않습니다. QRTurbo.app에서 만든 코드에는 실제 내용이 담겨 있어 저희에게 전혀 의존하지 않습니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "QRTurbo.app은 정말 무료인가요? 상업적으로 사용해도 되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "네. 가입, 체험 기간, 워터마크, 스캔 횟수 제한이 모두 없습니다. 만든 QR코드는 명함, 메뉴판, 포장재, 광고 등 개인적·상업적 용도로 자유롭게 사용할 수 있습니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "인쇄한 QR코드를 나중에 수정할 수 있나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "아니요. 정적 QR코드는 내용이 패턴 자체의 일부이기 때문에 수정할 수 없습니다. 연결 대상이 바뀔 가능성이 있다면 내 웹사이트의 페이지처럼 직접 관리하는 주소로 코드를 만들고, 그 페이지를 수정하세요."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "QR코드는 어느 정도 크기로 인쇄해야 하나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "최소 2 × 2cm 크기로 인쇄하세요. 스캔 거리의 10분의 1 이상을 기준으로 삼으면 됩니다. 예를 들어 2m 떨어진 곳에서 보는 포스터라면 약 20cm 크기의 코드가 필요합니다. 인쇄용으로는 SVG나 큰 PNG를 다운로드하고, 코드 주변의 여백(정적 영역)은 비워 두세요."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "QR코드가 스캔되지 않는 이유는 무엇인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "가장 흔한 원인은 코드와 배경의 대비가 낮거나, 여백이 너무 좁거나, 로고가 코드를 너무 많이 가리거나, 인쇄 크기에 비해 내용이 너무 많은 경우입니다. QRTurbo.app은 이런 위험을 미리 알려 줍니다. 인쇄하기 전에 항상 여러 휴대폰으로 테스트해 보세요."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "내 데이터는 안전한가요? 와이파이 비밀번호를 볼 수 있나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "데이터는 내 기기에만 남습니다. QR코드는 브라우저에서 실행되는 코드로 생성되며, 입력하거나 업로드한 내용은 어떤 서버로도 전송되지 않습니다. 그래서 누구도 와이파이 비밀번호나 연락처 정보를 볼 수 없습니다. 처음 한 번 방문한 뒤에는 오프라인에서도 생성기를 사용할 수 있습니다."
+                    }
+                }
+            ]
+        }
+    </script>
+    <script>
+        // English pages open in the visitor's own language: a language chosen
+        // earlier wins, otherwise the first supported browser language.
+        (function () {
+            if (document.documentElement.lang !== 'en') return;
+            var supported = ['en', 'da', 'de', 'es', 'fi', 'fr', 'it', 'ja', 'ko', 'no', 'sv', 'zh'];
+            var lang = null;
+            try {
+                lang = localStorage.getItem('qrturbo_lang');
+            } catch (e) {}
+            if (supported.indexOf(lang) < 0) {
+                lang = null;
+                var preferred = navigator.languages || [navigator.language || 'en'];
+                for (var i = 0; i < preferred.length && !lang; i++) {
+                    var code = String(preferred[i]).toLowerCase().split('-')[0];
+                    if (code === 'nb' || code === 'nn') code = 'no';
+                    if (supported.indexOf(code) >= 0) lang = code;
+                }
+            }
+            if (!lang || lang === 'en') return;
+            var link = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+            if (!link) return;
+            var target = new URL(link.getAttribute('href'), location.href).pathname;
+            if (target !== location.pathname) location.replace(target + location.search + location.hash);
+        })();
+    </script>
+
+    <!-- Favicon Configuration -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=1.2.0">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png?v=1.2.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.2.0">
+    <link rel="icon" href="/favicon.ico?v=1.2.0" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json?v=1.2.0">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    <script>
+        // Apply the saved theme, or the system theme, before first paint.
+        try {
+            const savedTheme = localStorage.getItem('qrturbo_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.dataset.theme =
+                savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : (prefersDark ? 'dark' : 'light');
+        } catch (e) {
+            document.documentElement.dataset.theme = 'light';
+        }
+    </script>
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="/css/styles.css?v=1.2.0">
+</head>
+
+<body>
+    <header id="menu-bar">
+        <a class="brand" href="/ko/">
+            <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="2.5" y="2.5" width="7" height="7" rx="2"></rect>
+                <rect x="14.5" y="2.5" width="7" height="7" rx="2"></rect>
+                <rect x="2.5" y="14.5" width="7" height="7" rx="2"></rect>
+                <path d="M14.5 14.5h3v3h-3zM18.5 18.5h3v3h-3z" class="brand-mark-fill"></path>
+            </svg>
+            <span class="logo-mark">qrturbo<span class="logo-tld">.app</span></span>
+            <span class="logo-tagline" data-i18n="brand.tagline">QR 코드를 비공개로 만드는 곳</span>
+        </a>
+        <div class="header-actions">
+            <div class="language-selector">
+                <label for="lang-select" class="sr-only" data-i18n="app.selectLanguage">언어 선택</label>
+                <svg class="language-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
+                </svg>
+                <select id="lang-select" aria-label="언어" data-i18n-aria-label="aria.language">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="it">Italiano</option>
+                    <option value="fi">Suomi</option>
+                    <option value="sv">Svenska</option>
+                    <option value="no">Norsk</option>
+                    <option value="da">Dansk</option>
+                    <option value="zh">简体中文</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko" selected>한국어</option>
+                </select>
+            </div>
+            <span class="menu-divider" aria-hidden="true"></span>
+            <div class="theme-selector" role="group" aria-label="테마" data-i18n-aria-label="aria.themeGroup">
+                <button type="button" class="theme-option" data-theme-choice="light" aria-label="라이트 테마" data-i18n-aria-label="aria.lightTheme" aria-pressed="true">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                </button>
+                <button type="button" class="theme-option" data-theme-choice="dark" aria-label="다크 테마" data-i18n-aria-label="aria.darkTheme" aria-pressed="false">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                        <path d="M12 3a6.8 6.8 0 0 0 8.95 8.95 8 8 0 1 1-8.95-8.95Z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" aria-labelledby="app-title">
+        <h1 id="app-title" class="eyebrow">vCard QR코드 생성기</h1>
+        <p class="display">스캔 한 번으로 연락처를 공유하세요.</p>
+        <p class="lead">이름, 전화번호, 이메일, 주소를 입력해 명함, 이름표, 이메일 서명에 넣을 vCard QR코드를 만드세요. 정보는 서버가 아니라 코드 자체에 저장됩니다.</p>
+        <ul class="trust-list">
+            <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                <span data-i18n="trust.noExpiry">만료 없음</span>
+            </li>
+            <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 12.5-6.6"></path><path d="m16 17 5 5M21 17l-5 5"></path></svg>
+                <span data-i18n="trust.noSignup">가입 불필요</span>
+            </li>
+            <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+                <span data-i18n="trust.local">브라우저에서 생성</span>
+            </li>
+            <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 18a4.5 4.5 0 0 1-.9-8.9 6 6 0 0 1 11.3-1.6A4.5 4.5 0 0 1 18 18"></path><path d="m3 3 18 18"></path></svg>
+                <span data-i18n="trust.noUploads">업로드 없음</span>
+            </li>
+            <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10.6 5.1A10 10 0 0 1 12 5c5 0 9 4.5 10 7a13 13 0 0 1-2.5 3.6M6.6 6.6A13 13 0 0 0 2 12c1 2.5 5 7 10 7a9.8 9.8 0 0 0 5.4-1.6"></path><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path><path d="m3 3 18 18"></path></svg>
+                <span data-i18n="trust.noTracking">추적·쿠키 없음</span>
+            </li>
+            <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+                <span data-i18n="trust.offline">오프라인 작동</span>
+            </li>
+            <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"></path></svg>
+                <a href="https://github.com/timoheimonen/qrturbo" target="_blank" rel="noopener noreferrer" data-i18n="trust.openSource">오픈 소스</a>
+            </li>
+        </ul>
+    </section>
+
+    <main class="workspace">
+        <section class="panel panel-content" aria-labelledby="step-type-title">
+            <div class="panel-head">
+                <span class="step-num" aria-hidden="true">1</span>
+                <h2 id="step-type-title" data-i18n="workspace.chooseType">유형 선택</h2>
+            </div>
+
+            <!-- Tab navigation for switching between QR code types -->
+            <nav id="tabs" role="tablist" aria-label="QR 코드 유형" data-i18n-aria-label="aria.qrTypes">
+                <button type="button" id="tab-URLText" class="tab-link" data-tab="URLText" role="tab" aria-controls="URLText" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"></path><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"></path></svg>
+                    <span data-i18n="tabs.urlText">URL/텍스트</span>
+                </button>
+                <button type="button" id="tab-VCard" class="tab-link active" data-tab="VCard" role="tab" aria-controls="VCard" aria-selected="true" tabindex="0">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><circle cx="9" cy="11" r="2"></circle><path d="M6 16c.6-1.3 1.7-2 3-2s2.4.7 3 2M15 10h3M15 14h3"></path></svg>
+                    <span data-i18n="tabs.vcard">vCard</span>
+                </button>
+                <button type="button" id="tab-SMSPhone" class="tab-link" data-tab="SMSPhone" role="tab" aria-controls="SMSPhone" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>
+                    <span data-i18n="tabs.smsPhone">SMS/전화</span>
+                </button>
+                <button type="button" id="tab-Wifi" class="tab-link" data-tab="Wifi" role="tab" aria-controls="Wifi" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0"></path><path d="M12 19h.01"></path></svg>
+                    <span data-i18n="tabs.wifi">WiFi</span>
+                </button>
+                <button type="button" id="tab-Email" class="tab-link" data-tab="Email" role="tab" aria-controls="Email" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="m3.5 7 8.5 6 8.5-6"></path></svg>
+                    <span data-i18n="tabs.email">이메일</span>
+                </button>
+                <button type="button" id="tab-CalendarEvent" class="tab-link" data-tab="CalendarEvent" role="tab" aria-controls="CalendarEvent" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2.5"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+                    <span data-i18n="tabs.calendarEvent">이벤트</span>
+                </button>
+                <button type="button" id="tab-Location" class="tab-link" data-tab="Location" role="tab" aria-controls="Location" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+                    <span data-i18n="tabs.location">위치</span>
+                </button>
+                <button type="button" id="tab-SocialMedia" class="tab-link" data-tab="SocialMedia" role="tab" aria-controls="SocialMedia" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.5"></circle><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="19" r="2.5"></circle><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"></path></svg>
+                    <span data-i18n="tabs.socialMedia">소셜 미디어</span>
+                </button>
+                <button type="button" id="tab-WhatsApp" class="tab-link" data-tab="WhatsApp" role="tab" aria-controls="WhatsApp" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-4.9A8.5 8.5 0 1 1 20.5 12Z"></path></svg>
+                    <span data-i18n="tabs.whatsapp">WhatsApp</span>
+                </button>
+                <button type="button" id="tab-MeCard" class="tab-link" data-tab="MeCard" role="tab" aria-controls="MeCard" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+                    <span data-i18n="tabs.mecard">MeCard</span>
+                </button>
+                <button type="button" id="tab-AppLink" class="tab-link" data-tab="AppLink" role="tab" aria-controls="AppLink" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6" y="2.5" width="12" height="19" rx="2.5"></rect><path d="M11 18h2"></path></svg>
+                    <span data-i18n="tabs.appLink">앱 링크</span>
+                </button>
+            </nav>
+
+            <div class="panel-head panel-head-spaced">
+                <span class="step-num" aria-hidden="true">2</span>
+                <h2 data-i18n="workspace.addContent">내용 입력</h2>
+            </div>
+
+        <!-- Tab Content: URL/Text Input -->
+        <div id="URLText" class="tab-content" role="tabpanel" aria-labelledby="tab-URLText" tabindex="0" hidden>
+            <label for="qr-text" data-i18n="fields.textOrUrl">텍스트 또는 URL</label>
+            <textarea id="qr-text" data-i18n-placeholder="placeholders.url" placeholder="예: https://www.example.com" maxlength="2000" rows="4"></textarea>
+            <div id="char-count" class="char-counter">0 / 2000 characters</div>
+        </div>
+
+        <!-- Tab Content: vCard Input Form -->
+        <div id="VCard" class="tab-content" role="tabpanel" aria-labelledby="tab-VCard" tabindex="0" style="display: block;">
+            <div class="vcard-grid">
+                <div class="input-group">
+                    <!-- vCard Fields -->
+                    <label for="vcard-fn" data-i18n="fields.firstName">이름</label>
+                    <input type="text" id="vcard-fn" data-i18n-placeholder="placeholders.firstName" placeholder="길동" maxlength="50">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-ln" data-i18n="fields.lastName">성</label>
+                    <input type="text" id="vcard-ln" data-i18n-placeholder="placeholders.lastName" placeholder="홍" maxlength="50">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-org" data-i18n="fields.organization">조직</label>
+                    <input type="text" id="vcard-org" data-i18n-placeholder="placeholders.organization" placeholder="ACME 주식회사" maxlength="100">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-title" data-i18n="fields.title">직함</label>
+                    <input type="text" id="vcard-title" data-i18n-placeholder="placeholders.title" placeholder="개발자" maxlength="100">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-tel-work" data-i18n="fields.phoneWork">전화（직장）</label>
+                    <input type="tel" id="vcard-tel-work" data-i18n-placeholder="placeholders.phoneWork" placeholder="+82-2-5555-1234" maxlength="30">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-tel-mobile" data-i18n="fields.phoneMobile">전화（휴대폰）</label>
+                    <input type="tel" id="vcard-tel-mobile" data-i18n-placeholder="placeholders.phoneMobile" placeholder="+82-10-5555-5678" maxlength="30">
+                </div>
+                <div class="input-group full-width">
+                    <label for="vcard-email" data-i18n="fields.email">이메일</label>
+                    <input type="email" id="vcard-email" data-i18n-placeholder="placeholders.email" placeholder="gildong.hong@example.com" maxlength="254">
+                </div>
+                <div class="input-group full-width">
+                    <label for="vcard-url" data-i18n="fields.website">웹사이트</label>
+                    <input type="url" id="vcard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.example.com" maxlength="255">
+                </div>
+                <div class="input-group full-width">
+                    <label for="vcard-street" data-i18n="fields.street">거리</label>
+                    <input type="text" id="vcard-street" data-i18n-placeholder="placeholders.street" placeholder="중앙로 123" maxlength="100">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-city" data-i18n="fields.city">도시</label>
+                    <input type="text" id="vcard-city" data-i18n-placeholder="placeholders.city" placeholder="서울" maxlength="50">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-state" data-i18n="fields.state">주/도</label>
+                    <input type="text" id="vcard-state" data-i18n-placeholder="placeholders.state" placeholder="서울특별시" maxlength="50">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-zip" data-i18n="fields.zip">우편번호</label>
+                    <input type="text" id="vcard-zip" data-i18n-placeholder="placeholders.zip" placeholder="04524">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-country" data-i18n="fields.country">국가</label>
+                    <input type="text" id="vcard-country" data-i18n-placeholder="placeholders.country" placeholder="대한민국" maxlength="50">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Wifi Input Form -->
+        <div id="Wifi" class="tab-content" role="tabpanel" aria-labelledby="tab-Wifi" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group full-width">
+                    <label for="wifi-ssid" data-i18n="fields.ssid">네트워크 이름（SSID）</label>
+                    <input type="text" id="wifi-ssid" data-i18n-placeholder="placeholders.ssid" placeholder="예: 우리집WiFi" maxlength="128">
+                </div>
+                <div class="input-group">
+                    <label for="wifi-password" data-i18n="fields.password">비밀번호</label>
+                    <input type="password" id="wifi-password" data-i18n-placeholder="placeholders.wifiPassword" placeholder="비밀 비밀번호" maxlength="64" autocomplete="off">
+                    <button type="button" id="wifi-password-toggle" class="secondary-btn small-btn" data-i18n="actions.showPassword">비밀번호 표시</button>
+                </div>
+                <div class="input-group">
+                    <label for="wifi-auth" data-i18n="fields.authentication">인증</label>
+                    <select id="wifi-auth">
+                        <option value="WPA" selected data-i18n-option="options.authWpa">WPA/WPA2</option>
+                        <option value="WEP" data-i18n-option="options.authWep">WEP</option>
+                        <option value="nopass" data-i18n-option="options.authNone">없음</option>
+                    </select>
+                </div>
+                <div class="input-group full-width checkbox-group">
+                    <input type="checkbox" id="wifi-hidden">
+                    <label for="wifi-hidden" data-i18n="fields.hiddenNetwork">숨겨진 네트워크입니다</label>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Tab Content: SMS/Phone Input Form -->
+        <div id="SMSPhone" class="tab-content" role="tabpanel" aria-labelledby="tab-SMSPhone" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="radio-group-container">
+                    <div class="radio-group">
+                        <input type="radio" id="sms-type-sms" name="sms-phone-type" value="sms" checked>
+                        <label for="sms-type-sms" data-i18n="labels.sms">SMS</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="sms-type-phone" name="sms-phone-type" value="phone">
+                        <label for="sms-type-phone" data-i18n="labels.phone">전화</label>
+                    </div>
+                </div>
+                <div class="input-group full-width">
+                    <label for="sms-phone-number" data-i18n="fields.phoneNumber">전화번호</label>
+                    <input type="tel" id="sms-phone-number" data-i18n-placeholder="placeholders.phoneNumber" placeholder="예: +821012345678" maxlength="30">
+                </div>
+                <div id="sms-message-group" class="input-group full-width">
+                    <label for="sms-message" data-i18n="fields.message">메시지（선택 사항）</label>
+                    <textarea id="sms-message" rows="4" data-i18n-placeholder="placeholders.smsMessage" placeholder="미리 작성된 메시지를 여기에..."
+                        maxlength="300"></textarea>
+                    <div id="sms-char-count" class="char-counter">0 / 300 characters</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Email Input Form -->
+        <div id="Email" class="tab-content" role="tabpanel" aria-labelledby="tab-Email" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group full-width">
+                    <label for="email-to" data-i18n="fields.emailTo">받는 사람 이메일</label>
+                    <input type="email" id="email-to" data-i18n-placeholder="placeholders.emailTo" placeholder="hello@example.com" maxlength="254">
+                </div>
+                <div class="input-group full-width">
+                    <label for="email-subject" data-i18n="fields.emailSubject">제목</label>
+                    <input type="text" id="email-subject" data-i18n-placeholder="placeholders.emailSubject" placeholder="QRTurbo.app에서 안녕하세요" maxlength="120">
+                </div>
+                <div class="input-group full-width">
+                    <label for="email-body" data-i18n="fields.emailBody">메시지</label>
+                    <textarea id="email-body" rows="4" data-i18n-placeholder="placeholders.emailBody" placeholder="이메일 메시지를 여기에 입력하세요..." maxlength="1000"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Calendar Event Input Form -->
+        <div id="CalendarEvent" class="tab-content" role="tabpanel" aria-labelledby="tab-CalendarEvent" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group full-width">
+                    <label for="event-title" data-i18n="fields.eventTitle">이벤트 제목</label>
+                    <input type="text" id="event-title" data-i18n-placeholder="placeholders.eventTitle" placeholder="팀 회의" maxlength="120">
+                </div>
+                <div class="input-group">
+                    <label for="event-start" data-i18n="fields.eventStart">시작</label>
+                    <input type="datetime-local" id="event-start">
+                </div>
+                <div class="input-group">
+                    <label for="event-end" data-i18n="fields.eventEnd">종료</label>
+                    <input type="datetime-local" id="event-end">
+                </div>
+                <div class="input-group full-width">
+                    <label for="event-location" data-i18n="fields.eventLocation">위치</label>
+                    <input type="text" id="event-location" data-i18n-placeholder="placeholders.eventLocation" placeholder="회의실 또는 주소" maxlength="160">
+                </div>
+                <div class="input-group full-width">
+                    <label for="event-description" data-i18n="fields.eventDescription">설명</label>
+                    <textarea id="event-description" rows="4" data-i18n-placeholder="placeholders.eventDescription" placeholder="이벤트 세부 정보..." maxlength="1000"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Location Input Form -->
+        <div id="Location" class="tab-content" role="tabpanel" aria-labelledby="tab-Location" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group full-width">
+                    <label for="location-address" data-i18n="fields.locationAddress">주소 또는 장소</label>
+                    <input type="text" id="location-address" data-i18n-placeholder="placeholders.locationAddress" placeholder="서울역, 서울" maxlength="240">
+                </div>
+                <div class="input-group">
+                    <label for="location-lat" data-i18n="fields.latitude">위도</label>
+                    <input type="number" id="location-lat" data-i18n-placeholder="placeholders.latitude" placeholder="37.5547" min="-90" max="90" step="any">
+                </div>
+                <div class="input-group">
+                    <label for="location-lng" data-i18n="fields.longitude">경도</label>
+                    <input type="number" id="location-lng" data-i18n-placeholder="placeholders.longitude" placeholder="126.9706" min="-180" max="180" step="any">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Social Media Input Form -->
+        <div id="SocialMedia" class="tab-content" role="tabpanel" aria-labelledby="tab-SocialMedia" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group">
+                    <label for="social-platform" data-i18n="fields.socialPlatform">플랫폼</label>
+                    <select id="social-platform">
+                        <option value="instagram" selected data-i18n-option="options.socialInstagram">Instagram</option>
+                        <option value="tiktok" data-i18n-option="options.socialTikTok">TikTok</option>
+                        <option value="youtube" data-i18n-option="options.socialYouTube">YouTube</option>
+                        <option value="facebook" data-i18n-option="options.socialFacebook">Facebook</option>
+                        <option value="x" data-i18n-option="options.socialX">X / Twitter</option>
+                        <option value="linkedin" data-i18n-option="options.socialLinkedIn">LinkedIn</option>
+                        <option value="snapchat" data-i18n-option="options.socialSnapchat">Snapchat</option>
+                        <option value="pinterest" data-i18n-option="options.socialPinterest">Pinterest</option>
+                        <option value="reddit" data-i18n-option="options.socialReddit">Reddit</option>
+                        <option value="threads" data-i18n-option="options.socialThreads">Threads</option>
+                        <option value="bluesky" data-i18n-option="options.socialBluesky">Bluesky</option>
+                        <option value="other" data-i18n-option="options.socialOther">기타 URL</option>
+                    </select>
+                </div>
+                <div id="social-profile-type-group" class="input-group" style="display:none;">
+                    <label for="social-profile-type" data-i18n="fields.socialProfileType">프로필 유형</label>
+                    <select id="social-profile-type">
+                        <option value="person" selected data-i18n-option="options.socialTypePerson">개인/프로필</option>
+                        <option value="company" data-i18n-option="options.socialTypeCompany">회사</option>
+                        <option value="subreddit" data-i18n-option="options.socialTypeSubreddit">Subreddit</option>
+                    </select>
+                </div>
+                <div class="input-group full-width">
+                    <label for="social-handle" data-i18n="fields.socialHandleOrUrl">사용자 이름 또는 프로필 URL</label>
+                    <input type="text" id="social-handle" data-i18n-placeholder="placeholders.socialHandle" placeholder="@username 또는 https://..." maxlength="255">
+                    <p class="helper-text" data-i18n="helpers.socialHandleHelper">@username 같은 사용자 이름을 입력하거나 전체 https:// 프로필 URL을 붙여넣으세요.</p>
+                </div>
+                <div class="input-group full-width social-preview">
+                    <span class="social-preview-label" data-i18n="misc.socialPreview">QR 대상</span>
+                    <code id="social-preview-url">-</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: WhatsApp Input Form -->
+        <div id="WhatsApp" class="tab-content" role="tabpanel" aria-labelledby="tab-WhatsApp" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group full-width">
+                    <label for="whatsapp-phone" data-i18n="fields.whatsappPhone">WhatsApp 번호 또는 @사용자 이름</label>
+                    <input type="text" id="whatsapp-phone" data-i18n-placeholder="placeholders.whatsappPhone" placeholder="예: +82555123456 또는 @username" maxlength="40">
+                </div>
+                <div class="input-group full-width">
+                    <label for="whatsapp-message" data-i18n="fields.whatsappMessage">메시지 (선택 사항)</label>
+                    <textarea id="whatsapp-message" rows="4" data-i18n-placeholder="placeholders.whatsappMessage" placeholder="WhatsApp 메시지를 여기에 입력하세요..." maxlength="1000"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: MeCard Input Form -->
+        <div id="MeCard" class="tab-content" role="tabpanel" aria-labelledby="tab-MeCard" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group full-width">
+                    <label for="mecard-name" data-i18n="fields.mecardName">이름</label>
+                    <input type="text" id="mecard-name" data-i18n-placeholder="placeholders.mecardName" placeholder="홍길동" maxlength="100">
+                </div>
+                <div class="input-group">
+                    <label for="mecard-phone" data-i18n="fields.phoneNumber">전화번호</label>
+                    <input type="tel" id="mecard-phone" data-i18n-placeholder="placeholders.phoneNumber" placeholder="예: +821012345678" maxlength="30">
+                </div>
+                <div class="input-group">
+                    <label for="mecard-email" data-i18n="fields.email">이메일</label>
+                    <input type="email" id="mecard-email" data-i18n-placeholder="placeholders.email" placeholder="gildong.hong@example.com" maxlength="254">
+                </div>
+                <div class="input-group full-width">
+                    <label for="mecard-url" data-i18n="fields.website">웹사이트</label>
+                    <input type="url" id="mecard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.example.com" maxlength="255">
+                </div>
+                <div class="input-group full-width">
+                    <label for="mecard-address" data-i18n="fields.address">주소</label>
+                    <input type="text" id="mecard-address" data-i18n-placeholder="placeholders.address" placeholder="서울특별시 중구 세종대로 1" maxlength="240">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: App Link Input Form -->
+        <div id="AppLink" class="tab-content" role="tabpanel" aria-labelledby="tab-AppLink" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group full-width">
+                    <label for="app-web-url" data-i18n="fields.appWebUrl">대체 / 웹 URL</label>
+                    <input type="url" id="app-web-url" data-i18n-placeholder="placeholders.appWebUrl" placeholder="https://example.com/app" maxlength="255">
+                </div>
+                <div class="input-group full-width">
+                    <label for="app-ios-url" data-i18n="fields.appIosUrl">iOS App Store URL</label>
+                    <input type="url" id="app-ios-url" data-i18n-placeholder="placeholders.appIosUrl" placeholder="https://apps.apple.com/app/your-app" maxlength="255">
+                </div>
+                <div class="input-group full-width">
+                    <label for="app-android-url" data-i18n="fields.appAndroidUrl">Android Play Store URL</label>
+                    <input type="url" id="app-android-url" data-i18n-placeholder="placeholders.appAndroidUrl" placeholder="https://play.google.com/store/apps/details?id=..." maxlength="255">
+                </div>
+                <div class="input-group">
+                    <label for="app-link-target" data-i18n="fields.appLinkTarget">스토어 대체 링크</label>
+                    <select id="app-link-target">
+                        <option value="ios" data-i18n-option="options.appTargetIos">웹 URL이 없으면 iOS 사용</option>
+                        <option value="android" data-i18n-option="options.appTargetAndroid">웹 URL이 없으면 Android 사용</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        </section>
+
+        <!-- QR Code Display Area -->
+        <aside class="preview" aria-labelledby="preview-title">
+            <div id="qr-container" class="preview-card" aria-busy="false">
+                <div class="preview-head">
+                    <h2 id="preview-title" data-i18n="preview.title">미리보기</h2>
+                    <span class="local-badge">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+                        <span data-i18n="preview.localBadge">이 기기에서 생성됨</span>
+                    </span>
+                </div>
+                <p id="form-error" class="form-error" role="alert" aria-live="assertive" aria-atomic="true" hidden></p>
+                <div class="qr-stage">
+                    <p id="qr-placeholder" role="status" aria-live="polite" data-i18n="misc.qrPlaceholder">QR 코드가 여기에 표시됩니다</p>
+                    <div id="qr-canvas-container"></div>
+                    <img id="qr-image" src="" alt="QR Code" style="display:none;">
+                </div>
+                <div id="scan-warnings" class="scan-warnings" role="status" aria-live="polite" style="display:none;"></div>
+                <div class="payload-display">
+                    <p id="qr-code-text" style="display:none;"></p>
+                    <button type="button" id="payload-reveal-btn" class="secondary-btn small-btn" data-i18n="actions.showPayload" hidden>QR 데이터 표시</button>
+                </div>
+                <button type="button" id="download-btn" class="primary-btn" style="display:none;" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+                    <span data-i18n="actions.download">QR 코드 다운로드</span>
+                </button>
+            </div>
+        </aside>
+
+        <section class="panel panel-style" aria-labelledby="step-style-title">
+            <div class="panel-head">
+                <span class="step-num" aria-hidden="true">3</span>
+                <h2 id="step-style-title" data-i18n="workspace.adjustLook">크기와 스타일</h2>
+            </div>
+
+            <div class="style-row">
+                <div class="input-group">
+                    <label for="size-select" data-i18n="fields.qrSize">QR 코드 크기</label>
+                    <select id="size-select">
+                        <option value="512" selected data-i18n-option="options.sizeMedium">화면용（512px）</option>
+                        <option value="1024" data-i18n-option="options.sizeLarge">대형（1024px）</option>
+                        <option value="2048" data-i18n-option="options.sizePrint">인쇄용（2048px）</option>
+                        <option value="4096" data-i18n-option="options.sizePoster">포스터（4096px）</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="frame-style" data-i18n="fields.frame">프레임</label>
+                    <select id="frame-style">
+                        <option value="none" selected data-i18n-option="options.frameNone">프레임 없음</option>
+                        <option value="banner-bottom" data-i18n-option="options.frameBannerBottom">아래에 라벨</option>
+                        <option value="banner-top" data-i18n-option="options.frameBannerTop">위에 라벨</option>
+                        <option value="outline" data-i18n-option="options.frameOutline">테두리와 라벨</option>
+                    </select>
+                </div>
+            </div>
+            <div id="frame-options" class="style-row frame-options" hidden>
+                <div class="input-group">
+                    <label for="frame-text" data-i18n="fields.frameText">프레임 문구</label>
+                    <input type="text" id="frame-text" data-i18n-placeholder="frame.defaultText" placeholder="스캔하세요" maxlength="30" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label id="frame-color-label" for="frame-color" data-i18n="fields.frameColor">프레임 색상</label>
+                    <div class="color-input-wrapper">
+                        <input type="color" id="frame-color" value="#000000">
+                        <input type="text" id="frame-color-text" value="#000000" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="frame-color-label">
+                    </div>
+                </div>
+            </div>
+
+        <!-- Customization Section -->
+        <div class="customization-section">
+            <button type="button" id="customize-toggle" class="customize-toggle" aria-expanded="false" aria-controls="customize-panel">
+                <span data-i18n="actions.customize">외관 사용자 정의（선택 사항）</span>
+                <svg id="customize-icon" class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div id="customize-panel" class="customize-panel" style="display:none;">
+                <div class="customize-grid">
+                    <div class="input-group">
+                        <label id="qr-fg-color-label" for="qr-fg-color" data-i18n="fields.foregroundColor">전경색</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="qr-fg-color" value="#000000">
+                            <input type="text" id="qr-fg-color-text" value="#000000" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="qr-fg-color-label">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label id="qr-bg-color-label" for="qr-bg-color" data-i18n="fields.backgroundColor">배경색</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="qr-bg-color" value="#ffffff">
+                            <input type="text" id="qr-bg-color-text" value="#ffffff" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="qr-bg-color-label">
+                        </div>
+                        <div class="checkbox-group compact-checkbox">
+                            <input type="checkbox" id="qr-transparent-bg">
+                            <label for="qr-transparent-bg" data-i18n="fields.transparentBackground">투명 배경</label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="qr-error-correction" data-i18n="fields.errorCorrection">오류 수정</label>
+                        <select id="qr-error-correction">
+                            <option value="L" data-i18n-option="options.errorLow">L - 낮음（7%）</option>
+                            <option value="M" selected data-i18n-option="options.errorMedium">M - 중간（15%）</option>
+                            <option value="Q" data-i18n-option="options.errorQuartile">Q - 사분위（25%）</option>
+                            <option value="H" data-i18n-option="options.errorHigh">H - 높음（30%）</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="qr-format" data-i18n="fields.downloadFormat">다운로드 형식</label>
+                        <select id="qr-format">
+                            <option value="png" selected data-i18n-option="options.formatPng">PNG（래스터）</option>
+                            <option value="svg" data-i18n-option="options.formatSvg">SVG（벡터）</option>
+                            <option value="pdf" data-i18n-option="options.formatPdf">PDF（문서）</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Logo Upload Section -->
+                <div class="logo-section">
+                    <h3 class="section-title" data-i18n="fields.logo">로고（선택 사항）</h3>
+                    <div class="logo-upload-area">
+                        <input type="file" id="qr-logo" accept="image/*" style="display:none;">
+                        <button type="button" id="logo-select-btn" class="secondary-btn small-btn" data-i18n="actions.chooseLogo">이미지 선택</button>
+                        <span id="logo-filename" class="logo-filename"></span>
+                        <button type="button" id="logo-remove-btn" class="icon-btn" style="display:none;" title="Remove logo" aria-label="Remove logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+                    </div>
+                    <div id="logo-preview" class="logo-preview" style="display:none;">
+                        <img id="logo-preview-img" alt="Logo preview">
+                    </div>
+                    <div id="logo-controls" style="display:none;">
+                        <div class="slider-group">
+                            <label for="qr-logo-size" data-i18n="fields.logoSize">로고 크기</label>: <span id="qr-logo-size-value">40%</span>
+                            <input type="range" id="qr-logo-size" min="0.2" max="0.5" step="0.05" value="0.4">
+                        </div>
+                        <div class="slider-group">
+                            <label for="qr-logo-margin" data-i18n="fields.logoMargin">로고 여백</label>: <span id="qr-logo-margin-value">4px</span>
+                            <input type="range" id="qr-logo-margin" min="0" max="20" step="2" value="4">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Style Section -->
+                <div class="style-section">
+                    <h3 class="section-title" data-i18n="fields.styleOptions">스타일 옵션</h3>
+                    <div class="style-grid">
+                        <div class="input-group">
+                            <label for="qr-dot-style" data-i18n="fields.dotStyle">점 스타일</label>
+                            <select id="qr-dot-style">
+                                <option value="square" selected data-i18n-option="options.dotSquare">사각형</option>
+                                <option value="rounded" data-i18n-option="options.dotRounded">둥근</option>
+                                <option value="dots" data-i18n-option="options.dotDots">점</option>
+                                <option value="classy" data-i18n-option="options.dotClassy">클래시</option>
+                                <option value="classy-rounded" data-i18n-option="options.dotClassyRounded">클래시 둥근</option>
+                                <option value="extra-rounded" data-i18n-option="options.dotExtraRounded">매우 둥근</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="qr-corner-square-style" data-i18n="fields.cornerSquare">모서리 사각형</label>
+                            <select id="qr-corner-square-style">
+                                <option value="square" data-i18n-option="options.cornerSquare">사각형</option>
+                                <option value="extra-rounded" selected data-i18n-option="options.cornerExtraRounded">매우 둥근</option>
+                                <option value="dot" data-i18n-option="options.cornerDot">점</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="qr-corner-dot-style" data-i18n="fields.cornerDot">모서리 점</label>
+                            <select id="qr-corner-dot-style">
+                                <option value="square" data-i18n-option="options.cornerSquare">사각형</option>
+                                <option value="dot" selected data-i18n-option="options.cornerDot">점</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="slider-group">
+                        <label for="qr-margin" data-i18n="fields.quietZone">정적 영역（여백）</label>: <span id="qr-margin-value">4 modules</span>
+                        <input type="range" id="qr-margin" min="4" max="12" step="1" value="4" aria-describedby="quiet-zone-helper">
+                        <p id="quiet-zone-helper" class="helper-text" data-i18n="helpers.quietZoneHelper">QR 코드 주변 공간(안정적인 스캔을 위해 최소 4모듈)</p>
+                    </div>
+                </div>
+
+                <button type="button" id="reset-customization" class="secondary-btn" data-i18n="actions.reset">기본값으로 재설정</button>
+            </div>
+        </div>
+        </section>
+    </main>
+
+    <section class="info info-about" id="about" aria-labelledby="about-title">
+        <h2 id="about-title" class="display display-small">vCard QR코드의 원리</h2>
+        <div class="about-text">
+            <p>vCard QR코드에는 vCard 형식의 디지털 명함이 담겨 있습니다. 상대방이 스캔하면 휴대폰이 새 연락처로 저장할지 물어보므로 손으로 입력할 필요가 없습니다.</p>
+            <p>공유하고 싶은 항목만 입력하세요. 정보가 많을수록 코드가 촘촘해지므로 가로 최소 2.5cm 크기로 인쇄하고, 명함을 대량 주문하기 전에 꼭 스캔 테스트를 해 보세요.</p>
+            <p>정보가 코드에 직접 인코딩되므로 나중에 수정할 수 없습니다. 전화번호나 직함이 바뀌면 다음 인쇄 때 새 코드를 만드세요.</p>
+        </div>
+    </section>
+
+    <section class="info" id="how-it-works" aria-labelledby="how-title">
+        <h2 id="how-title" class="info-title" data-i18n="how.title">사용 방법</h2>
+        <ol class="steps">
+            <li>
+                <span class="step-num" aria-hidden="true">1</span>
+                <div><strong data-i18n="how.step1Title">선택</strong><span data-i18n="how.step1Text">코드가 할 일을 고르세요. 링크 열기, WiFi 연결, 연락처 저장 등이 가능합니다.</span></div>
+            </li>
+            <li>
+                <span class="step-num" aria-hidden="true">2</span>
+                <div><strong data-i18n="how.step2Title">입력</strong><span data-i18n="how.step2Text">내용을 입력하면 브라우저 안에서 미리보기가 바로 업데이트됩니다.</span></div>
+            </li>
+            <li>
+                <span class="step-num" aria-hidden="true">3</span>
+                <div><strong data-i18n="how.step3Title">다운로드</strong><span data-i18n="how.step3Text">PNG, SVG 또는 PDF로 저장하세요. 인쇄하거나 공유하기 전에 스캔을 테스트하세요.</span></div>
+            </li>
+        </ol>
+    </section>
+
+    <section class="info info-compare" id="never-expires" aria-labelledby="compare-title">
+        <div class="info-intro">
+            <h2 id="compare-title" class="display display-small">평생 멈추지 않는 무료 QR코드</h2>
+            <p class="muted">“무료”를 내세우는 많은 QR코드 생성기는 자사 리디렉션 서버를 거치는 동적 QR코드를 만듭니다. 체험 기간이 끝나면 코드가 비활성화되는데, 이미 메뉴판이나 명함, 포장재에 인쇄된 뒤인 경우가 많습니다. QRTurbo.app은 다르게 작동합니다.</p>
+        </div>
+        <div class="compare">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th scope="col">질문</th>
+                        <th scope="col">흔한 “무료 체험” QR코드</th>
+                        <th scope="col" class="is-ours">QRTurbo.app</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">내용은 어디에 저장되나요?</th>
+                        <td data-label="흔한 “무료 체험” QR코드">짧은 리디렉션 링크 뒤, 업체 서버에</td>
+                        <td class="is-ours" data-label="QRTurbo.app">QR코드 안에 직접</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">체험 기간이 끝나면 어떻게 되나요?</th>
+                        <td data-label="흔한 “무료 체험” QR코드">결제할 때까지 코드가 비활성화됩니다</td>
+                        <td class="is-ours" data-label="QRTurbo.app">아무 일도 없습니다. 체험판이 없고 코드는 계속 작동합니다</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">계정이 필요한가요?</th>
+                        <td data-label="흔한 “무료 체험” QR코드">대부분 필요합니다</td>
+                        <td class="is-ours" data-label="QRTurbo.app">필요 없습니다</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">스캔 기록은 누가 보나요?</th>
+                        <td data-label="흔한 “무료 체험” QR코드">모든 스캔이 업체 서버를 거칩니다</td>
+                        <td class="is-ours" data-label="QRTurbo.app">아무도 볼 수 없습니다. 스캔은 저희에게 전달되지 않습니다</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">비용은 얼마인가요?</th>
+                        <td data-label="흔한 “무료 체험” QR코드">월간 또는 연간 구독료</td>
+                        <td class="is-ours" data-label="QRTurbo.app">무료입니다. 상업적 이용도 마찬가지입니다</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="compare-note">단 한 가지 단점은 정적 QR코드는 인쇄한 뒤 수정할 수 없다는 점입니다. 나중에 연결 대상을 바꿀 가능성이 있다면 직접 관리하는 페이지로 코드를 만들고, 그 페이지 내용을 바꾸세요.</p>
+        </div>
+    </section>
+
+    <section class="info info-privacy" id="privacy" aria-labelledby="privacy-title">
+        <div class="info-intro">
+            <h2 id="privacy-title" class="display display-small" data-i18n="privacyInfo.title">설계부터 비공개</h2>
+            <p class="muted" data-i18n="privacyInfo.intro">QR 코드에는 WiFi 비밀번호, 전화번호, 집 주소 같은 개인 정보가 담기는 경우가 많습니다. QRTurbo.app은 이런 정보가 절대 서버에 닿지 않도록 만들어졌습니다.</p>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="2.5" width="14" height="19" rx="2.5"></rect><path d="M10 18h4"></path><path d="m9.5 10 2 2 3.5-4"></path></svg>
+                <h3 data-i18n="privacyInfo.localTitle">기기에만 남습니다</h3>
+                <p data-i18n="privacyInfo.localText">QR 코드와 로고는 브라우저에서 실행되는 코드로 생성됩니다. 입력한 내용을 받을 서버가 없습니다.</p>
+            </div>
+            <div class="card">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><path d="M14 14h3v3h-3zM18 18h3v3h-3z"></path></svg>
+                <h3 data-i18n="privacyInfo.staticTitle">리디렉션 없음, 만료 없음</h3>
+                <p data-i18n="privacyInfo.staticText">내용은 QR 코드에 직접 인코딩됩니다. 스캔이 저희를 거치지 않으며 코드는 만료되지 않습니다.</p>
+            </div>
+            <div class="card">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10.6 5.1A10 10 0 0 1 12 5c5 0 9 4.5 10 7a13 13 0 0 1-2.5 3.6M6.6 6.6A13 13 0 0 0 2 12c1 2.5 5 7 10 7a9.8 9.8 0 0 0 5.4-1.6"></path><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path><path d="m3 3 18 18"></path></svg>
+                <h3 data-i18n="privacyInfo.noTrackingTitle">추적 없음</h3>
+                <p data-i18n="privacyInfo.noTrackingText">분석, 광고, 쿠키, 계정이 없습니다. 언어와 테마 선택만 브라우저에 로컬로 저장됩니다.</p>
+            </div>
+            <div class="card">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"></path></svg>
+                <h3 data-i18n="privacyInfo.openSourceTitle">누구나 검증 가능</h3>
+                <p data-i18n="privacyInfo.openSourceText">전체 소스 코드가 GitHub에 공개되어 있어 누구나 이 내용을 확인할 수 있습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="info info-faq" id="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title" class="display display-small">자주 묻는 질문</h2>
+        <div class="faq-list">
+            <details class="faq-item">
+                <summary>QRTurbo.app으로 만든 QR코드에 유효기간이 있나요?</summary>
+                <p>없습니다. QRTurbo.app은 정적 QR코드를 만듭니다. 링크, 텍스트, 연락처 정보가 코드에 직접 인코딩되며 중간에 서버가 없기 때문에 만료되거나 차단될 일이 없습니다. 내용이 유효한 동안, 예를 들어 연결된 웹사이트가 남아 있는 동안에는 코드가 계속 작동합니다.</p>
+            </details>
+            <details class="faq-item">
+                <summary>다른 사이트에서 만든 QR코드가 왜 갑자기 작동하지 않나요?</summary>
+                <p>많은 생성기는 기본적으로 동적 QR코드를 만듭니다. 이런 코드에는 업체 서버로 가는 짧은 링크가 담겨 있고, 스캔할 때마다 서버가 실제 주소로 리디렉션합니다. 무료 체험이나 구독이 끝나면 업체가 리디렉션을 끊어 버리고, 인쇄된 코드는 더 이상 작동하지 않습니다. QRTurbo.app에서 만든 코드에는 실제 내용이 담겨 있어 저희에게 전혀 의존하지 않습니다.</p>
+            </details>
+            <details class="faq-item">
+                <summary>QRTurbo.app은 정말 무료인가요? 상업적으로 사용해도 되나요?</summary>
+                <p>네. 가입, 체험 기간, 워터마크, 스캔 횟수 제한이 모두 없습니다. 만든 QR코드는 명함, 메뉴판, 포장재, 광고 등 개인적·상업적 용도로 자유롭게 사용할 수 있습니다.</p>
+            </details>
+            <details class="faq-item">
+                <summary>인쇄한 QR코드를 나중에 수정할 수 있나요?</summary>
+                <p>아니요. 정적 QR코드는 내용이 패턴 자체의 일부이기 때문에 수정할 수 없습니다. 연결 대상이 바뀔 가능성이 있다면 내 웹사이트의 페이지처럼 직접 관리하는 주소로 코드를 만들고, 그 페이지를 수정하세요.</p>
+            </details>
+            <details class="faq-item">
+                <summary>QR코드는 어느 정도 크기로 인쇄해야 하나요?</summary>
+                <p>최소 2 × 2cm 크기로 인쇄하세요. 스캔 거리의 10분의 1 이상을 기준으로 삼으면 됩니다. 예를 들어 2m 떨어진 곳에서 보는 포스터라면 약 20cm 크기의 코드가 필요합니다. 인쇄용으로는 SVG나 큰 PNG를 다운로드하고, 코드 주변의 여백(정적 영역)은 비워 두세요.</p>
+            </details>
+            <details class="faq-item">
+                <summary>QR코드가 스캔되지 않는 이유는 무엇인가요?</summary>
+                <p>가장 흔한 원인은 코드와 배경의 대비가 낮거나, 여백이 너무 좁거나, 로고가 코드를 너무 많이 가리거나, 인쇄 크기에 비해 내용이 너무 많은 경우입니다. QRTurbo.app은 이런 위험을 미리 알려 줍니다. 인쇄하기 전에 항상 여러 휴대폰으로 테스트해 보세요.</p>
+            </details>
+            <details class="faq-item">
+                <summary>내 데이터는 안전한가요? 와이파이 비밀번호를 볼 수 있나요?</summary>
+                <p>데이터는 내 기기에만 남습니다. QR코드는 브라우저에서 실행되는 코드로 생성되며, 입력하거나 업로드한 내용은 어떤 서버로도 전송되지 않습니다. 그래서 누구도 와이파이 비밀번호나 연락처 정보를 볼 수 없습니다. 처음 한 번 방문한 뒤에는 오프라인에서도 생성기를 사용할 수 있습니다.</p>
+            </details>
+        </div>
+    </section>
+
+    <nav class="info type-links" aria-labelledby="type-links-title">
+        <h2 id="type-links-title" class="info-title">무료 QR코드 생성기</h2>
+        <ul>
+            <li><a href="/ko/">URL·텍스트 QR코드</a></li>
+            <li><a href="/ko/wifi-qr-code/">와이파이 QR코드</a></li>
+            <li><a href="/ko/vcard-qr-code/" aria-current="page">vCard QR코드</a></li>
+            <li><a href="/ko/whatsapp-qr-code/">WhatsApp QR코드</a></li>
+            <li><a href="/ko/email-qr-code/">이메일 QR코드</a></li>
+            <li><a href="/ko/sms-qr-code/">문자·전화 QR코드</a></li>
+            <li><a href="/ko/event-qr-code/">캘린더 일정 QR코드</a></li>
+            <li><a href="/ko/location-qr-code/">위치 QR코드</a></li>
+            <li><a href="/ko/social-media-qr-code/">SNS QR코드</a></li>
+            <li><a href="/ko/app-store-qr-code/">앱 다운로드 QR코드</a></li>
+        </ul>
+    </nav>
+
+    <!-- Footer / Info Section -->
+    <footer class="site-footer">
+        <p>
+            <span data-i18n="footer.privacy1">이 무료 QR 코드 생성기는 브라우저에서 완전히 실행됩니다.</span>
+            <span data-i18n="footer.privacy2">데이터가 저장되거나 전송되지 않습니다. 추적 없음, 광고 없음, 헛소리 없음.</span>
+        </p>
+        <nav aria-label="QRTurbo.app">
+            <a href="/privacy.html" data-i18n="footer.privacyPolicy">개인정보 처리방침</a>
+            <a href="/terms.html" data-i18n="footer.termsOfUse">이용 약관</a>
+            <a href="https://github.com/timoheimonen/qrturbo" target="_blank" rel="noopener noreferrer" data-i18n="footer.github">GitHub에서 소스 코드 보기</a>
+        </nav>
+    </footer>
+
+    <!-- External JavaScript -->
+    <script src="/js/i18n/core.js?v=1.2.0" defer></script>
+    <script src="/js/qr-code-styling.min.js?v=1.2.0" defer></script>
+    <script src="/js/app.js?v=1.2.0" defer></script>
+</body>
+
+</html>

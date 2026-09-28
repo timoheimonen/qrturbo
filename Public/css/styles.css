@@ -860,8 +860,18 @@ html[data-theme="dark"] .radio-group input[type="radio"]:checked + label {
 
 /* ── Size and style panel ── */
 
-.panel-style > .input-group {
-    max-width: 320px;
+.style-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.frame-options {
+    margin-top: 16px;
+}
+
+.frame-options[hidden] {
+    display: none;
 }
 
 .customization-section {
@@ -1359,6 +1369,179 @@ html[data-theme="dark"] .radio-group input[type="radio"]:checked + label {
     color: var(--muted);
 }
 
+/* ── Type guide ── */
+
+.info-about {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 40px;
+    align-items: start;
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 40em;
+    font-size: 1.02rem;
+    color: var(--muted);
+}
+
+/* ── Never-expiring comparison ── */
+
+.info-compare {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 40px;
+    align-items: start;
+}
+
+.compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-size: 0.88rem;
+    overflow: hidden;
+}
+
+.compare-table th,
+.compare-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+}
+
+.compare-table tbody tr:last-child th,
+.compare-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.compare-table thead th {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.compare-table tbody th {
+    width: 30%;
+    font-weight: 600;
+}
+
+.compare-table td {
+    color: var(--muted);
+}
+
+.compare-table .is-ours {
+    background: var(--ok-soft);
+    color: var(--fg);
+}
+
+.compare-table thead .is-ours {
+    color: var(--ok-text);
+}
+
+.compare-note {
+    margin-top: 14px;
+    font-size: 0.88rem;
+    color: var(--muted);
+}
+
+/* ── FAQ ── */
+
+.info-faq {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 40px;
+    align-items: start;
+}
+
+.faq-list {
+    border-top: 1px solid var(--border);
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--border);
+}
+
+.faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 2px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '';
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    background: var(--chevron) center / contain no-repeat;
+    transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+    transform: rotate(180deg);
+}
+
+.faq-item summary:hover {
+    color: var(--accent);
+}
+
+.faq-item summary:focus-visible {
+    outline: 2px solid var(--accent-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+.faq-item p {
+    max-width: 40em;
+    padding: 0 2px 18px;
+    color: var(--muted);
+}
+
+/* ── Generator links ── */
+
+.type-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.type-links a {
+    display: inline-flex;
+    padding: 7px 13px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.type-links a:hover {
+    border-color: var(--border-strong);
+}
+
+.type-links a[aria-current="page"] {
+    border-color: var(--selected-bg);
+    background: var(--selected-bg);
+    color: var(--selected-fg);
+}
+
 /* ── Footer ── */
 
 footer {
@@ -1554,7 +1737,10 @@ body.content-page footer {
         margin: 0 auto;
     }
 
-    .info-privacy {
+    .info-privacy,
+    .info-about,
+    .info-compare,
+    .info-faq {
         grid-template-columns: minmax(0, 1fr);
         gap: 24px;
     }
@@ -1624,8 +1810,63 @@ body.content-page footer {
         grid-template-columns: minmax(0, 1fr);
     }
 
-    .panel-style > .input-group {
-        max-width: none;
+    .style-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .compare-table,
+    .compare-table tbody,
+    .compare-table tr,
+    .compare-table th,
+    .compare-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .compare-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+
+    .compare-table tbody tr {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .compare-table tbody tr:last-child {
+        border-bottom: 0;
+    }
+
+    .compare-table tbody th,
+    .compare-table td {
+        border-bottom: 0;
+    }
+
+    .compare-table tbody th {
+        width: 100%;
+        padding-bottom: 4px;
+    }
+
+    .compare-table td {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .compare-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+
+    .compare-table td.is-ours {
+        padding-bottom: 12px;
     }
 
     .language-selector select {

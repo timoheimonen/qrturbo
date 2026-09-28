@@ -24,6 +24,25 @@ test('home page has no serious accessibility violations in either theme', async 
   }
 });
 
+test('a translated type page with an open FAQ has no serious accessibility violations', async ({ page }) => {
+  await page.goto('/fi/wifi-qr-code/');
+  await page.addStyleTag({
+    content: '*, *::before, *::after { animation: none !important; transition: none !important; }'
+  });
+  await page.locator('.faq-item summary').first().click();
+  await page.locator('#frame-style').selectOption('banner-bottom');
+
+  for (const theme of ['light', 'dark']) {
+    await page.locator(`[data-theme-choice="${theme}"]`).click();
+    const results = await new AxeBuilder({ page }).analyze();
+    const seriousViolations = results.violations.filter(violation =>
+      ['critical', 'serious'].includes(violation.impact)
+    );
+
+    expect(seriousViolations, `${theme} theme`).toEqual([]);
+  }
+});
+
 test('type tabs follow the ARIA tabs pattern with keyboard navigation', async ({ page }) => {
   await page.goto('/');
 
