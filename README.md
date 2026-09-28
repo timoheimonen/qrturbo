@@ -19,16 +19,31 @@ The app is served as static assets from Cloudflare's global network, with no ori
 - Generate QR codes for URL/Text, vCard, MeCard, WiFi, SMS/Phone, Email, Calendar Events, Locations, Social Media, WhatsApp, and App Links
 - Customize foreground and background colors
 - Add an optional logo with adjustable size and margin
+- Add a frame with a call-to-action label such as "Scan me"
 - Choose dot styles, corner square styles, and corner dot styles
-- Select QR code size: 256px, 512px, or 1024px
+- Select QR code size: 512px, 1024px, 2048px, or 4096px
 - Error correction levels: L, M, Q, H
 - Export formats: PNG, SVG and PDF
 - Light and dark themes
-- Multilingual UI with 12 supported languages
+- Multilingual UI with 24 supported languages, each pre-rendered at its own URL
+- Landing pages for every QR code type in every language
 - No external API calls
 - Works fully offline after initial load
 - Supports UTF-8 and long messages
 - Download the QR code as an image
+
+## Pages
+
+The HTML pages in `Public/` are generated. Edit `site/template.html` for the page structure,
+`site/content/<lang>.js` for page texts (titles, landing pages, comparison and FAQ), and
+`Public/js/i18n/` for interface strings. Then regenerate every language and QR code type page and
+`sitemap.xml`:
+
+```bash
+npm run build
+```
+
+`npm run build:check` and the static tests fail when the committed pages are out of date.
 
 ## Testing
 

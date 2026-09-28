@@ -9,14 +9,7 @@
   }
 
   window.translations.ko = {
-    meta: {
-      title: '로고와 색상을 지원하는 무료 QR 코드 생성기 | QRTurbo.app',
-      description:
-        'URL, WiFi, vCard, SMS, 전화용 맞춤 QR 코드를 무료로 만드세요. 브라우저에서 로고, 색상, 스타일을 추가하며 추적이나 데이터 업로드가 없습니다.'
-    },
     app: {
-      title: 'QRTurbo.app - 무료 QR 코드 생성기',
-      subtitle: '로고, 색상 및 스타일로 사용자 정의 가능한 QR 코드를 만드세요. URL, WiFi, vCard, SMS 및 통화 지원',
       selectLanguage: '언어 선택'
     },
     aria: {
@@ -95,7 +88,10 @@
       appWebUrl: '대체 / 웹 URL',
       appIosUrl: 'iOS App Store URL',
       appAndroidUrl: 'Android Play Store URL',
-      appLinkTarget: '스토어 대체 링크'
+      appLinkTarget: '스토어 대체 링크',
+      frame: '프레임',
+      frameText: '프레임 문구',
+      frameColor: '프레임 색상'
     },
     placeholders: {
       url: '예: https://www.example.com',
@@ -146,9 +142,14 @@
       hidePayload: 'QR 데이터 숨기기'
     },
     options: {
-      sizeSmall: '소（256px）',
-      sizeMedium: '중（512px）',
-      sizeLarge: '대（1024px）',
+      sizeMedium: '화면용（512px）',
+      sizeLarge: '대형（1024px）',
+      sizePrint: '인쇄용（2048px）',
+      sizePoster: '포스터（4096px）',
+      frameNone: '프레임 없음',
+      frameBannerBottom: '아래에 라벨',
+      frameBannerTop: '위에 라벨',
+      frameOutline: '테두리와 라벨',
       errorLow: 'L - 낮음（7%）',
       errorMedium: 'M - 중간（15%）',
       errorQuartile: 'Q - 사분위（25%）',
@@ -251,15 +252,14 @@
     brand: {
       tagline: 'QR 코드를 비공개로 만드는 곳'
     },
-    hero: {
-      display: '기기 밖으로 나가지 않는 QR 코드.'
-    },
     trust: {
       local: '브라우저에서 생성',
       noUploads: '업로드 없음',
       noTracking: '추적·쿠키 없음',
       offline: '오프라인 작동',
-      openSource: '오픈 소스'
+      openSource: '오픈 소스',
+      noExpiry: '만료 없음',
+      noSignup: '가입 불필요'
     },
     workspace: {
       chooseType: '유형 선택',
@@ -302,6 +302,9 @@
       quietZoneHelper: 'QR 코드 주변 공간(안정적인 스캔을 위해 최소 4모듈)',
       socialHandleHelper:
         '@username 같은 사용자 이름을 입력하거나 전체 https:// 프로필 URL을 붙여넣으세요.'
+    },
+    frame: {
+      defaultText: '스캔하세요'
     },
     misc: {
       qrPlaceholder: 'QR 코드가 여기에 표시됩니다',

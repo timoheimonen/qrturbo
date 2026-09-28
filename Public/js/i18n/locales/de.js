@@ -9,16 +9,7 @@
   }
 
   window.translations.de = {
-    meta: {
-      title:
-        'Kostenloser QR-Code-Generator mit Logos & Farben | QRTurbo.app',
-      description:
-        'Erstellen Sie kostenlose individuelle QR-Codes für URLs, WLAN, vCards, SMS und Anrufe. Fügen Sie Logos, Farben und Stile direkt im Browser hinzu, ohne Tracking oder Daten-Uploads.'
-    },
     app: {
-      title: 'QRTurbo.app - Kostenloser QR-Code-Generator',
-      subtitle:
-        'Erstellen Sie anpassbare QR-Codes mit Logos, Farben und Stilen. Unterstützung für URLs, WiFi, vCards, SMS und Anrufe',
       selectLanguage: 'Sprache Auswählen'
     },
     aria: {
@@ -97,7 +88,10 @@
       appWebUrl: 'Fallback-/Web-URL',
       appIosUrl: 'iOS App Store-URL',
       appAndroidUrl: 'Android Play Store-URL',
-      appLinkTarget: 'Store-Fallback'
+      appLinkTarget: 'Store-Fallback',
+      frame: 'Rahmen',
+      frameText: 'Rahmentext',
+      frameColor: 'Rahmenfarbe'
     },
     placeholders: {
       url: 'z.B., https://www.beispiel.com',
@@ -148,9 +142,14 @@
       hidePayload: 'QR-Daten ausblenden'
     },
     options: {
-      sizeSmall: 'Klein (256px)',
-      sizeMedium: 'Mittel (512px)',
-      sizeLarge: 'Groß (1024px)',
+      sizeMedium: 'Bildschirm (512 px)',
+      sizeLarge: 'Groß (1024 px)',
+      sizePrint: 'Druck (2048 px)',
+      sizePoster: 'Poster (4096 px)',
+      frameNone: 'Kein Rahmen',
+      frameBannerBottom: 'Beschriftung unten',
+      frameBannerTop: 'Beschriftung oben',
+      frameOutline: 'Umrandung mit Beschriftung',
       errorLow: 'L - Niedrig (7%)',
       errorMedium: 'M - Mittel (15%)',
       errorQuartile: 'Q - Quartil (25%)',
@@ -256,15 +255,14 @@
     brand: {
       tagline: 'Ihr privater Ort für QR-Codes'
     },
-    hero: {
-      display: 'QR-Codes, die Ihr Gerät nie verlassen.'
-    },
     trust: {
       local: 'Im Browser erstellt',
       noUploads: 'Keine Uploads',
       noTracking: 'Kein Tracking, keine Cookies',
       offline: 'Funktioniert offline',
-      openSource: 'Open Source'
+      openSource: 'Open Source',
+      noExpiry: 'Läuft nie ab',
+      noSignup: 'Keine Anmeldung'
     },
     workspace: {
       chooseType: 'Typ wählen',
@@ -309,6 +307,9 @@
         'Platz um den QR-Code (mindestens 4 Module für zuverlässiges Scannen)',
       socialHandleHelper:
         'Geben Sie einen Benutzernamen wie @benutzername ein oder fügen Sie eine vollständige https:// Profil-URL ein.'
+    },
+    frame: {
+      defaultText: 'SCAN MICH'
     },
     misc: {
       qrPlaceholder: 'QR-Code wird hier erscheinen',

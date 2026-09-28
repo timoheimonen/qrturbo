@@ -1,24 +1,28 @@
 // QRTurbo.app - Internationalization (i18n) Core System
-// 100% client-side, cookie-free localization using localStorage
-// Lazy-loads language files on demand for better performance
+// 100% client-side, cookie-free localization. Every language has its own
+// pre-rendered URL (/, /fi/, /de/ ...); this file provides the strings that
+// JavaScript creates at runtime and switches between the language URLs.
 
-// Current language (default: English)
-let currentLang = 'en';
+const supportedLanguages = new Set([
+  'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'id', 'it', 'ja',
+  'ko', 'nl', 'no', 'pl', 'pt', 'ro', 'sv', 'tr', 'zh', 'zh-hant'
+]);
+const LANGUAGE_STORAGE_KEY = 'qrturbo_lang';
+
+// Language codes are lowercase; <html lang> and hreflang use the BCP 47
+// spelling, such as zh-Hant for the zh-hant pages.
+const HREFLANGS = { 'zh-hant': 'zh-Hant' };
+
+// The page language is fixed by the pre-rendered document.
+const pageLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+let currentLang = supportedLanguages.has(pageLang) ? pageLang : 'en';
 const assetVersionQuery = document.currentScript?.src.match(/\?v=[^#&]+/)?.[0] || '';
 
 // Translation database (English embedded, others lazy-loaded)
 // Expose on window so locale files can register their translations
 const translations = {
   en: {
-    meta: {
-      title: 'Free QR Code Generator with Logos & Colors | QRTurbo.app',
-      description:
-        'Create free custom QR codes for URLs, WiFi, vCards, SMS and phone calls. Add logos, colors and styles in your browser with no tracking or data uploads.'
-    },
     app: {
-      title: 'QRTurbo.app - Free QR Code Generator',
-      subtitle:
-        'Create customizable QR codes with logos, colors, and styles. Support for URLs, WiFi, vCards, SMS, and phone calls',
       selectLanguage: 'Select Language'
     },
     aria: {
@@ -97,7 +101,10 @@ const translations = {
       appWebUrl: 'Fallback / Web URL',
       appIosUrl: 'iOS App Store URL',
       appAndroidUrl: 'Android Play Store URL',
-      appLinkTarget: 'Store fallback'
+      appLinkTarget: 'Store fallback',
+      frame: 'Frame',
+      frameText: 'Frame text',
+      frameColor: 'Frame color'
     },
     placeholders: {
       url: 'e.g., https://www.example.com',
@@ -148,9 +155,14 @@ const translations = {
       hidePayload: 'Hide QR data'
     },
     options: {
-      sizeSmall: 'Small (256px)',
-      sizeMedium: 'Medium (512px)',
-      sizeLarge: 'Large (1024px)',
+      sizeMedium: 'Screen (512 px)',
+      sizeLarge: 'Large (1024 px)',
+      sizePrint: 'Print (2048 px)',
+      sizePoster: 'Poster (4096 px)',
+      frameNone: 'No frame',
+      frameBannerBottom: 'Label below',
+      frameBannerTop: 'Label above',
+      frameOutline: 'Outline with label',
       errorLow: 'L - Low (7%)',
       errorMedium: 'M - Medium (15%)',
       errorQuartile: 'Q - Quartile (25%)',
@@ -253,15 +265,14 @@ const translations = {
     brand: {
       tagline: 'your private place to make QR codes'
     },
-    hero: {
-      display: 'QR codes that never leave your device.'
-    },
     trust: {
       local: 'Generated in your browser',
       noUploads: 'Nothing is uploaded',
       noTracking: 'No tracking or cookies',
       offline: 'Works offline',
-      openSource: 'Open source'
+      openSource: 'Open source',
+      noExpiry: 'Never expires',
+      noSignup: 'No sign-up'
     },
     workspace: {
       chooseType: 'Choose a type',
@@ -306,6 +317,9 @@ const translations = {
       socialHandleHelper:
         'Enter a handle such as @username or paste a full https:// profile URL.'
     },
+    frame: {
+      defaultText: 'SCAN ME'
+    },
     misc: {
       qrPlaceholder: 'QR Code will appear here',
       socialPreview: 'QR target',
@@ -316,9 +330,6 @@ const translations = {
 
 // Expose translations on window for locale files to register
 window.translations = translations;
-
-// List of supported language codes (for browser detection before lazy-loading)
-const supportedLanguages = new Set(['en', 'da', 'de', 'es', 'fi', 'fr', 'it', 'ja', 'ko', 'no', 'sv', 'zh']);
 
 // Language loading state management
 const loadedLanguages = new Set(['en']); // English is always loaded
@@ -332,11 +343,6 @@ function getNestedValue(obj, path) {
 // Helper function to replace variables in template strings
 function replaceVars(str, vars) {
   return str.replace(/\{\{(\w+)\}\}/g, (_, name) => vars[name] ?? '');
-}
-
-// Helper function to check if a language is available
-function isLanguageAvailable(langCode) {
-  return !!(translations[langCode] || (window.translations && window.translations[langCode]));
 }
 
 // Main translation function
@@ -359,46 +365,19 @@ function t(key, vars = {}) {
   return replaceVars(value, vars);
 }
 
-// Detect browser language
-function getBrowserLanguage() {
-  // Get browser language(s) - navigator.languages is preferred (array of preferred languages)
-  // Fall back to navigator.language or navigator.userLanguage for older browsers
-  const browserLangs = navigator.languages 
-    ? Array.from(navigator.languages).map(lang => lang.toLowerCase().split('-')[0])
-    : [(navigator.language || navigator.userLanguage || 'en').toLowerCase().split('-')[0]];
-
-  // Find first supported language from browser preferences
-  for (const langCode of browserLangs) {
-    if (supportedLanguages.has(langCode)) {
-      return langCode;
-    }
-  }
-
-  // Fallback to English if no supported language found
-  return 'en';
-}
-
 // Dynamic language loader
 async function loadLanguage(langCode) {
-  // Skip if already loaded
   if (loadedLanguages.has(langCode)) {
-    return Promise.resolve();
+    return;
   }
 
-  // Skip English (always loaded)
-  if (langCode === 'en') {
-    return Promise.resolve();
-  }
-
-  // Check if already loading
   if (loadingPromises.has(langCode)) {
     return loadingPromises.get(langCode);
   }
 
-  // Create loading promise
   const loadPromise = new Promise((resolve, reject) => {
     const script = document.createElement('script');
-    script.src = `js/i18n/locales/${langCode}.js${assetVersionQuery}`;
+    script.src = `/js/i18n/locales/${langCode}.js${assetVersionQuery}`;
     script.async = true;
 
     script.onload = () => {
@@ -424,93 +403,25 @@ async function loadLanguage(langCode) {
   return loadPromise;
 }
 
-// Set language and update UI (async version with lazy loading)
-async function setLanguageAsync(langCode) {
-  try {
-    // Load language file if needed
-    await loadLanguage(langCode);
-
-    // Validate language code using helper function
-    if (!isLanguageAvailable(langCode)) {
-      langCode = 'en';
-    } else if (!translations[langCode] && window.translations && window.translations[langCode]) {
-      // Merge if somehow not merged yet
-      translations[langCode] = window.translations[langCode];
-    }
-
-    // Update current language
-    currentLang = langCode;
-
-    // Set HTML lang attribute
-    document.documentElement.setAttribute('lang', langCode);
-
-    // Save to localStorage (cookie-free!)
-    try {
-      localStorage.setItem('qrturbo_lang', langCode);
-    } catch (e) {
-      console.warn('localStorage unavailable:', e);
-    }
-
-    // Translate all content
-    translatePage();
-
-    // Update meta tags
-    updateMetaTags();
-
-    // Update language selector dropdown if it exists
-    const langSelect = document.getElementById('lang-select');
-    if (langSelect) {
-      langSelect.value = currentLang;
-    }
-  } catch (error) {
-    console.error('Error loading language:', error);
-    // Fallback to English on error
-    if (langCode !== 'en') {
-      await setLanguageAsync('en');
-    }
-  }
-}
-
-// Backward compatibility wrapper (now properly async)
-async function setLanguage(langCode) {
-  try {
-    await setLanguageAsync(langCode);
-  } catch (error) {
-    console.error('Language switch failed:', error);
-    // Fallback to English on error
-    if (langCode !== 'en') {
-      await setLanguageAsync('en');
-    }
-  }
-}
-
-// Translate all elements on the page
+// Translate all elements on the page. The pre-rendered HTML already contains
+// these strings; this keeps runtime-created content in the same language.
 function translatePage() {
-  // Translate text content
   document.querySelectorAll('[data-i18n]').forEach((el) => {
-    const key = el.getAttribute('data-i18n');
-    el.textContent = t(key);
+    el.textContent = t(el.getAttribute('data-i18n'));
   });
 
-  // Translate placeholders
   document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    el.setAttribute('placeholder', t(key));
+    el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
   });
 
-  // Translate accessible names that are not visible text.
   document.querySelectorAll('[data-i18n-aria-label]').forEach((el) => {
-    const key = el.getAttribute('data-i18n-aria-label');
-    el.setAttribute('aria-label', t(key));
+    el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria-label')));
   });
 
-  // Translate option values (for select dropdowns)
   document.querySelectorAll('[data-i18n-option]').forEach((el) => {
-    const key = el.getAttribute('data-i18n-option');
-    el.textContent = t(key);
+    el.textContent = t(el.getAttribute('data-i18n-option'));
   });
 
-  // Update dynamic content (character counters, etc.)
   updateDynamicTranslations();
 }
 
@@ -561,80 +472,57 @@ function updateDynamicTranslations() {
   }
 }
 
-// Update meta tags
-function updateMetaTags() {
-  document.title = t('meta.title');
+// Returns the same page in another language, using the hreflang alternates
+// that every pre-rendered page declares in its <head>.
+function getLanguageUrl(langCode) {
+  const hreflang = HREFLANGS[langCode] || langCode;
+  const alternate = document.querySelector(`link[rel="alternate"][hreflang="${hreflang}"]`);
+  if (!alternate) return null;
 
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) {
-    metaDesc.setAttribute('content', t('meta.description'));
-  }
+  const target = new URL(alternate.getAttribute('href'), window.location.href);
+  return `${target.pathname}${window.location.search}${window.location.hash}`;
+}
 
-  // Update Open Graph tags
-  const ogTitle = document.querySelector('meta[property="og:title"]');
-  if (ogTitle) {
-    ogTitle.setAttribute('content', t('meta.title'));
-  }
-
-  const ogDesc = document.querySelector('meta[property="og:description"]');
-  if (ogDesc) {
-    ogDesc.setAttribute('content', t('meta.description'));
-  }
-
-  // Update Twitter Card tags
-  const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-  if (twitterTitle) {
-    twitterTitle.setAttribute('content', t('meta.title'));
-  }
-
-  const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-  if (twitterDesc) {
-    twitterDesc.setAttribute('content', t('meta.description'));
+function saveLanguagePreference(langCode) {
+  try {
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, langCode);
+  } catch (e) {
+    console.warn('localStorage unavailable:', e);
   }
 }
 
 // Initialize i18n system
 async function initI18n() {
-  let savedLang = null;
-
-  // Try to load saved language from localStorage
   try {
-    savedLang = localStorage.getItem('qrturbo_lang');
-
-    // Validate it's a supported language (check against supported list, not loaded translations)
-    if (savedLang && !supportedLanguages.has(savedLang)) {
-      savedLang = null;
-      localStorage.removeItem('qrturbo_lang');
-    }
-  } catch (e) {
-    console.warn('localStorage unavailable:', e);
+    await loadLanguage(currentLang);
+  } catch (error) {
+    console.error('Error loading language:', error);
+    currentLang = 'en';
   }
 
-  // Determine language: saved > browser > default
-  const browserLang = getBrowserLanguage();
-  const initialLang = savedLang || browserLang || 'en';
+  translatePage();
 
-  // Set the language (will lazy-load if needed) - wait for it to complete
-  await setLanguageAsync(initialLang);
-
-  // Update language selector if it exists (after language is loaded)
   const langSelect = document.getElementById('lang-select');
   if (langSelect) {
-    langSelect.value = currentLang;
+    langSelect.value = pageLang && supportedLanguages.has(pageLang) ? pageLang : 'en';
   }
 }
 
-// Setup language selector event listener
+// Choosing a language is remembered and opens the matching language URL.
 function setupLanguageSelector() {
   const langSelect = document.getElementById('lang-select');
-  if (langSelect) {
-    langSelect.addEventListener('change', async (e) => {
-      await setLanguage(e.target.value);
+  if (!langSelect) return;
 
-      // Re-translate dynamic content
-      updateDynamicTranslations();
-    });
-  }
+  langSelect.addEventListener('change', (e) => {
+    const langCode = e.target.value;
+    if (!supportedLanguages.has(langCode)) return;
+
+    saveLanguagePreference(langCode);
+    const targetUrl = getLanguageUrl(langCode);
+    if (targetUrl) {
+      window.location.assign(targetUrl);
+    }
+  });
 }
 
 // Auto-initialize when DOM is ready

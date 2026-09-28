@@ -162,6 +162,17 @@ function makeHarness({ cacheNames = [], fetchImpl, cachePutError = false } = {})
     await work;
   }
 
+  async function dispatchMessage(data) {
+    let work;
+    listeners.get('message')({
+      data,
+      waitUntil(promise) {
+        work = promise;
+      }
+    });
+    await work;
+  }
+
   async function dispatchFetch(request) {
     let response;
     listeners.get('fetch')({
@@ -178,6 +189,7 @@ function makeHarness({ cacheNames = [], fetchImpl, cachePutError = false } = {})
     deletedCaches,
     dispatchFetch,
     dispatchLifecycle,
+    dispatchMessage,
     get clientsClaimed() { return clientsClaimed; },
     get skipWaitingCalled() { return skipWaitingCalled; },
     networkRequests,
@@ -301,4 +313,62 @@ test('cache write failures do not discard successful network responses', async (
 
   const navigation = await harness.dispatchFetch(navigationRequest('/privacy.html'));
   assert.equal(await navigation.text(), 'NETWORK:/privacy.html');
+});
+
+test('offline navigation falls back to the home page in the same language', async () => {
+  const { cacheName } = extractWorkerMetadata();
+  const harness = makeHarness({ cacheNames: [cacheName] });
+  const cache = await harness.caches.open(cacheName);
+  await cache.put('/index.html', new Response('INDEX'));
+  await cache.put('/fi/', new Response('FI HOME'));
+  await cache.put('/fi/wifi-qr-code/', new Response('FI WIFI'));
+
+  assert.equal(await (await harness.dispatchFetch(navigationRequest('/fi/wifi-qr-code/'))).text(), 'FI WIFI');
+  assert.equal(await (await harness.dispatchFetch(navigationRequest('/fi/vcard-qr-code/'))).text(), 'FI HOME');
+  assert.equal(await (await harness.dispatchFetch(navigationRequest('/de/vcard-qr-code/'))).text(), 'INDEX');
+  assert.equal(await (await harness.dispatchFetch(navigationRequest('/vcard-qr-code/'))).text(), 'INDEX');
+});
+
+test('online navigation caches visited HTML pages but not other responses', async () => {
+  const { cacheName } = extractWorkerMetadata();
+  const harness = makeHarness({
+    cacheNames: [cacheName],
+    fetchImpl: async request => {
+      const { pathname } = new URL(request.url);
+      const type = pathname.endsWith('/') ? 'text/html; charset=utf-8' : 'application/json';
+      return new Response(`PAGE:${pathname}`, { status: 200, headers: { 'Content-Type': type } });
+    }
+  });
+  const cache = await harness.caches.open(cacheName);
+
+  await harness.dispatchFetch(navigationRequest('/sv/email-qr-code/'));
+  await harness.dispatchFetch(navigationRequest('/manifest.webmanifest'));
+
+  assert.equal(await (await cache.match('/sv/email-qr-code/')).text(), 'PAGE:/sv/email-qr-code/');
+  assert.equal(await cache.match('/manifest.webmanifest'), undefined);
+});
+
+test('pages ask the worker to keep themselves and their language home offline', async () => {
+  const { cacheName } = extractWorkerMetadata();
+  const harness = makeHarness({
+    cacheNames: [cacheName],
+    fetchImpl: async request => new Response(`PAGE:${new URL(request.url).pathname}`, {
+      status: 200,
+      headers: { 'Content-Type': 'text/html; charset=utf-8' }
+    })
+  });
+
+  await harness.dispatchMessage({ type: 'cache-page', path: '/ja/wifi-qr-code/' });
+  await harness.dispatchMessage({ type: 'cache-page', path: 'https://evil.example/steal' });
+  await harness.dispatchMessage({ type: 'something-else', path: '/ko/' });
+
+  const cache = await harness.caches.open(cacheName);
+  assert.equal(await (await cache.match('/ja/wifi-qr-code/')).text(), 'PAGE:/ja/wifi-qr-code/');
+  assert.equal(await (await cache.match('/ja/')).text(), 'PAGE:/ja/');
+  assert.equal(await cache.match('/ko/'), undefined);
+  assert.deepEqual(
+    harness.networkRequests.map(request => new URL(request.url).href).sort(),
+    [`${origin}/ja/`, `${origin}/ja/wifi-qr-code/`]
+  );
+  assert.ok(harness.networkRequests.every(request => request.cache === 'no-cache'));
 });

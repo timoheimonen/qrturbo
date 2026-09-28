@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-09-28
+
+### Added
+
+- Pre-rendered pages for every language at their own URLs (`/fi/`, `/de/`, ...), with correct `hreflang` alternates, canonical URLs and a sitemap that lists every language version. Previously all languages shared one URL and only English was visible to search engines.
+- Ten new languages: Brazilian Portuguese (`/pt/`), Dutch (`/nl/`), Polish (`/pl/`), Turkish (`/tr/`), Indonesian (`/id/`), Traditional Chinese for Taiwan (`/zh-hant/`), Czech (`/cs/`), Romanian (`/ro/`), Hungarian (`/hu/`) and Greek (`/el/`), for 24 languages in total. Browsers set to Taiwan, Hong Kong or Macau Chinese (`zh-TW`, `zh-HK`, `zh-MO`, `zh-Hant`) open the Traditional Chinese pages, and other Chinese variants open Simplified Chinese.
+- Landing pages for WiFi, vCard, WhatsApp, email, SMS and phone, calendar event, location, social media and app download QR codes in all 24 languages. Each page opens the generator on its own type and explains how that QR code works.
+- QR code frames with a call-to-action label ("Scan me"): label below, label above or outline, with custom text and color. Frames are included in PNG, SVG and PDF downloads.
+- Print (2048 px) and poster (4096 px) sizes.
+- "Free QR codes that never stop working" section that compares static QR codes with trial-based dynamic codes.
+- Frequently asked questions with `FAQPage` structured data.
+- Links between all QR code generator pages.
+- Visited language and type pages are kept for offline use, and offline navigation falls back to the home page in the same language.
+- `npm run build` generates the pages from `site/template.html` and `site/content/`.
+
+### Changed
+
+- The hero now leads with codes that never expire and require no sign-up.
+- The language selector opens the same page in the chosen language. English pages open in the saved language or, on the first visit, in the browser language.
+
+### Fixed
+
+- On narrow phones the logo no longer overlaps the language selector, and long QR code type labels such as "SMS/Téléphone" hyphenate inside their buttons instead of overflowing.
+
+### Removed
+
+- The 256 px size, which was too small for print.
+
 ## [1.1.0] - 2026-09-27
 
 ### Added

@@ -1,6 +1,6 @@
 // The hash suffix fingerprints every entry in PRECACHE_URLS. The PWA integrity
 // test intentionally fails when a precached file changes without a new suffix.
-const CACHE_VERSION = 'v6-50a4fbaf0db8';
+const CACHE_VERSION = 'v7-a13c48095457';
 const STATIC_CACHE = `qrturbo-static-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -12,17 +12,27 @@ const PRECACHE_URLS = [
     '/js/app.js',
     '/js/qr-code-styling.min.js',
     '/js/i18n/core.js',
+    '/js/i18n/locales/cs.js',
     '/js/i18n/locales/da.js',
     '/js/i18n/locales/de.js',
+    '/js/i18n/locales/el.js',
     '/js/i18n/locales/es.js',
     '/js/i18n/locales/fi.js',
     '/js/i18n/locales/fr.js',
+    '/js/i18n/locales/hu.js',
+    '/js/i18n/locales/id.js',
     '/js/i18n/locales/it.js',
     '/js/i18n/locales/ja.js',
     '/js/i18n/locales/ko.js',
+    '/js/i18n/locales/nl.js',
     '/js/i18n/locales/no.js',
+    '/js/i18n/locales/pl.js',
+    '/js/i18n/locales/pt.js',
+    '/js/i18n/locales/ro.js',
     '/js/i18n/locales/sv.js',
+    '/js/i18n/locales/tr.js',
     '/js/i18n/locales/zh.js',
+    '/js/i18n/locales/zh-hant.js',
     '/manifest.json',
     '/favicon.ico',
     '/android-chrome-192x192.png',
@@ -31,6 +41,13 @@ const PRECACHE_URLS = [
 ];
 
 const PRECACHE_PATHS = new Set(PRECACHE_URLS);
+
+// Pre-rendered pages for other languages live under /<lang>/. They are cached
+// when visited, and a language's home page is the offline fallback for it.
+const LANGUAGE_HOMES = new Set([
+    'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'id', 'it', 'ja',
+    'ko', 'nl', 'no', 'pl', 'pt', 'ro', 'sv', 'tr', 'zh', 'zh-hant'
+].map(lang => `/${lang}/`));
 
 function requestWithCacheMode(request, cacheMode) {
     return new Request(request, { cache: cacheMode });
@@ -97,8 +114,17 @@ async function freshAsset(request) {
     }
 }
 
+function isHtmlResponse(response) {
+    return /text\/html/i.test(response.headers.get('content-type') || '');
+}
+
+function languageHomeFor(pathname) {
+    const home = `/${pathname.split('/')[1] || ''}/`;
+    return LANGUAGE_HOMES.has(home) ? home : null;
+}
+
 async function updateCachedNavigation(pathname, response) {
-    if (!PRECACHE_PATHS.has(pathname)) {
+    if (!PRECACHE_PATHS.has(pathname) && !isHtmlResponse(response)) {
         return;
     }
 
@@ -123,16 +149,54 @@ async function navigationFallback(request) {
         }
         return response;
     } catch {
-        // Prefer the requested document (including privacy and terms) before
-        // falling back to the app shell. Queries do not create separate pages.
+        // Prefer the requested document (including privacy and terms), then
+        // the home page in the same language, before the English app shell.
+        // Queries do not create separate pages.
         const requestedPage = await cachedPath(pathname);
         if (requestedPage) {
             return requestedPage;
         }
 
+        const languageHome = languageHomeFor(pathname);
+        const languagePage = languageHome && await cachedPath(languageHome);
+        if (languagePage) {
+            return languagePage;
+        }
+
         return cachedPath('/index.html');
     }
 }
+
+// The first visit happens before the worker controls the page, so the page
+// asks the worker to keep a copy of itself (and of its language home page).
+async function cachePageForOffline(pathname) {
+    const paths = new Set([pathname, languageHomeFor(pathname)].filter(Boolean));
+
+    await Promise.all([...paths].map(async path => {
+        try {
+            const response = await fetch(requestWithCacheMode(new URL(path, self.location.origin), 'no-cache'));
+            if (response.ok && isHtmlResponse(response)) {
+                await tryPutInStaticCache(path, response);
+            }
+        } catch {
+            // Offline or unavailable: the page simply is not cached yet.
+        }
+    }));
+}
+
+self.addEventListener('message', event => {
+    const data = event.data;
+    if (!data || data.type !== 'cache-page' || typeof data.path !== 'string') {
+        return;
+    }
+
+    const url = new URL(data.path, self.location.origin);
+    if (url.origin !== self.location.origin) {
+        return;
+    }
+
+    event.waitUntil(cachePageForOffline(url.pathname));
+});
 
 self.addEventListener('fetch', event => {
     const { request } = event;

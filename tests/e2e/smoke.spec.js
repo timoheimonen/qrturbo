@@ -16,7 +16,7 @@ test('home page generates a QR code without any external requests @webkit-core',
 
   await page.goto('/');
   await expect(page).toHaveTitle(/QRTurbo\.app/);
-  await expect(page.getByRole('heading', { level: 1, name: /QRTurbo\.app/i })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
   await page.locator('#qr-text').fill('https://example.com');
   await expect(page.locator('#qr-code-text')).toHaveText('https://example.com', { timeout: 10_000 });
@@ -32,6 +32,7 @@ test('language and theme choices persist across reloads', async ({ page }) => {
   const englishLabel = await fieldLabel.innerText();
 
   await page.locator('#lang-select').selectOption('fi');
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/fi/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
   await expect(fieldLabel).not.toHaveText(englishLabel);
   const finnishLabel = await fieldLabel.innerText();
@@ -39,7 +40,8 @@ test('language and theme choices persist across reloads', async ({ page }) => {
   await page.locator('[data-theme-choice="dark"]').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 
-  await page.reload();
+  await page.goto('/');
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/fi/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await expect(fieldLabel).toHaveText(finnishLabel);
@@ -60,7 +62,12 @@ test('mobile layout keeps the preview and download within the viewport @mobile-s
       return bounds.left >= 0 && bounds.right <= window.innerWidth;
     });
 
-    return elementsFit && document.documentElement.scrollWidth <= window.innerWidth;
+    // The logo and the header controls must not overlap.
+    const logo = document.querySelector('.logo-mark');
+    const logoRight = logo.getBoundingClientRect().left + logo.scrollWidth;
+    const headerClear = logoRight <= document.querySelector('.header-actions').getBoundingClientRect().left;
+
+    return elementsFit && headerClear && document.documentElement.scrollWidth <= window.innerWidth;
   });
 
   expect(layoutFitsViewport).toBe(true);

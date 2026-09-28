@@ -29,6 +29,9 @@ function loadTranslations() {
         return null;
       },
       documentElement: {
+        getAttribute() {
+          return 'en';
+        },
         setAttribute() {}
       },
       head: {
@@ -101,9 +104,23 @@ test('every locale has exactly the same translation keys as English', () => {
   }
 });
 
+test('every locale has the same page content keys as English', () => {
+  const english = require(path.join(repoRoot, 'site/content/en.js'));
+  const englishKeys = flattenKeys(english).sort();
+
+  for (const lang of ['en', ...supportedLanguages]) {
+    const content = require(path.join(repoRoot, `site/content/${lang}.js`));
+    assert.deepEqual(flattenKeys(content).sort(), englishKeys, `site/content/${lang}.js keys must match English`);
+    for (const key of flattenKeys(content)) {
+      const value = key.split('.').reduce((object, part) => object[part], content);
+      assert.ok(typeof value === 'string' && value.trim(), `site/content/${lang}.js ${key} must be text`);
+    }
+  }
+});
+
 test('all translation keys used by HTML and JavaScript exist in English translations', () => {
   const translations = loadTranslations();
-  const html = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(repoRoot, 'site/template.html'), 'utf8');
   const appJs = fs.readFileSync(path.join(publicDir, 'js/app.js'), 'utf8');
   const coreJs = fs.readFileSync(corePath, 'utf8');
   const usedKeys = [
