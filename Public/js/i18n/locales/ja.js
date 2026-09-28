@@ -9,15 +9,7 @@
   }
 
   window.translations.ja = {
-    meta: {
-      title: 'ロゴと色を使える無料QRコードジェネレーター | QRTurbo.app',
-      description:
-        'URL、WiFi、vCard、SMS、電話用のカスタムQRコードを無料で作成。ロゴ、色、スタイルをブラウザ内で追加でき、追跡やデータアップロードはありません。'
-    },
     app: {
-      title: 'QRTurbo.app - 無料QRコードジェネレーター',
-      subtitle:
-        'ロゴ、色、スタイルを使用してカスタマイズ可能なQRコードを作成します。URL、WiFi、vCard、SMS、通話に対応',
       selectLanguage: '言語を選択'
     },
     aria: {
@@ -96,7 +88,10 @@
       appWebUrl: '予備 / Web URL',
       appIosUrl: 'iOS App Store URL',
       appAndroidUrl: 'Android Play Store URL',
-      appLinkTarget: 'ストアの予備リンク'
+      appLinkTarget: 'ストアの予備リンク',
+      frame: 'フレーム',
+      frameText: 'フレームの文字',
+      frameColor: 'フレームの色'
     },
     placeholders: {
       url: '例：https://www.example.com',
@@ -147,9 +142,14 @@
       hidePayload: 'QRデータを非表示'
     },
     options: {
-      sizeSmall: '小（256px）',
-      sizeMedium: '中（512px）',
+      sizeMedium: '画面用（512px）',
       sizeLarge: '大（1024px）',
+      sizePrint: '印刷用（2048px）',
+      sizePoster: 'ポスター用（4096px）',
+      frameNone: 'フレームなし',
+      frameBannerBottom: '下にラベル',
+      frameBannerTop: '上にラベル',
+      frameOutline: '枠線とラベル',
       errorLow: 'L - 低（7%）',
       errorMedium: 'M - 中（15%）',
       errorQuartile: 'Q - 四分位（25%）',
@@ -252,15 +252,14 @@
     brand: {
       tagline: 'QRコードをプライベートに作れる場所'
     },
-    hero: {
-      display: 'デバイスの外に出ないQRコード。'
-    },
     trust: {
       local: 'ブラウザ内で生成',
       noUploads: 'アップロードなし',
       noTracking: 'トラッキング・Cookieなし',
       offline: 'オフラインで動作',
-      openSource: 'オープンソース'
+      openSource: 'オープンソース',
+      noExpiry: '有効期限なし',
+      noSignup: '登録不要'
     },
     workspace: {
       chooseType: '種類を選択',
@@ -303,6 +302,9 @@
       quietZoneHelper: 'QRコード周辺のスペース（確実な読み取りには最低4モジュール）',
       socialHandleHelper:
         '@username のようなユーザー名を入力するか、完全な https:// プロフィールURLを貼り付けてください。'
+    },
+    frame: {
+      defaultText: 'スマホで読み取り'
     },
     misc: {
       qrPlaceholder: 'QRコードがここに表示されます',

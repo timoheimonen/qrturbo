@@ -12,6 +12,10 @@ const ASSET_VERSION_QUERY = document.currentScript?.src.match(/\?v=[^#&]+/)?.[0]
 const WHATSAPP_USERNAME_PATTERN = /^@(?![0-9]{3,35}$)[a-z0-9._]{3,35}$/;
 const WHATSAPP_PHONE_PATTERN = /^\+?[0-9\s().-]+$/;
 const MIN_QUIET_ZONE_MODULES = 4;
+const FRAME_STYLES = new Set(['none', 'banner-bottom', 'banner-top', 'outline']);
+const FRAME_TEXT_MAX_LENGTH = 30;
+const FRAME_FONT_FAMILY = '-apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, '
+    + '\'Noto Sans CJK SC\', \'Noto Sans CJK JP\', \'Noto Sans CJK KR\', sans-serif';
 
 const SOCIAL_PLATFORM_CONFIG = {
     instagram: {
@@ -58,27 +62,40 @@ function registerServiceWorker() {
     }
 
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register(`/sw.js${ASSET_VERSION_QUERY}`).catch(error => {
-            console.warn('Service worker registration failed:', error);
-        });
+        navigator.serviceWorker.register(`/sw.js${ASSET_VERSION_QUERY}`)
+            .then(() => navigator.serviceWorker.ready)
+            .then(registration => {
+                // Keep this language and page available offline.
+                registration.active?.postMessage({ type: 'cache-page', path: window.location.pathname });
+            })
+            .catch(error => {
+                console.warn('Service worker registration failed:', error);
+            });
     });
 }
 
+function getDefaultCustomization() {
+    return {
+        fgColor: '#000000',
+        bgColor: '#ffffff',
+        errorCorrection: 'M',
+        format: 'png',
+        dotStyle: 'square',
+        cornerSquareStyle: 'extra-rounded',
+        cornerDotStyle: 'dot',
+        margin: MIN_QUIET_ZONE_MODULES,
+        logoImage: null,
+        logoSize: 0.4,
+        logoMargin: 4,
+        transparentBackground: false,
+        frameStyle: 'none',
+        frameText: '',
+        frameColor: '#000000'
+    };
+}
+
 // Customization state
-let qrCustomization = {
-    fgColor: '#000000',
-    bgColor: '#ffffff',
-    errorCorrection: 'M',
-    format: 'png',
-    dotStyle: 'square',
-    cornerSquareStyle: 'extra-rounded',
-    cornerDotStyle: 'dot',
-    margin: MIN_QUIET_ZONE_MODULES,
-    logoImage: null,
-    logoSize: 0.4,
-    logoMargin: 4,
-    transparentBackground: false
-};
+let qrCustomization = getDefaultCustomization();
 
 function normalizeTheme(theme) {
     return theme === 'dark' ? 'dark' : DEFAULT_THEME;
@@ -777,6 +794,243 @@ function getGenerationErrorMessage(error) {
 }
 
 /**
+ * @description Places the QR code and its call-to-action label inside a square
+ * output of the selected size. The QR code keeps its own quiet zone, so the
+ * frame never touches the modules that scanners read.
+ */
+function getFrameLayout(size, style) {
+    const outputSize = Math.max(1, Math.round(Number(size) || 1));
+
+    if (!FRAME_STYLES.has(style) || style === 'none') {
+        return {
+            style: 'none',
+            framed: false,
+            width: outputSize,
+            height: outputSize,
+            qr: { x: 0, y: 0, size: outputSize }
+        };
+    }
+
+    const padding = Math.round(outputSize * 0.05);
+    const band = Math.round(outputSize * 0.16);
+    const qrSize = outputSize - (2 * padding) - band;
+    const qrX = Math.round((outputSize - qrSize) / 2);
+    const qrY = style === 'banner-top' ? padding + band : padding;
+    const labelHeight = padding + band;
+    const labelTop = style === 'banner-top' ? 0 : qrY + qrSize;
+
+    return {
+        style,
+        framed: true,
+        width: outputSize,
+        height: outputSize,
+        radius: Math.round(outputSize * 0.06),
+        innerRadius: Math.round(outputSize * 0.02),
+        stroke: Math.max(1, Math.round(outputSize * 0.02)),
+        qr: { x: qrX, y: qrY, size: qrSize },
+        label: {
+            x: outputSize / 2,
+            centerY: labelTop + (labelHeight / 2),
+            maxWidth: qrSize,
+            fontSize: Math.max(1, Math.round(band * 0.46))
+        }
+    };
+}
+
+function getFrameText() {
+    const text = String(qrCustomization.frameText || '').trim().slice(0, FRAME_TEXT_MAX_LENGTH);
+    return text || t('frame.defaultText');
+}
+
+function getReadableTextColor(backgroundHex) {
+    return calculateLuminance(backgroundHex) > 150 ? '#000000' : '#ffffff';
+}
+
+function getFrameColors(layout) {
+    const frameColor = qrCustomization.frameColor;
+    return {
+        frame: frameColor,
+        text: layout.style === 'outline' ? frameColor : getReadableTextColor(frameColor),
+        card: qrCustomization.transparentBackground ? null : qrCustomization.bgColor
+    };
+}
+
+function getFrameFont(fontSize) {
+    return `700 ${fontSize}px ${FRAME_FONT_FAMILY}`;
+}
+
+/**
+ * @description Shrinks the label font until the measured text fits the QR width.
+ */
+function fitFrameFontSize(text, fontSize, maxWidth, measureWidth) {
+    const measured = measureWidth(text, fontSize);
+    if (!measured || measured <= maxWidth) return fontSize;
+    return Math.max(1, Math.floor(fontSize * (maxWidth / measured)));
+}
+
+function measureFrameText(text, fontSize) {
+    const context = document.createElement('canvas').getContext('2d');
+    if (!context) return 0;
+    context.font = getFrameFont(fontSize);
+    return context.measureText(text).width;
+}
+
+// The label is drawn on an alphabetic baseline in both canvas and SVG, so the
+// raster and vector downloads place the text identically.
+function getFrameLabelBaseline(layout, fontSize) {
+    return layout.label.centerY + (fontSize * 0.35);
+}
+
+function roundedRectPathData(x, y, width, height, radius) {
+    const r = Math.max(0, Math.min(radius, width / 2, height / 2));
+    const n = formatPdfNumber;
+    return `M${n(x + r)} ${n(y)}H${n(x + width - r)}A${n(r)} ${n(r)} 0 0 1 ${n(x + width)} ${n(y + r)}`
+        + `V${n(y + height - r)}A${n(r)} ${n(r)} 0 0 1 ${n(x + width - r)} ${n(y + height)}`
+        + `H${n(x + r)}A${n(r)} ${n(r)} 0 0 1 ${n(x)} ${n(y + height - r)}`
+        + `V${n(y + r)}A${n(r)} ${n(r)} 0 0 1 ${n(x + r)} ${n(y)}Z`;
+}
+
+function traceRoundedRect(context, x, y, width, height, radius) {
+    const r = Math.max(0, Math.min(radius, width / 2, height / 2));
+    context.moveTo(x + r, y);
+    context.arcTo(x + width, y, x + width, y + height, r);
+    context.arcTo(x + width, y + height, x, y + height, r);
+    context.arcTo(x, y + height, x, y, r);
+    context.arcTo(x, y, x + width, y, r);
+    context.closePath();
+}
+
+function escapeXml(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+}
+
+/**
+ * @description Wraps the library's SVG in a framed vector document. The QR code
+ * stays a nested SVG, so its modules keep their exact vector geometry.
+ */
+function buildFramedSvg(qrSvgMarkup, layout, options) {
+    const { width, height, qr, radius, innerRadius, stroke } = layout;
+    const { text, fontSize, colors } = options;
+    const n = formatPdfNumber;
+    const nestedSvg = String(qrSvgMarkup)
+        .replace(/^\s*<\?xml[^>]*\?>\s*/i, '')
+        .replace(/<svg\b([^>]*)>/i, (match, attributes) => {
+            const cleanAttributes = attributes.replace(/\s(?:width|height|x|y|viewBox)="[^"]*"/g, '');
+            return `<svg${cleanAttributes} x="${qr.x}" y="${qr.y}" width="${qr.size}" height="${qr.size}" viewBox="0 0 ${qr.size} ${qr.size}">`;
+        });
+
+    const parts = [
+        `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
+        '<defs><clipPath id="qrturbo-frame-clip">',
+        `<path d="${roundedRectPathData(qr.x, qr.y, qr.size, qr.size, innerRadius)}"/>`,
+        '</clipPath></defs>'
+    ];
+
+    if (layout.style === 'outline') {
+        if (colors.card) {
+            parts.push(`<path fill="${colors.card}" d="${roundedRectPathData(0, 0, width, height, radius)}"/>`);
+        }
+        const inset = stroke / 2;
+        parts.push(
+            `<path fill="none" stroke="${colors.frame}" stroke-width="${stroke}" `
+            + `d="${roundedRectPathData(inset, inset, width - stroke, height - stroke, radius - inset)}"/>`
+        );
+    } else {
+        parts.push(
+            `<path fill="${colors.frame}" fill-rule="evenodd" d="${roundedRectPathData(0, 0, width, height, radius)}`
+            + `${roundedRectPathData(qr.x, qr.y, qr.size, qr.size, innerRadius)}"/>`
+        );
+    }
+
+    parts.push(
+        `<g clip-path="url(#qrturbo-frame-clip)">${nestedSvg}</g>`,
+        `<text x="${n(layout.label.x)}" y="${n(getFrameLabelBaseline(layout, fontSize))}" text-anchor="middle" `
+        + `font-family="${escapeXml(FRAME_FONT_FAMILY)}" font-weight="700" font-size="${fontSize}" `
+        + `fill="${colors.text}">${escapeXml(text)}</text>`,
+        '</svg>'
+    );
+
+    return parts.join('');
+}
+
+async function renderFramedCanvas(qrPngBlob, layout, options) {
+    const image = await loadImageFromDataURL(await blobToDataURL(qrPngBlob));
+    const { width, height, qr, radius, innerRadius, stroke } = layout;
+    const { text, fontSize, colors } = options;
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext('2d');
+
+    if (layout.style === 'outline') {
+        if (colors.card) {
+            context.beginPath();
+            traceRoundedRect(context, 0, 0, width, height, radius);
+            context.fillStyle = colors.card;
+            context.fill();
+        }
+        const inset = stroke / 2;
+        context.beginPath();
+        traceRoundedRect(context, inset, inset, width - stroke, height - stroke, radius - inset);
+        context.lineWidth = stroke;
+        context.strokeStyle = colors.frame;
+        context.stroke();
+    } else {
+        context.beginPath();
+        traceRoundedRect(context, 0, 0, width, height, radius);
+        traceRoundedRect(context, qr.x, qr.y, qr.size, qr.size, innerRadius);
+        context.fillStyle = colors.frame;
+        context.fill('evenodd');
+    }
+
+    context.save();
+    context.beginPath();
+    traceRoundedRect(context, qr.x, qr.y, qr.size, qr.size, innerRadius);
+    context.clip();
+    context.imageSmoothingEnabled = false;
+    context.drawImage(image, qr.x, qr.y, qr.size, qr.size);
+    context.restore();
+
+    context.font = getFrameFont(fontSize);
+    context.textAlign = 'center';
+    context.textBaseline = 'alphabetic';
+    context.fillStyle = colors.text;
+    context.fillText(text, layout.label.x, getFrameLabelBaseline(layout, fontSize));
+
+    return canvas;
+}
+
+function canvasToBlob(canvas) {
+    return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => (blob ? resolve(blob) : reject(new Error('Canvas export failed'))), 'image/png');
+    });
+}
+
+async function renderFramedArtifact(candidate, layout, renderType) {
+    const text = getFrameText();
+    const fontSize = fitFrameFontSize(text, layout.label.fontSize, layout.label.maxWidth, measureFrameText);
+    const options = { text, fontSize, colors: getFrameColors(layout) };
+
+    if (renderType === 'svg') {
+        const qrSvgBlob = await candidate.getRawData('svg');
+        const markup = buildFramedSvg(await qrSvgBlob.text(), layout, options);
+        const svgDocument = new DOMParser().parseFromString(markup, 'image/svg+xml');
+        if (svgDocument.querySelector('parsererror')) {
+            throw new Error('Framed SVG could not be parsed');
+        }
+        return { markup, element: document.importNode(svgDocument.documentElement, true) };
+    }
+
+    const canvas = await renderFramedCanvas(await candidate.getRawData('png'), layout, options);
+    return { canvas, element: canvas };
+}
+
+/**
  * @description Main function to generate the QR code based on the active tab and user input.
  */
 async function generateQRCode(options = {}) {
@@ -802,6 +1056,8 @@ async function generateQRCode(options = {}) {
     const qrPlaceholder = document.getElementById('qr-placeholder');
     const payloadRevealBtn = document.getElementById('payload-reveal-btn');
     const size = parseInt(document.getElementById('size-select').value);
+    const layout = getFrameLayout(size, qrCustomization.frameStyle);
+    const qrSize = layout.qr.size;
     const qrText = String(text);
     const activeTab = getActiveTabName();
 
@@ -819,8 +1075,8 @@ async function generateQRCode(options = {}) {
     qrCodeText.style.display = 'none';
 
     const config = {
-        width: size,
-        height: size,
+        width: qrSize,
+        height: qrSize,
         type: qrCustomization.format === 'svg' ? 'svg' : 'canvas',
         data: encodeTextForQRCode(qrText),
         dotsOptions: {
@@ -868,20 +1124,27 @@ async function generateQRCode(options = {}) {
             throw new Error('QR module count was not available');
         }
 
-        const margin = calculateQuietZonePixels(size, moduleCount, qrCustomization.margin);
+        const margin = calculateQuietZonePixels(qrSize, moduleCount, qrCustomization.margin);
         candidate.update({ margin });
         await candidate.getRawData(renderType);
         if (revision !== generationRevision) return null;
 
+        const framed = layout.framed ? await renderFramedArtifact(candidate, layout, renderType) : null;
+        if (revision !== generationRevision) return null;
+
         qrCanvasContainer.innerHTML = '';
         qrCanvasContainer.classList.toggle('transparent-preview', qrCustomization.transparentBackground);
-        candidate.append(qrCanvasContainer);
+        if (framed) {
+            qrCanvasContainer.appendChild(framed.element);
+        } else {
+            candidate.append(qrCanvasContainer);
 
-        // The library sizes SVG output with width/height only. A viewBox lets
-        // the preview (and the downloaded vector) scale instead of cropping.
-        const renderedSvg = qrCanvasContainer.querySelector('svg');
-        if (renderedSvg && !renderedSvg.hasAttribute('viewBox')) {
-            renderedSvg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+            // The library sizes SVG output with width/height only. A viewBox lets
+            // the preview (and the downloaded vector) scale instead of cropping.
+            const renderedSvg = qrCanvasContainer.querySelector('svg');
+            if (renderedSvg && !renderedSvg.hasAttribute('viewBox')) {
+                renderedSvg.setAttribute('viewBox', `0 0 ${qrSize} ${qrSize}`);
+            }
         }
 
         const presentation = getPayloadPresentation(activeTab, qrText);
@@ -893,13 +1156,14 @@ async function generateQRCode(options = {}) {
             filename: buildQRCodeFilename(activeTab, qrText),
             isSensitive: presentation.isSensitive,
             instance: candidate,
+            framed,
             moduleCount,
             margin
         };
         qrCodeInstance = candidate;
         generatedQRCode = snapshot;
 
-        renderScannabilityWarnings(getScannabilityWarnings(qrText, size));
+        renderScannabilityWarnings(getScannabilityWarnings(qrText, qrSize));
 
         qrCodeText.textContent = presentation.displayText;
         qrCodeText.style.display = 'block';
@@ -1178,7 +1442,9 @@ function triggerBlobDownload(blob, filename) {
 }
 
 async function downloadQRCodePdf(snapshot) {
-    const qrPngBlob = await snapshot.instance.getRawData('png');
+    const qrPngBlob = snapshot.framed?.canvas
+        ? await canvasToBlob(snapshot.framed.canvas)
+        : await snapshot.instance.getRawData('png');
     if (!qrPngBlob) {
         throw new Error('QR PNG data was not available');
     }
@@ -1326,6 +1592,11 @@ async function downloadQRCode() {
 
         if (extension === 'pdf') {
             await downloadQRCodePdf(snapshot);
+        } else if (snapshot.framed) {
+            const blob = snapshot.framed.canvas
+                ? await canvasToBlob(snapshot.framed.canvas)
+                : new Blob([snapshot.framed.markup], { type: 'image/svg+xml' });
+            triggerBlobDownload(blob, `${snapshot.filename}.${extension}`);
         } else {
             await snapshot.instance.download({
                 name: snapshot.filename,
@@ -1643,6 +1914,29 @@ document.addEventListener('DOMContentLoaded', function() {
         sizeSelect.addEventListener('change', schedulePreview);
     }
 
+    // --- Frame Event Handlers ---
+    const frameStyleSelect = document.getElementById('frame-style');
+    const frameOptions = document.getElementById('frame-options');
+    const frameTextInput = document.getElementById('frame-text');
+
+    function updateFrameOptionsUI() {
+        frameOptions.hidden = qrCustomization.frameStyle === 'none';
+    }
+
+    frameStyleSelect.addEventListener('change', function() {
+        qrCustomization.frameStyle = FRAME_STYLES.has(this.value) ? this.value : 'none';
+        updateFrameOptionsUI();
+        schedulePreview();
+    });
+
+    frameTextInput.addEventListener('input', function() {
+        qrCustomization.frameText = this.value;
+        schedulePreview();
+    });
+
+    setupColorSync('frame-color', 'frame-color-text', 'frameColor');
+    updateFrameOptionsUI();
+
     document.querySelectorAll('.tab-content input, .tab-content textarea, .tab-content select').forEach(element => {
         if (element === qrTextInput || element === smsMessageInput || element.name === 'sms-phone-type' || element === wifiAuthSelect) {
             return;
@@ -1661,22 +1955,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (resetCustomizationBtn) {
         resetCustomizationBtn.addEventListener('click', function() {
             // Reset to defaults
-            qrCustomization = {
-                fgColor: '#000000',
-                bgColor: '#ffffff',
-                errorCorrection: 'M',
-                format: 'png',
-                dotStyle: 'square',
-                cornerSquareStyle: 'extra-rounded',
-                cornerDotStyle: 'dot',
-                margin: MIN_QUIET_ZONE_MODULES,
-                logoImage: null,
-                logoSize: 0.4,
-                logoMargin: 4,
-                transparentBackground: false
-            };
+            qrCustomization = getDefaultCustomization();
 
             // Update UI
+            document.getElementById('frame-style').value = 'none';
+            document.getElementById('frame-text').value = '';
+            document.getElementById('frame-color').value = '#000000';
+            document.getElementById('frame-color-text').value = '#000000';
+            updateFrameOptionsUI();
             document.getElementById('qr-fg-color').value = '#000000';
             document.getElementById('qr-fg-color-text').value = '#000000';
             document.getElementById('qr-bg-color').value = '#ffffff';

@@ -9,16 +9,7 @@
   }
 
   window.translations.da = {
-    meta: {
-      title:
-        'Gratis QR-kodegenerator med logoer og farver | QRTurbo.app',
-      description:
-        'Opret gratis tilpassede QR-koder til URLer, WiFi, vCards, SMS og opkald. Tilføj logoer, farver og stilarter i browseren uden sporing eller datauploads.'
-    },
     app: {
-      title: 'QRTurbo.app - Gratis QR-Kodegenerator',
-      subtitle:
-        'Opret tilpasselige QR-koder med logoer, farver og stilarter. Support til URL\'er, WiFi, vCard, SMS og opkald',
       selectLanguage: 'Vælg Sprog'
     },
     aria: {
@@ -97,7 +88,10 @@
       appWebUrl: 'Fallback / web-URL',
       appIosUrl: 'iOS App Store-URL',
       appAndroidUrl: 'Android Play Store-URL',
-      appLinkTarget: 'Butiksfallback'
+      appLinkTarget: 'Butiksfallback',
+      frame: 'Ramme',
+      frameText: 'Rammetekst',
+      frameColor: 'Rammefarve'
     },
     placeholders: {
       url: 'f.eks., https://www.eksempel.com',
@@ -148,9 +142,14 @@
       hidePayload: 'Skjul QR-data'
     },
     options: {
-      sizeSmall: 'Lille (256px)',
-      sizeMedium: 'Mellem (512px)',
-      sizeLarge: 'Stor (1024px)',
+      sizeMedium: 'Skærm (512 px)',
+      sizeLarge: 'Stor (1024 px)',
+      sizePrint: 'Tryk (2048 px)',
+      sizePoster: 'Plakat (4096 px)',
+      frameNone: 'Ingen ramme',
+      frameBannerBottom: 'Tekst under',
+      frameBannerTop: 'Tekst over',
+      frameOutline: 'Kant med tekst',
       errorLow: 'L - Lav (7%)',
       errorMedium: 'M - Mellem (15%)',
       errorQuartile: 'Q - Kvartil (25%)',
@@ -254,15 +253,14 @@
     brand: {
       tagline: 'dit private sted til QR-koder'
     },
-    hero: {
-      display: 'QR-koder, der aldrig forlader din enhed.'
-    },
     trust: {
       local: 'Oprettes i din browser',
       noUploads: 'Intet uploades',
       noTracking: 'Ingen sporing eller cookies',
       offline: 'Virker offline',
-      openSource: 'Open source'
+      openSource: 'Open source',
+      noExpiry: 'Udløber aldrig',
+      noSignup: 'Ingen tilmelding'
     },
     workspace: {
       chooseType: 'Vælg type',
@@ -306,6 +304,9 @@
       quietZoneHelper: 'Plads omkring QR-koden (mindst 4 moduler for pålidelig scanning)',
       socialHandleHelper:
         'Indtast et brugernavn som @brugernavn, eller indsæt en fuld https:// profil-URL.'
+    },
+    frame: {
+      defaultText: 'SCAN MIG'
     },
     misc: {
       qrPlaceholder: 'QR-koden vil blive vist her',

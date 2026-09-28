@@ -9,14 +9,7 @@
   }
 
   window.translations.zh = {
-    meta: {
-      title: '支持标志和颜色的免费二维码生成器 | QRTurbo.app',
-      description:
-        '免费创建用于 URL、WiFi、vCard、短信和电话的自定义二维码。直接在浏览器中添加标志、颜色和样式，无跟踪，也无需上传数据。'
-    },
     app: {
-      title: 'QRTurbo.app - 免费二维码生成器',
-      subtitle: '创建带有徽标、颜色和样式的可定制二维码。支持网址、WiFi、电子名片、短信和电话',
       selectLanguage: '选择语言'
     },
     aria: {
@@ -95,7 +88,10 @@
       appWebUrl: '备用 / Web URL',
       appIosUrl: 'iOS App Store URL',
       appAndroidUrl: 'Android Play Store URL',
-      appLinkTarget: '商店备用链接'
+      appLinkTarget: '商店备用链接',
+      frame: '边框',
+      frameText: '边框文字',
+      frameColor: '边框颜色'
     },
     placeholders: {
       url: '例如，https://www.example.com',
@@ -146,9 +142,14 @@
       hidePayload: '隐藏二维码数据'
     },
     options: {
-      sizeSmall: '小（256像素）',
-      sizeMedium: '中（512像素）',
-      sizeLarge: '大（1024像素）',
+      sizeMedium: '屏幕（512 像素）',
+      sizeLarge: '大（1024 像素）',
+      sizePrint: '打印（2048 像素）',
+      sizePoster: '海报（4096 像素）',
+      frameNone: '无边框',
+      frameBannerBottom: '文字在下方',
+      frameBannerTop: '文字在上方',
+      frameOutline: '外框加文字',
       errorLow: 'L - 低（7%）',
       errorMedium: 'M - 中（15%）',
       errorQuartile: 'Q - 四分位（25%）',
@@ -243,15 +244,14 @@
     brand: {
       tagline: '私密制作二维码的地方'
     },
-    hero: {
-      display: '永不离开您设备的二维码。'
-    },
     trust: {
       local: '在浏览器中生成',
       noUploads: '不上传任何内容',
       noTracking: '无跟踪、无 Cookie',
       offline: '可离线使用',
-      openSource: '开源'
+      openSource: '开源',
+      noExpiry: '永不过期',
+      noSignup: '无需注册'
     },
     workspace: {
       chooseType: '选择类型',
@@ -293,6 +293,9 @@
     helpers: {
       quietZoneHelper: '二维码周围的空白区域（可靠扫描至少需要4个模块）',
       socialHandleHelper: '输入 @username 这样的用户名，或粘贴完整的 https:// 资料 URL。'
+    },
+    frame: {
+      defaultText: '扫一扫'
     },
     misc: {
       qrPlaceholder: '二维码将显示在此处',

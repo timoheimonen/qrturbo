@@ -1,21 +1,1929 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://qrturbo.app/</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/wifi-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/wifi-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/wifi-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/vcard-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/vcard-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/vcard-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/whatsapp-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/whatsapp-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/whatsapp-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/email-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/sms-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/sms-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/sms-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/event-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/event-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/event-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/location-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/location-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/social-media-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/social-media-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/social-media-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/es/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fr/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/de/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/it/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/fi/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/sv/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/no/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/da/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/zh/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ja/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
+  </url>
+  <url>
+    <loc>https://qrturbo.app/ko/app-store-qr-code/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://qrturbo.app/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qrturbo.app/es/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://qrturbo.app/fr/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://qrturbo.app/de/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://qrturbo.app/it/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://qrturbo.app/fi/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://qrturbo.app/sv/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://qrturbo.app/no/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://qrturbo.app/da/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/app-store-qr-code/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qrturbo.app/app-store-qr-code/"/>
   </url>
   <url>
     <loc>https://qrturbo.app/privacy.html</loc>
-    <lastmod>2026-05-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://qrturbo.app/terms.html</loc>
-    <lastmod>2026-05-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
 </urlset>

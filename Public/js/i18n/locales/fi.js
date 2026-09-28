@@ -9,16 +9,7 @@
   }
 
   window.translations.fi = {
-    meta: {
-      title:
-        'Ilmainen QR-koodigeneraattori logoilla ja väreillä | QRTurbo.app',
-      description:
-        'Luo ilmaisia mukautettuja QR-koodeja URL-osoitteille, WiFi-verkoille, vCardeille, tekstiviesteille ja puheluille. Lisää logoja, värejä ja tyylejä selaimessa ilman seurantaa tai tiedostojen latausta palvelimelle.'
-    },
     app: {
-      title: 'QRTurbo.app - Ilmainen QR-Koodigeneraattori',
-      subtitle:
-        'Luo mukautettavia QR-koodeja logoilla, väreillä ja tyyleillä. Tuki URL-osoitteille, WiFi:lle, vCardeille, tekstiviesteille ja puheluille',
       selectLanguage: 'Valitse Kieli'
     },
     aria: {
@@ -97,7 +88,10 @@
       appWebUrl: 'Varalla oleva / web-URL',
       appIosUrl: 'iOS App Store -URL',
       appAndroidUrl: 'Android Play Store -URL',
-      appLinkTarget: 'Kauppalinkin varavalinta'
+      appLinkTarget: 'Kauppalinkin varavalinta',
+      frame: 'Kehys',
+      frameText: 'Kehyksen teksti',
+      frameColor: 'Kehyksen väri'
     },
     placeholders: {
       url: 'esim., https://www.esimerkki.com',
@@ -148,9 +142,14 @@
       hidePayload: 'Piilota QR-tiedot'
     },
     options: {
-      sizeSmall: 'Pieni (256px)',
-      sizeMedium: 'Keskikokoinen (512px)',
-      sizeLarge: 'Suuri (1024px)',
+      sizeMedium: 'Näyttö (512 px)',
+      sizeLarge: 'Suuri (1024 px)',
+      sizePrint: 'Tuloste (2048 px)',
+      sizePoster: 'Juliste (4096 px)',
+      frameNone: 'Ei kehystä',
+      frameBannerBottom: 'Teksti alla',
+      frameBannerTop: 'Teksti yllä',
+      frameOutline: 'Reunus ja teksti',
       errorLow: 'L - Matala (7%)',
       errorMedium: 'M - Keskitaso (15%)',
       errorQuartile: 'Q - Kvartiili (25%)',
@@ -252,15 +251,14 @@
     brand: {
       tagline: 'yksityinen paikka tehdä QR-koodeja'
     },
-    hero: {
-      display: 'QR-koodit, jotka eivät koskaan lähde laitteeltasi.'
-    },
     trust: {
       local: 'Luodaan selaimessasi',
       noUploads: 'Mitään ei lähetetä',
       noTracking: 'Ei seurantaa eikä evästeitä',
       offline: 'Toimii ilman verkkoa',
-      openSource: 'Avoin lähdekoodi'
+      openSource: 'Avoin lähdekoodi',
+      noExpiry: 'Ei vanhene koskaan',
+      noSignup: 'Ei rekisteröitymistä'
     },
     workspace: {
       chooseType: 'Valitse tyyppi',
@@ -305,6 +303,9 @@
         'Tila QR-koodin ympärillä (vähintään 4 moduulia luotettavaa skannausta varten)',
       socialHandleHelper:
         'Anna käyttäjänimi kuten @kayttajanimi tai liitä koko https://-profiili-URL.'
+    },
+    frame: {
+      defaultText: 'SKANNAA MINUT'
     },
     misc: {
       qrPlaceholder: 'QR-koodi näkyy tässä',
