@@ -3,11 +3,17 @@
 // pre-rendered URL (/, /fi/, /de/ ...); this file provides the strings that
 // JavaScript creates at runtime and switches between the language URLs.
 
-const supportedLanguages = new Set(['en', 'da', 'de', 'es', 'fi', 'fr', 'it', 'ja', 'ko', 'no', 'sv', 'zh']);
+const supportedLanguages = new Set([
+  'en', 'da', 'de', 'es', 'fi', 'fr', 'id', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'sv', 'tr', 'zh', 'zh-hant'
+]);
 const LANGUAGE_STORAGE_KEY = 'qrturbo_lang';
 
+// Language codes are lowercase; <html lang> and hreflang use the BCP 47
+// spelling, such as zh-Hant for the zh-hant pages.
+const HREFLANGS = { 'zh-hant': 'zh-Hant' };
+
 // The page language is fixed by the pre-rendered document.
-const pageLang = document.documentElement.getAttribute('lang');
+const pageLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
 let currentLang = supportedLanguages.has(pageLang) ? pageLang : 'en';
 const assetVersionQuery = document.currentScript?.src.match(/\?v=[^#&]+/)?.[0] || '';
 
@@ -468,7 +474,8 @@ function updateDynamicTranslations() {
 // Returns the same page in another language, using the hreflang alternates
 // that every pre-rendered page declares in its <head>.
 function getLanguageUrl(langCode) {
-  const alternate = document.querySelector(`link[rel="alternate"][hreflang="${langCode}"]`);
+  const hreflang = HREFLANGS[langCode] || langCode;
+  const alternate = document.querySelector(`link[rel="alternate"][hreflang="${hreflang}"]`);
   if (!alternate) return null;
 
   const target = new URL(alternate.getAttribute('href'), window.location.href);

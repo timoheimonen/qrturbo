@@ -17,7 +17,16 @@ const siteDir = path.join(repoRoot, 'site');
 const ORIGIN = 'https://qrturbo.app';
 
 // English stays at the root; the order matches the language selector.
-const LANGUAGES = ['en', 'es', 'fr', 'de', 'it', 'fi', 'sv', 'no', 'da', 'zh', 'ja', 'ko'];
+const LANGUAGES = [
+  'en', 'es', 'fr', 'de', 'it', 'fi', 'sv', 'no', 'da', 'zh', 'ja', 'ko',
+  'pt', 'nl', 'pl', 'tr', 'id', 'zh-hant'
+];
+
+// Paths and file names use lowercase codes; <html lang>, hreflang and
+// inLanguage use the BCP 47 spelling where it differs.
+const HTML_LANGS = {
+  'zh-hant': 'zh-Hant'
+};
 
 const OG_LOCALES = {
   en: 'en_US',
@@ -26,12 +35,18 @@ const OG_LOCALES = {
   es: 'es_ES',
   fi: 'fi_FI',
   fr: 'fr_FR',
+  id: 'id_ID',
   it: 'it_IT',
   ja: 'ja_JP',
   ko: 'ko_KR',
+  nl: 'nl_NL',
   no: 'nb_NO',
+  pl: 'pl_PL',
+  pt: 'pt_BR',
   sv: 'sv_SE',
-  zh: 'zh_CN'
+  tr: 'tr_TR',
+  zh: 'zh_CN',
+  'zh-hant': 'zh_TW'
 };
 
 // Slugs stay in English in every language so each page has one stable path.
@@ -62,6 +77,10 @@ function jsonLd(data) {
     .split('\n')
     .map(line => `        ${line}`)
     .join('\n');
+}
+
+function htmlLang(lang) {
+  return HTML_LANGS[lang] || lang;
 }
 
 function pagePath(lang, page) {
@@ -171,7 +190,7 @@ function translateTemplate(html, translate) {
 function renderHead(lang, page, pageContent, content) {
   const canonical = pageUrl(lang, page);
   const alternates = LANGUAGES
-    .map(code => `    <link rel="alternate" hreflang="${code}" href="${pageUrl(code, page)}" />`)
+    .map(code => `    <link rel="alternate" hreflang="${htmlLang(code)}" href="${pageUrl(code, page)}" />`)
     .concat(`    <link rel="alternate" hreflang="x-default" href="${pageUrl('en', page)}" />`)
     .join('\n');
   const title = escapeHtml(pageContent.title);
@@ -183,7 +202,7 @@ function renderHead(lang, page, pageContent, content) {
     name: 'QRTurbo.app',
     url: canonical,
     description: pageContent.description,
-    inLanguage: lang,
+    inLanguage: htmlLang(lang),
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Any',
     isAccessibleForFree: true,
@@ -201,7 +220,7 @@ function renderHead(lang, page, pageContent, content) {
   const faq = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    inLanguage: lang,
+    inLanguage: htmlLang(lang),
     mainEntity: content.faq.items.map(item => ({
       '@type': 'Question',
       name: item.q,
@@ -338,12 +357,12 @@ function renderPage(template, lang, page, translate, content) {
     return active ? 'style="display: block;"' : 'hidden';
   });
 
-  html = html.replace(/<option value="(\w+)">/g, (match, value) => (
+  html = html.replace(/<option value="([\w-]+)">/g, (match, value) => (
     LANGUAGES.includes(value) && value === lang ? `<option value="${value}" selected>` : match
   ));
 
   const values = {
-    lang,
+    lang: htmlLang(lang),
     homeHref: pagePath(lang, PAGE_TYPES[0]),
     head: renderHead(lang, page, pageContent, content),
     heroEyebrow: escapeHtml(pageContent.eyebrow),
@@ -368,7 +387,7 @@ function renderPage(template, lang, page, translate, content) {
 function renderSitemap() {
   const pages = PAGE_TYPES.flatMap(page => LANGUAGES.map(lang => {
     const alternates = LANGUAGES
-      .map(code => `    <xhtml:link rel="alternate" hreflang="${code}" href="${pageUrl(code, page)}"/>`)
+      .map(code => `    <xhtml:link rel="alternate" hreflang="${htmlLang(code)}" href="${pageUrl(code, page)}"/>`)
       .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${pageUrl('en', page)}"/>`)
       .join('\n');
     return `  <url>
@@ -435,4 +454,4 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { LANGUAGES, PAGE_TYPES, buildSite, pagePath };
+module.exports = { LANGUAGES, PAGE_TYPES, buildSite, htmlLang, pagePath };

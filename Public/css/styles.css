@@ -111,10 +111,16 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-html[lang="zh"],
-html[lang="ja"],
-html[lang="ko"] {
+html:lang(zh),
+html:lang(ja),
+html:lang(ko) {
     line-height: 1.7;
+}
+
+/* Prefer Traditional Chinese glyph forms on the zh-Hant pages. */
+html:lang(zh-Hant) {
+    --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial,
+        'Noto Sans CJK TC', 'Noto Sans CJK SC', 'Noto Sans CJK JP', 'Noto Sans CJK KR', sans-serif;
 }
 
 h1,
@@ -363,9 +369,9 @@ html[data-theme="dark"] .theme-option.is-active {
     text-wrap: balance;
 }
 
-html[lang="zh"] .display,
-html[lang="ja"] .display,
-html[lang="ko"] .display {
+html:lang(zh) .display,
+html:lang(ja) .display,
+html:lang(ko) .display {
     font-family: var(--sans);
     font-style: normal;
     font-weight: 600;
@@ -1871,6 +1877,13 @@ body.content-page footer {
 
     .language-selector select {
         max-width: 132px;
+    }
+
+    /* Room for the longest language name, "Bahasa Indonesia", on most phones. */
+    @media (min-width: 390px) {
+        .language-selector select {
+            max-width: 164px;
+        }
     }
 
     .info {

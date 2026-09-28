@@ -23,6 +23,12 @@
     <link rel="alternate" hreflang="zh" href="https://qrturbo.app/zh/email-qr-code/" />
     <link rel="alternate" hreflang="ja" href="https://qrturbo.app/ja/email-qr-code/" />
     <link rel="alternate" hreflang="ko" href="https://qrturbo.app/ko/email-qr-code/" />
+    <link rel="alternate" hreflang="pt" href="https://qrturbo.app/pt/email-qr-code/" />
+    <link rel="alternate" hreflang="nl" href="https://qrturbo.app/nl/email-qr-code/" />
+    <link rel="alternate" hreflang="pl" href="https://qrturbo.app/pl/email-qr-code/" />
+    <link rel="alternate" hreflang="tr" href="https://qrturbo.app/tr/email-qr-code/" />
+    <link rel="alternate" hreflang="id" href="https://qrturbo.app/id/email-qr-code/" />
+    <link rel="alternate" hreflang="zh-Hant" href="https://qrturbo.app/zh-hant/email-qr-code/" />
     <link rel="alternate" hreflang="x-default" href="https://qrturbo.app/email-qr-code/" />
 
     <!-- Open Graph Meta Tags -->
@@ -133,7 +139,7 @@
         // earlier wins, otherwise the first supported browser language.
         (function () {
             if (document.documentElement.lang !== 'en') return;
-            var supported = ['en', 'da', 'de', 'es', 'fi', 'fr', 'it', 'ja', 'ko', 'no', 'sv', 'zh'];
+            var supported = ['en', 'da', 'de', 'es', 'fi', 'fr', 'id', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'sv', 'tr', 'zh', 'zh-hant'];
             var lang = null;
             try {
                 lang = localStorage.getItem('qrturbo_lang');
@@ -142,13 +148,17 @@
                 lang = null;
                 var preferred = navigator.languages || [navigator.language || 'en'];
                 for (var i = 0; i < preferred.length && !lang; i++) {
-                    var code = String(preferred[i]).toLowerCase().split('-')[0];
+                    var tag = String(preferred[i]).toLowerCase();
+                    var code = tag.split('-')[0];
                     if (code === 'nb' || code === 'nn') code = 'no';
+                    // Taiwan, Hong Kong and Macau use Traditional Chinese.
+                    if (code === 'zh' && /^zh-(hant|tw|hk|mo)(-|$)/.test(tag)) code = 'zh-hant';
                     if (supported.indexOf(code) >= 0) lang = code;
                 }
             }
             if (!lang || lang === 'en') return;
-            var link = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+            var hreflang = lang === 'zh-hant' ? 'zh-Hant' : lang;
+            var link = document.querySelector('link[rel="alternate"][hreflang="' + hreflang + '"]');
             if (!link) return;
             var target = new URL(link.getAttribute('href'), location.href).pathname;
             if (target !== location.pathname) location.replace(target + location.search + location.hash);
@@ -210,6 +220,12 @@
                     <option value="zh">简体中文</option>
                     <option value="ja">日本語</option>
                     <option value="ko">한국어</option>
+                    <option value="pt">Português</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="pl">Polski</option>
+                    <option value="tr">Türkçe</option>
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="zh-hant">繁體中文</option>
                 </select>
             </div>
             <span class="menu-divider" aria-hidden="true"></span>

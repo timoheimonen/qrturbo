@@ -25,7 +25,7 @@ The app is served as static assets from Cloudflare's global network, with no ori
 - Error correction levels: L, M, Q, H
 - Export formats: PNG, SVG and PDF
 - Light and dark themes
-- Multilingual UI with 12 supported languages, each pre-rendered at its own URL
+- Multilingual UI with 18 supported languages, each pre-rendered at its own URL
 - Landing pages for every QR code type in every language
 - No external API calls
 - Works fully offline after initial load
