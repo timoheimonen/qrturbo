@@ -1875,19 +1875,54 @@ body.content-page footer {
         padding-bottom: 12px;
     }
 
-    .language-selector select {
-        max-width: 132px;
+    /* The decorative globe gives way so the longest language name,
+       "Bahasa Indonesia", fits next to the logo. */
+    .language-icon {
+        display: none;
     }
 
-    /* Room for the longest language name, "Bahasa Indonesia", on most phones. */
-    @media (min-width: 390px) {
-        .language-selector select {
-            max-width: 164px;
-        }
+    .language-selector select {
+        max-width: 146px;
+        padding-left: 10px;
     }
 
     .info {
         padding-top: 40px;
         padding-bottom: 40px;
+    }
+}
+
+/* Narrow phones: tighter header spacing, and long tab labels such as
+   "SMS/Téléphone" may wrap. */
+@media (max-width: 389px) {
+    #menu-bar {
+        gap: 8px;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .tab-link {
+        gap: 6px;
+        padding: 8px 10px;
+    }
+
+    .tab-link span {
+        min-width: 0;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+}
+
+@media (max-width: 374px) {
+    .logo-tld {
+        display: none;
+    }
+}
+
+@media (max-width: 359px) {
+    .language-selector select {
+        max-width: 118px;
     }
 }

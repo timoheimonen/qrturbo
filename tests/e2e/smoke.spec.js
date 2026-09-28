@@ -62,7 +62,12 @@ test('mobile layout keeps the preview and download within the viewport @mobile-s
       return bounds.left >= 0 && bounds.right <= window.innerWidth;
     });
 
-    return elementsFit && document.documentElement.scrollWidth <= window.innerWidth;
+    // The logo and the header controls must not overlap.
+    const logo = document.querySelector('.logo-mark');
+    const logoRight = logo.getBoundingClientRect().left + logo.scrollWidth;
+    const headerClear = logoRight <= document.querySelector('.header-actions').getBoundingClientRect().left;
+
+    return elementsFit && headerClear && document.documentElement.scrollWidth <= window.innerWidth;
   });
 
   expect(layoutFitsViewport).toBe(true);

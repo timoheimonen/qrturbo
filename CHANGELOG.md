@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - The hero now leads with codes that never expire and require no sign-up.
 - The language selector opens the same page in the chosen language. English pages open in the saved language or, on the first visit, in the browser language.
 
+### Fixed
+
+- On narrow phones the logo no longer overlaps the language selector, and long QR code type labels such as "SMS/Téléphone" hyphenate inside their buttons instead of overflowing.
+
 ### Removed
 
 - The 256 px size, which was too small for print.
