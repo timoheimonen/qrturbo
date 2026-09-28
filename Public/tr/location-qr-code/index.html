@@ -29,6 +29,10 @@
     <link rel="alternate" hreflang="tr" href="https://qrturbo.app/tr/location-qr-code/" />
     <link rel="alternate" hreflang="id" href="https://qrturbo.app/id/location-qr-code/" />
     <link rel="alternate" hreflang="zh-Hant" href="https://qrturbo.app/zh-hant/location-qr-code/" />
+    <link rel="alternate" hreflang="cs" href="https://qrturbo.app/cs/location-qr-code/" />
+    <link rel="alternate" hreflang="ro" href="https://qrturbo.app/ro/location-qr-code/" />
+    <link rel="alternate" hreflang="hu" href="https://qrturbo.app/hu/location-qr-code/" />
+    <link rel="alternate" hreflang="el" href="https://qrturbo.app/el/location-qr-code/" />
     <link rel="alternate" hreflang="x-default" href="https://qrturbo.app/location-qr-code/" />
 
     <!-- Open Graph Meta Tags -->
@@ -139,7 +143,10 @@
         // earlier wins, otherwise the first supported browser language.
         (function () {
             if (document.documentElement.lang !== 'en') return;
-            var supported = ['en', 'da', 'de', 'es', 'fi', 'fr', 'id', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'sv', 'tr', 'zh', 'zh-hant'];
+            var supported = [
+                'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'id', 'it', 'ja',
+                'ko', 'nl', 'no', 'pl', 'pt', 'ro', 'sv', 'tr', 'zh', 'zh-hant'
+            ];
             var lang = null;
             try {
                 lang = localStorage.getItem('qrturbo_lang');
@@ -226,6 +233,10 @@
                     <option value="tr" selected>Türkçe</option>
                     <option value="id">Bahasa Indonesia</option>
                     <option value="zh-hant">繁體中文</option>
+                    <option value="cs">Čeština</option>
+                    <option value="ro">Română</option>
+                    <option value="hu">Magyar</option>
+                    <option value="el">Ελληνικά</option>
                 </select>
             </div>
             <span class="menu-divider" aria-hidden="true"></span>

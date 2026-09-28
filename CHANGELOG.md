@@ -10,8 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 - Pre-rendered pages for every language at their own URLs (`/fi/`, `/de/`, ...), with correct `hreflang` alternates, canonical URLs and a sitemap that lists every language version. Previously all languages shared one URL and only English was visible to search engines.
-- Six new languages: Brazilian Portuguese (`/pt/`), Dutch (`/nl/`), Polish (`/pl/`), Turkish (`/tr/`), Indonesian (`/id/`) and Traditional Chinese for Taiwan (`/zh-hant/`), for 18 languages in total. Browsers set to Taiwan, Hong Kong or Macau Chinese (`zh-TW`, `zh-HK`, `zh-MO`, `zh-Hant`) open the Traditional Chinese pages, and other Chinese variants open Simplified Chinese.
-- Landing pages for WiFi, vCard, WhatsApp, email, SMS and phone, calendar event, location, social media and app download QR codes in all 18 languages. Each page opens the generator on its own type and explains how that QR code works.
+- Ten new languages: Brazilian Portuguese (`/pt/`), Dutch (`/nl/`), Polish (`/pl/`), Turkish (`/tr/`), Indonesian (`/id/`), Traditional Chinese for Taiwan (`/zh-hant/`), Czech (`/cs/`), Romanian (`/ro/`), Hungarian (`/hu/`) and Greek (`/el/`), for 24 languages in total. Browsers set to Taiwan, Hong Kong or Macau Chinese (`zh-TW`, `zh-HK`, `zh-MO`, `zh-Hant`) open the Traditional Chinese pages, and other Chinese variants open Simplified Chinese.
+- Landing pages for WiFi, vCard, WhatsApp, email, SMS and phone, calendar event, location, social media and app download QR codes in all 24 languages. Each page opens the generator on its own type and explains how that QR code works.
 - QR code frames with a call-to-action label ("Scan me"): label below, label above or outline, with custom text and color. Frames are included in PNG, SVG and PDF downloads.
 - Print (2048 px) and poster (4096 px) sizes.
 - "Free QR codes that never stop working" section that compares static QR codes with trial-based dynamic codes.

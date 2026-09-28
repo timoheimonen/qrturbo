@@ -1,6 +1,6 @@
 // The hash suffix fingerprints every entry in PRECACHE_URLS. The PWA integrity
 // test intentionally fails when a precached file changes without a new suffix.
-const CACHE_VERSION = 'v7-362f0b1f2852';
+const CACHE_VERSION = 'v7-832c25e9952c';
 const STATIC_CACHE = `qrturbo-static-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -12,11 +12,14 @@ const PRECACHE_URLS = [
     '/js/app.js',
     '/js/qr-code-styling.min.js',
     '/js/i18n/core.js',
+    '/js/i18n/locales/cs.js',
     '/js/i18n/locales/da.js',
     '/js/i18n/locales/de.js',
+    '/js/i18n/locales/el.js',
     '/js/i18n/locales/es.js',
     '/js/i18n/locales/fi.js',
     '/js/i18n/locales/fr.js',
+    '/js/i18n/locales/hu.js',
     '/js/i18n/locales/id.js',
     '/js/i18n/locales/it.js',
     '/js/i18n/locales/ja.js',
@@ -25,6 +28,7 @@ const PRECACHE_URLS = [
     '/js/i18n/locales/no.js',
     '/js/i18n/locales/pl.js',
     '/js/i18n/locales/pt.js',
+    '/js/i18n/locales/ro.js',
     '/js/i18n/locales/sv.js',
     '/js/i18n/locales/tr.js',
     '/js/i18n/locales/zh.js',
@@ -41,7 +45,8 @@ const PRECACHE_PATHS = new Set(PRECACHE_URLS);
 // Pre-rendered pages for other languages live under /<lang>/. They are cached
 // when visited, and a language's home page is the offline fallback for it.
 const LANGUAGE_HOMES = new Set([
-    'da', 'de', 'es', 'fi', 'fr', 'id', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'sv', 'tr', 'zh', 'zh-hant'
+    'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'id', 'it', 'ja',
+    'ko', 'nl', 'no', 'pl', 'pt', 'ro', 'sv', 'tr', 'zh', 'zh-hant'
 ].map(lang => `/${lang}/`));
 
 function requestWithCacheMode(request, cacheMode) {

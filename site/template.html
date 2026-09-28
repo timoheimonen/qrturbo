@@ -12,7 +12,10 @@
         // earlier wins, otherwise the first supported browser language.
         (function () {
             if (document.documentElement.lang !== 'en') return;
-            var supported = ['en', 'da', 'de', 'es', 'fi', 'fr', 'id', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'sv', 'tr', 'zh', 'zh-hant'];
+            var supported = [
+                'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'id', 'it', 'ja',
+                'ko', 'nl', 'no', 'pl', 'pt', 'ro', 'sv', 'tr', 'zh', 'zh-hant'
+            ];
             var lang = null;
             try {
                 lang = localStorage.getItem('qrturbo_lang');
@@ -99,6 +102,10 @@
                     <option value="tr">Türkçe</option>
                     <option value="id">Bahasa Indonesia</option>
                     <option value="zh-hant">繁體中文</option>
+                    <option value="cs">Čeština</option>
+                    <option value="ro">Română</option>
+                    <option value="hu">Magyar</option>
+                    <option value="el">Ελληνικά</option>
                 </select>
             </div>
             <span class="menu-divider" aria-hidden="true"></span>

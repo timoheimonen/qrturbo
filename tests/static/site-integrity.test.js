@@ -129,7 +129,8 @@ test('SEO metadata and structured data are present and parseable', () => {
 test('hreflang alternates match supported languages', () => {
   const html = readPublicFile('index.html');
   const supported = [
-    'da', 'de', 'en', 'es', 'fi', 'fr', 'id', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'sv', 'tr', 'zh', 'zh-hant'
+    'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fr', 'hu', 'id', 'it',
+    'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'ro', 'sv', 'tr', 'zh', 'zh-hant'
   ];
   const hreflangs = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)"/g)].map(match => match[1]).sort();
 
@@ -260,6 +261,12 @@ test('English pages redirect each browser language to the matching language page
     id: '/id/',
     nb: '/no/',
     'nn-NO': '/no/',
+    'cs-CZ': '/cs/',
+    'ro-RO': '/ro/',
+    'ro-MD': '/ro/',
+    'hu-HU': '/hu/',
+    'el-GR': '/el/',
+    'el-CY': '/el/',
     'en-US': null,
     'xx-YY': null
   };

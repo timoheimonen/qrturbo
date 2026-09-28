@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const LANGUAGES = [
   'en', 'es', 'fr', 'de', 'it', 'fi', 'sv', 'no', 'da', 'zh', 'ja', 'ko',
-  'pt', 'nl', 'pl', 'tr', 'id', 'zh-hant'
+  'pt', 'nl', 'pl', 'tr', 'id', 'zh-hant', 'cs', 'ro', 'hu', 'el'
 ];
 
 // The zh-hant pages declare the BCP 47 spelling in <html lang>.
@@ -124,4 +124,14 @@ test('the language selector opens the Traditional Chinese page and back', async 
   await page.locator('#lang-select').selectOption('tr');
   await expect.poll(() => new URL(page.url()).pathname).toBe('/tr/sms-qr-code/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'tr');
+});
+
+test('uppercase Greek labels drop the accents', async ({ page }) => {
+  await page.goto('/el/');
+
+  // The eyebrow is written in sentence case and uppercased by CSS; with
+  // lang="el" the rendered capitals must not carry tonos.
+  const eyebrow = await page.locator('.hero .eyebrow').innerText();
+  expect(eyebrow).toMatch(/[Α-Ω]/);
+  expect(eyebrow).not.toMatch(/[ΆΈΉΊΌΎΏάέήίόύώ]/);
 });

@@ -4,7 +4,8 @@
 // JavaScript creates at runtime and switches between the language URLs.
 
 const supportedLanguages = new Set([
-  'en', 'da', 'de', 'es', 'fi', 'fr', 'id', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'sv', 'tr', 'zh', 'zh-hant'
+  'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'id', 'it', 'ja',
+  'ko', 'nl', 'no', 'pl', 'pt', 'ro', 'sv', 'tr', 'zh', 'zh-hant'
 ]);
 const LANGUAGE_STORAGE_KEY = 'qrturbo_lang';
 

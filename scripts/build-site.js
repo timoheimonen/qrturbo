@@ -19,7 +19,7 @@ const ORIGIN = 'https://qrturbo.app';
 // English stays at the root; the order matches the language selector.
 const LANGUAGES = [
   'en', 'es', 'fr', 'de', 'it', 'fi', 'sv', 'no', 'da', 'zh', 'ja', 'ko',
-  'pt', 'nl', 'pl', 'tr', 'id', 'zh-hant'
+  'pt', 'nl', 'pl', 'tr', 'id', 'zh-hant', 'cs', 'ro', 'hu', 'el'
 ];
 
 // Paths and file names use lowercase codes; <html lang>, hreflang and
@@ -30,11 +30,14 @@ const HTML_LANGS = {
 
 const OG_LOCALES = {
   en: 'en_US',
+  cs: 'cs_CZ',
   da: 'da_DK',
   de: 'de_DE',
+  el: 'el_GR',
   es: 'es_ES',
   fi: 'fi_FI',
   fr: 'fr_FR',
+  hu: 'hu_HU',
   id: 'id_ID',
   it: 'it_IT',
   ja: 'ja_JP',
@@ -43,6 +46,7 @@ const OG_LOCALES = {
   no: 'nb_NO',
   pl: 'pl_PL',
   pt: 'pt_BR',
+  ro: 'ro_RO',
   sv: 'sv_SE',
   tr: 'tr_TR',
   zh: 'zh_CN',
