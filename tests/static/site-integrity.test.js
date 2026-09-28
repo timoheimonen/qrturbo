@@ -2,9 +2,14 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
+const vm = require('node:vm');
 
 const { repoRoot } = require('../helpers/app-vm');
 const { LANGUAGES, PAGE_TYPES, buildSite, pagePath } = require('../../scripts/build-site');
+
+// Paths use lowercase codes; <html lang> and hreflang use the BCP 47 spelling.
+const HTML_LANGS = { 'zh-hant': 'zh-Hant' };
+const htmlLang = lang => HTML_LANGS[lang] || lang;
 
 const publicDir = path.join(repoRoot, 'Public');
 
@@ -123,10 +128,14 @@ test('SEO metadata and structured data are present and parseable', () => {
 
 test('hreflang alternates match supported languages', () => {
   const html = readPublicFile('index.html');
-  const supported = ['da', 'de', 'en', 'es', 'fi', 'fr', 'it', 'ja', 'ko', 'no', 'sv', 'zh'];
+  const supported = [
+    'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fr', 'hu', 'id', 'it',
+    'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'ro', 'sv', 'tr', 'zh', 'zh-hant'
+  ];
   const hreflangs = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)"/g)].map(match => match[1]).sort();
 
-  assert.deepEqual(hreflangs, [...supported, 'x-default'].sort());
+  assert.deepEqual(hreflangs, [...supported.map(htmlLang), 'x-default'].sort());
+  assert.ok(hreflangs.includes('zh-Hant'));
   assert.deepEqual([...LANGUAGES].sort(), supported);
 });
 
@@ -148,7 +157,7 @@ test('every language and type page has its own URL, language and alternates', ()
       const html = readPublicFile(`${pathname.slice(1)}index.html`);
       const label = `${lang} ${page.key}`;
 
-      assert.match(html, new RegExp(`<html lang="${lang}">`), label);
+      assert.match(html, new RegExp(`<html lang="${htmlLang(lang)}">`), label);
       assert.match(html, new RegExp(`<link rel="canonical" href="https://qrturbo\\.app${pathname}">`), label);
       assert.doesNotMatch(html, /\{\{|data-i18n="[^"]+">\s*</, label);
 
@@ -157,7 +166,7 @@ test('every language and type page has its own URL, language and alternates', ()
           .map(match => [match[1], match[2]])
       );
       for (const code of LANGUAGES) {
-        assert.equal(alternates[code], `https://qrturbo.app${pagePath(code, page)}`, `${label} -> ${code}`);
+        assert.equal(alternates[htmlLang(code)], `https://qrturbo.app${pagePath(code, page)}`, `${label} -> ${code}`);
       }
       assert.equal(alternates['x-default'], alternates.en, label);
 
@@ -171,6 +180,7 @@ test('every language and type page has its own URL, language and alternates', ()
         .map(match => JSON.parse(match[1]));
       assert.deepEqual(jsonLd.map(entry => entry['@type']), ['WebApplication', 'FAQPage'], label);
       assert.equal(jsonLd[0].url, `https://qrturbo.app${pathname}`, label);
+      assert.equal(jsonLd[0].inLanguage, htmlLang(lang), label);
       const faqItems = (html.match(/<details class="faq-item">/g) || []).length;
       assert.ok(faqItems > 0, label);
       assert.equal(jsonLd[1].mainEntity.length, faqItems, label);
@@ -193,4 +203,78 @@ test('robots and sitemap point to the production domain', () => {
       assert.ok(locations.includes(`https://qrturbo.app${pagePath(lang, page)}`), `${lang} ${page.key} in sitemap`);
     }
   }
+});
+
+test('English pages redirect each browser language to the matching language page', () => {
+  const html = readPublicFile('index.html');
+  const script = html.match(/<script>\s*(\/\/ English pages open[\s\S]*?)<\/script>/);
+  assert.ok(script, 'Could not find the language redirect script in index.html');
+
+  const alternates = Object.fromEntries(
+    [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map(match => [match[1], match[2]])
+  );
+
+  function redirectFor(languages, saved = null) {
+    let target = null;
+    const context = {
+      URL,
+      document: {
+        documentElement: { lang: 'en' },
+        querySelector(selector) {
+          const hreflang = selector.match(/hreflang="([^"]+)"/)[1];
+          const href = alternates[hreflang];
+          return href ? { getAttribute: () => href } : null;
+        }
+      },
+      localStorage: { getItem: () => saved },
+      navigator: { languages },
+      location: {
+        href: 'https://qrturbo.app/',
+        pathname: '/',
+        search: '',
+        hash: '',
+        replace(url) {
+          target = url;
+        }
+      }
+    };
+    vm.runInNewContext(script[1], context);
+    return target;
+  }
+
+  const cases = {
+    'zh-TW': '/zh-hant/',
+    'zh-HK': '/zh-hant/',
+    'zh-MO': '/zh-hant/',
+    'zh-Hant': '/zh-hant/',
+    'zh-Hant-TW': '/zh-hant/',
+    zh: '/zh/',
+    'zh-CN': '/zh/',
+    'zh-SG': '/zh/',
+    'zh-Hans': '/zh/',
+    'zh-Hans-HK': '/zh/',
+    'pt-BR': '/pt/',
+    'pt-PT': '/pt/',
+    'nl-BE': '/nl/',
+    'pl-PL': '/pl/',
+    'tr-TR': '/tr/',
+    id: '/id/',
+    nb: '/no/',
+    'nn-NO': '/no/',
+    'cs-CZ': '/cs/',
+    'ro-RO': '/ro/',
+    'ro-MD': '/ro/',
+    'hu-HU': '/hu/',
+    'el-GR': '/el/',
+    'el-CY': '/el/',
+    'en-US': null,
+    'xx-YY': null
+  };
+  for (const [language, expected] of Object.entries(cases)) {
+    assert.equal(redirectFor([language]), expected, language);
+  }
+
+  assert.equal(redirectFor(['xx', 'zh-TW', 'fi']), '/zh-hant/');
+  assert.equal(redirectFor(['zh-TW'], 'zh-hant'), '/zh-hant/');
+  assert.equal(redirectFor(['zh-TW'], 'en'), null);
 });

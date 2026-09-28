@@ -111,10 +111,16 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-html[lang="zh"],
-html[lang="ja"],
-html[lang="ko"] {
+html:lang(zh),
+html:lang(ja),
+html:lang(ko) {
     line-height: 1.7;
+}
+
+/* Prefer Traditional Chinese glyph forms on the zh-Hant pages. */
+html:lang(zh-Hant) {
+    --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial,
+        'Noto Sans CJK TC', 'Noto Sans CJK SC', 'Noto Sans CJK JP', 'Noto Sans CJK KR', sans-serif;
 }
 
 h1,
@@ -363,9 +369,9 @@ html[data-theme="dark"] .theme-option.is-active {
     text-wrap: balance;
 }
 
-html[lang="zh"] .display,
-html[lang="ja"] .display,
-html[lang="ko"] .display {
+html:lang(zh) .display,
+html:lang(ja) .display,
+html:lang(ko) .display {
     font-family: var(--sans);
     font-style: normal;
     font-weight: 600;
@@ -1869,12 +1875,54 @@ body.content-page footer {
         padding-bottom: 12px;
     }
 
+    /* The decorative globe gives way so the longest language name,
+       "Bahasa Indonesia", fits next to the logo. */
+    .language-icon {
+        display: none;
+    }
+
     .language-selector select {
-        max-width: 132px;
+        max-width: 146px;
+        padding-left: 10px;
     }
 
     .info {
         padding-top: 40px;
         padding-bottom: 40px;
+    }
+}
+
+/* Narrow phones: tighter header spacing, and long tab labels such as
+   "SMS/Téléphone" may wrap. */
+@media (max-width: 389px) {
+    #menu-bar {
+        gap: 8px;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .tab-link {
+        gap: 6px;
+        padding: 8px 10px;
+    }
+
+    .tab-link span {
+        min-width: 0;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+}
+
+@media (max-width: 374px) {
+    .logo-tld {
+        display: none;
+    }
+}
+
+@media (max-width: 359px) {
+    .language-selector select {
+        max-width: 118px;
     }
 }
