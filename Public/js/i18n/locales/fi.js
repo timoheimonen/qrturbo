@@ -9,9 +9,6 @@
   }
 
   window.translations.fi = {
-    app: {
-      selectLanguage: 'Valitse kieli'
-    },
     aria: {
       themeGroup: 'Teema',
       lightTheme: 'Vaalea teema',

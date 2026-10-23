@@ -223,7 +223,13 @@ test('every language and type page has its own URL, language and alternates', ()
       assert.match(html, new RegExp(`id="tab-${page.tab}" class="tab-link active"[^>]*aria-selected="true"`), label);
       assert.match(html, new RegExp(`<div id="${page.tab}" class="tab-content"[^>]*style="display: block;"`), label);
       assert.equal((html.match(/class="tab-link active"/g) || []).length, 1, label);
-      assert.match(html, new RegExp(`<option\\b[^>]*\\bvalue="${lang}"[^>]*\\sselected\\b[^>]*>`), label);
+      // The language menu marks this page's language and links every
+      // language to this same page.
+      assert.equal((html.match(/aria-current="true"/g) || []).length, 1, label);
+      assert.match(html, new RegExp(`<a href="${pathname}" hreflang="${htmlLang(lang)}" lang="${htmlLang(lang)}" data-lang="${lang}" aria-current="true">`), label);
+      for (const code of LANGUAGES) {
+        assert.match(html, new RegExp(`<a href="${pagePath(code, page)}" hreflang="${htmlLang(code)}"[^>]* data-lang="${code}"`), `${label} menu -> ${code}`);
+      }
 
       const jsonLd = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
         .map(match => JSON.parse(match[1]));

@@ -9,9 +9,6 @@
   }
 
   window.translations.tr = {
-    app: {
-      selectLanguage: 'Dil seç'
-    },
     aria: {
       themeGroup: 'Tema',
       lightTheme: 'Açık tema',

@@ -9,9 +9,6 @@
   }
 
   window.translations.id = {
-    app: {
-      selectLanguage: 'Pilih bahasa'
-    },
     aria: {
       themeGroup: 'Tema',
       lightTheme: 'Tema terang',

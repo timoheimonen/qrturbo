@@ -9,9 +9,6 @@
   }
 
   window.translations.no = {
-    app: {
-      selectLanguage: 'Velg språk'
-    },
     aria: {
       themeGroup: 'Tema',
       lightTheme: 'Lyst tema',

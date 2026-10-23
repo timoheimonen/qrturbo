@@ -156,13 +156,13 @@ test('every English translation key is used by the template, a script or the bui
   assert.deepEqual(unused, [], 'Remove translation keys that nothing uses, from core.js and every locale');
 });
 
-test('supported language list matches locale files and selector options', () => {
+test('supported language list matches locale files and the language menu', () => {
   const core = fs.readFileSync(corePath, 'utf8');
   const html = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
 
   for (const lang of ['en', ...supportedLanguages]) {
     assert.match(core, new RegExp(`['"]${lang}['"]`), `core.js missing language ${lang}`);
-    assert.match(html, new RegExp(`<option\\b[^>]*\\bvalue="${lang}"`), `selector missing ${lang}`);
+    assert.match(html, new RegExp(`<a\\b[^>]*\\bdata-lang="${lang}"`), `language menu missing ${lang}`);
   }
 
   for (const lang of supportedLanguages) {

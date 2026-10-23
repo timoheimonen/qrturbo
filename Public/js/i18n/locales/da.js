@@ -9,9 +9,6 @@
   }
 
   window.translations.da = {
-    app: {
-      selectLanguage: 'Vælg sprog'
-    },
     aria: {
       themeGroup: 'Tema',
       lightTheme: 'Lyst tema',

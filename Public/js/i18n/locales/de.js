@@ -9,9 +9,6 @@
   }
 
   window.translations.de = {
-    app: {
-      selectLanguage: 'Sprache auswählen'
-    },
     aria: {
       themeGroup: 'Farbmodus',
       lightTheme: 'Heller Modus',

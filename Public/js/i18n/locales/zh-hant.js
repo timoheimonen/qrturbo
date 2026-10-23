@@ -9,9 +9,6 @@
   }
 
   window.translations['zh-hant'] = {
-    app: {
-      selectLanguage: '選擇語言'
-    },
     aria: {
       themeGroup: '主題',
       lightTheme: '淺色主題',

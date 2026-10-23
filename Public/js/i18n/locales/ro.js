@@ -9,9 +9,6 @@
   }
 
   window.translations.ro = {
-    app: {
-      selectLanguage: 'Alege limba'
-    },
     aria: {
       themeGroup: 'Temă',
       lightTheme: 'Temă luminoasă',

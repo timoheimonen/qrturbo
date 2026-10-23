@@ -9,9 +9,6 @@
   }
 
   window.translations.hu = {
-    app: {
-      selectLanguage: 'Nyelv kiválasztása'
-    },
     aria: {
       themeGroup: 'Téma',
       lightTheme: 'Világos téma',

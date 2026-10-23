@@ -12,6 +12,17 @@ function homePath(lang) {
   return lang === 'en' ? '/' : `/${lang}/`;
 }
 
+// The language menu opens from its toggle and links to the same page in
+// every language; the page's own language is marked aria-current.
+async function chooseLanguage(page, lang) {
+  await page.locator('.lang-toggle').click();
+  await page.locator(`.lang-list a[data-lang="${lang}"]`).click();
+}
+
+async function expectMenuLanguage(page, lang) {
+  await expect(page.locator('.lang-list a[aria-current="true"]')).toHaveAttribute('data-lang', lang);
+}
+
 async function expectTranslated(locator, rawTranslationKey) {
   await expect(locator).toHaveText(/\S/);
   await expect(locator).not.toContainText(rawTranslationKey);
@@ -21,7 +32,7 @@ for (const lang of LANGUAGES) {
   test(`the ${lang} page is pre-rendered and translates dynamic UI text`, async ({ page }) => {
     await page.goto(homePath(lang));
     await expect(page.locator('html')).toHaveAttribute('lang', HTML_LANGS[lang] || lang);
-    await expect(page.locator('#lang-select')).toHaveValue(lang);
+    await expectMenuLanguage(page, lang);
 
     // A visible validation error is created at runtime in the page language.
     await page.locator('#qr-text').fill('   ');
@@ -58,7 +69,7 @@ test('every language has its own hero text', async ({ page }) => {
 test('the language selector opens the same page in the chosen language and remembers it', async ({ page }) => {
   await page.goto('/wifi-qr-code/');
 
-  await page.locator('#lang-select').selectOption('fi');
+  await chooseLanguage(page, 'fi');
   await expect.poll(() => new URL(page.url()).pathname).toBe('/fi/wifi-qr-code/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
   await expect(page.locator('#tab-Wifi')).toHaveAttribute('aria-selected', 'true');
@@ -68,11 +79,53 @@ test('the language selector opens the same page in the chosen language and remem
   await expect.poll(() => new URL(page.url()).pathname).toBe('/fi/vcard-qr-code/');
 
   // Choosing English is remembered as well.
-  await page.locator('#lang-select').selectOption('en');
+  await chooseLanguage(page, 'en');
   await expect.poll(() => new URL(page.url()).pathname).toBe('/vcard-qr-code/');
   await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   expect(new URL(page.url()).pathname).toBe('/');
+});
+
+test('the language menu works with the keyboard, closes on its own and keeps the query', async ({ page }) => {
+  await page.goto('/wifi-qr-code/?ref=menu');
+  const menu = page.locator('[data-lang-menu]');
+  const toggle = page.locator('.lang-toggle');
+
+  await toggle.focus();
+  await page.keyboard.press('Enter');
+  await expect(menu).toHaveJSProperty('open', true);
+  await page.keyboard.press('ArrowDown');
+  await expect(page.locator('.lang-list a[data-lang="en"]')).toBeFocused();
+  await page.keyboard.press('ArrowDown');
+  await expect(page.locator('.lang-list a[data-lang="es"]')).toBeFocused();
+  // Two columns: the right arrow jumps to the language beside it.
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('.lang-list a').nth(12)).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(menu).toHaveJSProperty('open', false);
+  await expect(toggle).toBeFocused();
+
+  await toggle.click();
+  await expect(page.locator('.lang-list')).toBeVisible();
+  await page.locator('.hero .display').click();
+  await expect(menu).toHaveJSProperty('open', false);
+
+  await toggle.click();
+  await page.locator('.lang-list a[data-lang="de"]').click();
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/de/wifi-qr-code/');
+  expect(new URL(page.url()).search).toBe('?ref=menu');
+});
+
+test('the open language menu fits a 320 px phone', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.goto('/hu/');
+  await page.locator('.lang-toggle').click();
+
+  const box = await page.locator('.lang-list').boundingBox();
+  expect(box.x).toBeGreaterThanOrEqual(0);
+  expect(box.x + box.width).toBeLessThanOrEqual(320);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+  await expect(page.locator('.lang-list a[data-lang="id"]')).toBeVisible();
 });
 
 test.describe('with a Swedish browser', () => {
@@ -102,7 +155,7 @@ test.describe('with a Traditional Chinese (Taiwan) browser', () => {
 
     await expect.poll(() => new URL(page.url()).pathname).toBe('/zh-hant/wifi-qr-code/');
     await expect(page.locator('html')).toHaveAttribute('lang', 'zh-Hant');
-    await expect(page.locator('#lang-select')).toHaveValue('zh-hant');
+    await expectMenuLanguage(page, 'zh-hant');
   });
 });
 
@@ -120,11 +173,11 @@ test.describe('with a Simplified Chinese browser', () => {
 test('the language selector opens the Traditional Chinese page and back', async ({ page }) => {
   await page.goto('/pl/sms-qr-code/');
 
-  await page.locator('#lang-select').selectOption('zh-hant');
+  await chooseLanguage(page, 'zh-hant');
   await expect.poll(() => new URL(page.url()).pathname).toBe('/zh-hant/sms-qr-code/');
   await expect(page.locator('#tab-SMSPhone')).toHaveAttribute('aria-selected', 'true');
 
-  await page.locator('#lang-select').selectOption('tr');
+  await chooseLanguage(page, 'tr');
   await expect.poll(() => new URL(page.url()).pathname).toBe('/tr/sms-qr-code/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'tr');
 });

@@ -9,9 +9,6 @@
   }
 
   window.translations.ja = {
-    app: {
-      selectLanguage: '言語を選択'
-    },
     aria: {
       themeGroup: 'テーマ',
       lightTheme: 'ライトテーマ',

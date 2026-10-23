@@ -9,9 +9,6 @@
   }
 
   window.translations.ko = {
-    app: {
-      selectLanguage: '언어 선택'
-    },
     aria: {
       themeGroup: '테마',
       lightTheme: '라이트 테마',

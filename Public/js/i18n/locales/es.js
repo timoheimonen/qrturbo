@@ -9,9 +9,6 @@
   }
 
   window.translations.es = {
-    app: {
-      selectLanguage: 'Seleccionar idioma'
-    },
     aria: {
       themeGroup: 'Tema',
       lightTheme: 'Tema claro',

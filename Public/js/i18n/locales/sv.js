@@ -9,9 +9,6 @@
   }
 
   window.translations.sv = {
-    app: {
-      selectLanguage: 'Välj språk'
-    },
     aria: {
       themeGroup: 'Tema',
       lightTheme: 'Ljust tema',

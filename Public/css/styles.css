@@ -336,42 +336,123 @@ input[type="radio"]:focus-visible,
     background: var(--border);
 }
 
-.language-selector {
-    position: relative;
+.lang-menu {
+    position: static;
+}
+
+/* The toggle is a pill like the theme switch: globe, language code and a
+   chevron that turns while the menu is open. */
+.lang-toggle {
     display: flex;
     align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 8px 0 9px;
+    border-radius: var(--radius);
+    background: var(--ctl-bg);
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.lang-toggle::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: var(--chevron) center / 12px no-repeat;
+    transition: transform 0.2s ease;
+}
+
+.lang-toggle:hover,
+.lang-menu[open] .lang-toggle {
+    background: var(--ctl-bg-hover);
+    color: var(--fg);
+}
+
+.lang-menu[open] .lang-toggle::after {
+    transform: rotate(180deg);
 }
 
 .language-icon {
-    position: absolute;
-    left: 10px;
     width: 15px;
     height: 15px;
+    flex-shrink: 0;
     fill: none;
-    stroke: var(--muted);
+    stroke: currentColor;
     stroke-width: 1.75;
-    pointer-events: none;
 }
 
-.language-selector select {
-    width: auto;
-    min-height: 32px;
-    height: 32px;
-    padding: 0 28px 0 32px;
-    border: none;
-    border-radius: var(--radius);
-    background-color: var(--ctl-bg);
-    background-position: right 8px center;
-    background-size: 14px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--muted);
-    box-shadow: none;
+/* The list opens under the header, aligned with its right edge, so that it
+   fits on a 320 px phone although the toggle is not at the edge. Two
+   columns are filled top to bottom (the page sets --rows), and the list
+   scrolls when the screen is too short to show every language. */
+.lang-list {
+    position: absolute;
+    top: calc(100% - 4px);
+    right: var(--page-gutter);
+    z-index: 40;
+    display: grid;
+    grid-template-rows: repeat(var(--rows, 1), auto);
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    column-gap: 2px;
+    width: max-content;
+    min-width: 180px;
+    max-width: calc(100% - (2 * var(--page-gutter)));
+    max-height: calc(100dvh - var(--header-h) - 16px);
+    margin: 0;
+    padding: 6px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--panel-bg);
+    box-shadow: var(--shadow);
+    list-style: none;
+    animation: langMenuIn 0.18s ease-out;
 }
 
-.language-selector select:hover {
-    background-color: var(--ctl-bg-hover);
+.lang-list a {
+    display: block;
+    padding: 7px 12px;
+    border-radius: var(--radius-sm);
     color: var(--fg);
+    font-size: 0.875rem;
+    line-height: 1.35;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.lang-list a:hover {
+    background: var(--ctl-bg);
+    color: var(--fg);
+}
+
+.lang-list a:focus-visible {
+    outline-offset: -2px;
+}
+
+.lang-list a[aria-current] {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+@keyframes langMenuIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
 }
 
 .theme-selector {
@@ -737,10 +818,6 @@ textarea:focus {
     outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 0 1px var(--accent);
-}
-
-.language-selector select:focus {
-    box-shadow: 0 0 0 2px var(--accent);
 }
 
 input:disabled,
@@ -2614,7 +2691,6 @@ body.content-page footer {
     input[type="datetime-local"],
     select,
     textarea,
-    .language-selector select,
     .color-input-wrapper input[type="text"] {
         font-size: 16px;
     }
@@ -2656,9 +2732,15 @@ body.content-page footer {
         margin-top: 4px;
     }
 
-    .language-selector select {
-        min-height: 44px;
+    .lang-toggle {
         height: 44px;
+        padding: 0 12px;
+        font-size: 0.8125rem;
+    }
+
+    .lang-list a {
+        padding: 10px 12px;
+        font-size: 0.9375rem;
     }
 
     /* 40 px buttons fill the 44 px pill; each hit area also covers the
@@ -2780,15 +2862,10 @@ body.content-page footer {
         padding-bottom: 12px;
     }
 
-    /* The decorative globe gives way so the longest language name,
-       "Bahasa Indonesia", fits next to the logo. */
-    .language-icon {
+    /* Codes longer than two letters (ZH-HANT) do not fit next to the
+       brand on small phones; the globe stands in for them. */
+    .lang-toggle--long .lang-code {
         display: none;
-    }
-
-    .language-selector select {
-        max-width: 146px;
-        padding-left: 10px;
     }
 
     .info {
@@ -2832,8 +2909,12 @@ body.content-page footer {
         gap: 6px;
     }
 
-    .language-selector select {
-        max-width: 124px;
+    .lang-toggle {
+        padding: 0 10px;
+    }
+
+    .lang-list a {
+        padding: 10px;
     }
 }
 
@@ -2849,10 +2930,6 @@ body.content-page footer {
 @media (max-width: 359px) {
     .brand-mark {
         display: none;
-    }
-
-    .language-selector select {
-        max-width: 108px;
     }
 }
 

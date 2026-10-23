@@ -9,9 +9,6 @@
   }
 
   window.translations.el = {
-    app: {
-      selectLanguage: 'Επιλογή γλώσσας'
-    },
     aria: {
       themeGroup: 'Θέμα',
       lightTheme: 'Φωτεινό θέμα',

@@ -9,9 +9,6 @@
   }
 
   window.translations.cs = {
-    app: {
-      selectLanguage: 'Vyber jazyk'
-    },
     aria: {
       themeGroup: 'Motiv',
       lightTheme: 'Světlý motiv',

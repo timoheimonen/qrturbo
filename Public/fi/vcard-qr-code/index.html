@@ -227,37 +227,39 @@
             <span class="logo-tagline" data-i18n="brand.tagline">yksityinen paikkasi QR-koodien tekemiseen</span>
         </a>
         <div class="header-actions">
-            <div class="language-selector">
-                <label for="lang-select" class="sr-only" data-i18n="app.selectLanguage">Valitse kieli</label>
-                <svg class="language-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
-                </svg>
-                <select id="lang-select" aria-label="Kieli" data-i18n-aria-label="aria.language">
-                    <option value="en" lang="en">English</option>
-                    <option value="es" lang="es">Español</option>
-                    <option value="fr" lang="fr">Français</option>
-                    <option value="de" lang="de">Deutsch</option>
-                    <option value="it" lang="it">Italiano</option>
-                    <option value="fi" lang="fi" selected>Suomi</option>
-                    <option value="sv" lang="sv">Svenska</option>
-                    <option value="no" lang="no">Norsk</option>
-                    <option value="da" lang="da">Dansk</option>
-                    <option value="zh" lang="zh">简体中文</option>
-                    <option value="ja" lang="ja">日本語</option>
-                    <option value="ko" lang="ko">한국어</option>
-                    <option value="pt" lang="pt">Português</option>
-                    <option value="nl" lang="nl">Nederlands</option>
-                    <option value="pl" lang="pl">Polski</option>
-                    <option value="tr" lang="tr">Türkçe</option>
-                    <option value="id" lang="id">Bahasa Indonesia</option>
-                    <option value="zh-hant" lang="zh-Hant">繁體中文</option>
-                    <option value="cs" lang="cs">Čeština</option>
-                    <option value="ro" lang="ro">Română</option>
-                    <option value="hu" lang="hu">Magyar</option>
-                    <option value="el" lang="el">Ελληνικά</option>
-                </select>
-            </div>
+            <details class="lang-menu" data-lang-menu>
+                <summary class="lang-toggle" aria-label="Kieli: Suomi">
+                    <svg class="language-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
+                    </svg>
+                    <span class="lang-code" aria-hidden="true">FI</span>
+                </summary>
+                <ul class="lang-list" role="list" style="--rows: 11">
+                    <li><a href="/vcard-qr-code/" hreflang="en" lang="en" data-lang="en">English</a></li>
+                    <li><a href="/es/vcard-qr-code/" hreflang="es" lang="es" data-lang="es">Español</a></li>
+                    <li><a href="/fr/vcard-qr-code/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
+                    <li><a href="/de/vcard-qr-code/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+                    <li><a href="/it/vcard-qr-code/" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+                    <li><a href="/fi/vcard-qr-code/" hreflang="fi" lang="fi" data-lang="fi" aria-current="true">Suomi</a></li>
+                    <li><a href="/sv/vcard-qr-code/" hreflang="sv" lang="sv" data-lang="sv">Svenska</a></li>
+                    <li><a href="/no/vcard-qr-code/" hreflang="no" lang="no" data-lang="no">Norsk</a></li>
+                    <li><a href="/da/vcard-qr-code/" hreflang="da" lang="da" data-lang="da">Dansk</a></li>
+                    <li><a href="/zh/vcard-qr-code/" hreflang="zh" lang="zh" data-lang="zh">简体中文</a></li>
+                    <li><a href="/ja/vcard-qr-code/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+                    <li><a href="/ko/vcard-qr-code/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+                    <li><a href="/pt/vcard-qr-code/" hreflang="pt" lang="pt" data-lang="pt">Português</a></li>
+                    <li><a href="/nl/vcard-qr-code/" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
+                    <li><a href="/pl/vcard-qr-code/" hreflang="pl" lang="pl" data-lang="pl">Polski</a></li>
+                    <li><a href="/tr/vcard-qr-code/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li>
+                    <li><a href="/id/vcard-qr-code/" hreflang="id" lang="id" data-lang="id">Bahasa Indonesia</a></li>
+                    <li><a href="/zh-hant/vcard-qr-code/" hreflang="zh-Hant" lang="zh-Hant" data-lang="zh-hant">繁體中文</a></li>
+                    <li><a href="/cs/vcard-qr-code/" hreflang="cs" lang="cs" data-lang="cs">Čeština</a></li>
+                    <li><a href="/ro/vcard-qr-code/" hreflang="ro" lang="ro" data-lang="ro">Română</a></li>
+                    <li><a href="/hu/vcard-qr-code/" hreflang="hu" lang="hu" data-lang="hu">Magyar</a></li>
+                    <li><a href="/el/vcard-qr-code/" hreflang="el" lang="el" data-lang="el">Ελληνικά</a></li>
+                </ul>
+            </details>
             <span class="menu-divider" aria-hidden="true"></span>
             <div class="theme-selector" role="group" aria-label="Teema" data-i18n-aria-label="aria.themeGroup">
                 <button type="button" class="theme-option" data-theme-choice="light" aria-label="Vaalea teema" data-i18n-aria-label="aria.lightTheme" aria-pressed="true">

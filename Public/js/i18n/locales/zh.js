@@ -9,9 +9,6 @@
   }
 
   window.translations.zh = {
-    app: {
-      selectLanguage: '选择语言'
-    },
     aria: {
       themeGroup: '主题',
       lightTheme: '浅色主题',

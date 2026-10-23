@@ -22,9 +22,6 @@ const assetVersionQuery = document.currentScript?.src.match(/\?v=[^#&]+/)?.[0] |
 // Expose on window so locale files can register their translations
 const translations = {
   en: {
-    app: {
-      selectLanguage: 'Select Language'
-    },
     aria: {
       themeGroup: 'Theme',
       lightTheme: 'Light theme',
@@ -774,27 +771,83 @@ async function initI18n() {
   }
 
   translatePage();
-
-  const langSelect = document.getElementById('lang-select');
-  if (langSelect) {
-    langSelect.value = pageLang && supportedLanguages.has(pageLang) ? pageLang : 'en';
-  }
 }
 
-// Choosing a language is remembered and opens the matching language URL.
+// The language menu is a <details> element whose links open the same page
+// in each language. Choosing a language is remembered, and the query and
+// hash travel along. Escape, a click elsewhere or leaving the menu closes
+// it; the arrow keys move between the languages.
 function setupLanguageSelector() {
-  const langSelect = document.getElementById('lang-select');
-  if (!langSelect) return;
+  const menu = document.querySelector('[data-lang-menu]');
+  if (!menu) return;
 
-  langSelect.addEventListener('change', (e) => {
-    const langCode = e.target.value;
+  const summary = menu.querySelector('summary');
+  const links = Array.from(menu.querySelectorAll('a[data-lang]'));
+  if (!summary || !links.length) return;
+
+  const rows = Math.ceil(links.length / 2);
+
+  function focusLink(index) {
+    const count = links.length;
+    links[((index % count) + count) % count].focus();
+  }
+
+  function close({ focusToggle = false } = {}) {
+    menu.open = false;
+    if (focusToggle) summary.focus();
+  }
+
+  menu.addEventListener('click', (event) => {
+    const link = event.target.closest('a[data-lang]');
+    if (!link) return;
+
+    const langCode = link.dataset.lang;
     if (!supportedLanguages.has(langCode)) return;
+
+    if (link.hasAttribute('aria-current')) {
+      event.preventDefault();
+      close({ focusToggle: true });
+      return;
+    }
 
     saveLanguagePreference(langCode);
     const targetUrl = getLanguageUrl(langCode);
     if (targetUrl) {
-      window.location.assign(targetUrl);
+      link.href = targetUrl;
     }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (menu.open && !menu.contains(event.target)) close();
+  });
+
+  menu.addEventListener('keydown', (event) => {
+    if (!menu.open) return;
+
+    const index = links.indexOf(document.activeElement);
+    const current = links.findIndex(link => link.hasAttribute('aria-current'));
+
+    if (event.key === 'Escape') {
+      close({ focusToggle: true });
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      const step = event.key === 'ArrowDown' ? 1 : -1;
+      focusLink(index === -1 ? Math.max(current, 0) : index + step);
+    } else if ((event.key === 'ArrowRight' || event.key === 'ArrowLeft') && index !== -1) {
+      const target = index + (event.key === 'ArrowRight' ? rows : -rows);
+      if (target < 0 || target >= links.length) return;
+      focusLink(target);
+    } else if (event.key === 'Home' && index !== -1) {
+      focusLink(0);
+    } else if (event.key === 'End' && index !== -1) {
+      focusLink(links.length - 1);
+    } else {
+      return;
+    }
+    event.preventDefault();
+  });
+
+  menu.addEventListener('focusout', (event) => {
+    if (menu.open && event.relatedTarget && !menu.contains(event.relatedTarget)) close();
   });
 }
 

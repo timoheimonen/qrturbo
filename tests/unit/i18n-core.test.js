@@ -19,6 +19,7 @@ function loadI18n(lang = 'en') {
       },
       addEventListener() {},
       getElementById: () => null,
+      querySelector: () => null,
       querySelectorAll: () => [],
       createElement: () => ({}),
       head: {

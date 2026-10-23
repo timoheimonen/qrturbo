@@ -32,7 +32,8 @@ test('language and theme choices persist across reloads', async ({ page }) => {
   const fieldLabel = page.locator('[data-i18n="fields.textOrUrl"]');
   const englishLabel = await fieldLabel.innerText();
 
-  await page.locator('#lang-select').selectOption('fi');
+  await page.locator('.lang-toggle').click();
+  await page.locator('.lang-list a[data-lang="fi"]').click();
   await expect.poll(() => new URL(page.url()).pathname).toBe('/fi/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
   await expect(fieldLabel).not.toHaveText(englishLabel);

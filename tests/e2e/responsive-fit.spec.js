@@ -86,7 +86,7 @@ test('header controls and the print size toggle are 44 px tall on a phone @webki
     const box = option.getBoundingClientRect();
     const x = box.left + box.width / 2;
     return {
-      language: document.getElementById('lang-select').getBoundingClientRect().height,
+      language: document.querySelector('.lang-toggle').getBoundingClientRect().height,
       themeTop: document.elementFromPoint(x, pill.top + 1)?.closest('.theme-option') === option,
       themeBottom: document.elementFromPoint(x, pill.bottom - 1)?.closest('.theme-option') === option,
       themeHeight: pill.height,
