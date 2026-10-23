@@ -962,7 +962,8 @@ html[data-theme="dark"] .radio-group input[type="radio"]:checked + label {
     gap: 0 8px;
 }
 
-.social-preview {
+/* "QR target": the one link the code holds. */
+.target-preview {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: baseline;
@@ -972,17 +973,22 @@ html[data-theme="dark"] .radio-group input[type="radio"]:checked + label {
     background: var(--surface);
 }
 
-.social-preview-label {
+.target-preview-label {
     font-size: 0.78rem;
     font-weight: 600;
     color: var(--muted);
 }
 
-#social-preview-url {
+.target-preview code {
     min-width: 0;
     font-family: var(--mono);
     font-size: 0.82rem;
     overflow-wrap: anywhere;
+}
+
+.target-preview .helper-text {
+    flex-basis: 100%;
+    margin-top: 0;
 }
 
 /* Validation messages: #form-error moves next to the invalid field. */

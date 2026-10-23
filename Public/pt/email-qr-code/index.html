@@ -181,11 +181,11 @@
     </script>
 
     <!-- Favicon Configuration -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=2.0.0">
-    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png?v=2.0.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2.0.0">
-    <link rel="icon" href="/favicon.ico?v=2.0.0" type="image/x-icon">
-    <link rel="manifest" href="/manifest.json?v=2.0.0">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=2.0.1">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png?v=2.0.1">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2.0.1">
+    <link rel="icon" href="/favicon.ico?v=2.0.1" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json?v=2.0.1">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
     <script>
@@ -200,11 +200,11 @@
         }
     </script>
     <!-- Local CSS: shell first, then one stylesheet per feature area -->
-    <link rel="stylesheet" href="/css/styles.css?v=2.0.0">
-    <link rel="stylesheet" href="/css/stage.css?v=2.0.0">
-    <link rel="stylesheet" href="/css/design.css?v=2.0.0">
-    <link rel="stylesheet" href="/css/scan.css?v=2.0.0">
-    <link rel="stylesheet" href="/css/batch.css?v=2.0.0">
+    <link rel="stylesheet" href="/css/styles.css?v=2.0.1">
+    <link rel="stylesheet" href="/css/stage.css?v=2.0.1">
+    <link rel="stylesheet" href="/css/design.css?v=2.0.1">
+    <link rel="stylesheet" href="/css/scan.css?v=2.0.1">
+    <link rel="stylesheet" href="/css/batch.css?v=2.0.1">
 </head>
 
 <body>
@@ -642,8 +642,8 @@
                     <input type="text" id="social-handle" data-i18n-placeholder="placeholders.socialHandle" placeholder="@usuario ou https://..." maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                     <p class="helper-text" data-i18n="helpers.socialHandleHelper">Digite um nome de usuário, como @usuario, ou cole a URL completa do perfil com https://.</p>
                 </div>
-                <div class="input-group full-width social-preview">
-                    <span class="social-preview-label" data-i18n="misc.socialPreview">Destino do QR</span>
+                <div class="input-group full-width target-preview">
+                    <span class="target-preview-label" data-i18n="misc.socialPreview">Destino do QR</span>
                     <code id="social-preview-url">-</code>
                 </div>
             </div>
@@ -733,8 +733,9 @@
         <div id="AppLink" class="tab-content" role="tabpanel" aria-labelledby="tab-AppLink" tabindex="0" hidden>
             <div class="vcard-grid">
                 <div class="input-group full-width">
-                    <label for="app-web-url" data-i18n="fields.appWebUrl">URL web / alternativa</label>
-                    <input type="url" id="app-web-url" data-i18n-placeholder="placeholders.appWebUrl" placeholder="https://exemplo.com.br/app" maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
+                    <label for="app-web-url" data-i18n="fields.appWebUrl">URL da página web</label>
+                    <input type="url" id="app-web-url" data-i18n-placeholder="placeholders.appWebUrl" placeholder="https://exemplo.com.br/app" maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="app-web-url-help">
+                    <p id="app-web-url-help" class="helper-text" data-i18n="helpers.appWebUrl">Um QR code contém só um link e não identifica o celular. Para atender às duas lojas, informe uma página sua que envie iPhones para a App Store e celulares Android para o Google Play.</p>
                 </div>
                 <div class="input-group full-width">
                     <label for="app-ios-url" data-i18n="fields.appIosUrl">URL da App Store (iOS)</label>
@@ -745,11 +746,16 @@
                     <input type="url" id="app-android-url" data-i18n-placeholder="placeholders.appAndroidUrl" placeholder="https://play.google.com/store/apps/details?id=..." maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group">
-                    <label for="app-link-target" data-i18n="fields.appLinkTarget">Loja alternativa</label>
+                    <label for="app-link-target" data-i18n="fields.appLinkTarget">Link da loja usado</label>
                     <select id="app-link-target">
-                        <option value="ios" data-i18n-option="options.appTargetIos">Usar iOS se não houver URL web</option>
-                        <option value="android" data-i18n-option="options.appTargetAndroid">Usar Android se não houver URL web</option>
+                        <option value="ios" data-i18n-option="options.appTargetIos">App Store (iOS)</option>
+                        <option value="android" data-i18n-option="options.appTargetAndroid">Google Play (Android)</option>
                     </select>
+                </div>
+                <div class="input-group full-width target-preview">
+                    <span class="target-preview-label" data-i18n="misc.socialPreview">Destino do QR</span>
+                    <code id="app-preview-url">-</code>
+                    <p id="app-link-note" class="helper-text" hidden></p>
                 </div>
             </div>
         </div>
@@ -1616,24 +1622,24 @@
     </dialog>
 
     <!-- External JavaScript, in dependency order -->
-    <script src="/js/i18n/core.js?v=2.0.0" defer></script>
-    <script src="/js/qr-code-styling.min.js?v=2.0.0" defer></script>
-    <script src="/js/lib/bytes.js?v=2.0.0" defer></script>
-    <script src="/js/lib/color.js?v=2.0.0" defer></script>
-    <script src="/js/lib/capacity.js?v=2.0.0" defer></script>
-    <script src="/js/lib/payloads.js?v=2.0.0" defer></script>
-    <script src="/js/lib/rules.js?v=2.0.0" defer></script>
-    <script src="/js/lib/presets.js?v=2.0.0" defer></script>
-    <script src="/js/lib/svg.js?v=2.0.0" defer></script>
-    <script src="/js/frame.js?v=2.0.0" defer></script>
-    <script src="/js/qr-engine.js?v=2.0.0" defer></script>
-    <script src="/js/ui/kit.js?v=2.0.0" defer></script>
-    <script src="/js/exporter.js?v=2.0.0" defer></script>
-    <script src="/js/scan.js?v=2.0.0" defer></script>
-    <script src="/js/ui/design.js?v=2.0.0" defer></script>
-    <script src="/js/ui/export.js?v=2.0.0" defer></script>
-    <script src="/js/app.js?v=2.0.0" defer></script>
-    <script src="/js/controller.js?v=2.0.0" defer></script>
+    <script src="/js/i18n/core.js?v=2.0.1" defer></script>
+    <script src="/js/qr-code-styling.min.js?v=2.0.1" defer></script>
+    <script src="/js/lib/bytes.js?v=2.0.1" defer></script>
+    <script src="/js/lib/color.js?v=2.0.1" defer></script>
+    <script src="/js/lib/capacity.js?v=2.0.1" defer></script>
+    <script src="/js/lib/payloads.js?v=2.0.1" defer></script>
+    <script src="/js/lib/rules.js?v=2.0.1" defer></script>
+    <script src="/js/lib/presets.js?v=2.0.1" defer></script>
+    <script src="/js/lib/svg.js?v=2.0.1" defer></script>
+    <script src="/js/frame.js?v=2.0.1" defer></script>
+    <script src="/js/qr-engine.js?v=2.0.1" defer></script>
+    <script src="/js/ui/kit.js?v=2.0.1" defer></script>
+    <script src="/js/exporter.js?v=2.0.1" defer></script>
+    <script src="/js/scan.js?v=2.0.1" defer></script>
+    <script src="/js/ui/design.js?v=2.0.1" defer></script>
+    <script src="/js/ui/export.js?v=2.0.1" defer></script>
+    <script src="/js/app.js?v=2.0.1" defer></script>
+    <script src="/js/controller.js?v=2.0.1" defer></script>
 </body>
 
 </html>

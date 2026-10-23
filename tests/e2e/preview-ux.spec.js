@@ -175,3 +175,40 @@ test('too much content shows the stage message and "Use level L" makes it fit', 
     await translate(page, 'toast.applied', { what: await translate(page, 'actions.useLevelL') })
   );
 });
+
+test('App Link shows the one link the code holds and when store links are left out', async ({ page }) => {
+  await openApp(page);
+  await page.locator('#tab-AppLink').click();
+  const target = page.locator('#app-preview-url');
+  const note = page.locator('#app-link-note');
+  const ios = 'https://apps.apple.com/app/example';
+  const android = 'https://play.google.com/store/apps/details?id=example';
+  const web = 'https://example.com/app';
+
+  await expect(page.locator('#app-web-url-help')).toHaveText(await translate(page, 'helpers.appWebUrl'));
+  await expect(target).toHaveText('-');
+  await expect(note).toBeHidden();
+
+  // Both stores without a web page: only the chosen one goes into the code.
+  await page.locator('#app-ios-url').fill(ios);
+  await page.locator('#app-android-url').fill(android);
+  await expect(target).toHaveText(ios);
+  await expect(note).toHaveText(await translate(page, 'helpers.appOneStore'));
+  await waitForReady(page, ios);
+
+  await page.locator('#app-link-target').selectOption('android');
+  await expect(target).toHaveText(android);
+  await waitForReady(page, android);
+
+  // A web page replaces both store links.
+  await page.locator('#app-web-url').fill(web);
+  await expect(target).toHaveText(web);
+  await expect(note).toHaveText(await translate(page, 'helpers.appStoresUnused'));
+  await waitForReady(page, web);
+
+  // A single link needs no note.
+  await page.locator('#app-ios-url').fill('');
+  await page.locator('#app-android-url').fill('');
+  await expect(target).toHaveText(web);
+  await expect(note).toBeHidden();
+});
