@@ -1032,6 +1032,39 @@ function initPaymentForm() {
 }
 
 /**
+ * @description The App Link form: the QR target shows the one link the code
+ * holds, and a note says when store links are left out of it. A static code
+ * cannot pick a store by phone, so the form never suggests it does.
+ */
+function initAppLinkForm() {
+    const panel = document.getElementById('AppLink');
+    const preview = document.getElementById('app-preview-url');
+    const note = document.getElementById('app-link-note');
+
+    function refresh() {
+        const values = readContentValues('AppLink');
+        const result = globalThis.QRTurboPayloads?.build('AppLink', values);
+        if (preview) preview.textContent = result?.ok ? result.payload : '-';
+        if (!note) return;
+
+        const filled = key => String(values[key] || '').trim() !== '';
+        const hasStore = filled('iosUrl') || filled('androidUrl');
+        const bothStores = filled('iosUrl') && filled('androidUrl');
+        const noteKey = filled('webUrl')
+            ? (hasStore ? 'helpers.appStoresUnused' : '')
+            : (bothStores ? 'helpers.appOneStore' : '');
+        note.hidden = !noteKey;
+        note.textContent = noteKey ? t(noteKey) : '';
+    }
+
+    panel?.addEventListener('input', refresh);
+    panel?.addEventListener('change', refresh);
+
+    refresh();
+    return { refresh };
+}
+
+/**
  * @description "Create many from a CSV file": shown only for batch-capable
  * types, and only where <dialog> exists.
  */
@@ -1075,6 +1108,7 @@ function initContentForms(app) {
     const social = initSocialForm();
     const calendar = initCalendarForm(app);
     const payment = initPaymentForm();
+    const appLink = initAppLinkForm();
     const batchButton = initBatchButton(app);
     const refreshers = {
         URLText: urlText.refresh,
@@ -1082,7 +1116,8 @@ function initContentForms(app) {
         Wifi: wifi.refresh,
         SocialMedia: social.refresh,
         CalendarEvent: calendar.refresh,
-        Payment: payment.refresh
+        Payment: payment.refresh,
+        AppLink: appLink.refresh
     };
 
     function refreshTab(tabName) {
@@ -1182,5 +1217,6 @@ function initContentForms(app) {
         urlText.refresh();
         smsPhone.refresh();
         payment.refresh();
+        appLink.refresh();
     });
 }

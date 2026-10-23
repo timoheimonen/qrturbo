@@ -159,10 +159,10 @@
             { key: 'address', labelKey: 'fields.address', aliases: ['address', 'street address', 'osoite'] }
         ],
         AppLink: [
-            { key: 'webUrl', labelKey: 'fields.appWebUrl', aliases: ['web url', 'url', 'website', 'fallback'] },
+            { key: 'webUrl', labelKey: 'fields.appWebUrl', aliases: ['web url', 'web page', 'redirect page', 'url', 'website', 'fallback', 'fallback / web url'] },
             { key: 'iosUrl', labelKey: 'fields.appIosUrl', aliases: ['ios', 'ios url', 'app store', 'apple'] },
             { key: 'androidUrl', labelKey: 'fields.appAndroidUrl', aliases: ['android', 'android url', 'play store', 'google play'] },
-            { key: 'target', labelKey: 'fields.appLinkTarget', aliases: ['store fallback', 'target'] }
+            { key: 'target', labelKey: 'fields.appLinkTarget', aliases: ['store fallback', 'store link', 'target'] }
         ],
         Payment: [
             { key: 'name', labelKey: 'fields.paymentName', required: true, aliases: ['name', 'recipient', 'recipient name', 'beneficiary', 'payee', 'creditor', 'saaja'] },
