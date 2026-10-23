@@ -1,9 +1,10 @@
 const { test, expect } = require('@playwright/test');
 
+// The preview is always an inline SVG. Download is never hidden: it is
+// aria-disabled until the stage shows a code for the current input.
 async function expectGeneratedQr(page) {
-  await expect(page.locator('#qr-canvas-container canvas, #qr-canvas-container svg')).toBeVisible({
-    timeout: 10_000
-  });
+  await expect(page.locator('#qr-stage')).toHaveAttribute('data-state', 'ready', { timeout: 10_000 });
+  await expect(page.locator('#qr-canvas-container svg')).toBeVisible();
   await expect(page.locator('#download-btn')).toBeVisible();
   await expect(page.locator('#download-btn')).toBeEnabled();
 }
@@ -31,7 +32,8 @@ test('language and theme choices persist across reloads', async ({ page }) => {
   const fieldLabel = page.locator('[data-i18n="fields.textOrUrl"]');
   const englishLabel = await fieldLabel.innerText();
 
-  await page.locator('#lang-select').selectOption('fi');
+  await page.locator('.lang-toggle').click();
+  await page.locator('.lang-list a[data-lang="fi"]').click();
   await expect.poll(() => new URL(page.url()).pathname).toBe('/fi/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
   await expect(fieldLabel).not.toHaveText(englishLabel);
@@ -55,11 +57,11 @@ test('mobile layout keeps the preview and download within the viewport @mobile-s
   await expectGeneratedQr(page);
 
   const layoutFitsViewport = await page.evaluate(() => {
-    const preview = document.querySelector('#qr-canvas-container canvas, #qr-canvas-container svg');
+    const preview = document.querySelector('#qr-canvas-container svg');
     const download = document.getElementById('download-btn');
     const elementsFit = [preview, download].every(element => {
       const bounds = element.getBoundingClientRect();
-      return bounds.left >= 0 && bounds.right <= window.innerWidth;
+      return bounds.width > 0 && bounds.left >= 0 && bounds.right <= window.innerWidth;
     });
 
     // The logo and the header controls must not overlap.
@@ -71,4 +73,16 @@ test('mobile layout keeps the preview and download within the viewport @mobile-s
   });
 
   expect(layoutFitsViewport).toBe(true);
+
+  // The ".app" of the wordmark stays visible on narrow phones.
+  await page.setViewportSize({ width: 360, height: 780 });
+  const tld = page.locator('.logo-tld');
+  await expect(tld).toBeVisible();
+  const tldFits = await tld.evaluate(element => {
+    const bounds = element.getBoundingClientRect();
+    const actions = document.querySelector('.header-actions').getBoundingClientRect();
+    return bounds.width > 0 && bounds.left >= 0 && bounds.right <= actions.left
+      && document.documentElement.scrollWidth <= window.innerWidth;
+  });
+  expect(tldFits).toBe(true);
 });

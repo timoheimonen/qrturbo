@@ -1,0 +1,340 @@
+/*
+ * QRTurbo.app batch mode styles
+ * The #batch-dialog that turns CSV or TSV rows into a ZIP file on this
+ * device (the "Create many" entry button itself is styled in styles.css).
+ * Uses the tokens defined in styles.css, so both themes work unchanged.
+ *
+ * Layout: a modal <dialog> with a scrolling .batch-body (data, fields,
+ * output, row errors) and a .batch-footer that always shows the progress,
+ * messages and actions. Full screen on phones.
+ *
+ * batch.js sets:
+ *   .is-running       on #batch-dialog while a run is in progress
+ *   .is-dragover      on #batch-dialog while a file is dragged over it
+ *   .is-over-limit    on #batch-rows-found above 1000 rows
+ */
+
+/* ── Dialog ── */
+
+.batch-dialog {
+    width: min(680px, calc(100vw - 32px));
+    max-width: none;
+    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--panel-bg);
+    color: var(--fg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.batch-dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+.batch-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.batch-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--space-5);
+    min-height: 0;
+    padding: var(--space-5);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.batch-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    min-width: 0;
+}
+
+.batch-section + .batch-section {
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+}
+
+.batch-dialog.is-running .batch-body > .batch-section:not(.batch-result) {
+    opacity: 0.6;
+}
+
+.batch-title {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+/* The title takes the initial focus when the dialog opens; it is not a
+   control, so it shows no focus ring. */
+.batch-title:focus {
+    outline: none;
+}
+
+.batch-dialog .section-title {
+    margin: 0;
+}
+
+.batch-dialog .helper-text,
+.batch-dialog .compact-checkbox {
+    margin-top: 0;
+}
+
+/* ── Data ── */
+
+#batch-input {
+    min-height: 140px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    white-space: pre;
+    overflow-wrap: normal;
+}
+
+.batch-file-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+}
+
+.batch-file-name {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.batch-file-name:empty {
+    display: none;
+}
+
+#batch-rows-found {
+    font-variant-numeric: tabular-nums;
+}
+
+#batch-rows-found .batch-limit {
+    display: block;
+    color: var(--danger-text);
+    font-weight: 500;
+}
+
+.batch-error {
+    margin: 0;
+}
+
+/* ── Fields ── */
+
+.batch-mapping {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-4);
+}
+
+.batch-mapping:empty {
+    display: none;
+}
+
+.batch-map-row label {
+    overflow-wrap: anywhere;
+}
+
+/* A type with a single field uses the full width, like the fields around it. */
+.batch-map-row:only-child {
+    grid-column: 1 / -1;
+}
+
+/* ── Output ── */
+
+.batch-format {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.batch-legend {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.batch-format-options {
+    flex-wrap: wrap;
+    align-self: flex-start;
+    max-width: 100%;
+}
+
+#batch-size-note:empty {
+    display: none;
+}
+
+/* ── Row errors ── */
+
+.batch-result {
+    gap: var(--space-2);
+    font-size: 0.85rem;
+}
+
+.batch-result p {
+    margin: 0;
+}
+
+.batch-errors {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding-left: 1.25em;
+    color: var(--danger-text);
+    overflow-wrap: anywhere;
+}
+
+/* ── Footer: progress, messages and actions ── */
+
+.batch-footer {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5) var(--space-4);
+    border-top: 1px solid var(--border);
+    background: var(--panel-bg);
+}
+
+.batch-status {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.batch-status:empty {
+    margin-top: calc(-1 * var(--space-2));
+}
+
+.batch-progress {
+    display: block;
+    width: 100%;
+    height: 8px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--ctl-bg);
+    color: var(--accent);
+    accent-color: var(--accent);
+    overflow: hidden;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.batch-progress::-webkit-progress-bar {
+    border-radius: 999px;
+    background: var(--ctl-bg);
+}
+
+.batch-progress::-webkit-progress-value {
+    border-radius: 999px;
+    background: var(--accent);
+    transition: width var(--motion-fast) linear;
+}
+
+.batch-progress::-moz-progress-bar {
+    border-radius: 999px;
+    background: var(--accent);
+}
+
+.batch-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.batch-actions .primary-btn {
+    flex: 1 1 auto;
+    width: auto;
+    min-height: 44px;
+}
+
+.batch-actions .secondary-btn {
+    min-height: 44px;
+}
+
+.batch-actions #batch-cancel {
+    flex: 1 1 auto;
+}
+
+/* ── Drop overlay ── */
+
+.batch-drop-overlay {
+    position: absolute;
+    inset: var(--space-2);
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    padding: var(--space-4);
+    border: 2px dashed var(--accent);
+    border-radius: var(--radius-md);
+    background: var(--glass-bg);
+    color: var(--accent);
+    font-weight: 600;
+    text-align: center;
+    pointer-events: none;
+}
+
+/* Dropping files needs a pointer that can drag. */
+@media (hover: none) and (pointer: coarse) {
+    .batch-drop-hint {
+        display: none;
+    }
+}
+
+/* 16 px text keeps iOS from zooming into the field. */
+@media (max-width: 720px) {
+    #batch-input {
+        font-size: 16px;
+    }
+}
+
+/* ── Phones: full screen, one mapping column ── */
+
+@media (max-width: 560px) {
+    .batch-dialog {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        max-height: 100vh;
+        max-height: 100dvh;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+    }
+
+    .batch-body {
+        gap: var(--space-4);
+        padding: var(--space-4);
+    }
+
+    .batch-section + .batch-section {
+        padding-top: var(--space-4);
+    }
+
+    .batch-footer {
+        padding: var(--space-3) var(--space-4) calc(var(--space-3) + env(safe-area-inset-bottom));
+    }
+
+    .batch-mapping {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .batch-progress::-webkit-progress-value {
+        transition: none;
+    }
+}

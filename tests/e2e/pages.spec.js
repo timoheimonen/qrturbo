@@ -6,12 +6,18 @@ const FRAME_COLOR = { red: 255, green: 0, blue: 255 };
 
 async function downloadArtifact(page) {
   const downloadButton = page.locator('#download-btn');
-  await expect(downloadButton).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator('#qr-stage')).toHaveAttribute('data-state', 'ready', { timeout: 10_000 });
+  await expect(downloadButton).toBeVisible();
   await expect(downloadButton).toBeEnabled();
 
   const downloadPromise = page.waitForEvent('download');
   await downloadButton.click();
   return downloadPromise;
+}
+
+async function selectFrame(page, style) {
+  await page.locator(`label[for="frame-${style}"]`).click();
+  await expect(page.locator(`#frame-${style}`)).toBeChecked();
 }
 
 test('type pages open on their QR code type and link to the other generators', async ({ page }) => {
@@ -25,7 +31,9 @@ test('type pages open on their QR code type and link to the other generators', a
 
   await page.locator('#wifi-ssid').fill('Guest network');
   await page.locator('#wifi-password').fill('guestpass123');
-  await expect(page.locator('#download-btn')).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator('#qr-stage')).toHaveAttribute('data-state', 'ready', { timeout: 10_000 });
+  await expect(page.locator('#download-btn')).toBeVisible();
+  await expect(page.locator('#download-btn')).toBeEnabled();
 
   await page.locator('.type-links a[href="/vcard-qr-code/"]').click();
   await expect(page).toHaveURL(/\/vcard-qr-code\/$/);
@@ -48,15 +56,16 @@ for (const format of ['png', 'svg']) {
 
     await page.goto('/');
     await page.locator('#qr-text').fill(payload);
+    // 1024 px is the default size; choosing it keeps the test explicit.
     await page.locator('#size-select').selectOption('1024');
     await expect(page.locator('#frame-options')).toBeHidden();
-    await page.locator('#frame-style').selectOption('banner-bottom');
+    await selectFrame(page, 'banner-bottom');
     await expect(page.locator('#frame-options')).toBeVisible();
     await page.locator('#frame-text').fill('Menu & <prices>');
     await page.locator('#frame-color-text').fill('#FF00FF');
     if (format === 'svg') {
-      await page.locator('#customize-toggle').click();
-      await page.locator('#qr-format').selectOption('svg');
+      await page.locator('label[for="format-svg"]').click();
+      await expect(page.locator('#format-svg')).toBeChecked();
     }
 
     const decoded = await decodeQrDownload(page, await downloadArtifact(page));
@@ -77,16 +86,24 @@ for (const format of ['png', 'svg']) {
 }
 
 test('frame settings reset with the other customizations', async ({ page }) => {
+  const dialogs = [];
+  page.on('dialog', dialog => {
+    dialogs.push(dialog.type());
+    dialog.dismiss().catch(() => {});
+  });
+
   await page.goto('/');
   await page.locator('#qr-text').fill('https://example.com/reset-frame');
-  await page.locator('#frame-style').selectOption('outline');
+  await selectFrame(page, 'outline');
   await page.locator('#frame-text').fill('Hello');
   await page.locator('#customize-toggle').click();
 
-  page.once('dialog', dialog => dialog.accept());
+  // Reset needs no confirmation dialog.
   await page.locator('#reset-customization').click();
 
-  await expect(page.locator('#frame-style')).toHaveValue('none');
+  await expect(page.locator('#frame-none')).toBeChecked();
+  await expect(page.locator('#frame-outline')).not.toBeChecked();
   await expect(page.locator('#frame-text')).toHaveValue('');
   await expect(page.locator('#frame-options')).toBeHidden();
+  expect(dialogs).toEqual([]);
 });

@@ -116,7 +116,7 @@
                     "name": "二维码应该印多大？",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "打印尺寸至少为 2 × 2 厘米。一般来说，二维码的边长至少应为扫描距离的十分之一：在 2 米外扫描的海报，二维码需要约 20 厘米。用于印刷时，请下载 SVG 或大尺寸 PNG，并保持二维码周围的静区空白。"
+                        "text": "打印尺寸至少为 2 × 2 厘米。一般来说，二维码的边长至少应为扫描距离的十分之一：在 2 米外扫描的海报，二维码需要约 20 厘米。用于印刷时，请下载在任何尺寸下都清晰的 PDF 或 SVG，并设置精确的打印宽度。QRTurbo.app 会显示模块尺寸，并在二维码太小、难以扫描时提醒您。请保持二维码周围的静区空白。"
                     }
                 },
                 {
@@ -124,7 +124,7 @@
                     "name": "为什么我的二维码扫不出来？",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "最常见的原因有：二维码与背景的对比度太低、静区太小、Logo 遮挡了过多二维码，或者内容相对于打印尺寸过多。QRTurbo.app 会提醒您注意这些风险。印刷前请务必用几部不同的手机测试。"
+                        "text": "最常见的原因有：二维码与背景的对比度太低、静区太小、Logo 遮挡了过多二维码，或者内容相对于打印尺寸过多。QRTurbo.app 会在您的设备上用内置扫描器检查每个二维码，并给出修复建议。印刷前请务必用几部不同的手机测试。"
                     }
                 },
                 {
@@ -133,6 +133,14 @@
                     "acceptedAnswer": {
                         "@type": "Answer",
                         "text": "您的数据只保留在您的设备上。二维码由在您浏览器中运行的代码生成，您输入或上传的任何内容都不会发送到服务器，因此没有人能看到您的 WiFi 密码或联系信息。首次访问后，生成器还可以离线使用。"
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "我应该使用哪种文件格式？",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "屏幕、文档和大多数打印机请使用 PNG。网站和设计工具请使用 SVG，印刷厂请使用 PDF：两者都是矢量文件，在任何尺寸下都清晰。EPS 适用于旧版设计和标牌制作软件。JPG 和 WebP 是适合应用和网站的小体积图像文件。所有格式均免费，并会保留您的颜色、Logo 和边框。"
                     }
                 }
             ]
@@ -173,11 +181,11 @@
     </script>
 
     <!-- Favicon Configuration -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=1.2.0">
-    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png?v=1.2.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.2.0">
-    <link rel="icon" href="/favicon.ico?v=1.2.0" type="image/x-icon">
-    <link rel="manifest" href="/manifest.json?v=1.2.0">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=2.0.0">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png?v=2.0.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2.0.0">
+    <link rel="icon" href="/favicon.ico?v=2.0.0" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json?v=2.0.0">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
     <script>
@@ -191,11 +199,22 @@
             document.documentElement.dataset.theme = 'light';
         }
     </script>
-    <!-- Local CSS -->
-    <link rel="stylesheet" href="/css/styles.css?v=1.2.0">
+    <!-- Local CSS: shell first, then one stylesheet per feature area -->
+    <link rel="stylesheet" href="/css/styles.css?v=2.0.0">
+    <link rel="stylesheet" href="/css/stage.css?v=2.0.0">
+    <link rel="stylesheet" href="/css/design.css?v=2.0.0">
+    <link rel="stylesheet" href="/css/scan.css?v=2.0.0">
+    <link rel="stylesheet" href="/css/batch.css?v=2.0.0">
 </head>
 
 <body>
+    <!-- Print at exact size: filled with the vector code right before window.print().
+         It stays the first element in <body>: the print styles hide every
+         later sibling while it is filled, also in engines without :has(). -->
+    <div id="print-sheet" class="print-sheet" aria-hidden="true"></div>
+
+    <a class="skip-link" href="#generator" data-i18n="aria.skipToGenerator">跳到二维码生成器</a>
+
     <header id="menu-bar">
         <a class="brand" href="/zh/">
             <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -208,37 +227,39 @@
             <span class="logo-tagline" data-i18n="brand.tagline">私密制作二维码的地方</span>
         </a>
         <div class="header-actions">
-            <div class="language-selector">
-                <label for="lang-select" class="sr-only" data-i18n="app.selectLanguage">选择语言</label>
-                <svg class="language-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
-                </svg>
-                <select id="lang-select" aria-label="语言" data-i18n-aria-label="aria.language">
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
-                    <option value="fr">Français</option>
-                    <option value="de">Deutsch</option>
-                    <option value="it">Italiano</option>
-                    <option value="fi">Suomi</option>
-                    <option value="sv">Svenska</option>
-                    <option value="no">Norsk</option>
-                    <option value="da">Dansk</option>
-                    <option value="zh" selected>简体中文</option>
-                    <option value="ja">日本語</option>
-                    <option value="ko">한국어</option>
-                    <option value="pt">Português</option>
-                    <option value="nl">Nederlands</option>
-                    <option value="pl">Polski</option>
-                    <option value="tr">Türkçe</option>
-                    <option value="id">Bahasa Indonesia</option>
-                    <option value="zh-hant">繁體中文</option>
-                    <option value="cs">Čeština</option>
-                    <option value="ro">Română</option>
-                    <option value="hu">Magyar</option>
-                    <option value="el">Ελληνικά</option>
-                </select>
-            </div>
+            <details class="lang-menu" data-lang-menu>
+                <summary class="lang-toggle" aria-label="语言: 简体中文">
+                    <svg class="language-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
+                    </svg>
+                    <span class="lang-code" aria-hidden="true">ZH</span>
+                </summary>
+                <ul class="lang-list" role="list" style="--rows: 11">
+                    <li><a href="/social-media-qr-code/" hreflang="en" lang="en" data-lang="en">English</a></li>
+                    <li><a href="/es/social-media-qr-code/" hreflang="es" lang="es" data-lang="es">Español</a></li>
+                    <li><a href="/fr/social-media-qr-code/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
+                    <li><a href="/de/social-media-qr-code/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+                    <li><a href="/it/social-media-qr-code/" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+                    <li><a href="/fi/social-media-qr-code/" hreflang="fi" lang="fi" data-lang="fi">Suomi</a></li>
+                    <li><a href="/sv/social-media-qr-code/" hreflang="sv" lang="sv" data-lang="sv">Svenska</a></li>
+                    <li><a href="/no/social-media-qr-code/" hreflang="no" lang="no" data-lang="no">Norsk</a></li>
+                    <li><a href="/da/social-media-qr-code/" hreflang="da" lang="da" data-lang="da">Dansk</a></li>
+                    <li><a href="/zh/social-media-qr-code/" hreflang="zh" lang="zh" data-lang="zh" aria-current="true">简体中文</a></li>
+                    <li><a href="/ja/social-media-qr-code/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+                    <li><a href="/ko/social-media-qr-code/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+                    <li><a href="/pt/social-media-qr-code/" hreflang="pt" lang="pt" data-lang="pt">Português</a></li>
+                    <li><a href="/nl/social-media-qr-code/" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
+                    <li><a href="/pl/social-media-qr-code/" hreflang="pl" lang="pl" data-lang="pl">Polski</a></li>
+                    <li><a href="/tr/social-media-qr-code/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li>
+                    <li><a href="/id/social-media-qr-code/" hreflang="id" lang="id" data-lang="id">Bahasa Indonesia</a></li>
+                    <li><a href="/zh-hant/social-media-qr-code/" hreflang="zh-Hant" lang="zh-Hant" data-lang="zh-hant">繁體中文</a></li>
+                    <li><a href="/cs/social-media-qr-code/" hreflang="cs" lang="cs" data-lang="cs">Čeština</a></li>
+                    <li><a href="/ro/social-media-qr-code/" hreflang="ro" lang="ro" data-lang="ro">Română</a></li>
+                    <li><a href="/hu/social-media-qr-code/" hreflang="hu" lang="hu" data-lang="hu">Magyar</a></li>
+                    <li><a href="/el/social-media-qr-code/" hreflang="el" lang="el" data-lang="el">Ελληνικά</a></li>
+                </ul>
+            </details>
             <span class="menu-divider" aria-hidden="true"></span>
             <div class="theme-selector" role="group" aria-label="主题" data-i18n-aria-label="aria.themeGroup">
                 <button type="button" class="theme-option" data-theme-choice="light" aria-label="浅色主题" data-i18n-aria-label="aria.lightTheme" aria-pressed="true">
@@ -292,7 +313,7 @@
         </ul>
     </section>
 
-    <main class="workspace">
+    <main id="generator" class="workspace">
         <section class="panel panel-content" aria-labelledby="step-type-title">
             <div class="panel-head">
                 <span class="step-num" aria-hidden="true">1</span>
@@ -337,6 +358,10 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-4.9A8.5 8.5 0 1 1 20.5 12Z"></path></svg>
                     <span data-i18n="tabs.whatsapp">WhatsApp</span>
                 </button>
+                <button type="button" id="tab-Payment" class="tab-link" data-tab="Payment" role="tab" aria-controls="Payment" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="2.5"></rect><path d="M2.5 10h19M6.5 15h4"></path></svg>
+                    <span data-i18n="tabs.payment">转账</span>
+                </button>
                 <button type="button" id="tab-MeCard" class="tab-link" data-tab="MeCard" role="tab" aria-controls="MeCard" aria-selected="false" tabindex="-1">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
                     <span data-i18n="tabs.mecard">MeCard</span>
@@ -349,14 +374,25 @@
 
             <div class="panel-head panel-head-spaced">
                 <span class="step-num" aria-hidden="true">2</span>
-                <h2 data-i18n="workspace.addContent">填写内容</h2>
+                <h2 id="step-content-title" data-i18n="workspace.addContent">填写内容</h2>
+                <!-- Batch entry point: shown at runtime for batch-capable types only. -->
+                <button type="button" id="batch-open-btn" class="link-btn batch-open-btn" aria-haspopup="dialog" hidden>
+                    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2.5"></rect><path d="M3 10h18M3 15h18M9 4v16"></path></svg>
+                    <span data-i18n="actions.createMany">从 CSV 文件批量生成</span>
+                </button>
             </div>
 
         <!-- Tab Content: URL/Text Input -->
         <div id="URLText" class="tab-content" role="tabpanel" aria-labelledby="tab-URLText" tabindex="0" hidden>
-            <label for="qr-text" data-i18n="fields.textOrUrl">文本或网址</label>
-            <textarea id="qr-text" data-i18n-placeholder="placeholders.url" placeholder="例如，https://www.example.com" maxlength="2000" rows="4"></textarea>
-            <div id="char-count" class="char-counter">0 / 2000 characters</div>
+            <div class="input-group">
+                <label for="qr-text" data-i18n="fields.textOrUrl">文本或网址</label>
+                <textarea id="qr-text" data-i18n-placeholder="placeholders.url" placeholder="例如，https://www.example.com" maxlength="2000" rows="4" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+                <p id="url-https-hint" class="helper-text url-https-hint" hidden>
+                    <span data-i18n="helpers.httpsSuggestion">手机只会打开以 https:// 开头的链接。</span>
+                    <button type="button" id="url-https-btn" class="link-btn" data-i18n="actions.addHttps">添加 https://</button>
+                </p>
+                <div id="char-count" class="char-counter">0 / 2000 characters</div>
+            </div>
         </div>
 
         <!-- Tab Content: vCard Input Form -->
@@ -365,55 +401,79 @@
                 <div class="input-group">
                     <!-- vCard Fields -->
                     <label for="vcard-fn" data-i18n="fields.firstName">名</label>
-                    <input type="text" id="vcard-fn" data-i18n-placeholder="placeholders.firstName" placeholder="小明" maxlength="50">
+                    <input type="text" id="vcard-fn" data-i18n-placeholder="placeholders.firstName" placeholder="小明" maxlength="50" autocomplete="given-name">
                 </div>
                 <div class="input-group">
                     <label for="vcard-ln" data-i18n="fields.lastName">姓</label>
-                    <input type="text" id="vcard-ln" data-i18n-placeholder="placeholders.lastName" placeholder="王" maxlength="50">
+                    <input type="text" id="vcard-ln" data-i18n-placeholder="placeholders.lastName" placeholder="王" maxlength="50" autocomplete="family-name">
                 </div>
                 <div class="input-group">
                     <label for="vcard-org" data-i18n="fields.organization">组织</label>
-                    <input type="text" id="vcard-org" data-i18n-placeholder="placeholders.organization" placeholder="ACME 公司" maxlength="100">
+                    <input type="text" id="vcard-org" data-i18n-placeholder="placeholders.organization" placeholder="ACME 公司" maxlength="100" autocomplete="organization">
                 </div>
                 <div class="input-group">
                     <label for="vcard-title" data-i18n="fields.title">职位</label>
-                    <input type="text" id="vcard-title" data-i18n-placeholder="placeholders.title" placeholder="开发人员" maxlength="100">
+                    <input type="text" id="vcard-title" data-i18n-placeholder="placeholders.title" placeholder="开发人员" maxlength="100" autocomplete="organization-title">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-department" data-i18n="fields.department">部门</label>
+                    <input type="text" id="vcard-department" maxlength="100" autocomplete="off">
                 </div>
                 <div class="input-group">
                     <label for="vcard-tel-work" data-i18n="fields.phoneWork">电话（工作）</label>
-                    <input type="tel" id="vcard-tel-work" data-i18n-placeholder="placeholders.phoneWork" placeholder="+86-555-555-1234" maxlength="30">
+                    <input type="tel" id="vcard-tel-work" data-i18n-placeholder="placeholders.phoneWork" placeholder="+86-10-5555-1234" maxlength="30" autocomplete="work tel">
                 </div>
                 <div class="input-group">
                     <label for="vcard-tel-mobile" data-i18n="fields.phoneMobile">电话（手机）</label>
-                    <input type="tel" id="vcard-tel-mobile" data-i18n-placeholder="placeholders.phoneMobile" placeholder="+86-555-555-5678" maxlength="30">
+                    <input type="tel" id="vcard-tel-mobile" data-i18n-placeholder="placeholders.phoneMobile" placeholder="+86-138-1234-5678" maxlength="30" autocomplete="mobile tel">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-tel-home" data-i18n="fields.phoneHome">电话（住宅）</label>
+                    <input type="tel" id="vcard-tel-home" maxlength="30" autocomplete="home tel">
                 </div>
                 <div class="input-group full-width">
                     <label for="vcard-email" data-i18n="fields.email">电子邮件</label>
-                    <input type="email" id="vcard-email" data-i18n-placeholder="placeholders.email" placeholder="xiaoming.wang@example.com" maxlength="254">
+                    <input type="email" id="vcard-email" data-i18n-placeholder="placeholders.email" placeholder="xiaoming.wang@example.com" maxlength="254" autocomplete="email" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="vcard-url" data-i18n="fields.website">网站</label>
-                    <input type="url" id="vcard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.example.com" maxlength="255">
+                    <input type="url" id="vcard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.example.com" maxlength="255" autocomplete="url" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="vcard-street" data-i18n="fields.street">街道</label>
-                    <input type="text" id="vcard-street" data-i18n-placeholder="placeholders.street" placeholder="主街 123 号" maxlength="100">
+                    <input type="text" id="vcard-street" data-i18n-placeholder="placeholders.street" placeholder="主街 123 号" maxlength="100" autocomplete="street-address">
                 </div>
                 <div class="input-group">
                     <label for="vcard-city" data-i18n="fields.city">城市</label>
-                    <input type="text" id="vcard-city" data-i18n-placeholder="placeholders.city" placeholder="北京" maxlength="50">
+                    <input type="text" id="vcard-city" data-i18n-placeholder="placeholders.city" placeholder="北京" maxlength="50" autocomplete="address-level2">
                 </div>
                 <div class="input-group">
                     <label for="vcard-state" data-i18n="fields.state">省/州</label>
-                    <input type="text" id="vcard-state" data-i18n-placeholder="placeholders.state" placeholder="北京" maxlength="50">
+                    <input type="text" id="vcard-state" data-i18n-placeholder="placeholders.state" placeholder="北京" maxlength="50" autocomplete="address-level1">
                 </div>
                 <div class="input-group">
                     <label for="vcard-zip" data-i18n="fields.zip">邮政编码</label>
-                    <input type="text" id="vcard-zip" data-i18n-placeholder="placeholders.zip" placeholder="100000">
+                    <input type="text" id="vcard-zip" data-i18n-placeholder="placeholders.zip" placeholder="100000" maxlength="20" autocomplete="postal-code">
                 </div>
                 <div class="input-group">
                     <label for="vcard-country" data-i18n="fields.country">国家</label>
-                    <input type="text" id="vcard-country" data-i18n-placeholder="placeholders.country" placeholder="中国" maxlength="50">
+                    <input type="text" id="vcard-country" data-i18n-placeholder="placeholders.country" placeholder="中国" maxlength="50" autocomplete="country-name">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-adr-type" data-i18n="fields.addressType">地址类型</label>
+                    <select id="vcard-adr-type">
+                        <option value="" selected data-i18n-option="options.addressAuto">自动</option>
+                        <option value="work" data-i18n-option="options.addressWork">工作</option>
+                        <option value="home" data-i18n-option="options.addressHome">住宅</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="vcard-bday" data-i18n="fields.birthday">生日</label>
+                    <input type="date" id="vcard-bday" autocomplete="bday">
+                </div>
+                <div class="input-group full-width">
+                    <label for="vcard-note" data-i18n="fields.note">备注</label>
+                    <textarea id="vcard-note" rows="3" maxlength="500"></textarea>
                 </div>
             </div>
         </div>
@@ -423,33 +483,38 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="wifi-ssid" data-i18n="fields.ssid">网络名称（SSID）</label>
-                    <input type="text" id="wifi-ssid" data-i18n-placeholder="placeholders.ssid" placeholder="例如，我的家庭WiFi" maxlength="128">
+                    <input type="text" id="wifi-ssid" data-i18n-placeholder="placeholders.ssid" placeholder="例如，我的家庭WiFi" maxlength="128" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group">
                     <label for="wifi-password" data-i18n="fields.password">密码</label>
-                    <input type="password" id="wifi-password" data-i18n-placeholder="placeholders.wifiPassword" placeholder="您的密码" maxlength="64" autocomplete="off">
+                    <input type="password" id="wifi-password" data-i18n-placeholder="placeholders.wifiPassword" placeholder="您的密码" maxlength="64" autocomplete="off" autocapitalize="off" spellcheck="false">
                     <button type="button" id="wifi-password-toggle" class="secondary-btn small-btn" data-i18n="actions.showPassword">显示密码</button>
                 </div>
                 <div class="input-group">
-                    <label for="wifi-auth" data-i18n="fields.authentication">认证</label>
+                    <label for="wifi-auth" data-i18n="fields.authentication">加密类型</label>
                     <select id="wifi-auth">
-                        <option value="WPA" selected data-i18n-option="options.authWpa">WPA/WPA2</option>
-                        <option value="WEP" data-i18n-option="options.authWep">WEP</option>
-                        <option value="nopass" data-i18n-option="options.authNone">无</option>
+                        <option value="WPA" selected data-i18n-option="options.authWpa">WPA/WPA2/WPA3（推荐）</option>
+                        <option value="WPA3" data-i18n-option="options.authWpa3">仅 WPA3</option>
+                        <option value="WEP" data-i18n-option="options.authWep">WEP（已过时）</option>
+                        <option value="nopass" data-i18n-option="options.authNone">无（开放网络）</option>
                     </select>
+                    <p id="wifi-security-help" class="helper-text" data-i18n="helpers.wifiWpa3" hidden>仅当网络不接受较旧的 WPA2 设备时，才选择“仅 WPA3”。</p>
                 </div>
-                <div class="input-group full-width checkbox-group">
-                    <input type="checkbox" id="wifi-hidden">
-                    <label for="wifi-hidden" data-i18n="fields.hiddenNetwork">这是隐藏网络</label>
+                <div class="input-group full-width">
+                    <div class="checkbox-group compact-checkbox">
+                        <input type="checkbox" id="wifi-hidden">
+                        <label for="wifi-hidden" data-i18n="fields.hiddenNetwork">这是隐藏网络</label>
+                    </div>
+                    <p id="wifi-hidden-help" class="helper-text" data-i18n="helpers.wifiHiddenIos" hidden>iPhone 可能会要求访客手动加入隐藏网络。</p>
                 </div>
-
             </div>
         </div>
 
         <!-- Tab Content: SMS/Phone Input Form -->
         <div id="SMSPhone" class="tab-content" role="tabpanel" aria-labelledby="tab-SMSPhone" tabindex="0" hidden>
             <div class="vcard-grid">
-                <div class="radio-group-container">
+                <fieldset class="radio-group-container">
+                    <legend class="sr-only" data-i18n="fields.smsPhoneType">二维码类型</legend>
                     <div class="radio-group">
                         <input type="radio" id="sms-type-sms" name="sms-phone-type" value="sms" checked>
                         <label for="sms-type-sms" data-i18n="labels.sms">短信</label>
@@ -458,14 +523,14 @@
                         <input type="radio" id="sms-type-phone" name="sms-phone-type" value="phone">
                         <label for="sms-type-phone" data-i18n="labels.phone">电话</label>
                     </div>
-                </div>
+                </fieldset>
                 <div class="input-group full-width">
                     <label for="sms-phone-number" data-i18n="fields.phoneNumber">电话号码</label>
-                    <input type="tel" id="sms-phone-number" data-i18n-placeholder="placeholders.phoneNumber" placeholder="例如，+86555123456" maxlength="30">
+                    <input type="tel" id="sms-phone-number" data-i18n-placeholder="placeholders.phoneNumber" placeholder="例如，+8613812345678" maxlength="30" autocomplete="tel">
                 </div>
                 <div id="sms-message-group" class="input-group full-width">
                     <label for="sms-message" data-i18n="fields.message">消息（可选）</label>
-                    <textarea id="sms-message" rows="4" data-i18n-placeholder="placeholders.smsMessage" placeholder="您预填的消息在此..."
+                    <textarea id="sms-message" rows="4" data-i18n-placeholder="placeholders.smsMessage" placeholder="在这里输入预填的短信内容..."
                         maxlength="300"></textarea>
                     <div id="sms-char-count" class="char-counter">0 / 300 characters</div>
                 </div>
@@ -477,7 +542,7 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="email-to" data-i18n="fields.emailTo">收件人邮箱</label>
-                    <input type="email" id="email-to" data-i18n-placeholder="placeholders.emailTo" placeholder="hello@example.com" maxlength="254">
+                    <input type="email" id="email-to" data-i18n-placeholder="placeholders.emailTo" placeholder="hello@example.com" maxlength="254" autocomplete="email" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="email-subject" data-i18n="fields.emailSubject">主题</label>
@@ -505,6 +570,16 @@
                     <label for="event-end" data-i18n="fields.eventEnd">结束</label>
                     <input type="datetime-local" id="event-end">
                 </div>
+                <div class="input-group full-width checkbox-group">
+                    <input type="checkbox" id="event-all-day">
+                    <label for="event-all-day" data-i18n="fields.allDay">全天活动</label>
+                </div>
+                <div class="input-group full-width">
+                    <label for="event-time-zone" data-i18n="fields.timeZone">时区</label>
+                    <!-- Filled at runtime with the IANA time zones; defaults to the device zone. -->
+                    <select id="event-time-zone" aria-describedby="event-time-zone-help"></select>
+                    <p id="event-time-zone-help" class="helper-text" data-i18n="helpers.eventTimeZone">时间会连同此时区一起保存，因此在任何地方都能正确显示。</p>
+                </div>
                 <div class="input-group full-width">
                     <label for="event-location" data-i18n="fields.eventLocation">位置</label>
                     <input type="text" id="event-location" data-i18n-placeholder="placeholders.eventLocation" placeholder="会议室或地址" maxlength="160">
@@ -521,15 +596,15 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="location-address" data-i18n="fields.locationAddress">地址或地点</label>
-                    <input type="text" id="location-address" data-i18n-placeholder="placeholders.locationAddress" placeholder="北京天安门, 北京" maxlength="240">
+                    <input type="text" id="location-address" data-i18n-placeholder="placeholders.locationAddress" placeholder="北京市东城区天安门广场" maxlength="240">
                 </div>
                 <div class="input-group">
                     <label for="location-lat" data-i18n="fields.latitude">纬度</label>
-                    <input type="number" id="location-lat" data-i18n-placeholder="placeholders.latitude" placeholder="39.9087" min="-90" max="90" step="any">
+                    <input type="text" id="location-lat" data-i18n-placeholder="placeholders.latitude" placeholder="39.9087" inputmode="decimal" maxlength="24" autocomplete="off" spellcheck="false">
                 </div>
                 <div class="input-group">
                     <label for="location-lng" data-i18n="fields.longitude">经度</label>
-                    <input type="number" id="location-lng" data-i18n-placeholder="placeholders.longitude" placeholder="116.3975" min="-180" max="180" step="any">
+                    <input type="text" id="location-lng" data-i18n-placeholder="placeholders.longitude" placeholder="116.3975" inputmode="decimal" maxlength="24" autocomplete="off" spellcheck="false">
                 </div>
             </div>
         </div>
@@ -554,7 +629,7 @@
                         <option value="other" data-i18n-option="options.socialOther">其他 URL</option>
                     </select>
                 </div>
-                <div id="social-profile-type-group" class="input-group" style="display:none;">
+                <div id="social-profile-type-group" class="input-group" hidden>
                     <label for="social-profile-type" data-i18n="fields.socialProfileType">资料类型</label>
                     <select id="social-profile-type">
                         <option value="person" selected data-i18n-option="options.socialTypePerson">个人/资料</option>
@@ -564,7 +639,7 @@
                 </div>
                 <div class="input-group full-width">
                     <label for="social-handle" data-i18n="fields.socialHandleOrUrl">用户名或资料 URL</label>
-                    <input type="text" id="social-handle" data-i18n-placeholder="placeholders.socialHandle" placeholder="@username 或 https://..." maxlength="255">
+                    <input type="text" id="social-handle" data-i18n-placeholder="placeholders.socialHandle" placeholder="@username 或 https://..." maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                     <p class="helper-text" data-i18n="helpers.socialHandleHelper">输入 @username 这样的用户名，或粘贴完整的 https:// 资料 URL。</p>
                 </div>
                 <div class="input-group full-width social-preview">
@@ -579,11 +654,51 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="whatsapp-phone" data-i18n="fields.whatsappPhone">WhatsApp 号码或 @用户名</label>
-                    <input type="text" id="whatsapp-phone" data-i18n-placeholder="placeholders.whatsappPhone" placeholder="例如，+86555123456 或 @username" maxlength="40">
+                    <input type="text" id="whatsapp-phone" data-i18n-placeholder="placeholders.whatsappPhone" placeholder="例如，+8613812345678 或 @username" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="whatsapp-message" data-i18n="fields.whatsappMessage">消息（可选）</label>
                     <textarea id="whatsapp-message" rows="4" data-i18n-placeholder="placeholders.whatsappMessage" placeholder="在这里输入 WhatsApp 消息..." maxlength="1000"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Payment (SEPA credit transfer) Input Form -->
+        <div id="Payment" class="tab-content" role="tabpanel" aria-labelledby="tab-Payment" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group full-width">
+                    <label for="payment-name" data-i18n="fields.paymentName">收款人名称</label>
+                    <input type="text" id="payment-name" maxlength="70" autocomplete="name" aria-required="true">
+                </div>
+                <div class="input-group full-width">
+                    <label for="payment-iban" data-i18n="fields.iban">IBAN</label>
+                    <input type="text" id="payment-iban" maxlength="42" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-required="true">
+                </div>
+                <div class="input-group">
+                    <label for="payment-bic" data-i18n="fields.bic">BIC（可选）</label>
+                    <input type="text" id="payment-bic" maxlength="11" autocomplete="off" autocapitalize="characters" spellcheck="false">
+                </div>
+                <div class="input-group">
+                    <label for="payment-amount" data-i18n="fields.amount">金额（欧元，可选）</label>
+                    <input type="text" id="payment-amount" inputmode="decimal" maxlength="16" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="input-group full-width">
+                    <label for="payment-reference" data-i18n="fields.paymentReference">付款参考号（可选）</label>
+                    <input type="text" id="payment-reference" maxlength="35" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="payment-reference-help">
+                    <p id="payment-reference-help" class="helper-text" data-i18n="helpers.paymentReference">RF 债权人参考号，或芬兰付款参考号（将转换为 RF 格式）。</p>
+                </div>
+                <div class="input-group full-width">
+                    <label for="payment-message" data-i18n="fields.paymentMessage">附言（可选）</label>
+                    <textarea id="payment-message" rows="3" maxlength="140"></textarea>
+                </div>
+                <div class="input-group full-width">
+                    <label for="payment-due-date" data-i18n="fields.dueDate">到期日（可选）</label>
+                    <input type="date" id="payment-due-date" aria-describedby="payment-due-date-help">
+                    <p id="payment-due-date-help" class="helper-text" data-i18n="helpers.paymentDueDate">芬兰的银行应用会自动填入到期日。其他应用可能会将其显示为备注。</p>
+                </div>
+                <div class="input-group full-width">
+                    <!-- Filled at runtime with capacity.paymentLimit. -->
+                    <div id="payment-bytes" class="char-counter"></div>
                 </div>
             </div>
         </div>
@@ -593,23 +708,23 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="mecard-name" data-i18n="fields.mecardName">姓名</label>
-                    <input type="text" id="mecard-name" data-i18n-placeholder="placeholders.mecardName" placeholder="张三" maxlength="100">
+                    <input type="text" id="mecard-name" data-i18n-placeholder="placeholders.mecardName" placeholder="张三" maxlength="100" autocomplete="name">
                 </div>
                 <div class="input-group">
                     <label for="mecard-phone" data-i18n="fields.phoneNumber">电话号码</label>
-                    <input type="tel" id="mecard-phone" data-i18n-placeholder="placeholders.phoneNumber" placeholder="例如，+86555123456" maxlength="30">
+                    <input type="tel" id="mecard-phone" data-i18n-placeholder="placeholders.phoneNumber" placeholder="例如，+8613812345678" maxlength="30" autocomplete="tel">
                 </div>
                 <div class="input-group">
                     <label for="mecard-email" data-i18n="fields.email">电子邮件</label>
-                    <input type="email" id="mecard-email" data-i18n-placeholder="placeholders.email" placeholder="xiaoming.wang@example.com" maxlength="254">
+                    <input type="email" id="mecard-email" data-i18n-placeholder="placeholders.email" placeholder="xiaoming.wang@example.com" maxlength="254" autocomplete="email" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="mecard-url" data-i18n="fields.website">网站</label>
-                    <input type="url" id="mecard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.example.com" maxlength="255">
+                    <input type="url" id="mecard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.example.com" maxlength="255" autocomplete="url" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="mecard-address" data-i18n="fields.address">地址</label>
-                    <input type="text" id="mecard-address" data-i18n-placeholder="placeholders.address" placeholder="北京市东城区长安街1号" maxlength="240">
+                    <input type="text" id="mecard-address" data-i18n-placeholder="placeholders.address" placeholder="北京市东城区长安街1号" maxlength="240" autocomplete="street-address">
                 </div>
             </div>
         </div>
@@ -619,15 +734,15 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="app-web-url" data-i18n="fields.appWebUrl">备用 / Web URL</label>
-                    <input type="url" id="app-web-url" data-i18n-placeholder="placeholders.appWebUrl" placeholder="https://example.com/app" maxlength="255">
+                    <input type="url" id="app-web-url" data-i18n-placeholder="placeholders.appWebUrl" placeholder="https://example.com/app" maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="app-ios-url" data-i18n="fields.appIosUrl">iOS App Store URL</label>
-                    <input type="url" id="app-ios-url" data-i18n-placeholder="placeholders.appIosUrl" placeholder="https://apps.apple.com/app/your-app" maxlength="255">
+                    <input type="url" id="app-ios-url" data-i18n-placeholder="placeholders.appIosUrl" placeholder="https://apps.apple.com/app/your-app" maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="app-android-url" data-i18n="fields.appAndroidUrl">Android Play Store URL</label>
-                    <input type="url" id="app-android-url" data-i18n-placeholder="placeholders.appAndroidUrl" placeholder="https://play.google.com/store/apps/details?id=..." maxlength="255">
+                    <input type="url" id="app-android-url" data-i18n-placeholder="placeholders.appAndroidUrl" placeholder="https://play.google.com/store/apps/details?id=..." maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group">
                     <label for="app-link-target" data-i18n="fields.appLinkTarget">商店备用链接</label>
@@ -641,182 +756,556 @@
 
         </section>
 
-        <!-- QR Code Display Area -->
+        <!-- QR Code Display Area: preview, scan check, readout and export -->
         <aside class="preview" aria-labelledby="preview-title">
-            <div id="qr-container" class="preview-card" aria-busy="false">
+            <div id="qr-container" class="preview-card">
                 <div class="preview-head">
-                    <h2 id="preview-title" data-i18n="preview.title">预览</h2>
-                    <span class="local-badge">
-                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
-                        <span data-i18n="preview.localBadge">在此设备上生成</span>
-                    </span>
+                    <h2 id="preview-title" tabindex="-1" data-i18n="preview.title">预览</h2>
+                    <button type="button" id="scan-badge" class="scan-badge" aria-expanded="false" aria-controls="scan-warnings" hidden>
+                        <span class="scan-dot" aria-hidden="true"></span>
+                        <span class="sr-only" data-i18n="scan.title">扫描检查</span>
+                        <span id="scan-badge-label" class="scan-badge-label" aria-live="polite" data-i18n="scan.checking">检查中</span>
+                    </button>
                 </div>
                 <p id="form-error" class="form-error" role="alert" aria-live="assertive" aria-atomic="true" hidden></p>
-                <div class="qr-stage">
-                    <p id="qr-placeholder" role="status" aria-live="polite" data-i18n="misc.qrPlaceholder">二维码将显示在此处</p>
-                    <div id="qr-canvas-container"></div>
-                    <img id="qr-image" src="" alt="QR Code" style="display:none;">
+
+                <!-- Stage states (data-state): empty, pending, ready, invalid, tooLong, error -->
+                <div id="qr-stage" class="qr-stage" data-state="empty">
+                    <div id="qr-placeholder" class="qr-placeholder">
+                        <p id="qr-placeholder-text" class="qr-placeholder-text" data-i18n="misc.qrPlaceholder">您的二维码将显示在此处。</p>
+                        <button type="button" id="stage-fix-btn" class="secondary-btn small-btn stage-action" data-i18n="actions.goToField" hidden>转到该字段</button>
+                        <button type="button" id="stage-retry-btn" class="secondary-btn small-btn stage-action" data-i18n="actions.retry" hidden>重试</button>
+                    </div>
+                    <div id="qr-canvas-container" class="qr-canvas-container"></div>
                 </div>
-                <div id="scan-warnings" class="scan-warnings" role="status" aria-live="polite" style="display:none;"></div>
-                <div class="payload-display">
-                    <p id="qr-code-text" style="display:none;"></p>
-                    <button type="button" id="payload-reveal-btn" class="secondary-btn small-btn" data-i18n="actions.showPayload" hidden>显示二维码数据</button>
+
+                <div id="scan-warnings" class="scan-warnings" hidden>
+                    <p id="scan-summary" class="scan-summary"></p>
+                    <ul id="scan-issues" class="scan-issues"></ul>
                 </div>
-                <button type="button" id="download-btn" class="primary-btn" style="display:none;" disabled>
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M4 21h16"></path></svg>
-                    <span data-i18n="actions.download">下载二维码</span>
-                </button>
+
+                <div id="qr-info" class="qr-info" hidden>
+                    <p id="capacity-text" class="capacity-text"></p>
+                    <div class="capacity-row">
+                        <span id="capacity-label" class="sr-only" data-i18n="capacity.label">已用数据量</span>
+                        <meter id="capacity-meter" class="capacity-meter" min="0" max="1" low="0.7" high="0.9" optimum="0" value="0" aria-labelledby="capacity-label capacity-usage"></meter>
+                        <span id="capacity-usage" class="capacity-usage"></span>
+                        <button type="button" id="capacity-fix-btn" class="link-btn" data-i18n="actions.useLevelL" hidden>使用 L 级</button>
+                    </div>
+                </div>
+
+                <fieldset id="export-group" class="export-group">
+                    <legend class="export-legend" data-i18n="output.title">下载</legend>
+
+                    <fieldset id="qr-format" class="format-group" aria-describedby="format-hint">
+                        <legend class="sr-only" data-i18n="aria.formatGroup">文件格式</legend>
+                        <div class="format-options">
+                            <span class="format-option">
+                                <input type="radio" id="format-png" name="qr-format" value="png" checked>
+                                <label for="format-png" data-i18n="options.formatPng">PNG</label>
+                            </span>
+                            <span class="format-option">
+                                <input type="radio" id="format-svg" name="qr-format" value="svg">
+                                <label for="format-svg" data-i18n="options.formatSvg">SVG</label>
+                            </span>
+                            <span class="format-option">
+                                <input type="radio" id="format-pdf" name="qr-format" value="pdf">
+                                <label for="format-pdf" data-i18n="options.formatPdf">PDF</label>
+                            </span>
+                            <button type="button" id="more-formats-toggle" class="link-btn more-formats-toggle" aria-expanded="false" aria-controls="more-formats">
+                                <span data-i18n="actions.moreFormats">更多格式</span>
+                                <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+                            </button>
+                        </div>
+                        <div id="more-formats" class="format-options format-options-more" hidden>
+                            <span class="format-option">
+                                <input type="radio" id="format-jpg" name="qr-format" value="jpg">
+                                <label for="format-jpg" data-i18n="options.formatJpg">JPG</label>
+                            </span>
+                            <span class="format-option">
+                                <input type="radio" id="format-webp" name="qr-format" value="webp">
+                                <label for="format-webp" data-i18n="options.formatWebp">WebP</label>
+                            </span>
+                            <span class="format-option">
+                                <input type="radio" id="format-eps" name="qr-format" value="eps">
+                                <label for="format-eps" data-i18n="options.formatEps">EPS</label>
+                            </span>
+                        </div>
+                    </fieldset>
+                    <p id="format-hint" class="helper-text format-hint" data-i18n="output.hintPng">清晰的图像，适用于屏幕、文档和大多数打印机。</p>
+
+                    <div id="size-block" class="size-block">
+                        <div id="pixel-size" class="export-field">
+                            <label for="size-select" data-i18n="fields.qrSize">尺寸</label>
+                            <select id="size-select">
+                                <option value="512" data-i18n-option="options.sizeMedium">小（512 px）</option>
+                                <option value="1024" selected data-i18n-option="options.sizeLarge">中（1024 px）</option>
+                                <option value="2048" data-i18n-option="options.sizePrint">大（2048 px）</option>
+                                <option value="4096" data-i18n-option="options.sizePoster">特大（4096 px）</option>
+                                <option value="custom" data-i18n-option="options.sizeCustom">自定义尺寸</option>
+                            </select>
+                        </div>
+                        <div id="size-custom-group" class="export-field" hidden>
+                            <label for="size-custom" data-i18n="fields.customPixels">宽度（像素）</label>
+                            <input type="number" id="size-custom" min="128" max="4096" step="1" value="1024" inputmode="numeric">
+                            <p id="size-custom-error" class="field-error" hidden></p>
+                        </div>
+                        <p id="vector-size-note" class="helper-text vector-size-note" data-i18n="output.vectorAnySize" hidden>矢量：任意尺寸都清晰</p>
+                        <div id="print-toggle-group" class="export-check">
+                            <input type="checkbox" id="print-toggle" aria-controls="print-size">
+                            <label for="print-toggle" data-i18n="fields.setPrintSize">设置打印尺寸</label>
+                        </div>
+                        <div id="print-size" class="print-size" hidden>
+                            <div class="export-field">
+                                <label for="print-width" data-i18n="fields.printWidth">打印宽度</label>
+                                <!-- The unit moves below the width field when both do not fit on one line -->
+                                <div class="print-width-row">
+                                    <input type="number" id="print-width" min="0.4" max="2000" step="any" value="50" inputmode="decimal">
+                                    <fieldset id="print-unit" class="radio-group-container print-unit">
+                                        <legend class="sr-only" data-i18n="fields.unit">单位</legend>
+                                        <div class="radio-group">
+                                            <input type="radio" id="print-unit-mm" name="print-unit" value="mm" checked>
+                                            <label for="print-unit-mm" data-i18n="options.unitMm">mm</label>
+                                        </div>
+                                        <div class="radio-group">
+                                            <input type="radio" id="print-unit-in" name="print-unit" value="in">
+                                            <label for="print-unit-in" data-i18n="options.unitIn">英寸</label>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div id="print-dpi-group" class="export-field">
+                                <label for="print-dpi" data-i18n="fields.dpi">分辨率</label>
+                                <select id="print-dpi">
+                                    <option value="150" data-i18n-option="options.dpi150">150 dpi（草稿）</option>
+                                    <option value="300" selected data-i18n-option="options.dpi300">300 dpi（印刷）</option>
+                                    <option value="600" data-i18n-option="options.dpi600">600 dpi（精细印刷）</option>
+                                </select>
+                            </div>
+                            <p id="print-width-error" class="field-error" hidden></p>
+                        </div>
+                        <div id="pdf-page-group" class="export-field" hidden>
+                            <label for="pdf-page" data-i18n="fields.pdfPage">页面</label>
+                            <select id="pdf-page">
+                                <option value="fit" selected data-i18n-option="options.pageFit">按二维码尺寸</option>
+                                <option value="a4" data-i18n-option="options.pageA4">A4</option>
+                                <option value="letter" data-i18n-option="options.pageLetter">美式信纸（Letter）</option>
+                            </select>
+                        </div>
+                        <div id="color-mode-group" class="export-field" hidden>
+                            <label for="color-mode" data-i18n="fields.colorMode">颜色模式</label>
+                            <select id="color-mode" aria-describedby="color-mode-help">
+                                <option value="rgb" selected data-i18n-option="options.colorRgb">RGB</option>
+                                <option value="cmyk" data-i18n-option="options.colorCmyk">CMYK</option>
+                                <option value="k" data-i18n-option="options.colorK">仅黑色（100% K）</option>
+                            </select>
+                            <p id="color-mode-help" class="helper-text" data-i18n="helpers.colorMode">RGB 适合屏幕和办公打印机。CMYK 适合印刷厂，使用基础的颜色转换。</p>
+                        </div>
+                    </div>
+
+                    <div id="print-info" class="print-info" hidden></div>
+                    <div id="export-notes" class="export-notes" aria-live="polite"></div>
+
+                    <button type="button" id="download-btn" class="primary-btn download-btn" aria-disabled="true">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+                        <span id="download-label" class="download-label" data-i18n="actions.download">下载</span>
+                        <span id="download-summary" class="download-summary"></span>
+                    </button>
+
+                    <div class="secondary-actions">
+                        <button type="button" id="copy-btn" class="secondary-btn" hidden>
+                            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V6a2 2 0 0 1 2-2h9"></path></svg>
+                            <span id="copy-btn-label" data-i18n="actions.copyImage">复制图像</span>
+                        </button>
+                        <button type="button" id="share-btn" class="secondary-btn" hidden>
+                            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg>
+                            <span data-i18n="actions.share">分享</span>
+                        </button>
+                        <button type="button" id="print-btn" class="secondary-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3h10v6"></path><rect x="3" y="9" width="18" height="8" rx="2"></rect><path d="M7 14h10v7H7z"></path></svg>
+                            <span data-i18n="actions.print">打印</span>
+                        </button>
+                    </div>
+                </fieldset>
+
+                <div class="payload-disclosure">
+                    <button type="button" id="payload-toggle" class="link-btn payload-toggle" aria-expanded="false" aria-controls="payload-panel">
+                        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+                        <span data-i18n="preview.encodedData">编码数据</span>
+                    </button>
+                    <div id="payload-panel" class="payload-panel" hidden>
+                        <p id="qr-code-text" class="qr-code-text"></p>
+                        <div class="payload-actions">
+                            <button type="button" id="payload-reveal-btn" class="secondary-btn small-btn" data-i18n="actions.showPayload" hidden>显示二维码数据</button>
+                            <button type="button" id="copy-text-btn" class="secondary-btn small-btn" data-i18n="actions.copyText">复制文本</button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="local-badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+                    <span data-i18n="preview.localBadge">在此设备上生成</span>
+                </p>
             </div>
         </aside>
 
         <section class="panel panel-style" aria-labelledby="step-style-title">
             <div class="panel-head">
                 <span class="step-num" aria-hidden="true">3</span>
-                <h2 id="step-style-title" data-i18n="workspace.adjustLook">尺寸与样式</h2>
+                <h2 id="step-style-title" data-i18n="workspace.adjustLook">设计</h2>
             </div>
 
-            <div class="style-row">
-                <div class="input-group">
-                    <label for="size-select" data-i18n="fields.qrSize">二维码大小</label>
-                    <select id="size-select">
-                        <option value="512" selected data-i18n-option="options.sizeMedium">屏幕（512 像素）</option>
-                        <option value="1024" data-i18n-option="options.sizeLarge">大（1024 像素）</option>
-                        <option value="2048" data-i18n-option="options.sizePrint">打印（2048 像素）</option>
-                        <option value="4096" data-i18n-option="options.sizePoster">海报（4096 像素）</option>
-                    </select>
+            <!-- Style presets: thumbnails are rendered at runtime -->
+            <fieldset id="preset-picker" class="design-group preset-picker" aria-label="样式预设" data-i18n-aria-label="aria.presetGroup">
+                <legend class="design-legend" data-i18n="design.presets">样式</legend>
+                <span id="preset-custom-tag" class="preset-custom-tag" data-i18n="design.custom" hidden>自定义</span>
+                <div class="choice-list preset-list">
+                    <input type="radio" id="preset-standard" name="preset" value="standard" checked>
+                    <label for="preset-standard" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetStandard">标准</span>
+                    </label>
+                    <input type="radio" id="preset-classic" name="preset" value="classic">
+                    <label for="preset-classic" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetClassic">经典</span>
+                    </label>
+                    <input type="radio" id="preset-rounded" name="preset" value="rounded">
+                    <label for="preset-rounded" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetRounded">圆角</span>
+                    </label>
+                    <input type="radio" id="preset-dots" name="preset" value="dots">
+                    <label for="preset-dots" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetDots">圆点</span>
+                    </label>
+                    <input type="radio" id="preset-soft" name="preset" value="soft">
+                    <label for="preset-soft" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetSoft">柔和</span>
+                    </label>
+                    <input type="radio" id="preset-scanme" name="preset" value="scanme">
+                    <label for="preset-scanme" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetScanMe">扫一扫</span>
+                    </label>
                 </div>
-                <div class="input-group">
-                    <label for="frame-style" data-i18n="fields.frame">边框</label>
-                    <select id="frame-style">
-                        <option value="none" selected data-i18n-option="options.frameNone">无边框</option>
-                        <option value="banner-bottom" data-i18n-option="options.frameBannerBottom">文字在下方</option>
-                        <option value="banner-top" data-i18n-option="options.frameBannerTop">文字在上方</option>
-                        <option value="outline" data-i18n-option="options.frameOutline">外框加文字</option>
-                    </select>
-                </div>
-            </div>
-            <div id="frame-options" class="style-row frame-options" hidden>
-                <div class="input-group">
-                    <label for="frame-text" data-i18n="fields.frameText">边框文字</label>
-                    <input type="text" id="frame-text" data-i18n-placeholder="frame.defaultText" placeholder="扫一扫" maxlength="30" autocomplete="off">
-                </div>
-                <div class="input-group">
-                    <label id="frame-color-label" for="frame-color" data-i18n="fields.frameColor">边框颜色</label>
-                    <div class="color-input-wrapper">
-                        <input type="color" id="frame-color" value="#000000">
-                        <input type="text" id="frame-color-text" value="#000000" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="frame-color-label">
-                    </div>
-                </div>
-            </div>
+            </fieldset>
 
-        <!-- Customization Section -->
-        <div class="customization-section">
-            <button type="button" id="customize-toggle" class="customize-toggle" aria-expanded="false" aria-controls="customize-panel">
-                <span data-i18n="actions.customize">自定义外观（可选）</span>
-                <svg id="customize-icon" class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
-            </button>
-            <div id="customize-panel" class="customize-panel" style="display:none;">
-                <div class="customize-grid">
-                    <div class="input-group">
-                        <label id="qr-fg-color-label" for="qr-fg-color" data-i18n="fields.foregroundColor">前景色</label>
+            <!-- Colors -->
+            <fieldset id="colors-group" class="design-group colors-group">
+                <legend class="design-legend" data-i18n="design.colors">颜色</legend>
+                <div class="color-row">
+                    <div class="color-field">
+                        <label id="qr-fg-color-label" for="qr-fg-color" data-i18n="fields.foregroundColor">二维码颜色</label>
                         <div class="color-input-wrapper">
                             <input type="color" id="qr-fg-color" value="#000000">
-                            <input type="text" id="qr-fg-color-text" value="#000000" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="qr-fg-color-label">
+                            <input type="text" id="qr-fg-color-text" value="#000000" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="qr-fg-color-label">
                         </div>
                     </div>
-                    <div class="input-group">
-                        <label id="qr-bg-color-label" for="qr-bg-color" data-i18n="fields.backgroundColor">背景色</label>
+                    <fieldset id="fill-type" class="radio-group-container fill-type">
+                        <legend class="sr-only" data-i18n="fields.fill">填充</legend>
+                        <div class="radio-group">
+                            <input type="radio" id="fill-solid" name="fill" value="solid" checked>
+                            <label for="fill-solid" data-i18n="options.fillSolid">纯色</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="fill-gradient" name="fill" value="gradient">
+                            <label for="fill-gradient" data-i18n="options.fillGradient">渐变</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="gradient-options" class="gradient-options" hidden>
+                    <div class="color-field">
+                        <label id="qr-fg-color2-label" for="qr-fg-color2" data-i18n="fields.gradientColor2">第二种颜色</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="qr-fg-color2" value="#2563eb">
+                            <input type="text" id="qr-fg-color2-text" value="#2563eb" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="qr-fg-color2-label">
+                        </div>
+                    </div>
+                    <fieldset id="gradient-type" class="radio-group-container gradient-type">
+                        <legend class="sr-only" data-i18n="fields.gradientType">渐变类型</legend>
+                        <div class="radio-group">
+                            <input type="radio" id="gradient-linear" name="gradient-type" value="linear" checked>
+                            <label for="gradient-linear" data-i18n="options.gradientLinear">线性</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="gradient-radial" name="gradient-type" value="radial">
+                            <label for="gradient-radial" data-i18n="options.gradientRadial">径向</label>
+                        </div>
+                    </fieldset>
+                    <div id="gradient-angle-group" class="slider-group">
+                        <label for="gradient-angle" data-i18n="fields.gradientAngle">角度</label>: <span id="gradient-angle-value">45°</span>
+                        <input type="range" id="gradient-angle" min="0" max="345" step="15" value="45" aria-valuetext="45°">
+                    </div>
+                </div>
+                <div class="color-row">
+                    <div class="color-field">
+                        <label id="qr-bg-color-label" for="qr-bg-color" data-i18n="fields.backgroundColor">背景</label>
                         <div class="color-input-wrapper">
                             <input type="color" id="qr-bg-color" value="#ffffff">
-                            <input type="text" id="qr-bg-color-text" value="#ffffff" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="qr-bg-color-label">
+                            <input type="text" id="qr-bg-color-text" value="#ffffff" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="qr-bg-color-label">
                         </div>
                         <div class="checkbox-group compact-checkbox">
                             <input type="checkbox" id="qr-transparent-bg">
                             <label for="qr-transparent-bg" data-i18n="fields.transparentBackground">透明背景</label>
                         </div>
                     </div>
-                    <div class="input-group">
-                        <label for="qr-error-correction" data-i18n="fields.errorCorrection">纠错级别</label>
-                        <select id="qr-error-correction">
-                            <option value="L" data-i18n-option="options.errorLow">L - 低（7%）</option>
-                            <option value="M" selected data-i18n-option="options.errorMedium">M - 中（15%）</option>
-                            <option value="Q" data-i18n-option="options.errorQuartile">Q - 四分位（25%）</option>
-                            <option value="H" data-i18n-option="options.errorHigh">H - 高（30%）</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="qr-format" data-i18n="fields.downloadFormat">下载格式</label>
-                        <select id="qr-format">
-                            <option value="png" selected data-i18n-option="options.formatPng">PNG（栅格）</option>
-                            <option value="svg" data-i18n-option="options.formatSvg">SVG（矢量）</option>
-                            <option value="pdf" data-i18n-option="options.formatPdf">PDF（文档）</option>
-                        </select>
+                </div>
+                <div class="color-actions">
+                    <button type="button" id="swap-colors-btn" class="secondary-btn small-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"></path></svg>
+                        <span data-i18n="actions.swapColors">互换颜色</span>
+                    </button>
+                    <div class="checkbox-group compact-checkbox">
+                        <input type="checkbox" id="custom-corners" aria-controls="corner-colors">
+                        <label for="custom-corners" data-i18n="fields.customCorners">自定义码眼颜色</label>
                     </div>
                 </div>
+                <div id="corner-colors" class="corner-colors" hidden>
+                    <div class="color-field">
+                        <label id="corner-outer-color-label" for="corner-outer-color" data-i18n="fields.cornerOuterColor">码眼外框颜色</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="corner-outer-color" value="#000000">
+                            <input type="text" id="corner-outer-color-text" value="#000000" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="corner-outer-color-label">
+                        </div>
+                    </div>
+                    <div class="color-field">
+                        <label id="corner-inner-color-label" for="corner-inner-color" data-i18n="fields.cornerInnerColor">码眼中心颜色</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="corner-inner-color" value="#000000">
+                            <input type="text" id="corner-inner-color-text" value="#000000" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="corner-inner-color-label">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
 
-                <!-- Logo Upload Section -->
-                <div class="logo-section">
-                    <h3 class="section-title" data-i18n="fields.logo">徽标（可选）</h3>
+            <!-- Logo: click, drop or paste -->
+            <div id="logo-group" class="design-group logo-section">
+                <h3 class="design-legend" data-i18n="fields.logo">Logo</h3>
+                <div id="logo-dropzone" class="logo-dropzone">
+                    <input type="file" id="qr-logo" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" hidden>
                     <div class="logo-upload-area">
-                        <input type="file" id="qr-logo" accept="image/*" style="display:none;">
                         <button type="button" id="logo-select-btn" class="secondary-btn small-btn" data-i18n="actions.chooseLogo">选择图像</button>
+                        <div id="logo-preview" class="logo-preview" hidden>
+                            <img id="logo-preview-img" alt="">
+                        </div>
                         <span id="logo-filename" class="logo-filename"></span>
-                        <button type="button" id="logo-remove-btn" class="icon-btn" style="display:none;" title="Remove logo" aria-label="Remove logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+                        <button type="button" id="logo-remove-btn" class="icon-btn" aria-label="移除 Logo" data-i18n-aria-label="aria.removeLogo" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
                     </div>
-                    <div id="logo-preview" class="logo-preview" style="display:none;">
-                        <img id="logo-preview-img" alt="Logo preview">
-                    </div>
-                    <div id="logo-controls" style="display:none;">
-                        <div class="slider-group">
-                            <label for="qr-logo-size" data-i18n="fields.logoSize">徽标大小</label>: <span id="qr-logo-size-value">40%</span>
-                            <input type="range" id="qr-logo-size" min="0.2" max="0.5" step="0.05" value="0.4">
-                        </div>
-                        <div class="slider-group">
-                            <label for="qr-logo-margin" data-i18n="fields.logoMargin">徽标边距</label>: <span id="qr-logo-margin-value">4px</span>
-                            <input type="range" id="qr-logo-margin" min="0" max="20" step="2" value="4">
-                        </div>
-                    </div>
+                    <p id="logo-drop-hint" class="helper-text logo-drop-hint" data-i18n="logo.dropHint">拖放、粘贴或选择图像：PNG、JPEG、WebP、GIF 或 SVG。</p>
+                    <span class="logo-drop-overlay" aria-hidden="true" data-i18n="logo.dropHere" hidden>松开即可将图像用作 Logo</span>
                 </div>
-
-                <!-- Style Section -->
-                <div class="style-section">
-                    <h3 class="section-title" data-i18n="fields.styleOptions">样式选项</h3>
-                    <div class="style-grid">
-                        <div class="input-group">
-                            <label for="qr-dot-style" data-i18n="fields.dotStyle">点样式</label>
-                            <select id="qr-dot-style">
-                                <option value="square" selected data-i18n-option="options.dotSquare">方形</option>
-                                <option value="rounded" data-i18n-option="options.dotRounded">圆角</option>
-                                <option value="dots" data-i18n-option="options.dotDots">点</option>
-                                <option value="classy" data-i18n-option="options.dotClassy">优雅</option>
-                                <option value="classy-rounded" data-i18n-option="options.dotClassyRounded">优雅圆角</option>
-                                <option value="extra-rounded" data-i18n-option="options.dotExtraRounded">超圆角</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="qr-corner-square-style" data-i18n="fields.cornerSquare">角方块</label>
-                            <select id="qr-corner-square-style">
-                                <option value="square" data-i18n-option="options.cornerSquare">方形</option>
-                                <option value="extra-rounded" selected data-i18n-option="options.cornerExtraRounded">超圆角</option>
-                                <option value="dot" data-i18n-option="options.cornerDot">点</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="qr-corner-dot-style" data-i18n="fields.cornerDot">角点</label>
-                            <select id="qr-corner-dot-style">
-                                <option value="square" data-i18n-option="options.cornerSquare">方形</option>
-                                <option value="dot" selected data-i18n-option="options.cornerDot">点</option>
-                            </select>
-                        </div>
+                <p id="logo-error" class="field-error logo-error" role="alert" hidden></p>
+                <p id="logo-note" class="helper-text logo-note" hidden></p>
+                <div id="logo-controls" class="logo-controls" hidden>
+                    <div class="slider-group">
+                        <label for="qr-logo-size" data-i18n="fields.logoSize">Logo 大小</label>: <span id="qr-logo-size-value">40%</span>
+                        <input type="range" id="qr-logo-size" min="0.2" max="0.5" step="0.05" value="0.4" aria-valuetext="40%">
                     </div>
                     <div class="slider-group">
-                        <label for="qr-margin" data-i18n="fields.quietZone">静区（边距）</label>: <span id="qr-margin-value">4 modules</span>
+                        <label for="qr-logo-margin" data-i18n="fields.logoMargin">Logo 周围留白</label>: <span id="qr-logo-margin-value">0.5 modules</span>
+                        <input type="range" id="qr-logo-margin" min="0" max="2" step="0.25" value="0.5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame -->
+            <fieldset id="frame-picker" class="design-group frame-picker">
+                <legend class="design-legend" data-i18n="fields.frame">边框</legend>
+                <div class="choice-list">
+                    <input type="radio" id="frame-none" name="frame-style" value="none" checked>
+                    <label for="frame-none" class="choice-card">
+                        <svg class="choice-thumb" width="40" height="40" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" transform="translate(8 8)" d="M0 0h10v10H0zM2 2v6h6V2zM3.5 3.5h3v3h-3zM22 0h10v10H22zM24 2v6h6V2zM25.5 3.5h3v3h-3zM0 22h10v10H0zM2 24v6h6v-6zM3.5 25.5h3v3h-3zM14 0h4v4h-4zM14 8h4v6h-4zM0 14h4v4H0zM8 14h6v4H8zM18 18h4v4h-4zM24 14h4v4h-4zM28 20h4v4h-4zM14 24h4v8h-4zM22 26h4v6h-4zM28 28h4v4h-4z"></path></svg>
+                        <span data-i18n="options.frameNone">无边框</span>
+                    </label>
+                    <input type="radio" id="frame-banner-bottom" name="frame-style" value="banner-bottom">
+                    <label for="frame-banner-bottom" class="choice-card">
+                        <svg class="choice-thumb" width="40" height="40" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" transform="translate(12 5) scale(0.75)" d="M0 0h10v10H0zM2 2v6h6V2zM3.5 3.5h3v3h-3zM22 0h10v10H22zM24 2v6h6V2zM25.5 3.5h3v3h-3zM0 22h10v10H0zM2 24v6h6v-6zM3.5 25.5h3v3h-3zM14 0h4v4h-4zM14 8h4v6h-4zM0 14h4v4H0zM8 14h6v4H8zM18 18h4v4h-4zM24 14h4v4h-4zM28 20h4v4h-4zM14 24h4v8h-4zM22 26h4v6h-4zM28 28h4v4h-4z"></path><rect x="8" y="33" width="32" height="10" rx="2"></rect></svg>
+                        <span data-i18n="options.frameBannerBottom">文字在下方</span>
+                    </label>
+                    <input type="radio" id="frame-banner-top" name="frame-style" value="banner-top">
+                    <label for="frame-banner-top" class="choice-card">
+                        <svg class="choice-thumb" width="40" height="40" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><rect x="8" y="5" width="32" height="10" rx="2"></rect><path fill-rule="evenodd" transform="translate(12 19) scale(0.75)" d="M0 0h10v10H0zM2 2v6h6V2zM3.5 3.5h3v3h-3zM22 0h10v10H22zM24 2v6h6V2zM25.5 3.5h3v3h-3zM0 22h10v10H0zM2 24v6h6v-6zM3.5 25.5h3v3h-3zM14 0h4v4h-4zM14 8h4v6h-4zM0 14h4v4H0zM8 14h6v4H8zM18 18h4v4h-4zM24 14h4v4h-4zM28 20h4v4h-4zM14 24h4v8h-4zM22 26h4v6h-4zM28 28h4v4h-4z"></path></svg>
+                        <span data-i18n="options.frameBannerTop">文字在上方</span>
+                    </label>
+                    <input type="radio" id="frame-outline" name="frame-style" value="outline">
+                    <label for="frame-outline" class="choice-card">
+                        <svg class="choice-thumb" width="40" height="40" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><rect x="5" y="3" width="38" height="42" rx="5" fill="none" stroke="currentColor" stroke-width="2"></rect><path fill-rule="evenodd" transform="translate(13 8) scale(0.6875)" d="M0 0h10v10H0zM2 2v6h6V2zM3.5 3.5h3v3h-3zM22 0h10v10H22zM24 2v6h6V2zM25.5 3.5h3v3h-3zM0 22h10v10H0zM2 24v6h6v-6zM3.5 25.5h3v3h-3zM14 0h4v4h-4zM14 8h4v6h-4zM0 14h4v4H0zM8 14h6v4H8zM18 18h4v4h-4zM24 14h4v4h-4zM28 20h4v4h-4zM14 24h4v8h-4zM22 26h4v6h-4zM28 28h4v4h-4z"></path><rect x="15" y="35" width="18" height="4" rx="1"></rect></svg>
+                        <span data-i18n="options.frameOutline">外框加文字</span>
+                    </label>
+                </div>
+                <div id="frame-options" class="style-row frame-options" hidden>
+                    <div class="input-group">
+                        <label for="frame-text" data-i18n="fields.frameText">边框文字</label>
+                        <input type="text" id="frame-text" data-i18n-placeholder="frame.defaultText" placeholder="扫一扫" maxlength="30" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label id="frame-color-label" for="frame-color" data-i18n="fields.frameColor">边框颜色</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="frame-color" value="#000000">
+                            <input type="text" id="frame-color-text" value="#000000" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="frame-color-label">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+        <!-- More design options: shapes, advanced settings and reset -->
+        <div class="customization-section">
+            <button type="button" id="customize-toggle" class="customize-toggle" aria-expanded="false" aria-controls="customize-panel">
+                <span data-i18n="actions.customize">更多设计选项</span>
+                <svg id="customize-icon" class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div id="customize-panel" class="customize-panel" hidden>
+                <div class="design-subsection shapes-section">
+                    <h3 class="section-title" data-i18n="fields.styleOptions">形状</h3>
+
+                    <fieldset id="dot-style-picker" class="choice-group">
+                        <legend class="choice-legend" data-i18n="fields.dotStyle">码点图案</legend>
+                        <div class="choice-list">
+                            <input type="radio" id="dot-square" name="dot-style" value="square" checked>
+                            <label for="dot-square" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 0h20v10H0zM10 10h20v10H10zM0 20h10v10H0zM20 20h10v10H20z"></path></svg>
+                                <span data-i18n="options.dotSquare">方形</span>
+                            </label>
+                            <input type="radio" id="dot-rounded" name="dot-style" value="rounded">
+                            <label for="dot-rounded" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><rect x="0" y="0" width="20" height="10" rx="3"></rect><rect x="10" y="10" width="20" height="10" rx="3"></rect><rect x="0" y="20" width="10" height="10" rx="3"></rect><rect x="20" y="20" width="10" height="10" rx="3"></rect></svg>
+                                <span data-i18n="options.dotRounded">圆角</span>
+                            </label>
+                            <input type="radio" id="dot-dots" name="dot-style" value="dots">
+                            <label for="dot-dots" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="5" cy="5" r="4.2"></circle><circle cx="15" cy="5" r="4.2"></circle><circle cx="15" cy="15" r="4.2"></circle><circle cx="25" cy="15" r="4.2"></circle><circle cx="5" cy="25" r="4.2"></circle><circle cx="25" cy="25" r="4.2"></circle></svg>
+                                <span data-i18n="options.dotDots">点</span>
+                            </label>
+                            <input type="radio" id="dot-classy" name="dot-style" value="classy">
+                            <label for="dot-classy" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5 0h5v5a5 5 0 0 1-5 5H0V5a5 5 0 0 1 5-5zM15 0h5v5a5 5 0 0 1-5 5h-5V5a5 5 0 0 1 5-5zM15 10h5v5a5 5 0 0 1-5 5h-5v-5a5 5 0 0 1 5-5zM25 10h5v5a5 5 0 0 1-5 5h-5v-5a5 5 0 0 1 5-5zM5 20h5v5a5 5 0 0 1-5 5H0v-5a5 5 0 0 1 5-5zM25 20h5v5a5 5 0 0 1-5 5h-5v-5a5 5 0 0 1 5-5z"></path></svg>
+                                <span data-i18n="options.dotClassy">优雅</span>
+                            </label>
+                            <input type="radio" id="dot-classy-rounded" name="dot-style" value="classy-rounded">
+                            <label for="dot-classy-rounded" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><path d="M7 0h3v3a7 7 0 0 1-7 7H0V7a7 7 0 0 1 7-7zM17 0h3v3a7 7 0 0 1-7 7h-3V7a7 7 0 0 1 7-7zM17 10h3v3a7 7 0 0 1-7 7h-3v-3a7 7 0 0 1 7-7zM27 10h3v3a7 7 0 0 1-7 7h-3v-3a7 7 0 0 1 7-7zM7 20h3v3a7 7 0 0 1-7 7H0v-3a7 7 0 0 1 7-7zM27 20h3v3a7 7 0 0 1-7 7h-3v-3a7 7 0 0 1 7-7z"></path></svg>
+                                <span data-i18n="options.dotClassyRounded">优雅圆角</span>
+                            </label>
+                            <input type="radio" id="dot-extra-rounded" name="dot-style" value="extra-rounded">
+                            <label for="dot-extra-rounded" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><rect x="0" y="0" width="20" height="10" rx="5"></rect><rect x="10" y="10" width="20" height="10" rx="5"></rect><circle cx="5" cy="25" r="5"></circle><circle cx="25" cy="25" r="5"></circle></svg>
+                                <span data-i18n="options.dotExtraRounded">超圆角</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset id="corner-square-picker" class="choice-group">
+                        <legend class="choice-legend" data-i18n="fields.cornerSquare">码眼外框</legend>
+                        <div class="choice-list">
+                            <input type="radio" id="corner-square-square" name="corner-square-style" value="square">
+                            <label for="corner-square-square" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0 0h70v70H0zM10 10v50h50V10z"></path><rect x="20" y="20" width="30" height="30" opacity="0.35"></rect></svg>
+                                <span data-i18n="options.cornerSquare">方形</span>
+                            </label>
+                            <input type="radio" id="corner-square-extra-rounded" name="corner-square-style" value="extra-rounded" checked>
+                            <label for="corner-square-extra-rounded" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0 25A25 25 0 0 1 25 0h20a25 25 0 0 1 25 25v20a25 25 0 0 1-25 25H25A25 25 0 0 1 0 45zM10 25v20a15 15 0 0 0 15 15h20a15 15 0 0 0 15-15V25a15 15 0 0 0-15-15H25a15 15 0 0 0-15 15z"></path><rect x="20" y="20" width="30" height="30" opacity="0.35"></rect></svg>
+                                <span data-i18n="options.cornerExtraRounded">超圆角</span>
+                            </label>
+                            <input type="radio" id="corner-square-dot" name="corner-square-style" value="dot">
+                            <label for="corner-square-dot" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M35 0a35 35 0 1 1 0 70a35 35 0 1 1 0-70zM35 10a25 25 0 1 0 0 50a25 25 0 1 0 0-50z"></path><rect x="20" y="20" width="30" height="30" opacity="0.35"></rect></svg>
+                                <span data-i18n="options.cornerDot">点</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset id="corner-dot-picker" class="choice-group">
+                        <legend class="choice-legend" data-i18n="fields.cornerDot">码眼中心</legend>
+                        <div class="choice-list">
+                            <input type="radio" id="corner-dot-square" name="corner-dot-style" value="square">
+                            <label for="corner-dot-square" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" opacity="0.35" d="M0 0h70v70H0zM10 10v50h50V10z"></path><rect x="20" y="20" width="30" height="30"></rect></svg>
+                                <span data-i18n="options.cornerSquare">方形</span>
+                            </label>
+                            <input type="radio" id="corner-dot-dot" name="corner-dot-style" value="dot" checked>
+                            <label for="corner-dot-dot" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" opacity="0.35" d="M0 0h70v70H0zM10 10v50h50V10z"></path><circle cx="35" cy="35" r="15"></circle></svg>
+                                <span data-i18n="options.cornerDot">点</span>
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="design-subsection advanced-section">
+                    <h3 class="section-title" data-i18n="design.advanced">高级</h3>
+                    <div class="input-group">
+                        <label for="qr-error-correction" data-i18n="fields.errorCorrection">纠错级别</label>
+                        <select id="qr-error-correction" aria-describedby="ecl-help">
+                            <option value="auto" selected data-i18n-option="options.errorAuto">自动（推荐）</option>
+                            <option value="L" data-i18n-option="options.errorLow">L - 低（7%）</option>
+                            <option value="M" data-i18n-option="options.errorMedium">M - 中（15%）</option>
+                            <option value="Q" data-i18n-option="options.errorQuartile">Q - 较高（25%）</option>
+                            <option value="H" data-i18n-option="options.errorHigh">H - 高（30%）</option>
+                        </select>
+                        <p id="ecl-help" class="helper-text ecl-help">
+                            <span data-i18n="helpers.ecHelper">级别越高，越能抵御污损和 Logo 遮挡，但二维码也会更密集。</span>
+                            <span id="ecl-auto-help" data-i18n="design.eclAutoHelp">自动模式使用 M 级；二维码带 Logo 时使用 H 级。</span>
+                            <span id="ecl-locked-help" data-i18n="design.eclLockedPayment" hidden>转账二维码始终使用 M 级。</span>
+                        </p>
+                    </div>
+                    <div class="slider-group">
+                        <label for="qr-margin" data-i18n="fields.quietZone">静区</label>: <span id="qr-margin-value">4 modules</span>
                         <input type="range" id="qr-margin" min="4" max="12" step="1" value="4" aria-describedby="quiet-zone-helper">
                         <p id="quiet-zone-helper" class="helper-text" data-i18n="helpers.quietZoneHelper">二维码周围的空白区域（可靠扫描至少需要4个模块）</p>
                     </div>
+                    <div class="input-group min-version-group">
+                        <label for="min-version" data-i18n="fields.minVersion">最低二维码版本</label>
+                        <select id="min-version">
+                            <option value="0" selected data-i18n-option="options.versionAuto">自动</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                        </select>
+                    </div>
                 </div>
 
-                <button type="button" id="reset-customization" class="secondary-btn" data-i18n="actions.reset">重置为默认</button>
+                <button type="button" id="reset-customization" class="secondary-btn" data-i18n="actions.reset">重置设计</button>
             </div>
         </div>
         </section>
@@ -844,7 +1333,7 @@
             </li>
             <li>
                 <span class="step-num" aria-hidden="true">3</span>
-                <div><strong data-i18n="how.step3Title">下载</strong><span data-i18n="how.step3Text">保存为 PNG、SVG 或 PDF。打印或分享前请先测试扫描。</span></div>
+                <div><strong data-i18n="how.step3Title">下载</strong><span data-i18n="how.step3Text">按所需的精确尺寸下载 PNG、SVG、PDF 或 EPS，也可以复制或分享。扫描检查会告诉您二维码能否被扫描。</span></div>
             </li>
         </ol>
     </section>
@@ -904,7 +1393,7 @@
             <div class="card">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="2.5" width="14" height="19" rx="2.5"></rect><path d="M10 18h4"></path><path d="m9.5 10 2 2 3.5-4"></path></svg>
                 <h3 data-i18n="privacyInfo.localTitle">留在您的设备上</h3>
-                <p data-i18n="privacyInfo.localText">二维码和徽标由在您浏览器中运行的代码生成。没有任何服务器可以接收您输入的内容。</p>
+                <p data-i18n="privacyInfo.localText">二维码和 Logo 由在您浏览器中运行的代码生成。没有任何服务器可以接收您输入的内容。</p>
             </div>
             <div class="card">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><path d="M14 14h3v3h-3zM18 18h3v3h-3z"></path></svg>
@@ -914,7 +1403,7 @@
             <div class="card">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10.6 5.1A10 10 0 0 1 12 5c5 0 9 4.5 10 7a13 13 0 0 1-2.5 3.6M6.6 6.6A13 13 0 0 0 2 12c1 2.5 5 7 10 7a9.8 9.8 0 0 0 5.4-1.6"></path><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path><path d="m3 3 18 18"></path></svg>
                 <h3 data-i18n="privacyInfo.noTrackingTitle">无跟踪</h3>
-                <p data-i18n="privacyInfo.noTrackingText">没有分析、广告、Cookie 或账户。只有语言和主题选择会保存在您的浏览器本地。</p>
+                <p data-i18n="privacyInfo.noTrackingText">没有分析、广告、Cookie 或账户。只有语言、主题和下载设置会保存在您的浏览器本地。</p>
             </div>
             <div class="card">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"></path></svg>
@@ -945,15 +1434,19 @@
             </details>
             <details class="faq-item">
                 <summary>二维码应该印多大？</summary>
-                <p>打印尺寸至少为 2 × 2 厘米。一般来说，二维码的边长至少应为扫描距离的十分之一：在 2 米外扫描的海报，二维码需要约 20 厘米。用于印刷时，请下载 SVG 或大尺寸 PNG，并保持二维码周围的静区空白。</p>
+                <p>打印尺寸至少为 2 × 2 厘米。一般来说，二维码的边长至少应为扫描距离的十分之一：在 2 米外扫描的海报，二维码需要约 20 厘米。用于印刷时，请下载在任何尺寸下都清晰的 PDF 或 SVG，并设置精确的打印宽度。QRTurbo.app 会显示模块尺寸，并在二维码太小、难以扫描时提醒您。请保持二维码周围的静区空白。</p>
             </details>
             <details class="faq-item">
                 <summary>为什么我的二维码扫不出来？</summary>
-                <p>最常见的原因有：二维码与背景的对比度太低、静区太小、Logo 遮挡了过多二维码，或者内容相对于打印尺寸过多。QRTurbo.app 会提醒您注意这些风险。印刷前请务必用几部不同的手机测试。</p>
+                <p>最常见的原因有：二维码与背景的对比度太低、静区太小、Logo 遮挡了过多二维码，或者内容相对于打印尺寸过多。QRTurbo.app 会在您的设备上用内置扫描器检查每个二维码，并给出修复建议。印刷前请务必用几部不同的手机测试。</p>
             </details>
             <details class="faq-item">
                 <summary>我的数据安全吗？你们能看到我的 WiFi 密码吗？</summary>
                 <p>您的数据只保留在您的设备上。二维码由在您浏览器中运行的代码生成，您输入或上传的任何内容都不会发送到服务器，因此没有人能看到您的 WiFi 密码或联系信息。首次访问后，生成器还可以离线使用。</p>
+            </details>
+            <details class="faq-item">
+                <summary>我应该使用哪种文件格式？</summary>
+                <p>屏幕、文档和大多数打印机请使用 PNG。网站和设计工具请使用 SVG，印刷厂请使用 PDF：两者都是矢量文件，在任何尺寸下都清晰。EPS 适用于旧版设计和标牌制作软件。JPG 和 WebP 是适合应用和网站的小体积图像文件。所有格式均免费，并会保留您的颜色、Logo 和边框。</p>
             </details>
         </div>
     </section>
@@ -978,7 +1471,7 @@
     <footer class="site-footer">
         <p>
             <span data-i18n="footer.privacy1">此免费二维码生成器完全在您的浏览器中运行。</span>
-            <span data-i18n="footer.privacy2">不存储或发送任何数据。无跟踪、无广告、无废话。</span>
+            <span data-i18n="footer.privacy2">您输入的任何内容都不会被存储或发送到任何地方。无跟踪、无广告、无废话。</span>
         </p>
         <nav aria-label="QRTurbo.app">
             <a href="/privacy.html" data-i18n="footer.privacyPolicy">隐私政策</a>
@@ -987,10 +1480,160 @@
         </nav>
     </footer>
 
-    <!-- External JavaScript -->
-    <script src="/js/i18n/core.js?v=1.2.0" defer></script>
-    <script src="/js/qr-code-styling.min.js?v=1.2.0" defer></script>
-    <script src="/js/app.js?v=1.2.0" defer></script>
+    <!-- Notifications: visual toasts and screen-reader-only announcements -->
+    <div id="toast-region" class="toast-region" role="status" aria-live="polite" aria-label="通知" data-i18n-aria-label="aria.notifications"></div>
+    <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Phone quick bar: shown while the preview card is scrolled out of view -->
+    <div id="mobile-bar" class="mobile-bar" role="region" aria-label="快速下载" data-i18n-aria-label="aria.mobileBar" hidden>
+        <button type="button" id="mobile-thumb-btn" class="mobile-thumb-btn" aria-label="显示二维码" data-i18n-aria-label="mobile.showPreview">
+            <img id="mobile-thumb" class="mobile-thumb" alt="" width="48" height="48">
+        </button>
+        <button type="button" id="mobile-download-btn" class="primary-btn mobile-download-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+            <span id="mobile-download-label" data-i18n="actions.download">下载</span>
+        </button>
+        <button type="button" id="mobile-share-btn" class="secondary-btn mobile-share-btn" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg>
+            <span data-i18n="actions.share">分享</span>
+        </button>
+    </div>
+
+    <!-- Batch mode: CSV or TSV rows to a ZIP file, created on this device -->
+    <dialog id="batch-dialog" class="batch-dialog" aria-labelledby="batch-title">
+        <div class="batch-body">
+            <div class="batch-section batch-data">
+                <h2 id="batch-title" class="batch-title" data-i18n="batch.title">批量生成二维码</h2>
+                <p class="helper-text batch-intro" data-i18n="batch.intro">粘贴电子表格中的行，或选择 CSV 文件。每一行都会按当前设计生成一个二维码。文件仅在此设备上读取，绝不会上传。</p>
+                <div class="input-group">
+                    <label for="batch-input" data-i18n="fields.batchSource">CSV 数据</label>
+                    <textarea id="batch-input" rows="6" wrap="off" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+                </div>
+                <div class="batch-file-row">
+                    <input type="file" id="batch-file" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden>
+                    <button type="button" id="batch-file-btn" class="secondary-btn small-btn" data-i18n="actions.chooseCsv">选择 CSV 文件</button>
+                    <span id="batch-file-name" class="batch-file-name"></span>
+                    <span class="helper-text batch-drop-hint" data-i18n="batch.dropHint">将 CSV 文件拖放到此处</span>
+                </div>
+                <p id="batch-file-error" class="field-error batch-error" role="alert" hidden></p>
+                <div class="checkbox-group compact-checkbox">
+                    <input type="checkbox" id="batch-has-header" checked>
+                    <label for="batch-has-header" data-i18n="fields.batchHasHeader">第一行是列名</label>
+                </div>
+                <p id="batch-rows-found" class="helper-text" role="status"></p>
+            </div>
+
+            <div class="batch-section batch-fields">
+                <h3 class="section-title" data-i18n="batch.mappingTitle">将列对应到字段</h3>
+                <div class="input-group">
+                    <label for="batch-type" data-i18n="fields.batchType">二维码类型</label>
+                    <select id="batch-type">
+                        <option value="URLText" data-i18n-option="tabs.urlText">网址/文本</option>
+                        <option value="VCard" data-i18n-option="tabs.vcard">电子名片</option>
+                        <option value="Wifi" data-i18n-option="tabs.wifi">WiFi</option>
+                        <option value="SMSPhone" data-i18n-option="tabs.smsPhone">短信/电话</option>
+                        <option value="Email" data-i18n-option="tabs.email">电子邮件</option>
+                        <option value="Location" data-i18n-option="tabs.location">位置</option>
+                        <option value="WhatsApp" data-i18n-option="tabs.whatsapp">WhatsApp</option>
+                        <option value="MeCard" data-i18n-option="tabs.mecard">MeCard</option>
+                        <option value="Payment" data-i18n-option="tabs.payment">转账</option>
+                    </select>
+                </div>
+                <!-- One row per field of the chosen type, built at runtime. -->
+                <div id="batch-mapping" class="batch-mapping"></div>
+                <div class="input-group">
+                    <label for="batch-filename-col" data-i18n="fields.batchFilename">文件名来源</label>
+                    <select id="batch-filename-col">
+                        <option value="" selected data-i18n-option="options.filenameRowNumber">行号</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="batch-section batch-output">
+                <fieldset id="batch-format" class="batch-format">
+                    <legend class="batch-legend" data-i18n="fields.batchFormat">文件格式</legend>
+                    <div class="radio-group-container batch-format-options">
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-png" name="batch-format" value="png" checked>
+                            <label for="batch-format-png" data-i18n="options.formatPng">PNG</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-svg" name="batch-format" value="svg">
+                            <label for="batch-format-svg" data-i18n="options.formatSvg">SVG</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-pdf" name="batch-format" value="pdf">
+                            <label for="batch-format-pdf" data-i18n="options.formatPdf">PDF</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-jpg" name="batch-format" value="jpg">
+                            <label for="batch-format-jpg" data-i18n="options.formatJpg">JPG</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-webp" name="batch-format" value="webp">
+                            <label for="batch-format-webp" data-i18n="options.formatWebp">WebP</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-eps" name="batch-format" value="eps">
+                            <label for="batch-format-eps" data-i18n="options.formatEps">EPS</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <p id="batch-size-note" class="helper-text"></p>
+                <div class="checkbox-group compact-checkbox">
+                    <input type="checkbox" id="batch-same-size">
+                    <label for="batch-same-size" data-i18n="fields.batchSameSize">所有二维码使用相同尺寸</label>
+                </div>
+                <div id="batch-verify-group" class="checkbox-group compact-checkbox">
+                    <input type="checkbox" id="batch-verify" checked>
+                    <label for="batch-verify" data-i18n="fields.batchVerify">检查每个二维码能否扫描</label>
+                </div>
+                <div class="checkbox-group compact-checkbox">
+                    <input type="checkbox" id="batch-manifest" checked>
+                    <label for="batch-manifest" data-i18n="fields.batchManifest">包含所有文件的列表（manifest.csv）</label>
+                </div>
+            </div>
+
+            <!-- Row errors of the last run, filled at runtime. -->
+            <div id="batch-result" class="batch-section batch-result" hidden></div>
+        </div>
+
+        <!-- Always visible below the scrolling form: progress, messages and actions. -->
+        <div class="batch-footer">
+            <progress id="batch-progress" class="batch-progress" max="100" value="0" aria-labelledby="batch-status" hidden></progress>
+            <p id="batch-status" class="helper-text batch-status" role="status"></p>
+            <p id="batch-error" class="field-error batch-error" role="alert" hidden></p>
+            <div class="batch-actions">
+                <button type="button" id="batch-start" class="primary-btn" data-i18n="actions.batchStart">生成 ZIP 文件</button>
+                <button type="button" id="batch-cancel" class="secondary-btn" data-i18n="actions.cancel" hidden>取消</button>
+                <button type="button" id="batch-close" class="secondary-btn" data-i18n="actions.close">关闭</button>
+            </div>
+        </div>
+
+        <div class="batch-drop-overlay" data-drop-overlay hidden>
+            <span data-i18n="batch.dropHint">将 CSV 文件拖放到此处</span>
+        </div>
+    </dialog>
+
+    <!-- External JavaScript, in dependency order -->
+    <script src="/js/i18n/core.js?v=2.0.0" defer></script>
+    <script src="/js/qr-code-styling.min.js?v=2.0.0" defer></script>
+    <script src="/js/lib/bytes.js?v=2.0.0" defer></script>
+    <script src="/js/lib/color.js?v=2.0.0" defer></script>
+    <script src="/js/lib/capacity.js?v=2.0.0" defer></script>
+    <script src="/js/lib/payloads.js?v=2.0.0" defer></script>
+    <script src="/js/lib/rules.js?v=2.0.0" defer></script>
+    <script src="/js/lib/presets.js?v=2.0.0" defer></script>
+    <script src="/js/lib/svg.js?v=2.0.0" defer></script>
+    <script src="/js/frame.js?v=2.0.0" defer></script>
+    <script src="/js/qr-engine.js?v=2.0.0" defer></script>
+    <script src="/js/ui/kit.js?v=2.0.0" defer></script>
+    <script src="/js/exporter.js?v=2.0.0" defer></script>
+    <script src="/js/scan.js?v=2.0.0" defer></script>
+    <script src="/js/ui/design.js?v=2.0.0" defer></script>
+    <script src="/js/ui/export.js?v=2.0.0" defer></script>
+    <script src="/js/app.js?v=2.0.0" defer></script>
+    <script src="/js/controller.js?v=2.0.0" defer></script>
 </body>
 
 </html>

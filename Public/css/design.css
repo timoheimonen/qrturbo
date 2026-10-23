@@ -1,0 +1,592 @@
+/*
+ * QRTurbo.app design panel styles
+ * Step 3 of the generator: style presets, colors and gradients, custom
+ * corner colors, the logo drop zone, frame and shape pickers, and the
+ * "More design options" panel. Uses the tokens defined in styles.css.
+ */
+
+/* ── Groups and legends ── */
+
+.panel-style .design-group,
+.panel-style .choice-group {
+    padding: 0;
+}
+
+.panel-style .design-group + .design-group {
+    margin-top: var(--space-5);
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+/* Legends float so their bottom margin works in every browser. */
+.design-legend,
+.choice-legend {
+    float: left;
+    width: 100%;
+    padding: 0;
+}
+
+/* Only the element right after the floated legend, or after the Custom
+   tag, clears it. A "~ *" sibling selector made every node of a large
+   preview SVG walk its siblings and cost close to a second of style
+   recalculation. */
+.design-legend + *,
+.choice-legend + *,
+.preset-custom-tag + * {
+    clear: both;
+}
+
+.design-legend {
+    margin: 0 0 var(--space-3);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.choice-legend {
+    margin: 0 0 var(--space-2);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--fg);
+}
+
+/* ── Visual radio pickers (presets, frames, shapes) ── */
+
+/* Every picker shares the six-column grid of the style presets, so the
+   cards line up from one picker to the next. */
+.panel-style .choice-list {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--space-2);
+}
+
+/* The native radio stays focusable and keeps its arrow-key behavior; the
+   label after it is the visible card. */
+.panel-style .choice-list > input[type="radio"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.panel-style .choice-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    min-width: 0;
+    min-height: 44px;
+    margin: 0;
+    padding: 10px 6px 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--panel-bg);
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.25;
+    text-align: center;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease,
+        box-shadow var(--motion-fast) ease, color var(--motion-fast) ease;
+}
+
+.panel-style .choice-card:hover {
+    border-color: var(--field-border-hover);
+    color: var(--fg);
+}
+
+.panel-style .choice-list > input[type="radio"]:checked + .choice-card {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1px var(--accent);
+    color: var(--fg);
+}
+
+/* A check badge, so the choice is not shown by color alone. */
+.panel-style .choice-list > input[type="radio"]:checked + .choice-card::after,
+.panel-style .choice-list > input[type="radio"]:checked + .choice-card::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+}
+
+.panel-style .choice-list > input[type="radio"]:checked + .choice-card::after {
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.panel-style .choice-list > input[type="radio"]:checked + .choice-card::before {
+    z-index: 1;
+    background: var(--on-accent);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 8.2 2.3 2.3 4.7-4.9' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 8.2 2.3 2.3 4.7-4.9' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;
+}
+
+/* WebKit does not match :focus-visible after arrow keys move the choice, so
+   QRTurboUI marks a radio group used from the keyboard with .is-keyboard
+   (styles.css covers the segmented controls the same way). */
+.panel-style .choice-list > input[type="radio"]:focus-visible + .choice-card,
+.panel-style .is-keyboard .choice-list > input[type="radio"]:focus + .choice-card {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.panel-style .choice-thumb {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    color: var(--fg);
+}
+
+/* ── Style presets ── */
+
+.preset-picker {
+    position: relative;
+}
+
+.preset-custom-tag {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.preset-card .preset-thumb {
+    display: block;
+    width: 100%;
+    max-width: 88px;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 6px;
+    background: var(--surface);
+    object-fit: contain;
+}
+
+/* Transparent designs show their thumbnails on a checkerboard. */
+.preset-picker.is-transparent .preset-thumb {
+    background-color: var(--checker-a);
+    background-image:
+        linear-gradient(45deg, var(--checker-b) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--checker-b) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--checker-b) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--checker-b) 75%);
+    background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+    background-size: 12px 12px;
+}
+
+/* ── Colors ── */
+
+.colors-group .color-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-3) var(--space-4);
+}
+
+.colors-group .color-row + .color-row,
+.colors-group .gradient-options + .color-row {
+    margin-top: var(--space-4);
+}
+
+.panel-style .color-field {
+    flex: 1 1 200px;
+    min-width: 0;
+    max-width: 320px;
+}
+
+.panel-style .color-field .compact-checkbox {
+    margin-top: var(--space-2);
+}
+
+.panel-style .radio-group-container {
+    margin: 0;
+}
+
+.panel-style .radio-group label {
+    display: flex;
+    align-items: center;
+    min-height: 36px;
+}
+
+.colors-group .fill-type {
+    flex: 0 0 auto;
+    align-self: flex-end;
+    margin-bottom: 4px;
+}
+
+.gradient-options,
+.corner-colors {
+    margin-top: var(--space-3);
+    padding: 14px;
+    border-radius: var(--radius-md);
+    background: var(--surface);
+}
+
+.gradient-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-3) var(--space-4);
+}
+
+.gradient-options .gradient-type {
+    margin-bottom: 4px;
+}
+
+.gradient-options .slider-group {
+    flex: 1 1 100%;
+    margin-top: 0;
+}
+
+.corner-colors {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-4);
+}
+
+.corner-colors .color-field {
+    max-width: none;
+}
+
+.color-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) 20px;
+    margin-top: var(--space-4);
+}
+
+.color-actions .compact-checkbox {
+    margin-top: 0;
+}
+
+#swap-colors-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#swap-colors-btn svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+#swap-colors-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#swap-colors-btn:focus-visible,
+#logo-select-btn:focus-visible,
+#logo-remove-btn:focus-visible,
+#reset-customization:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.panel-style .color-input-wrapper input[type="color"]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ── Logo ── */
+
+.logo-dropzone {
+    position: relative;
+    padding: var(--space-4);
+    border: 1.5px dashed var(--field-border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    cursor: pointer;
+    transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease;
+}
+
+.logo-dropzone:hover {
+    border-color: var(--accent);
+}
+
+.logo-dropzone.is-dragover {
+    border-style: solid;
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.logo-dropzone.is-busy {
+    cursor: progress;
+}
+
+.logo-dropzone.is-busy .logo-upload-area {
+    opacity: 0.6;
+}
+
+.logo-dropzone .logo-upload-area {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.logo-dropzone .logo-preview {
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.logo-dropzone .logo-preview img {
+    display: block;
+    width: 48px;
+    height: 48px;
+    max-width: none;
+    max-height: none;
+    padding: 4px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background-color: var(--checker-a);
+    background-image:
+        linear-gradient(45deg, var(--checker-b) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--checker-b) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--checker-b) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--checker-b) 75%);
+    background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+    background-size: 8px 8px;
+    object-fit: contain;
+}
+
+.logo-dropzone .logo-filename {
+    flex: 1 1 120px;
+    color: var(--fg);
+}
+
+.logo-dropzone #logo-remove-btn {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.logo-drop-hint {
+    margin: 10px 0 0;
+}
+
+.logo-drop-overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: var(--space-3);
+    border-radius: inherit;
+    background: linear-gradient(var(--accent-soft), var(--accent-soft)), var(--panel-bg);
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    pointer-events: none;
+}
+
+.logo-error,
+.logo-note {
+    margin: var(--space-2) 0 0;
+}
+
+.logo-error {
+    color: var(--danger-text);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.panel-style .logo-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 20px;
+    margin-top: var(--space-2);
+}
+
+/* ── Sliders: a larger thumb and a filled track ── */
+
+.panel-style .slider-group input[type="range"] {
+    height: 28px;
+    margin: 6px 0 0;
+    background: transparent;
+}
+
+.panel-style .slider-group input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--accent) 0 var(--fill, 0%), var(--border-strong) var(--fill, 0%) 100%);
+}
+
+.panel-style .slider-group input[type="range"]::-webkit-slider-thumb {
+    width: 22px;
+    height: 22px;
+    margin-top: -8px;
+}
+
+.panel-style .slider-group input[type="range"]::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--border-strong);
+}
+
+.panel-style .slider-group input[type="range"]::-moz-range-progress {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--accent);
+}
+
+.panel-style .slider-group input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+}
+
+.panel-style .slider-group input[type="range"]:focus-visible {
+    outline-offset: 2px;
+}
+
+/* ── Frame ── */
+
+.frame-picker .frame-options {
+    margin-top: var(--space-4);
+}
+
+/* ── More design options ── */
+
+.panel-style .customize-panel .design-subsection + .design-subsection {
+    margin-top: var(--space-5);
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.panel-style .choice-group + .choice-group {
+    margin-top: 18px;
+}
+
+.advanced-section {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4) 20px;
+    align-items: start;
+}
+
+.advanced-section > .section-title,
+.advanced-section > .input-group:not(.min-version-group) {
+    grid-column: 1 / -1;
+}
+
+.advanced-section > .section-title {
+    margin-bottom: 0;
+}
+
+.advanced-section .slider-group {
+    margin-top: 0;
+}
+
+.panel-style select:disabled {
+    opacity: 0.65;
+}
+
+/* ── Phones ── */
+
+@media (max-width: 720px) {
+    .panel-style input[type="text"],
+    .panel-style select {
+        font-size: 16px;
+    }
+
+    .panel-style .small-btn,
+    .panel-style .radio-group label {
+        min-height: 44px;
+    }
+
+    .logo-dropzone #logo-remove-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .panel-style .compact-checkbox label {
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 560px) {
+    .panel-style .preset-list,
+    .panel-style .choice-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    /* Four frames fit a 2 × 2 grid of wide cards. */
+    .panel-style .frame-picker .choice-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .panel-style .frame-picker .choice-card {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 8px 28px 8px 10px;
+        text-align: left;
+    }
+
+    .panel-style .color-field {
+        flex-basis: 100%;
+        max-width: none;
+    }
+
+    .corner-colors,
+    .panel-style .logo-controls,
+    .advanced-section {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .advanced-section > .input-group {
+        grid-column: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panel-style .choice-card,
+    .logo-dropzone {
+        transition: none;
+    }
+}
+
+/* Forced colors drop the accent background and shadow, so the checked card
+   keeps a system-colored border and check badge. */
+@media (forced-colors: active) {
+    .panel-style .choice-list > input[type="radio"]:checked + .choice-card {
+        border-color: Highlight;
+    }
+
+    .panel-style .choice-list > input[type="radio"]:checked + .choice-card::after {
+        forced-color-adjust: none;
+        background: Highlight;
+    }
+
+    .panel-style .choice-list > input[type="radio"]:checked + .choice-card::before {
+        forced-color-adjust: none;
+        background: HighlightText;
+    }
+}

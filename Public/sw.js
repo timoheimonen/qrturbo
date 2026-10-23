@@ -1,6 +1,6 @@
 // The hash suffix fingerprints every entry in PRECACHE_URLS. The PWA integrity
 // test intentionally fails when a precached file changes without a new suffix.
-const CACHE_VERSION = 'v7-a13c48095457';
+const CACHE_VERSION = 'v8-48f057c95f16';
 const STATIC_CACHE = `qrturbo-static-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -9,9 +9,38 @@ const PRECACHE_URLS = [
     '/privacy.html',
     '/terms.html',
     '/css/styles.css',
-    '/js/app.js',
-    '/js/qr-code-styling.min.js',
+    '/css/stage.css',
+    '/css/design.css',
+    '/css/scan.css',
+    '/css/batch.css',
     '/js/i18n/core.js',
+    '/js/qr-code-styling.min.js',
+    '/js/lib/bytes.js',
+    '/js/lib/color.js',
+    '/js/lib/capacity.js',
+    '/js/lib/payloads.js',
+    '/js/lib/rules.js',
+    '/js/lib/presets.js',
+    '/js/lib/svg.js',
+    '/js/frame.js',
+    '/js/qr-engine.js',
+    '/js/ui/kit.js',
+    '/js/exporter.js',
+    '/js/scan.js',
+    '/js/ui/design.js',
+    '/js/ui/export.js',
+    '/js/app.js',
+    '/js/controller.js',
+    // Loaded on demand, and by the scan worker.
+    '/js/lib/geometry.js',
+    '/js/lib/helvetica.js',
+    '/js/lib/pdf.js',
+    '/js/lib/eps.js',
+    '/js/lib/csv.js',
+    '/js/lib/zip.js',
+    '/js/ui/batch.js',
+    '/js/scan-worker.js',
+    '/js/vendor/jsqr.js',
     '/js/i18n/locales/cs.js',
     '/js/i18n/locales/da.js',
     '/js/i18n/locales/de.js',
@@ -79,15 +108,54 @@ self.addEventListener('install', event => {
     );
 });
 
+function releaseOf(cacheName) {
+    const match = cacheName.match(/-v(\d+)(?:-|$)/);
+    return match ? Number(match[1]) : 0;
+}
+
+// Pages cached on a visit (language homes, feature pages) are not part of
+// PRECACHE_URLS, so an update copies them from the previous release's cache,
+// the newest copy first. Otherwise a page visited once would fall back to the
+// English home offline.
+async function carryOverVisitedPages(oldCacheNames) {
+    const cache = await caches.open(STATIC_CACHE);
+    const newestFirst = [...oldCacheNames].sort((a, b) => releaseOf(b) - releaseOf(a));
+
+    for (const cacheName of newestFirst) {
+        const oldCache = await caches.open(cacheName);
+        const requests = await oldCache.keys();
+
+        for (const request of requests) {
+            const { pathname } = new URL(request.url);
+            if (PRECACHE_PATHS.has(pathname) || await cache.match(pathname)) {
+                continue;
+            }
+
+            const response = await oldCache.match(request);
+            if (response && isHtmlResponse(response)) {
+                await cache.put(pathname, response);
+            }
+        }
+    }
+}
+
+async function replaceOldCaches() {
+    const oldCacheNames = (await caches.keys())
+        .filter(cacheName => cacheName.startsWith('qrturbo-') && cacheName !== STATIC_CACHE);
+
+    try {
+        await carryOverVisitedPages(oldCacheNames);
+    } catch {
+        // A full or unavailable Cache API must not block the update. The page
+        // asks the new worker to cache itself again after the switch.
+    }
+
+    await Promise.all(oldCacheNames.map(cacheName => caches.delete(cacheName)));
+}
+
 self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys()
-            .then(cacheNames => Promise.all(
-                cacheNames
-                    .filter(cacheName => cacheName.startsWith('qrturbo-') && cacheName !== STATIC_CACHE)
-                    .map(cacheName => caches.delete(cacheName))
-            ))
-            .then(() => self.clients.claim())
+        replaceOldCaches().then(() => self.clients.claim())
     );
 });
 

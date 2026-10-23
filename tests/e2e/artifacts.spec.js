@@ -13,17 +13,23 @@ const TEST_LOGO = Buffer.from(`
 
 // UTF-8 is the hardest payload for the byte-mode adapter, so it is the one
 // exercised end to end in every export format and in WebKit.
-const UTF8_PAYLOAD = 'Ääkköset äöå — 漢字と世界 — emoji 🚀';
+const UTF8_PAYLOAD = 'Ääkköset äöå · 漢字と世界 · emoji 🚀';
+
+// JPG, WebP and EPS sit behind "More formats".
+const MORE_FORMATS = ['jpg', 'webp', 'eps'];
 
 async function selectArtifactFormat(page, format) {
-  await page.locator('#customize-toggle').click();
-  await expect(page.locator('#customize-panel')).toBeVisible();
-  await page.locator('#qr-format').selectOption(format);
+  const toggle = page.locator('#more-formats-toggle');
+  if (MORE_FORMATS.includes(format) && await toggle.getAttribute('aria-expanded') !== 'true') {
+    await toggle.click();
+    await expect(page.locator('#more-formats')).toBeVisible();
+  }
+  await page.locator(`label[for="format-${format}"]`).click();
+  await expect(page.locator(`#format-${format}`)).toBeChecked();
 
-  const renderedArtifact = format === 'svg'
-    ? page.locator('#qr-canvas-container svg')
-    : page.locator('#qr-canvas-container canvas');
-  await expect(renderedArtifact).toBeVisible({ timeout: 10_000 });
+  // The preview is always an inline SVG, whatever the export format.
+  await expect(page.locator('#qr-stage')).toHaveAttribute('data-state', 'ready', { timeout: 10_000 });
+  await expect(page.locator('#qr-canvas-container svg')).toBeVisible();
   await expect(page.locator('#download-btn')).toBeVisible();
   await expect(page.locator('#download-btn')).toBeEnabled();
 }
@@ -32,6 +38,11 @@ async function downloadArtifact(page) {
   const downloadPromise = page.waitForEvent('download');
   await page.locator('#download-btn').click();
   return downloadPromise;
+}
+
+async function chooseShape(page, id) {
+  await page.locator(`label[for="${id}"]`).click();
+  await expect(page.locator(`#${id}`)).toBeChecked();
 }
 
 for (const format of ['png', 'svg']) {
@@ -59,15 +70,15 @@ test('customized QR changes the artifact, remains decodable and resets the UI @w
   await page.goto('/');
   await page.locator('#qr-text').fill(payload);
   await expect(page.locator('#qr-code-text')).toHaveText(payload, { timeout: 10_000 });
+  await expect(page.locator('#qr-stage')).toHaveAttribute('data-state', 'ready', { timeout: 10_000 });
   await expect(downloadButton).toBeVisible();
   await expect(downloadButton).toBeEnabled();
 
   const baseline = await decodeQrDownload(page, await downloadArtifact(page));
   expect(baseline.data).toBe(payload);
 
-  await page.locator('#customize-toggle').click();
-  await expect(page.locator('#customize-toggle')).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.locator('#customize-panel')).toBeVisible();
+  // Colors are always visible; shapes and error correction are behind the toggle.
+  await expect(page.locator('#qr-fg-color-text')).toBeVisible();
   await page.locator('#qr-transparent-bg').check();
   await expect(page.locator('#qr-bg-color')).toBeDisabled();
   await expect(page.locator('#qr-bg-color-text')).toBeDisabled();
@@ -76,10 +87,14 @@ test('customized QR changes the artifact, remains decodable and resets the UI @w
   await expect(page.locator('#qr-bg-color-text')).toBeEnabled();
   await page.locator('#qr-fg-color-text').fill('#102A43');
   await page.locator('#qr-bg-color-text').fill('#F0F4F8');
+
+  await page.locator('#customize-toggle').click();
+  await expect(page.locator('#customize-toggle')).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('#customize-panel')).toBeVisible();
   await page.locator('#qr-error-correction').selectOption('H');
-  await page.locator('#qr-dot-style').selectOption('rounded');
-  await page.locator('#qr-corner-square-style').selectOption('square');
-  await page.locator('#qr-corner-dot-style').selectOption('square');
+  await chooseShape(page, 'dot-rounded');
+  await chooseShape(page, 'corner-square-square');
+  await chooseShape(page, 'corner-dot-square');
   await page.locator('#qr-logo').setInputFiles({
     name: 'test-logo.svg',
     mimeType: 'image/svg+xml',
@@ -92,7 +107,8 @@ test('customized QR changes the artifact, remains decodable and resets the UI @w
   await expect(page.locator('#logo-remove-btn')).toBeVisible();
   await page.locator('#qr-logo-size').fill('0.2');
   await expect(page.locator('#qr-logo-size-value')).toHaveText('20%');
-  await expect(downloadButton).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator('#qr-stage')).toHaveAttribute('data-state', 'ready', { timeout: 10_000 });
+  await expect(downloadButton).toBeVisible();
   await expect(downloadButton).toBeEnabled();
 
   const customized = await decodeQrDownload(page, await downloadArtifact(page));
@@ -100,13 +116,22 @@ test('customized QR changes the artifact, remains decodable and resets the UI @w
   expect(countPixelsNearColor(customized.pixels, TEST_LOGO_COLOR, 8)).toBeGreaterThan(100);
   expect(customized.data).toBe(payload);
 
-  const dialogPromise = page.waitForEvent('dialog');
-  const resetPromise = page.locator('#reset-customization').click();
-  const dialog = await dialogPromise;
-  expect(dialog.type()).toBe('alert');
-  expect(dialog.message()).not.toBe('alerts.resetSuccess');
-  await dialog.accept();
-  await resetPromise;
+  // The export format is not part of the design, so Reset keeps it.
+  await selectArtifactFormat(page, 'svg');
+
+  // Reset opens no dialog: it shows a toast that offers Undo.
+  const dialogs = [];
+  page.on('dialog', dialog => {
+    dialogs.push(dialog.type());
+    dialog.dismiss().catch(() => {});
+  });
+  await page.locator('#reset-customization').click();
+  const resetToast = page.locator('#toast-region .toast').filter({
+    hasText: await page.evaluate(() => t('toast.designReset'))
+  });
+  await expect(resetToast).toBeVisible();
+  const undoButton = resetToast.locator('.toast-action');
+  await expect(undoButton).toHaveText(await page.evaluate(() => t('actions.undo')));
 
   await expect(page.locator('#qr-fg-color')).toHaveValue('#000000');
   await expect(page.locator('#qr-fg-color-text')).toHaveValue('#000000');
@@ -115,11 +140,12 @@ test('customized QR changes the artifact, remains decodable and resets the UI @w
   await expect(page.locator('#qr-bg-color')).toBeEnabled();
   await expect(page.locator('#qr-bg-color-text')).toBeEnabled();
   await expect(page.locator('#qr-transparent-bg')).not.toBeChecked();
-  await expect(page.locator('#qr-error-correction')).toHaveValue('M');
-  await expect(page.locator('#qr-format')).toHaveValue('png');
-  await expect(page.locator('#qr-dot-style')).toHaveValue('square');
-  await expect(page.locator('#qr-corner-square-style')).toHaveValue('extra-rounded');
-  await expect(page.locator('#qr-corner-dot-style')).toHaveValue('dot');
+  await expect(page.locator('#qr-error-correction')).toHaveValue('auto');
+  await expect(page.locator('#format-svg')).toBeChecked();
+  await expect(page.locator('#dot-square')).toBeChecked();
+  await expect(page.locator('#corner-square-extra-rounded')).toBeChecked();
+  await expect(page.locator('#corner-dot-dot')).toBeChecked();
+  await expect(page.locator('#frame-none')).toBeChecked();
   await expect(page.locator('#qr-margin')).toHaveValue('4');
   await expect(page.locator('#qr-margin-value')).toHaveText(/4/);
   await expect(page.locator('#qr-margin-value')).not.toHaveText('units.modules');
@@ -130,8 +156,19 @@ test('customized QR changes the artifact, remains decodable and resets the UI @w
   await expect(page.locator('#logo-remove-btn')).toBeHidden();
   await expect(page.locator('#qr-logo-size')).toHaveValue('0.4');
   await expect(page.locator('#qr-logo-size-value')).toHaveText('40%');
-  await expect(page.locator('#qr-logo-margin')).toHaveValue('4');
-  await expect(page.locator('#qr-logo-margin-value')).toHaveText('4px');
-  await expect(downloadButton).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator('#qr-logo-margin')).toHaveValue('0.5');
+  await expect(page.locator('#qr-logo-margin-value')).toHaveText(
+    await page.evaluate(() => t('units.modules', { count: (0.5).toLocaleString(document.documentElement.lang) }))
+  );
+  await expect(page.locator('#qr-stage')).toHaveAttribute('data-state', 'ready', { timeout: 10_000 });
+  await expect(downloadButton).toBeVisible();
   await expect(downloadButton).toBeEnabled();
+
+  // Undo brings the customized design back (colors are stored in lowercase).
+  await undoButton.click();
+  await expect(page.locator('#qr-fg-color-text')).toHaveValue(/^#102a43$/i);
+  await expect(page.locator('#qr-bg-color-text')).toHaveValue(/^#f0f4f8$/i);
+  await expect(page.locator('#dot-rounded')).toBeChecked();
+  await expect(page.locator('#format-svg')).toBeChecked();
+  expect(dialogs).toEqual([]);
 });

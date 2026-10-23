@@ -11,7 +11,7 @@ module.exports = {
     eyebrow: 'Generador de códigos QR gratis',
     display: 'Códigos QR gratis que nunca dejan de funcionar.',
     lead:
-      'Crea códigos QR para enlaces, WiFi, contactos y mucho más, directamente en tu navegador. Sin registro, sin periodo de prueba y sin redirecciones: tu contenido va dentro del código, así que funciona para siempre. Añade logotipos, colores y un marco con «ESCANÉAME».'
+      'Crea códigos QR para enlaces, WiFi, contactos y mucho más, directamente en tu navegador. Sin registro, sin periodo de prueba y sin redirecciones: tu contenido va dentro del código, así que funciona para siempre. Añade logotipos, colores y un marco con «ESCANÉAME», y descarga archivos PNG, SVG, PDF o EPS listos para imprimir.'
   },
   types: {
     wifi: {
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: '¿De qué tamaño debo imprimir un código QR?',
-        a: 'Imprímelo con al menos 2 × 2 cm. Como regla general, el código debe medir al menos una décima parte de la distancia de escaneo: un cartel que se lee a 2 metros necesita un código de unos 20 cm. Para imprimir, descarga un SVG o un PNG grande y deja vacía la zona tranquila alrededor del código.'
+        a: 'Imprímelo con al menos 2 × 2 cm. Como regla general, el código debe medir al menos una décima parte de la distancia de escaneo: un cartel que se lee a 2 metros necesita un código de unos 20 cm. Para imprimir, descarga un PDF o un SVG, que se mantienen nítidos a cualquier tamaño, e indica el ancho de impresión exacto. QRTurbo.app muestra el tamaño de los módulos y te avisa cuando el código es demasiado pequeño para escanearse. Deja vacía la zona tranquila alrededor del código.'
       },
       {
         q: '¿Por qué no se escanea mi código QR?',
-        a: 'Las causas más habituales son un contraste bajo entre el código y el fondo, una zona tranquila demasiado pequeña, un logotipo que tapa demasiado el código o demasiado contenido para el tamaño de impresión. QRTurbo.app te avisa de estos riesgos. Prueba siempre el código con varios móviles distintos antes de imprimirlo.'
+        a: 'Las causas más habituales son un contraste bajo entre el código y el fondo, una zona tranquila demasiado pequeña, un logotipo que tapa demasiado el código o demasiado contenido para el tamaño de impresión. QRTurbo.app comprueba cada código con un escáner integrado en tu dispositivo y te sugiere soluciones. Prueba siempre el código con varios móviles distintos antes de imprimirlo.'
       },
       {
         q: '¿Están seguros mis datos? ¿Alguien puede ver mi contraseña WiFi?',
         a: 'Tus datos se quedan en tu dispositivo. El código QR se genera con código que se ejecuta en tu navegador, y nada de lo que escribes o subes se envía a un servidor, así que nadie puede ver tu contraseña WiFi ni tus datos de contacto. Después de la primera visita, el generador también funciona sin conexión.'
+      },
+      {
+        q: '¿Qué formato de archivo debo usar?',
+        a: 'Usa PNG para pantallas, documentos y la mayoría de impresoras. Usa SVG para webs y herramientas de diseño, y PDF para imprentas: ambos son formatos vectoriales que se mantienen nítidos a cualquier tamaño. EPS es para programas antiguos de diseño y rotulación. JPG y WebP son imágenes ligeras para apps y webs. Todos los formatos son gratuitos y conservan tus colores, tu logotipo y tu marco.'
       }
     ]
   },

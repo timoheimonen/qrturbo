@@ -5,20 +5,20 @@
 module.exports = {
   home: {
     name: 'QR kód pro odkaz a text',
-    title: 'Generátor QR kódů zdarma – kódy, které nevyprší | QRTurbo.app',
+    title: 'Generátor QR kódů zdarma: kódy, které nevyprší | QRTurbo.app',
     description:
       'Vytvoř si QR kód zdarma pro odkaz, WiFi, vizitku vCard a další. Bez registrace a sledování. Kódy vznikají v prohlížeči a fungují navždy.',
     eyebrow: 'Generátor QR kódů zdarma',
     display: 'QR kódy zdarma, které nikdy nepřestanou fungovat.',
     lead:
-      'Vytvoř QR kód pro odkaz, WiFi, kontakt a další přímo v prohlížeči. Bez registrace, bez zkušební verze, bez přesměrování: obsah se uloží přímo do kódu, takže bude fungovat navždy. Přidej logo, barvy a rámeček „Naskenuj mě“.'
+      'Vytvoř QR kód pro odkaz, WiFi, kontakt a další přímo v prohlížeči. Bez registrace, bez zkušební verze, bez přesměrování: obsah se uloží přímo do kódu, takže bude fungovat navždy. Přidej logo, barvy a rámeček „Naskenuj mě“ a pak si stáhni soubory PNG, SVG, PDF nebo EPS připravené k tisku.'
   },
   types: {
     wifi: {
       name: 'QR kód pro WiFi',
-      title: 'QR kód pro WiFi zdarma – bezpečný generátor | QRTurbo.app',
+      title: 'QR kód pro WiFi zdarma, bezpečný generátor | QRTurbo.app',
       description:
-        'Vytvoř QR kód pro WiFi zdarma – hosté se k síti připojí jedním naskenováním. Heslo zůstane v prohlížeči. Bez registrace a sledování, nikdy nevyprší.',
+        'Vytvoř QR kód pro WiFi zdarma: hosté se k síti připojí jedním naskenováním. Heslo zůstane v prohlížeči. Bez registrace a sledování, nikdy nevyprší.',
       eyebrow: 'Generátor QR kódů pro WiFi',
       display: 'Hosté se k tvé WiFi připojí jedním naskenováním.',
       lead:
@@ -32,7 +32,7 @@ module.exports = {
     },
     vcard: {
       name: 'QR kód s vizitkou vCard',
-      title: 'QR kód vCard na vizitku – generátor zdarma | QRTurbo.app',
+      title: 'QR kód vCard na vizitku, generátor zdarma | QRTurbo.app',
       description:
         'Vytvoř QR kód vCard na vizitku zdarma. Jedno naskenování uloží jméno, telefon, e-mail i adresu do kontaktů. Bez registrace, kód nikdy nevyprší.',
       eyebrow: 'Generátor QR kódů vCard',
@@ -48,7 +48,7 @@ module.exports = {
     },
     sms: {
       name: 'QR kód pro SMS a hovor',
-      title: 'QR kód pro SMS a hovor – generátor zdarma | QRTurbo.app',
+      title: 'QR kód pro SMS a hovor, generátor zdarma | QRTurbo.app',
       description:
         'Vytvoř QR kód zdarma, který otevře SMS zprávu nebo zahájí hovor. Přidej předvyplněný text SMS. Vzniká v prohlížeči, bez registrace, nikdy nevyprší.',
       eyebrow: 'Generátor QR kódů pro SMS a hovory',
@@ -70,7 +70,7 @@ module.exports = {
       eyebrow: 'Generátor QR kódů pro e-mail',
       display: 'E-mail připravený k odeslání jedním naskenováním.',
       lead:
-        'Zadej příjemce, předmět a text zprávy a vytvoř QR kód pro e-mail – na zpětnou vazbu, žádosti o podporu, objednávky i přihlášky.',
+        'Zadej příjemce, předmět a text zprávy a vytvoř QR kód pro e-mail: na zpětnou vazbu, žádosti o podporu, objednávky i přihlášky.',
       aboutTitle: 'Jak fungují QR kódy pro e-mail',
       about: [
         'QR kód pro e-mail obsahuje odkaz mailto. Po naskenování se otevře e-mailová aplikace s vyplněným příjemcem, předmětem i textem a o odeslání rozhodne ten, kdo kód naskenoval.',
@@ -96,7 +96,7 @@ module.exports = {
     },
     location: {
       name: 'QR kód s polohou',
-      title: 'QR kód s polohou na mapě – generátor zdarma | QRTurbo.app',
+      title: 'QR kód s polohou na mapě, generátor zdarma | QRTurbo.app',
       description:
         'Vytvoř QR kód s polohou zdarma. Otevře adresu nebo souřadnice v mapové aplikaci. Skvělý na pozvánky a cedule. Bez registrace, nikdy nevyprší.',
       eyebrow: 'Generátor QR kódů s polohou',
@@ -118,7 +118,7 @@ module.exports = {
       eyebrow: 'Generátor QR kódů pro sociální sítě',
       display: 'Proměň návštěvníky ve sledující.',
       lead:
-        'Vyber platformu a zadej uživatelské jméno – vznikne QR kód, který otevře tvůj profil. Podporované jsou mimo jiné Instagram, TikTok, YouTube, Facebook, X, LinkedIn, Threads a Bluesky.',
+        'Vyber platformu a zadej uživatelské jméno. Vznikne QR kód, který otevře tvůj profil. Podporované jsou mimo jiné Instagram, TikTok, YouTube, Facebook, X, LinkedIn, Threads a Bluesky.',
       aboutTitle: 'Jak fungují QR kódy pro sociální sítě',
       about: [
         'QR kód pro sociální sítě obsahuje odkaz na tvůj profil. Po naskenování se profil otevře v aplikaci, pokud je nainstalovaná, jinak v prohlížeči.',
@@ -128,7 +128,7 @@ module.exports = {
     },
     whatsapp: {
       name: 'QR kód pro WhatsApp',
-      title: 'QR kód pro WhatsApp chat – generátor zdarma | QRTurbo.app',
+      title: 'QR kód pro WhatsApp chat, generátor zdarma | QRTurbo.app',
       description:
         'Vytvoř QR kód pro WhatsApp zdarma. Otevře chat s tvým číslem a předvyplněnou zprávou. Vzniká v prohlížeči, bez registrace, nikdy nevyprší.',
       eyebrow: 'Generátor QR kódů pro WhatsApp',
@@ -153,7 +153,7 @@ module.exports = {
         'Přidej webovou stránku aplikace, odkaz do App Store a odkaz do Google Play a vytvoř QR kód pro stažení aplikace.',
       aboutTitle: 'Jak fungují QR kódy pro stažení aplikace',
       about: [
-        'QR kód obsahuje jeden odkaz a QRTurbo.app nikdy nepřidává přesměrování. Pokud máš webovou stránku, která uživatele iPhonu pošle do App Store a uživatele Androidu do Google Play, zadej ji jako webovou adresu – tak dosáhneš nejlepšího výsledku na každém telefonu.',
+        'QR kód obsahuje jeden odkaz a QRTurbo.app nikdy nepřidává přesměrování. Pokud máš webovou stránku, která uživatele iPhonu pošle do App Store a uživatele Androidu do Google Play, zadej ji jako webovou adresu. Tak dosáhneš nejlepšího výsledku na každém telefonu.',
         'Pokud takovou stránku nemáš, zvol, který obchod má kód otevřít, nebo vytiskni samostatné kódy pro App Store a Google Play.',
         'Zkontroluj, že odkazy do obchodů jsou veřejné a neobsahují sledovací parametry, které nechceš sdílet.'
       ]
@@ -162,7 +162,7 @@ module.exports = {
   comparison: {
     title: 'QR kódy zdarma, které nikdy nepřestanou fungovat',
     intro:
-      'Mnoho „bezplatných“ generátorů QR kódů vytváří dynamické kódy, které vedou přes jejich vlastní přesměrovací server. Když skončí zkušební doba, kód se vypne – často ve chvíli, kdy už je vytištěný na jídelních lístcích, vizitkách nebo obalech. QRTurbo.app funguje jinak.',
+      'Mnoho „bezplatných“ generátorů QR kódů vytváří dynamické kódy, které vedou přes jejich vlastní přesměrovací server. Když skončí zkušební doba, kód se vypne, často ve chvíli, kdy už je vytištěný na jídelních lístcích, vizitkách nebo obalech. QRTurbo.app funguje jinak.',
     headers: {
       feature: 'Otázka',
       dynamic: 'Typický QR kód „zdarma na zkoušku“',
@@ -203,7 +203,7 @@ module.exports = {
     items: [
       {
         q: 'Vyprší platnost QR kódů z QRTurbo.app?',
-        a: 'Ne. QRTurbo.app vytváří statické QR kódy: tvůj odkaz, text nebo kontaktní údaje jsou zakódované přímo v kódu. Mezi tím není žádný server, takže nic nemůže vypršet ani být vypnuto. Kód funguje, dokud je jeho obsah platný – například dokud existuje web, na který odkazuje.'
+        a: 'Ne. QRTurbo.app vytváří statické QR kódy: tvůj odkaz, text nebo kontaktní údaje jsou zakódované přímo v kódu. Mezi tím není žádný server, takže nic nemůže vypršet ani být vypnuto. Kód funguje, dokud je jeho obsah platný, například dokud existuje web, na který odkazuje.'
       },
       {
         q: 'Proč mi přestal fungovat QR kód z jiného webu?',
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Jak velký QR kód mám vytisknout?',
-        a: 'Tiskni ho aspoň 2 × 2 cm. Orientační pravidlo: strana kódu by měla mít aspoň desetinu vzdálenosti, ze které se bude skenovat – plakát čtený ze 2 metrů potřebuje kód o straně asi 20 cm. Pro tisk si stáhni SVG nebo velké PNG a nech kolem kódu prázdnou klidovou zónu.'
+        a: 'Tiskni ho aspoň 2 × 2 cm. Orientační pravidlo: strana kódu by měla mít aspoň desetinu vzdálenosti, ze které se bude skenovat. Plakát čtený ze 2 metrů tedy potřebuje kód o straně asi 20 cm. Pro tisk si stáhni PDF nebo SVG, které zůstanou ostré v jakékoli velikosti, a nastav přesnou šířku tisku. QRTurbo.app ukáže velikost modulu a upozorní tě, když je kód na skenování příliš malý. Kolem kódu nech prázdnou klidovou zónu.'
       },
       {
         q: 'Proč nejde můj QR kód naskenovat?',
-        a: 'Nejčastější příčiny jsou nízký kontrast mezi kódem a pozadím, příliš malá klidová zóna, logo, které zakrývá příliš velkou část kódu, nebo příliš mnoho obsahu na danou velikost tisku. QRTurbo.app tě na tato rizika upozorní. Před tiskem kód vždy vyzkoušej na několika různých telefonech.'
+        a: 'Nejčastější příčiny jsou nízký kontrast mezi kódem a pozadím, příliš malá klidová zóna, logo, které zakrývá příliš velkou část kódu, nebo příliš mnoho obsahu na danou velikost tisku. QRTurbo.app každý kód zkontroluje vestavěnou čtečkou přímo ve tvém zařízení a navrhne opravy. Před tiskem kód vždy vyzkoušej na několika různých telefonech.'
       },
       {
         q: 'Jsou moje data v bezpečí? Vidíte moje heslo k WiFi?',
-        a: 'Tvoje data zůstávají ve tvém zařízení. QR kód vytváří skript, který běží ve tvém prohlížeči, a nic, co napíšeš nebo nahraješ, se neodesílá na server – nikdo tedy neuvidí tvoje heslo k WiFi ani kontaktní údaje. Po první návštěvě funguje generátor i offline.'
+        a: 'Tvoje data zůstávají ve tvém zařízení. QR kód vytváří skript, který běží ve tvém prohlížeči, a nic, co napíšeš nebo nahraješ, se neodesílá na server. Nikdo tedy neuvidí tvoje heslo k WiFi ani kontaktní údaje. Po první návštěvě funguje generátor i offline.'
+      },
+      {
+        q: 'Jaký formát souboru mám použít?',
+        a: 'PNG použij pro obrazovky, dokumenty a většinu tiskáren. SVG se hodí pro weby a grafické nástroje, PDF pro profesionální tisk: oba jsou vektorové soubory, které zůstanou ostré v jakékoli velikosti. EPS je pro starší grafické programy a reklamní výrobu. JPG a WebP jsou malé obrazové soubory pro aplikace a weby. Všechny formáty jsou zdarma a zachovají tvoje barvy, logo i rámeček.'
       }
     ]
   },

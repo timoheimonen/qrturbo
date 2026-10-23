@@ -9,15 +9,21 @@
   }
 
   window.translations.pl = {
-    app: {
-      selectLanguage: 'Wybierz język'
-    },
     aria: {
       themeGroup: 'Motyw',
       lightTheme: 'Jasny motyw',
       darkTheme: 'Ciemny motyw',
       language: 'Język',
-      qrTypes: 'Typy kodów QR'
+      qrTypes: 'Typy kodów QR',
+      skipToGenerator: 'Przejdź do generatora kodów QR',
+      qrImage: 'Podgląd kodu QR: {{type}}',
+      qrImageStale: 'Podgląd kodu QR, nieaktualny',
+      removeLogo: 'Usuń logo',
+      formatGroup: 'Format pliku',
+      presetGroup: 'Gotowe style',
+      mobileBar: 'Szybkie pobieranie',
+      notifications: 'Powiadomienia',
+      hexValue: '{{name}}, wartość szesnastkowa'
     },
     tabs: {
       urlText: 'URL/tekst',
@@ -29,6 +35,7 @@
       location: 'Lokalizacja',
       socialMedia: 'Social media',
       whatsapp: 'WhatsApp',
+      payment: 'Płatność',
       mecard: 'MeCard',
       appLink: 'Aplikacja'
     },
@@ -53,20 +60,19 @@
       hiddenNetwork: 'To jest sieć ukryta',
       phoneNumber: 'Numer telefonu',
       message: 'Wiadomość (opcjonalnie)',
-      qrSize: 'Rozmiar kodu QR',
+      qrSize: 'Rozmiar',
       foregroundColor: 'Kolor kodu',
-      backgroundColor: 'Kolor tła',
+      backgroundColor: 'Tło',
       transparentBackground: 'Przezroczyste tło',
       errorCorrection: 'Korekcja błędów',
-      downloadFormat: 'Format pliku',
-      dotStyle: 'Styl modułów',
-      cornerSquare: 'Kwadrat narożny',
-      cornerDot: 'Punkt narożny',
-      quietZone: 'Strefa ciszy (margines)',
+      dotStyle: 'Wzór',
+      cornerSquare: 'Obrys narożników',
+      cornerDot: 'Środek narożników',
+      quietZone: 'Strefa ciszy',
       logoSize: 'Rozmiar logo',
-      logoMargin: 'Margines logo',
-      logo: 'Logo (opcjonalnie)',
-      styleOptions: 'Opcje stylu',
+      logoMargin: 'Odstęp wokół logo',
+      logo: 'Logo',
+      styleOptions: 'Kształty',
       emailTo: 'Adres e-mail odbiorcy',
       emailSubject: 'Temat',
       emailBody: 'Treść wiadomości',
@@ -91,7 +97,45 @@
       appLinkTarget: 'Sklep zapasowy',
       frame: 'Ramka',
       frameText: 'Tekst ramki',
-      frameColor: 'Kolor ramki'
+      frameColor: 'Kolor ramki',
+      smsPhoneType: 'Typ kodu',
+      fill: 'Wypełnienie',
+      gradientColor2: 'Drugi kolor',
+      gradientType: 'Typ gradientu',
+      gradientAngle: 'Kąt',
+      customCorners: 'Własne kolory narożników',
+      cornerOuterColor: 'Kolor obrysu narożników',
+      cornerInnerColor: 'Kolor środka narożników',
+      customPixels: 'Szerokość w pikselach',
+      setPrintSize: 'Ustaw rozmiar wydruku',
+      printWidth: 'Szerokość wydruku',
+      unit: 'Jednostka',
+      dpi: 'Rozdzielczość',
+      pdfPage: 'Strona',
+      colorMode: 'Tryb koloru',
+      minVersion: 'Minimalna wersja QR',
+      paymentName: 'Nazwa odbiorcy',
+      iban: 'IBAN',
+      bic: 'BIC (opcjonalnie)',
+      amount: 'Kwota w euro (opcjonalnie)',
+      paymentReference: 'Numer referencyjny (opcjonalnie)',
+      paymentMessage: 'Tytuł przelewu (opcjonalnie)',
+      dueDate: 'Termin płatności (opcjonalnie)',
+      allDay: 'Wydarzenie całodniowe',
+      timeZone: 'Strefa czasowa',
+      phoneHome: 'Telefon (domowy)',
+      department: 'Dział',
+      birthday: 'Data urodzenia',
+      note: 'Notatka',
+      addressType: 'Typ adresu',
+      batchSource: 'Dane CSV',
+      batchHasHeader: 'Pierwszy wiersz zawiera nazwy kolumn',
+      batchType: 'Typ kodu',
+      batchFilename: 'Nazwy plików według',
+      batchFormat: 'Format plików',
+      batchSameSize: 'Ten sam rozmiar dla wszystkich kodów',
+      batchManifest: 'Dołącz listę wszystkich plików (manifest.csv)',
+      batchVerify: 'Sprawdź, czy każdy kod się skanuje'
     },
     placeholders: {
       url: 'np. https://www.example.com',
@@ -131,21 +175,39 @@
       appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
-      generate: 'Utwórz kod QR',
-      download: 'Pobierz kod QR',
-      reset: 'Przywróć domyślne',
-      customize: 'Dostosuj wygląd (opcjonalnie)',
+      download: 'Pobierz',
+      reset: 'Resetuj wygląd',
+      customize: 'Więcej opcji wyglądu',
       chooseLogo: 'Wybierz obraz',
       showPassword: 'Pokaż hasło',
       hidePassword: 'Ukryj hasło',
       showPayload: 'Pokaż dane kodu QR',
-      hidePayload: 'Ukryj dane kodu QR'
+      hidePayload: 'Ukryj dane kodu QR',
+      downloadFormat: 'Pobierz {{format}}',
+      copyImage: 'Kopiuj obraz',
+      copySvg: 'Kopiuj kod SVG',
+      copyText: 'Kopiuj tekst',
+      share: 'Udostępnij',
+      undo: 'Cofnij',
+      goToField: 'Przejdź do pola',
+      addHttps: 'Dodaj https://',
+      moreFormats: 'Więcej formatów',
+      swapColors: 'Zamień kolory',
+      dismiss: 'Ukryj',
+      retry: 'Spróbuj ponownie',
+      useLevelL: 'Użyj poziomu L',
+      print: 'Drukuj',
+      cancel: 'Anuluj',
+      close: 'Zamknij',
+      createMany: 'Utwórz wiele kodów z pliku CSV',
+      batchStart: 'Utwórz plik ZIP',
+      chooseCsv: 'Wybierz plik CSV'
     },
     options: {
-      sizeMedium: 'Ekran (512 px)',
-      sizeLarge: 'Duży (1024 px)',
-      sizePrint: 'Druk (2048 px)',
-      sizePoster: 'Plakat (4096 px)',
+      sizeMedium: 'Mały (512 px)',
+      sizeLarge: 'Średni (1024 px)',
+      sizePrint: 'Duży (2048 px)',
+      sizePoster: 'Bardzo duży (4096 px)',
       frameNone: 'Bez ramki',
       frameBannerBottom: 'Napis pod kodem',
       frameBannerTop: 'Napis nad kodem',
@@ -154,12 +216,12 @@
       errorMedium: 'M - średni (15%)',
       errorQuartile: 'Q - podwyższony (25%)',
       errorHigh: 'H - wysoki (30%)',
-      formatPng: 'PNG (grafika rastrowa)',
-      formatSvg: 'SVG (grafika wektorowa)',
-      formatPdf: 'PDF (dokument)',
-      authWpa: 'WPA/WPA2',
-      authWep: 'WEP',
-      authNone: 'Brak',
+      formatPng: 'PNG',
+      formatSvg: 'SVG',
+      formatPdf: 'PDF',
+      authWpa: 'WPA/WPA2/WPA3 (zalecane)',
+      authWep: 'WEP (przestarzałe)',
+      authNone: 'Brak (sieć otwarta)',
       dotSquare: 'Kwadraty',
       dotRounded: 'Zaokrąglone',
       dotDots: 'Kropki',
@@ -185,7 +247,34 @@
       socialTypeCompany: 'Firma',
       socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Użyj iOS, jeśli nie ma adresu strony',
-      appTargetAndroid: 'Użyj Androida, jeśli nie ma adresu strony'
+      appTargetAndroid: 'Użyj Androida, jeśli nie ma adresu strony',
+      errorAuto: 'Automatycznie (zalecane)',
+      sizeCustom: 'Własny rozmiar',
+      formatJpg: 'JPG',
+      formatWebp: 'WebP',
+      unitMm: 'mm',
+      unitIn: 'cale',
+      dpi150: '150 dpi (szkic)',
+      dpi300: '300 dpi (druk)',
+      dpi600: '600 dpi (precyzyjny druk)',
+      pageFit: 'Dopasuj do kodu',
+      pageA4: 'A4',
+      pageLetter: 'Letter (USA)',
+      fillSolid: 'Jednolite',
+      fillGradient: 'Gradientowe',
+      gradientLinear: 'Liniowy',
+      gradientRadial: 'Promieniowy',
+      formatEps: 'EPS',
+      colorRgb: 'RGB',
+      colorCmyk: 'CMYK',
+      colorK: 'Tylko czerń (100% K)',
+      authWpa3: 'Tylko WPA3',
+      versionAuto: 'Automatycznie',
+      addressAuto: 'Automatycznie',
+      addressWork: 'Służbowy',
+      addressHome: 'Domowy',
+      filenameRowNumber: 'Numer wiersza',
+      notUsed: 'Nie używaj'
     },
     alerts: {
       enterText: 'Wpisz tekst lub adres URL.',
@@ -211,25 +300,28 @@
       mecardRequired: 'Wypełnij co najmniej jedno z pól: imię i nazwisko, numer telefonu lub e-mail.',
       appLinkRequired: 'Wpisz adres strony albo URL aplikacji na iOS lub Androida.',
       urlInvalid: 'Wpisz prawidłowy URL zaczynający się od http:// lub https://.',
-      lowContrast:
-        '⚠️ Wykryto niski kontrast. Kod QR może być trudny do zeskanowania. Użyj ciemniejszego koloru kodu lub jaśniejszego tła.',
       dataEmpty: 'Dane kodu QR są puste.',
       noData: 'Nie podano danych do kodu QR.',
-      libraryLoadFailed: 'Nie udało się wczytać biblioteki kodów QR. Odśwież stronę.',
       generationError: 'Błąd podczas tworzenia kodu QR',
       dataTooLong: 'Ta treść jest za długa dla wybranego poziomu korekcji błędów. Skróć ją lub wybierz niższy poziom.',
-      pdfExportFailed: 'Nie udało się wyeksportować pliku PDF. Spróbuj ponownie.',
-      generateFirst: 'Najpierw utwórz kod QR.',
-      resetSuccess: 'Przywrócono domyślny wygląd',
-      largeImageWarning:
-        '⚠️ Duży plik obrazu ({{size}} MB). Dla lepszej wydajności użyj mniejszego obrazu.',
-      invalidImageFile: 'Wybierz prawidłowy plik obrazu (PNG, JPEG, SVG, GIF).'
+      phoneInvalid: 'Wpisz numer telefonu, używając cyfr, np. +48512345678.',
+      paymentRequired: 'Wpisz nazwę odbiorcy i IBAN.',
+      paymentNameTooLong: 'Nazwa odbiorcy może mieć maksymalnie 70 znaków.',
+      ibanInvalid: 'Sprawdź IBAN. Cyfry kontrolne się nie zgadzają.',
+      bicInvalid: 'Wpisz prawidłowy kod BIC (8 lub 11 znaków).',
+      amountInvalid: 'Wpisz kwotę od 0,01 do 999999999,99 euro.',
+      referenceInvalid: 'Sprawdź numer referencyjny.',
+      referenceAndMessage: 'Podaj numer referencyjny albo tytuł przelewu, nie oba naraz.',
+      paymentTooLong: 'Dane płatności są za długie dla kodu QR płatności (maksymalnie 331 bajtów).',
+      paymentMessageTooLong: 'Tytuł przelewu może mieć maksymalnie 140 znaków.',
+      dateInvalid: 'Wpisz prawidłową datę, np. 2026-12-31.'
     },
     counters: {
       characters: '{{current}} / {{max}} znaków'
     },
     units: {
-      modules: 'Moduły: {{count}}'
+      modules: 'Moduły: {{count}}',
+      modules_one: 'Moduły: {{count}}'
     },
     labels: {
       sms: 'SMS',
@@ -240,14 +332,22 @@
         'Niski kontrast może utrudnić skanowanie kodu QR. Użyj ciemniejszego koloru kodu lub jaśniejszego tła.',
       transparentBackground:
         'Przy przezroczystym tle wiele zależy od podłoża. Przed publikacją przetestuj kod QR na docelowym tle.',
-      quietZoneSmall:
-        'Strefa ciszy jest za mała. Aby kod skanował się niezawodnie, ustaw co najmniej 4 moduły.',
       denseData:
-        'Ten kod QR zawiera dużo danych jak na wybrany rozmiar. Wybierz większy rozmiar lub skróć treść.',
+        'Ten kod zawiera dużo danych, więc jego moduły są małe. Skróć treść lub wyświetl kod w większym rozmiarze.',
       logoErrorCorrection:
-        'Kody z dużym logo skanują się pewniej przy wysokiej (H) korekcji błędów.',
+        'Kody z logo skanują się pewniej przy wysokiej (H) korekcji błędów.',
       logoLarge:
-        'Logo jest duże i może zasłaniać zbyt dużą część kodu QR. Przetestuj kod przed drukiem lub udostępnieniem.'
+        'Logo jest duże i może zasłaniać zbyt dużą część kodu QR. Przetestuj kod przed drukiem lub udostępnieniem.',
+      inverted:
+        'Kod jest jaśniejszy niż tło. Niektóre aplikacje do skanowania nie odczytują odwróconych kodów.',
+      gradientContrast: 'Część kodu ma zbyt jasny kolor w stosunku do tła.',
+      printTooSmall:
+        'Przy tym rozmiarze wydruku każdy moduł ma tylko {{size}}. Wydrukuj kod większy, aby telefony mogły go odczytać.',
+      codeTooSmall: 'Kod jest mniejszy niż 2 cm (0,8 cala). Wiele telefonów potrzebuje większego kodu.',
+      sizeTooSmall: 'Przy {{size}} px moduły są bardzo małe. Wybierz większy rozmiar obrazu.',
+      smallScanRisky: 'Ten kod skanuje się tylko w dużym rozmiarze. Nie drukuj go w małym formacie.',
+      decodeFailed: 'Wbudowany skaner nie mógł odczytać kodu o takim wyglądzie.',
+      paymentLogo: 'Kody płatności skanują się pewniej bez logo.'
     },
     brand: {
       tagline: 'Twoje prywatne miejsce do tworzenia kodów QR'
@@ -264,11 +364,13 @@
     workspace: {
       chooseType: 'Wybierz typ',
       addContent: 'Dodaj treść',
-      adjustLook: 'Rozmiar i styl'
+      adjustLook: 'Wygląd'
     },
     preview: {
       title: 'Podgląd',
-      localBadge: 'Utworzono na tym urządzeniu'
+      localBadge: 'Utworzono na tym urządzeniu',
+      encodedData: 'Zakodowane dane',
+      ready: 'Kod QR jest gotowy'
     },
     how: {
       title: 'Jak to działa',
@@ -277,7 +379,8 @@
       step2Title: 'Uzupełnij',
       step2Text: 'Wpisz treść. Podgląd aktualizuje się na bieżąco, bezpośrednio w Twojej przeglądarce.',
       step3Title: 'Pobierz',
-      step3Text: 'Zapisz kod jako PNG, SVG lub PDF. Przed drukiem lub udostępnieniem sprawdź, czy się skanuje.'
+      step3Text:
+        'Pobierz PNG, SVG, PDF lub EPS w dokładnie takim rozmiarze, jakiego potrzebujesz, albo skopiuj i udostępnij kod. Test skanowania pokaże, czy kod da się odczytać.'
     },
     privacyInfo: {
       title: 'Prywatność w standardzie',
@@ -287,13 +390,14 @@
       staticTitle: 'Bez przekierowań i daty ważności',
       staticText: 'Treść jest zakodowana bezpośrednio w kodzie QR. Skany nigdy nie przechodzą przez nasze serwery, a kod nigdy nie wygasa.',
       noTrackingTitle: 'Bez śledzenia',
-      noTrackingText: 'Bez analityki, reklam, plików cookie i kont. Zapisywane są tylko wybrany język i motyw, lokalnie w Twojej przeglądarce.',
+      noTrackingText:
+        'Bez analityki, reklam, plików cookie i kont. Zapisywane są tylko język, motyw i ustawienia pobierania, lokalnie w Twojej przeglądarce.',
       openSourceTitle: 'Każdy może to sprawdzić',
       openSourceText: 'Pełny kod źródłowy jest publicznie dostępny na GitHubie, więc każdy może zweryfikować te zapewnienia.'
     },
     footer: {
       privacy1: 'Ten darmowy generator kodów QR działa w całości w Twojej przeglądarce.',
-      privacy2: 'Żadne dane nie są zapisywane ani nigdzie wysyłane. Bez śledzenia, bez reklam, bez kombinowania.',
+      privacy2: 'Nic, co wpiszesz, nie jest nigdzie zapisywane ani wysyłane. Bez śledzenia, bez reklam, bez kombinowania.',
       privacyPolicy: 'Polityka prywatności',
       termsOfUse: 'Warunki korzystania',
       github: 'Zobacz kod źródłowy na GitHubie'
@@ -302,15 +406,154 @@
       quietZoneHelper:
         'Pusta przestrzeń wokół kodu QR (minimum 4 moduły dla niezawodnego skanowania)',
       socialHandleHelper:
-        'Wpisz nazwę użytkownika, np. @nazwa, lub wklej pełny adres profilu zaczynający się od https://.'
+        'Wpisz nazwę użytkownika, np. @nazwa, lub wklej pełny adres profilu zaczynający się od https://.',
+      httpsSuggestion: 'Telefony otwierają tylko linki zaczynające się od https://.',
+      ecHelper: 'Wyższe poziomy są odporniejsze na uszkodzenia i logo, ale zagęszczają kod.',
+      wifiWpa3: 'Wybierz WPA3 tylko wtedy, gdy sieć nie przyjmuje starszych urządzeń z WPA2.',
+      wifiHiddenIos: 'iPhone może wymagać od gości ręcznego połączenia z ukrytą siecią.',
+      paymentReference: 'Referencja wierzyciela RF lub fiński numer referencyjny (zamieniany na RF).',
+      paymentDueDate: 'Fińskie aplikacje bankowe uzupełniają termin płatności. Inne aplikacje mogą pokazać go jako notatkę.',
+      eventTimeZone: 'Godzina jest zapisywana z tą strefą czasową, więc wszędzie wyświetla się poprawnie.',
+      colorMode: 'RGB nadaje się do ekranów i drukarek biurowych. CMYK jest przeznaczony dla drukarni i używa prostej konwersji kolorów.'
     },
     frame: {
       defaultText: 'ZESKANUJ'
     },
     misc: {
-      qrPlaceholder: 'Tu pojawi się kod QR',
+      qrPlaceholder: 'Tu pojawi się Twój kod QR.',
       socialPreview: 'Kod QR prowadzi do',
-      wifiPayloadHidden: 'Konfiguracja WiFi — hasło ukryte'
+      wifiPayloadHidden: 'Ustawienia WiFi: hasło ukryte'
+    },
+    output: {
+      title: 'Pobieranie',
+      hintPng: 'Ostry obraz na ekrany, do dokumentów i dla większości drukarek.',
+      hintSvg: 'Grafika wektorowa na strony internetowe i do programów graficznych. Ostra w każdym rozmiarze.',
+      hintPdf: 'Wektorowy PDF, gotowy dla drukarni i do dokumentów.',
+      hintJpg: 'Do aplikacji, które nie obsługują PNG. Niezalecany do druku.',
+      hintWebp: 'Lekki obraz na strony internetowe.',
+      hintEps: 'Plik wektorowy dla starszych programów graficznych i reklamowych.',
+      vectorAnySize: 'Plik wektorowy: ostry w każdym rozmiarze',
+      summaryPixels: '{{width}} × {{height}} px',
+      summaryPrint: '{{size}} przy {{dpi}} dpi',
+      summaryVector: 'Wektorowy',
+      summaryVectorPrint: '{{size}} szerokości',
+      moduleSize: 'Każdy moduł ma {{size}}.',
+      scanDistance: 'Skanuje się z odległości do około {{distance}}.',
+      sizeCapped: 'Obrazy są ograniczone do 4096 px. Do większych wydruków użyj SVG lub PDF.',
+      pageTooSmall: 'Kod został zmniejszony, aby zmieścić się na stronie.',
+      transparentJpg: 'JPG nie obsługuje przezroczystości, więc tło będzie białe.',
+      epsOffice: 'Microsoft Office w systemie Windows nie otwiera plików EPS. Użyj tam PDF lub SVG.',
+      printTip: 'W oknie drukowania ustaw skalę na 100%, aby uzyskać dokładny rozmiar.',
+      preparing: 'Przygotowywanie pliku',
+      widthInvalid: 'Wpisz szerokość od {{min}} do {{max}}.',
+      customSizeInvalid: 'Wpisz rozmiar od 128 do 4096 pikseli.'
+    },
+    capacity: {
+      version: 'Wersja {{version}} · siatka {{modules}} × {{modules}}',
+      level: 'Poziom {{level}}',
+      levelAuto: 'Poziom {{level}}, automatycznie',
+      label: 'Wykorzystane dane',
+      usageBytes: '{{used}} z {{max}} bajtów',
+      usageChars: '{{used}} z {{max}} znaków (tryb kompaktowy)',
+      usageDigits: '{{used}} z {{max}} cyfr',
+      tooLong: 'Za dużo treści: {{used}} z {{max}} na poziomie {{level}}.',
+      paymentLimit: '{{used}} z 331 bajtów'
+    },
+    scan: {
+      title: 'Test skanowania',
+      checking: 'Sprawdzanie',
+      ok: 'Dobrze się skanuje',
+      looksGood: 'Wygląda dobrze',
+      tips: 'Skanuje się, zobacz wskazówki',
+      fail: 'Może się nie skanować',
+      verified: 'Testowe skanowanie na tym urządzeniu poprawnie odczytało kod.',
+      notVerified: 'Wbudowany skaner nie mógł odczytać tego kodu. Wypróbuj poniższe poprawki.',
+      unavailable:
+        'Automatyczne testowe skanowanie nie jest dostępne w tej przeglądarce. Przed drukiem przetestuj kod aparatem telefonu.',
+      fixEclH: 'Użyj poziomu H',
+      fixBlack: 'Użyj czarnego na białym',
+      fixSwapColors: 'Zamień kolory',
+      fixLogoSmaller: 'Zmniejsz logo',
+      fixPrintSize: 'Drukuj w rozmiarze {{size}}',
+      fixPixelSize: 'Użyj {{size}} px',
+      fixSquare: 'Użyj kwadratowych kształtów',
+      fixRemoveLogo: 'Usuń logo'
+    },
+    empty: {
+      urlText: 'Wpisz lub wklej link albo tekst, aby zobaczyć kod QR.',
+      vcard: 'Dodaj imię, e-mail lub numer telefonu, aby zobaczyć kod kontaktu.',
+      smsPhone: 'Wpisz numer telefonu, aby zobaczyć kod.',
+      wifi: 'Wpisz nazwę sieci, aby zobaczyć kod WiFi.',
+      email: 'Dodaj adres e-mail, temat lub treść wiadomości.',
+      calendarEvent: 'Dodaj nazwę wydarzenia i czas rozpoczęcia.',
+      location: 'Wpisz adres lub współrzędne.',
+      socialMedia: 'Wpisz nazwę użytkownika lub link do profilu.',
+      whatsapp: 'Wpisz numer WhatsApp z kierunkowym kraju.',
+      payment: 'Wpisz nazwę odbiorcy i IBAN.',
+      mecard: 'Dodaj imię i nazwisko, numer telefonu lub e-mail.',
+      appLink: 'Dodaj link do sklepu z aplikacjami lub link do strony.',
+      invalid: 'Popraw wyróżnione pole, aby zaktualizować kod.',
+      tooLong: 'Za dużo treści na jeden kod QR.',
+      error: 'Nie udało się utworzyć kodu.'
+    },
+    design: {
+      presets: 'Styl',
+      custom: 'Własny',
+      presetStandard: 'Standardowy',
+      presetClassic: 'Klasyczny',
+      presetRounded: 'Zaokrąglony',
+      presetDots: 'Kropki',
+      presetSoft: 'Delikatny',
+      presetScanMe: 'Zeskanuj',
+      colors: 'Kolory',
+      advanced: 'Zaawansowane',
+      eclAutoHelp: 'Tryb automatyczny używa poziomu M, a gdy kod ma logo, poziomu H.',
+      eclLockedPayment: 'Kody płatności zawsze używają poziomu M.'
+    },
+    logo: {
+      dropHint: 'Upuść, wklej lub wybierz obraz: PNG, JPEG, WebP, GIF lub SVG.',
+      dropHere: 'Upuść obraz, aby użyć go jako logo',
+      readFailed: 'Nie udało się otworzyć tego obrazu. Spróbuj pliku PNG, JPEG, WebP lub SVG.',
+      tooLarge: 'Ten obraz ma ponad 10 MB. Wybierz mniejszy plik.',
+      optimized: 'Zmniejszono obraz do {{size}} px, aby wszystko działało szybko.'
+    },
+    toast: {
+      designReset: 'Przywrócono domyślny wygląd.',
+      applied: 'Zastosowano: {{what}}',
+      imageCopied: 'Skopiowano obraz.',
+      svgCopied: 'Skopiowano kod SVG.',
+      textCopied: 'Skopiowano tekst.',
+      copyFailed: 'Ta przeglądarka nie pozwala na kopiowanie. Użyj przycisku Pobierz.',
+      shareFailed: 'Udostępnianie się nie powiodło. Użyj przycisku Pobierz.',
+      saved: 'Zapisano {{filename}}',
+      exportFailed: 'Nie udało się utworzyć pliku {{format}}. Spróbuj ponownie.',
+      pdfRasterFallback: 'PDF został zapisany z kodem w postaci obrazu.',
+      batchLoadFailed: 'Tworzenie wielu kodów jest teraz niedostępne. Odśwież stronę i spróbuj ponownie.'
+    },
+    mobile: {
+      showPreview: 'Pokaż kod QR'
+    },
+    batch: {
+      title: 'Utwórz wiele kodów QR',
+      intro:
+        'Wklej wiersze z arkusza kalkulacyjnego lub wybierz plik CSV. Każdy wiersz staje się jednym kodem QR z Twoim obecnym wyglądem. Plik jest odczytywany na tym urządzeniu i nigdy nie jest wysyłany.',
+      dropHint: 'Upuść tutaj plik CSV',
+      mappingTitle: 'Przypisz kolumny do pól',
+      rowsFound: 'Znalezione wiersze: {{count}}',
+      limit: 'Jednorazowo można przetworzyć maksymalnie {{max}} wierszy.',
+      sizeNote: 'Rozmiar pochodzi z obecnych ustawień pobierania: {{summary}}.',
+      progress: 'Tworzenie {{done}} z {{total}}',
+      done: 'Utworzono: {{ok}}. Pominięto: {{failed}}.',
+      rowError: 'Wiersz {{row}}: {{message}}',
+      emptyInput: 'Najpierw wklej dane CSV lub wybierz plik.',
+      cancelled: 'Zatrzymano. Nie utworzono pliku ZIP.',
+      column: 'Kolumna {{n}}',
+      columnSample: 'Kolumna {{n}} ({{sample}})',
+      mapRequired: 'Wybierz kolumnę dla pola {{field}}.',
+      fileTooLarge: 'Ten plik ma ponad 5 MB. Wybierz mniejszy plik CSV.',
+      notCsv: 'To nie jest plik CSV. W arkuszu kalkulacyjnym zapisz lub wyeksportuj go jako CSV i spróbuj ponownie.',
+      scanFailed: 'Kody, które nie przeszły testu skanowania: {{count}}.',
+      moreErrors: 'Kolejne wiersze z problemami: {{count}}.'
     }
   };
 })();

@@ -11,12 +11,12 @@ module.exports = {
     eyebrow: 'Gratis QR-kodgenerator',
     display: 'Gratis QR-koder som aldrig slutar fungera.',
     lead:
-      'Skapa QR-koder för länkar, WiFi, kontakter och mycket mer, direkt i webbläsaren. Ingen registrering, ingen provperiod, inga omdirigeringar: ditt innehåll läggs direkt i koden, så den fungerar för alltid. Lägg till logotyp, färger och en ram med ”SKANNA MIG”.'
+      'Skapa QR-koder för länkar, WiFi, kontakter och mycket mer, direkt i webbläsaren. Ingen registrering, ingen provperiod, inga omdirigeringar: ditt innehåll läggs direkt i koden, så den fungerar för alltid. Lägg till logotyp, färger och en ram med ”SKANNA MIG” och ladda sedan ner tryckfärdiga PNG-, SVG-, PDF- eller EPS-filer.'
   },
   types: {
     wifi: {
       name: 'WiFi QR-kod',
-      title: 'Skapa WiFi QR-kod gratis – privat och säkert | QRTurbo.app',
+      title: 'Skapa WiFi QR-kod gratis, privat och säkert | QRTurbo.app',
       description:
         'Skapa en WiFi QR-kod gratis så att gäster ansluter till nätverket med en skanning. Lösenordet stannar i webbläsaren. Ingen registrering, går aldrig ut.',
       eyebrow: 'Generator för WiFi QR-kod',
@@ -80,7 +80,7 @@ module.exports = {
     },
     event: {
       name: 'QR-kod för kalenderhändelse',
-      title: 'Gratis QR-kod för evenemang – lägg till i kalendern | QRTurbo.app',
+      title: 'Gratis QR-kod för evenemang, lägg till i kalendern | QRTurbo.app',
       description:
         'Skapa en QR-kod för kalenderhändelser gratis. En skanning lägger in titel, tid, plats och detaljer i kalendern. Skapas i webbläsaren, går aldrig ut.',
       eyebrow: 'QR-kodgenerator för kalenderhändelser',
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Hur stor ska en QR-kod vara i tryck?',
-        a: 'Skriv ut den minst 2 × 2 cm. En tumregel är att koden ska vara minst en tiondel av skanningsavståndet: en affisch som läses på 2 meters håll behöver en kod på ungefär 20 cm. För tryck, ladda ner en SVG eller en stor PNG och håll den tysta zonen runt koden tom.'
+        a: 'Skriv ut den minst 2 × 2 cm. En tumregel är att koden ska vara minst en tiondel av skanningsavståndet: en affisch som läses på 2 meters håll behöver en kod på ungefär 20 cm. För tryck laddar du ner en PDF- eller SVG-fil, som förblir skarp i alla storlekar, och anger den exakta utskriftsbredden. QRTurbo.app visar modulstorleken och varnar dig när koden är för liten för att kunna skannas. Håll den tysta zonen runt koden tom.'
       },
       {
         q: 'Varför går det inte att skanna min QR-kod?',
-        a: 'De vanligaste orsakerna är för låg kontrast mellan koden och bakgrunden, för liten tyst zon, en logotyp som täcker för mycket av koden eller för mycket innehåll för den tryckta storleken. QRTurbo.app varnar dig för dessa risker. Testa alltid koden med några olika telefoner innan du skriver ut den.'
+        a: 'De vanligaste orsakerna är för låg kontrast mellan koden och bakgrunden, för liten tyst zon, en logotyp som täcker för mycket av koden eller för mycket innehåll för den tryckta storleken. QRTurbo.app kontrollerar varje kod med en inbyggd skanner på din enhet och föreslår åtgärder. Testa alltid koden med några olika telefoner innan du skriver ut den.'
       },
       {
         q: 'Är mina uppgifter säkra? Kan ni se mitt WiFi-lösenord?',
         a: 'Dina uppgifter stannar på din enhet. QR-koden skapas av kod som körs i din webbläsare, och inget du skriver eller laddar upp skickas till en server, så ingen kan se ditt WiFi-lösenord eller dina kontaktuppgifter. Efter första besöket fungerar generatorn även offline.'
+      },
+      {
+        q: 'Vilket filformat ska jag använda?',
+        a: 'Använd PNG för skärmar, dokument och de flesta skrivare. Använd SVG för webbplatser och designverktyg och PDF för tryckerier: båda är vektorfiler som förblir skarpa i alla storlekar. EPS är till för äldre design- och skyltprogram. JPG och WebP är små bildfiler för appar och webbplatser. Alla format är gratis och behåller dina färger, din logotyp och din ram.'
       }
     ]
   },

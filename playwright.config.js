@@ -1,5 +1,9 @@
 const { defineConfig, devices } = require('@playwright/test');
 
+// PORT lets parallel runs use their own static server; 4173 stays the default.
+const port = Number(process.env.PORT || 4173);
+const baseURL = `http://127.0.0.1:${port}`;
+
 module.exports = defineConfig({
   testDir: './tests/e2e',
   timeout: 30_000,
@@ -7,12 +11,13 @@ module.exports = defineConfig({
     timeout: 5_000
   },
   use: {
-    baseURL: 'http://127.0.0.1:4173',
+    baseURL,
     trace: 'on-first-retry'
   },
   webServer: {
     command: 'node tests/helpers/static-server.js',
-    url: 'http://127.0.0.1:4173',
+    url: baseURL,
+    env: { PORT: String(port) },
     reuseExistingServer: !process.env.CI
   },
   projects: [

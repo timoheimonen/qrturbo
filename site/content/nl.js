@@ -11,7 +11,7 @@ module.exports = {
     eyebrow: 'Gratis QR-code generator',
     display: 'Gratis QR-codes die altijd blijven werken.',
     lead:
-      'Maak QR-codes voor links, wifi, contactgegevens en meer, direct in je browser. Geen registratie, geen proefperiode, geen doorverwijzingen: je inhoud staat rechtstreeks in de code, dus die blijft voor altijd werken. Voeg een logo, kleuren en een ‘Scan mij’-kader toe.'
+      'Maak QR-codes voor links, wifi, contactgegevens en meer, direct in je browser. Geen registratie, geen proefperiode, geen doorverwijzingen: je inhoud staat rechtstreeks in de code, dus die blijft voor altijd werken. Voeg een logo, kleuren en een ‘Scan mij’-kader toe en download daarna drukklare PNG-, SVG-, PDF- of EPS-bestanden.'
   },
   types: {
     wifi: {
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Hoe groot moet ik een QR-code printen?',
-        a: 'Print hem minstens 2 × 2 cm. Vuistregel: maak de code minstens een tiende van de scanafstand. Een poster die van 2 meter afstand wordt gescand, heeft dus een code van ongeveer 20 cm nodig. Download voor drukwerk een SVG of een grote PNG en houd de witrand rond de code leeg.'
+        a: 'Print hem minstens 2 × 2 cm. Vuistregel: maak de code minstens een tiende van de scanafstand. Een poster die van 2 meter afstand wordt gescand, heeft dus een code van ongeveer 20 cm nodig. Download voor drukwerk een PDF- of SVG-bestand, dat op elk formaat scherp blijft, en stel de exacte afdrukbreedte in. QRTurbo.app toont de modulegrootte en waarschuwt je als de code te klein is om te scannen. Houd de witrand rond de code leeg.'
       },
       {
         q: 'Waarom scant mijn QR-code niet?',
-        a: 'De meest voorkomende oorzaken zijn te weinig contrast tussen de code en de achtergrond, een te smalle witrand, een logo dat te veel van de code bedekt, of te veel inhoud voor het formaat waarop je print. QRTurbo.app waarschuwt je voor deze risico’s. Test de code altijd met een paar verschillende telefoons voordat je hem laat drukken.'
+        a: 'De meest voorkomende oorzaken zijn te weinig contrast tussen de code en de achtergrond, een te smalle witrand, een logo dat te veel van de code bedekt, of te veel inhoud voor het formaat waarop je print. QRTurbo.app controleert elke code met een ingebouwde scanner op je apparaat en stelt oplossingen voor. Test de code altijd met een paar verschillende telefoons voordat je hem laat drukken.'
       },
       {
         q: 'Zijn mijn gegevens veilig? Kunnen jullie mijn wifiwachtwoord zien?',
         a: 'Je gegevens blijven op je apparaat. De QR-code wordt gemaakt door code die in je browser draait, en niets wat je typt of uploadt wordt naar een server gestuurd. Niemand kan dus je wifiwachtwoord of contactgegevens zien. Na het eerste bezoek werkt de generator ook offline.'
+      },
+      {
+        q: 'Welk bestandsformaat moet ik gebruiken?',
+        a: 'Gebruik PNG voor schermen, documenten en de meeste printers. Gebruik SVG voor websites en ontwerpprogramma’s, en PDF voor drukkerijen: dat zijn allebei vectorbestanden die op elk formaat scherp blijven. EPS is voor oudere ontwerp- en beletteringssoftware. JPG en WebP zijn kleine afbeeldingsbestanden voor apps en websites. Elk formaat is gratis en behoudt je kleuren, logo en kader.'
       }
     ]
   },

@@ -3,13 +3,31 @@ const path = require('node:path');
 
 const jsQR = require('jsqr');
 
+const { rasterizeEps, rasterizePdf } = require('./vector-inspect');
+
+// Raster and SVG artifacts are decoded in the browser. PDF and EPS files are
+// rasterized in Node by tests/helpers/vector-inspect.js instead.
 const MIME_TYPES = {
+  '.eps': 'application/postscript',
+  '.jpeg': 'image/jpeg',
+  '.jpg': 'image/jpeg',
+  '.pdf': 'application/pdf',
   '.png': 'image/png',
-  '.svg': 'image/svg+xml'
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp'
 };
 
-async function rasterizeArtifact(page, artifact, mimeType) {
-  return page.evaluate(async ({ base64, mimeType: type }) => {
+const VECTOR_RASTERIZERS = {
+  'application/pdf': rasterizePdf,
+  'application/postscript': rasterizeEps
+};
+
+// jsQR misses some codes at one resolution and finds them at another, so
+// vector files are tried at a few scales before giving up.
+const VECTOR_PX_PER_PT = [3, 4, 2, 5, 6];
+
+async function rasterizeArtifact(page, artifact, mimeType, { composite = true } = {}) {
+  return page.evaluate(async ({ base64, mimeType: type, composite: onWhite }) => {
     const bytes = Uint8Array.from(
       atob(base64),
       character => character.charCodeAt(0)
@@ -39,9 +57,12 @@ async function rasterizeArtifact(page, artifact, mimeType) {
         throw new Error('A 2D canvas context is required to decode QR artifacts');
       }
 
-      // jsQR reads RGB values only, so composite transparent pixels onto white.
-      context.fillStyle = '#ffffff';
-      context.fillRect(0, 0, width, height);
+      // jsQR reads RGB values only, so composite transparent pixels onto
+      // white unless the caller wants the raw pixels.
+      if (onWhite) {
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, width, height);
+      }
       context.drawImage(image, 0, 0);
 
       const pixels = context.getImageData(0, 0, width, height).data;
@@ -59,9 +80,59 @@ async function rasterizeArtifact(page, artifact, mimeType) {
       URL.revokeObjectURL(objectUrl);
     }
   }, {
-    base64: artifact.toString('base64'),
-    mimeType
+    base64: Buffer.from(artifact).toString('base64'),
+    mimeType,
+    composite
   });
+}
+
+function decodePixels(pixels, width, height) {
+  return jsQR(pixels, width, height, { inversionAttempts: 'attemptBoth' });
+}
+
+function decodeVectorBuffer(buffer, rasterize) {
+  let last = null;
+  for (const pxPerPt of VECTOR_PX_PER_PT) {
+    const raster = rasterize(Buffer.from(buffer), { pxPerPt });
+    const pixels = new Uint8ClampedArray(raster.data);
+    const decoded = decodePixels(pixels, raster.width, raster.height);
+    last = { decoded, pixels, width: raster.width, height: raster.height };
+    if (decoded) break;
+  }
+
+  return {
+    data: last.decoded ? last.decoded.data : null,
+    binaryData: last.decoded ? Uint8Array.from(last.decoded.binaryData) : null,
+    width: last.width,
+    height: last.height,
+    pixels: last.pixels
+  };
+}
+
+/**
+ * Decodes an exported QR artifact with jsQR in Node. Images and SVG are
+ * rasterized in the page; PDF and EPS are rasterized by vector-inspect (on
+ * white, so composite does not apply to them). With composite: false image
+ * pixels keep their alpha (transparent areas read as black), which lets
+ * tests check backgrounds.
+ */
+async function decodeQrBuffer(page, buffer, mimeType, { composite = true } = {}) {
+  const rasterizeVector = VECTOR_RASTERIZERS[mimeType];
+  if (rasterizeVector) return decodeVectorBuffer(buffer, rasterizeVector);
+
+  const bitmap = await rasterizeArtifact(page, buffer, mimeType, { composite });
+  const pixels = new Uint8ClampedArray(
+    Buffer.from(bitmap.rgbaBase64, 'base64')
+  );
+  const decoded = decodePixels(pixels, bitmap.width, bitmap.height);
+
+  return {
+    data: decoded ? decoded.data : null,
+    binaryData: decoded ? Uint8Array.from(decoded.binaryData) : null,
+    width: bitmap.width,
+    height: bitmap.height,
+    pixels
+  };
 }
 
 async function decodeQrDownload(page, download) {
@@ -78,15 +149,9 @@ async function decodeQrDownload(page, download) {
   }
 
   const artifact = await fs.readFile(downloadPath);
-  const bitmap = await rasterizeArtifact(page, artifact, mimeType);
-  const pixels = new Uint8ClampedArray(
-    Buffer.from(bitmap.rgbaBase64, 'base64')
-  );
-  const decoded = jsQR(pixels, bitmap.width, bitmap.height, {
-    inversionAttempts: 'attemptBoth'
-  });
+  const decoded = await decodeQrBuffer(page, artifact, mimeType);
 
-  if (!decoded) {
+  if (decoded.data === null) {
     throw new Error(`Independent QR decoder found no code in ${filename}`);
   }
 
@@ -94,7 +159,7 @@ async function decodeQrDownload(page, download) {
     artifact,
     data: decoded.data,
     filename,
-    pixels
+    pixels: decoded.pixels
   };
 }
 
@@ -116,4 +181,4 @@ function countPixelsNearColor(pixels, color, tolerance = 0) {
   return matches;
 }
 
-module.exports = { countPixelsNearColor, decodeQrDownload };
+module.exports = { MIME_TYPES, countPixelsNearColor, decodeQrBuffer, decodeQrDownload };

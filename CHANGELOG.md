@@ -5,6 +5,48 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.0] - 2026-10-23
+
+### Added
+
+- New export formats: vector PDF (fit to code, A4 or US Letter), EPS, JPG and WebP, next to PNG and SVG. PDF and EPS keep the code, gradients and frame as true vector shapes and can use RGB, CMYK or black only.
+- Exact print sizes in millimetres or inches at 150, 300 or 600 dpi. PNG and JPG files carry the resolution, SVG files the physical size, and the app shows the module size and the scanning distance.
+- Built-in scan check: every code is test-scanned on the device, and a badge shows whether it scans well, with one-click fixes for low contrast, inverted colors, large logos, missing error correction and print sizes that are too small.
+- QR info readout with the QR version, module count and how much of the capacity the content uses. Content that does not fit is detected before rendering, with a fix to use level L.
+- Copy the image (or the SVG code) to the clipboard, share the file on phones, and print the code at its exact size.
+- Style presets with live thumbnails, gradient code colors, custom corner colors and a "Swap colors" button.
+- Logos can be dropped or pasted, large images are downscaled automatically, and broken images show an error instead of stalling the preview.
+- Automatic error correction (M, or H when the code has a logo) and an optional minimum QR version.
+- SEPA payment QR codes (EPC QR code) with IBAN, BIC, amount, RF or Finnish reference number and due date, all validated.
+- WiFi "WPA3 only" networks, a hint for hidden networks, and clearer security labels.
+- vCard home phone, department, birthday, note and address type; all-day events and event time zones.
+- Create many QR codes from a CSV file with column mapping and the current design, downloaded as a ZIP file with an optional scan check and a manifest.
+- A suggestion to add `https://` to bare domain names, so phones open them as links.
+- A quick download bar on phones, a skip link, and a new FAQ answer about choosing a file format.
+
+### Changed
+
+- QR codes are now drawn in the standard orientation. Earlier versions produced mirrored codes that scanners read only through their fallback.
+- The live preview stays visible while you type and updates faster, and the download area with the format, size and Download button sits next to it.
+- Validation is calmer: errors appear next to the field after a pause or when you try to download, never while you are still typing.
+- Visual pickers replace the dropdowns for presets, frames and shapes, and all design options are grouped in one Design step.
+- Notifications use unobtrusive toasts with Undo instead of browser dialogs.
+- The default download size is 1024 px, and the last used download settings are remembered in the browser.
+- WiFi codes end with the standard `;;` terminator, calendar events are stored in UTC with a unique ID, phone numbers are normalized, and locations with coordinates keep their label.
+- The frame label uses a Helvetica-compatible font so the preview, images and vector files look alike.
+- Uploaded logos are re-encoded, and editor details are removed from SVG logos, so photo metadata such as GPS positions never ends up in exported files.
+
+### Fixed
+
+- vCard website and email values are no longer escaped as text, which broke some links with commas.
+- Email addresses with `+` keep working in email QR codes.
+- Language and QR code type pages visited earlier stay available offline after the app updates.
+- Translations were reviewed, and capitalization errors were fixed in several languages.
+
+### Removed
+
+- The raster-only PDF export, which remains only as an automatic fallback.
+
 ## [1.2.0] - 2026-09-28
 
 ### Added

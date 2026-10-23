@@ -9,15 +9,21 @@
   }
 
   window.translations.ro = {
-    app: {
-      selectLanguage: 'Alege limba'
-    },
     aria: {
       themeGroup: 'Temă',
       lightTheme: 'Temă luminoasă',
       darkTheme: 'Temă întunecată',
       language: 'Limbă',
-      qrTypes: 'Tipuri de coduri QR'
+      qrTypes: 'Tipuri de coduri QR',
+      skipToGenerator: 'Sari la generatorul de coduri QR',
+      qrImage: 'Previzualizarea codului QR: {{type}}',
+      qrImageStale: 'Previzualizarea codului QR, neactualizată',
+      removeLogo: 'Elimină logoul',
+      formatGroup: 'Formatul fișierului',
+      presetGroup: 'Stiluri predefinite',
+      mobileBar: 'Descărcare rapidă',
+      notifications: 'Notificări',
+      hexValue: '{{name}}, valoare hex'
     },
     tabs: {
       urlText: 'URL/Text',
@@ -29,6 +35,7 @@
       location: 'Locație',
       socialMedia: 'Rețele sociale',
       whatsapp: 'WhatsApp',
+      payment: 'Plată',
       mecard: 'MeCard',
       appLink: 'Link aplicație'
     },
@@ -53,20 +60,19 @@
       hiddenNetwork: 'Aceasta este o rețea ascunsă',
       phoneNumber: 'Număr de telefon',
       message: 'Mesaj (opțional)',
-      qrSize: 'Dimensiunea codului QR',
-      foregroundColor: 'Culoare prim-plan',
-      backgroundColor: 'Culoare fundal',
+      qrSize: 'Dimensiune',
+      foregroundColor: 'Culoarea codului',
+      backgroundColor: 'Fundal',
       transparentBackground: 'Fundal transparent',
       errorCorrection: 'Corecția erorilor',
-      downloadFormat: 'Format de descărcare',
-      dotStyle: 'Stilul punctelor',
-      cornerSquare: 'Pătrat de colț',
-      cornerDot: 'Punct de colț',
-      quietZone: 'Zonă liberă (margine)',
+      dotStyle: 'Model',
+      cornerSquare: 'Conturul colțurilor',
+      cornerDot: 'Centrul colțurilor',
+      quietZone: 'Zonă liberă',
       logoSize: 'Dimensiunea logoului',
-      logoMargin: 'Marginea logoului',
-      logo: 'Logo (opțional)',
-      styleOptions: 'Opțiuni de stil',
+      logoMargin: 'Spațiu în jurul logoului',
+      logo: 'Logo',
+      styleOptions: 'Forme',
       emailTo: 'E-mailul destinatarului',
       emailSubject: 'Subiect',
       emailBody: 'Mesaj',
@@ -91,7 +97,45 @@
       appLinkTarget: 'Magazin de rezervă',
       frame: 'Chenar',
       frameText: 'Textul chenarului',
-      frameColor: 'Culoarea chenarului'
+      frameColor: 'Culoarea chenarului',
+      smsPhoneType: 'Tipul codului',
+      fill: 'Umplere',
+      gradientColor2: 'A doua culoare',
+      gradientType: 'Tipul de degrade',
+      gradientAngle: 'Unghi',
+      customCorners: 'Culori personalizate pentru colțuri',
+      cornerOuterColor: 'Culoarea conturului colțurilor',
+      cornerInnerColor: 'Culoarea centrului colțurilor',
+      customPixels: 'Lățime în pixeli',
+      setPrintSize: 'Setează dimensiunea de tipărire',
+      printWidth: 'Lățimea la tipărire',
+      unit: 'Unitate',
+      dpi: 'Rezoluție',
+      pdfPage: 'Pagină',
+      colorMode: 'Mod de culoare',
+      minVersion: 'Versiunea QR minimă',
+      paymentName: 'Numele beneficiarului',
+      iban: 'IBAN',
+      bic: 'BIC (opțional)',
+      amount: 'Suma în euro (opțional)',
+      paymentReference: 'Număr de referință (opțional)',
+      paymentMessage: 'Detalii plată (opțional)',
+      dueDate: 'Data scadenței (opțional)',
+      allDay: 'Eveniment pe toată ziua',
+      timeZone: 'Fus orar',
+      phoneHome: 'Telefon (acasă)',
+      department: 'Departament',
+      birthday: 'Zi de naștere',
+      note: 'Notă',
+      addressType: 'Tipul adresei',
+      batchSource: 'Date CSV',
+      batchHasHeader: 'Primul rând conține numele coloanelor',
+      batchType: 'Tipul codului',
+      batchFilename: 'Numele fișierelor din',
+      batchFormat: 'Formatul fișierelor',
+      batchSameSize: 'Aceeași dimensiune pentru toate codurile',
+      batchManifest: 'Include o listă cu toate fișierele (manifest.csv)',
+      batchVerify: 'Verifică dacă fiecare cod se scanează'
     },
     placeholders: {
       url: 'ex.: https://www.example.com',
@@ -131,21 +175,39 @@
       appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
-      generate: 'Creează codul QR',
-      download: 'Descarcă codul QR',
-      reset: 'Revino la setările implicite',
-      customize: 'Personalizează aspectul (opțional)',
+      download: 'Descarcă',
+      reset: 'Resetează designul',
+      customize: 'Mai multe opțiuni de design',
       chooseLogo: 'Alege o imagine',
       showPassword: 'Arată parola',
       hidePassword: 'Ascunde parola',
       showPayload: 'Arată datele QR',
-      hidePayload: 'Ascunde datele QR'
+      hidePayload: 'Ascunde datele QR',
+      downloadFormat: 'Descarcă {{format}}',
+      copyImage: 'Copiază imaginea',
+      copySvg: 'Copiază codul SVG',
+      copyText: 'Copiază textul',
+      share: 'Distribuie',
+      undo: 'Anulează',
+      goToField: 'Mergi la câmp',
+      addHttps: 'Adaugă https://',
+      moreFormats: 'Mai multe formate',
+      swapColors: 'Inversează culorile',
+      dismiss: 'Ignoră',
+      retry: 'Încearcă din nou',
+      useLevelL: 'Folosește nivelul L',
+      print: 'Tipărește',
+      cancel: 'Renunță',
+      close: 'Închide',
+      createMany: 'Creează mai multe coduri din CSV',
+      batchStart: 'Creează fișierul ZIP',
+      chooseCsv: 'Alege fișierul CSV'
     },
     options: {
-      sizeMedium: 'Ecran (512 px)',
-      sizeLarge: 'Mare (1024 px)',
-      sizePrint: 'Tipar (2048 px)',
-      sizePoster: 'Afiș (4096 px)',
+      sizeMedium: 'Mică (512 px)',
+      sizeLarge: 'Medie (1024 px)',
+      sizePrint: 'Mare (2048 px)',
+      sizePoster: 'Foarte mare (4096 px)',
       frameNone: 'Fără chenar',
       frameBannerBottom: 'Text dedesubt',
       frameBannerTop: 'Text deasupra',
@@ -154,12 +216,12 @@
       errorMedium: 'M - Medie (15%)',
       errorQuartile: 'Q - Cuartilă (25%)',
       errorHigh: 'H - Ridicată (30%)',
-      formatPng: 'PNG (raster)',
-      formatSvg: 'SVG (vectorial)',
-      formatPdf: 'PDF (document)',
-      authWpa: 'WPA/WPA2',
-      authWep: 'WEP',
-      authNone: 'Fără',
+      formatPng: 'PNG',
+      formatSvg: 'SVG',
+      formatPdf: 'PDF',
+      authWpa: 'WPA/WPA2/WPA3 (recomandat)',
+      authWep: 'WEP (învechit)',
+      authNone: 'Fără (rețea deschisă)',
       dotSquare: 'Pătrat',
       dotRounded: 'Rotunjit',
       dotDots: 'Puncte',
@@ -185,7 +247,34 @@
       socialTypeCompany: 'Companie',
       socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Folosește iOS dacă nu există URL web',
-      appTargetAndroid: 'Folosește Android dacă nu există URL web'
+      appTargetAndroid: 'Folosește Android dacă nu există URL web',
+      errorAuto: 'Automat (recomandat)',
+      sizeCustom: 'Dimensiune personalizată',
+      formatJpg: 'JPG',
+      formatWebp: 'WebP',
+      unitMm: 'mm',
+      unitIn: 'in',
+      dpi150: '150 dpi (ciornă)',
+      dpi300: '300 dpi (tipar)',
+      dpi600: '600 dpi (tipar fin)',
+      pageFit: 'Pe măsura codului',
+      pageA4: 'A4',
+      pageLetter: 'Letter (SUA)',
+      fillSolid: 'Uniformă',
+      fillGradient: 'Degrade',
+      gradientLinear: 'Degrade liniar',
+      gradientRadial: 'Degrade radial',
+      formatEps: 'EPS',
+      colorRgb: 'RGB',
+      colorCmyk: 'CMYK',
+      colorK: 'Doar negru (100% K)',
+      authWpa3: 'Doar WPA3',
+      versionAuto: 'Automată',
+      addressAuto: 'Automat',
+      addressWork: 'Serviciu',
+      addressHome: 'Acasă',
+      filenameRowNumber: 'Numărul rândului',
+      notUsed: 'Nu se folosește'
     },
     alerts: {
       enterText: 'Introdu un text sau un URL',
@@ -211,25 +300,28 @@
       mecardRequired: 'Completează cel puțin unul dintre câmpurile: Nume, Număr de telefon sau E-mail.',
       appLinkRequired: 'Introdu un URL web, iOS sau Android pentru aplicație.',
       urlInvalid: 'Introdu un URL valid, care începe cu http:// sau https://.',
-      lowContrast:
-        '⚠️ Contrast scăzut. Codul tău QR poate fi greu de scanat. Încearcă o culoare de prim-plan mai închisă sau un fundal mai deschis.',
       dataEmpty: 'Datele codului QR sunt goale.',
       noData: 'Nu există date pentru codul QR.',
-      libraryLoadFailed: 'Biblioteca pentru coduri QR nu s-a putut încărca. Reîncarcă pagina.',
       generationError: 'Eroare la generarea codului QR',
       dataTooLong: 'Conținutul este prea mare pentru nivelul de corecție a erorilor ales. Scurtează-l sau alege un nivel mai scăzut.',
-      pdfExportFailed: 'Exportul PDF a eșuat. Încearcă din nou.',
-      generateFirst: 'Creează mai întâi un cod QR.',
-      resetSuccess: 'Personalizarea a revenit la setările implicite',
-      largeImageWarning:
-        '⚠️ Fișier imagine mare ({{size}} MB). Folosește o imagine mai mică pentru o performanță mai bună.',
-      invalidImageFile: 'Alege un fișier imagine valid (PNG, JPEG, SVG, GIF).'
+      phoneInvalid: 'Introdu un număr de telefon format din cifre, de exemplu +40712345678.',
+      paymentRequired: 'Introdu numele beneficiarului și IBAN-ul.',
+      paymentNameTooLong: 'Numele beneficiarului poate avea cel mult 70 de caractere.',
+      ibanInvalid: 'Verifică IBAN-ul. Cifrele de control nu se potrivesc.',
+      bicInvalid: 'Introdu un cod BIC valid, de 8 sau 11 caractere.',
+      amountInvalid: 'Introdu o sumă între 0,01 și 999999999,99 euro.',
+      referenceInvalid: 'Verifică numărul de referință.',
+      referenceAndMessage: 'Folosește fie un număr de referință, fie detaliile plății, nu pe amândouă.',
+      paymentTooLong: 'Detaliile plății sunt prea lungi pentru un cod QR de plată (cel mult 331 de octeți).',
+      paymentMessageTooLong: 'Detaliile plății pot avea cel mult 140 de caractere.',
+      dateInvalid: 'Introdu o dată validă, de exemplu 2026-12-31.'
     },
     counters: {
       characters: '{{current}} / {{max}} de caractere'
     },
     units: {
-      modules: '{{count}} module'
+      modules: '{{count}} module',
+      modules_one: '{{count}} modul'
     },
     labels: {
       sms: 'SMS',
@@ -237,17 +329,25 @@
     },
     warnings: {
       lowContrast:
-        'Contrastul scăzut poate face acest cod QR greu de scanat. Folosește o culoare de prim-plan mai închisă sau un fundal mai deschis.',
+        'Contrastul scăzut poate face acest cod QR greu de scanat. Folosește o culoare mai închisă pentru cod sau un fundal mai deschis.',
       transparentBackground:
         'Un fundal transparent depinde de suprafața finală. Testează codul QR exact pe fundalul pe care îl vei folosi, înainte de publicare.',
-      quietZoneSmall:
-        'Zona liberă este prea mică. Folosește cel puțin 4 module pentru o scanare fiabilă.',
       denseData:
-        'Acest cod QR conține multe date pentru dimensiunea aleasă. Alege o dimensiune mai mare sau scurtează conținutul.',
+        'Acest cod conține multe date, așa că modulele lui sunt mici. Scurtează conținutul sau afișează codul mai mare.',
       logoErrorCorrection:
-        'Logourile mari se scanează mai sigur cu nivelul ridicat (H) de corecție a erorilor.',
+        'Codurile cu logo se scanează mai sigur cu nivelul ridicat (H) de corecție a erorilor.',
       logoLarge:
-        'Logoul este mare și poate acoperi prea mult din codul QR. Testează-l înainte să-l tipărești sau să-l distribui.'
+        'Logoul este mare și poate acoperi prea mult din codul QR. Testează-l înainte să-l tipărești sau să-l distribui.',
+      inverted:
+        'Codul este mai deschis decât fundalul. Unele aplicații de scanare nu pot citi codurile inversate.',
+      gradientContrast: 'O parte din culoarea codului este prea deschisă față de fundal.',
+      printTooSmall:
+        'La această dimensiune de tipărire, fiecare modul are doar {{size}}. Tipărește codul mai mare, ca telefoanele să-l poată citi.',
+      codeTooSmall: 'Codul are sub 2 cm (0,8 in). Multe telefoane au nevoie de un cod mai mare.',
+      sizeTooSmall: 'La {{size}} px, modulele sunt foarte mici. Folosește o imagine mai mare.',
+      smallScanRisky: 'Acest cod se scanează doar când este afișat mare. Evită să-l tipărești mic.',
+      decodeFailed: 'Scanerul integrat nu a putut citi acest design.',
+      paymentLogo: 'Codurile de plată se scanează mai sigur fără logo.'
     },
     brand: {
       tagline: 'locul tău privat pentru coduri QR'
@@ -264,11 +364,13 @@
     workspace: {
       chooseType: 'Alege tipul',
       addContent: 'Adaugă conținutul',
-      adjustLook: 'Dimensiune și stil'
+      adjustLook: 'Design'
     },
     preview: {
       title: 'Previzualizare',
-      localBadge: 'Creat pe acest dispozitiv'
+      localBadge: 'Creat pe acest dispozitiv',
+      encodedData: 'Date codificate',
+      ready: 'Codul QR este gata'
     },
     how: {
       title: 'Cum funcționează',
@@ -277,7 +379,8 @@
       step2Title: 'Completează',
       step2Text: 'Scrie conținutul. Previzualizarea se actualizează pe măsură ce scrii, chiar aici, în browserul tău.',
       step3Title: 'Descarcă',
-      step3Text: 'Salvează-l ca PNG, SVG sau PDF. Testează scanarea înainte să-l tipărești sau să-l distribui.'
+      step3Text:
+        'Descarcă PNG, SVG, PDF sau EPS exact la dimensiunea de care ai nevoie ori copiază codul și distribuie-l. Verificarea scanării îți arată dacă se va scana.'
     },
     privacyInfo: {
       title: 'Privat de la bun început',
@@ -287,14 +390,14 @@
       staticTitle: 'Fără redirecționări, fără expirare',
       staticText: 'Conținutul tău este codificat direct în codul QR. Scanările nu trec niciodată prin noi, iar codul nu expiră niciodată.',
       noTrackingTitle: 'Fără urmărire',
-      noTrackingText: 'Fără statistici, reclame, cookie-uri sau conturi. Doar limba și tema alese sunt salvate, local, în browserul tău.',
+      noTrackingText:
+        'Fără statistici, reclame, cookie-uri sau conturi. Doar limba, tema și setările de descărcare sunt salvate, local, în browserul tău.',
       openSourceTitle: 'Deschis verificării',
       openSourceText: 'Întregul cod sursă este public pe GitHub, așa că oricine poate verifica aceste afirmații.'
     },
     footer: {
       privacy1: 'Acest generator gratuit de coduri QR funcționează în întregime în browserul tău.',
-      privacy2:
-        'Nicio dată nu este stocată sau trimisă nicăieri. Fără urmărire, fără reclame, fără bătăi de cap.',
+      privacy2: 'Nimic din ce introduci nu este stocat sau trimis nicăieri. Fără urmărire, fără reclame, fără bătăi de cap.',
       privacyPolicy: 'Politica de confidențialitate',
       termsOfUse: 'Termeni de utilizare',
       github: 'Vezi codul sursă pe GitHub'
@@ -303,15 +406,154 @@
       quietZoneHelper:
         'Spațiul din jurul codului QR (minimum 4 module pentru o scanare fiabilă)',
       socialHandleHelper:
-        'Introdu un nume de utilizator, de exemplu @utilizator, sau lipește un URL complet de profil cu https://.'
+        'Introdu un nume de utilizator, de exemplu @utilizator, sau lipește un URL complet de profil cu https://.',
+      httpsSuggestion: 'Telefoanele deschid linkurile doar dacă încep cu https://.',
+      ecHelper: 'Nivelurile mai ridicate rezistă la deteriorări și logouri, dar fac codul mai dens.',
+      wifiWpa3: 'Alege WPA3 numai dacă rețeaua nu acceptă dispozitive mai vechi cu WPA2.',
+      wifiHiddenIos: 'Pe iPhone, invitații ar putea fi nevoiți să se conecteze manual la o rețea ascunsă.',
+      paymentReference: 'O referință de creditor RF sau un număr de referință finlandez (convertit în RF).',
+      paymentDueDate: 'Aplicațiile bancare finlandeze completează data scadenței. Alte aplicații o pot afișa ca notă.',
+      eventTimeZone: 'Ora este salvată cu acest fus orar, așa că apare corect oriunde.',
+      colorMode: 'RGB este potrivit pentru ecrane și imprimante de birou. CMYK este pentru tipografii și folosește o conversie de bază a culorilor.'
     },
     frame: {
       defaultText: 'SCANEAZĂ-MĂ'
     },
     misc: {
-      qrPlaceholder: 'Codul QR va apărea aici',
+      qrPlaceholder: 'Codul tău QR va apărea aici.',
       socialPreview: 'Destinația codului QR',
-      wifiPayloadHidden: 'Configurație WiFi — parolă ascunsă'
+      wifiPayloadHidden: 'Setări WiFi: parolă ascunsă'
+    },
+    output: {
+      title: 'Descărcare',
+      hintPng: 'Imagine clară pentru ecrane, documente și majoritatea imprimantelor.',
+      hintSvg: 'Imagine vectorială pentru site-uri și programe de design. Clară la orice dimensiune.',
+      hintPdf: 'PDF vectorial, gata pentru tipografii și documente.',
+      hintJpg: 'Pentru aplicațiile care nu acceptă PNG. Nerecomandat pentru tipar.',
+      hintWebp: 'Imagine mică pentru site-uri.',
+      hintEps: 'Fișier vectorial pentru programe mai vechi de design și de inscripționare.',
+      vectorAnySize: 'Vectorial: clar la orice dimensiune',
+      summaryPixels: '{{width}} × {{height}} px',
+      summaryPrint: '{{size}} la {{dpi}} dpi',
+      summaryVector: 'Vectorial',
+      summaryVectorPrint: '{{size}} în lățime',
+      moduleSize: 'Fiecare modul are {{size}}.',
+      scanDistance: 'Se poate scana de la o distanță de până la circa {{distance}}.',
+      sizeCapped: 'Imaginile sunt limitate la 4096 px. Pentru tipărituri mai mari, folosește SVG sau PDF.',
+      pageTooSmall: 'Codul a fost micșorat ca să încapă pe pagină.',
+      transparentJpg: 'JPG nu poate fi transparent, așa că fundalul va fi alb.',
+      epsOffice: 'Microsoft Office pe Windows nu deschide fișiere EPS. Acolo folosește PDF sau SVG.',
+      printTip: 'În fereastra de tipărire, setează scara la 100% pentru dimensiunea exactă.',
+      preparing: 'Se pregătește fișierul',
+      widthInvalid: 'Introdu o lățime între {{min}} și {{max}}.',
+      customSizeInvalid: 'Introdu o dimensiune între 128 și 4096 de pixeli.'
+    },
+    capacity: {
+      version: 'Versiunea {{version}} · {{modules}} × {{modules}} module',
+      level: 'Nivelul {{level}}',
+      levelAuto: 'Nivelul {{level}}, automat',
+      label: 'Date folosite',
+      usageBytes: 'Octeți: {{used}} din {{max}}',
+      usageChars: 'Caractere: {{used}} din {{max}} (mod compact)',
+      usageDigits: 'Cifre: {{used}} din {{max}}',
+      tooLong: 'Prea mult conținut: {{used}} din {{max}} la nivelul {{level}}.',
+      paymentLimit: 'Octeți: {{used}} din 331'
+    },
+    scan: {
+      title: 'Verificarea scanării',
+      checking: 'Se verifică',
+      ok: 'Se scanează bine',
+      looksGood: 'Arată bine',
+      tips: 'Se scanează, vezi sfaturile',
+      fail: 'S-ar putea să nu se scaneze',
+      verified: 'O scanare de test pe acest dispozitiv a citit corect codul.',
+      notVerified: 'Scanerul integrat nu a putut citi acest cod. Încearcă remediile de mai jos.',
+      unavailable:
+        'Scanările de test automate nu sunt disponibile în acest browser. Testează codul cu camera telefonului înainte de tipărire.',
+      fixEclH: 'Folosește nivelul H',
+      fixBlack: 'Folosește negru pe alb',
+      fixSwapColors: 'Inversează culorile',
+      fixLogoSmaller: 'Micșorează logoul',
+      fixPrintSize: 'Tipărește la {{size}}',
+      fixPixelSize: 'Folosește {{size}} px',
+      fixSquare: 'Folosește forme pătrate',
+      fixRemoveLogo: 'Elimină logoul'
+    },
+    empty: {
+      urlText: 'Scrie sau lipește un link ori un text ca să vezi codul QR.',
+      vcard: 'Adaugă un nume, un e-mail sau un număr de telefon ca să vezi codul de contact.',
+      smsPhone: 'Introdu un număr de telefon ca să vezi codul.',
+      wifi: 'Introdu numele rețelei ca să vezi codul WiFi.',
+      email: 'Adaugă o adresă de e-mail, un subiect sau un mesaj.',
+      calendarEvent: 'Adaugă titlul evenimentului și ora de început.',
+      location: 'Introdu o adresă sau coordonate.',
+      socialMedia: 'Introdu un nume de utilizator sau un link de profil.',
+      whatsapp: 'Introdu un număr WhatsApp cu prefixul țării.',
+      payment: 'Introdu numele beneficiarului și IBAN-ul.',
+      mecard: 'Adaugă un nume, un număr de telefon sau un e-mail.',
+      appLink: 'Adaugă un link din magazinul de aplicații sau un link web.',
+      invalid: 'Corectează câmpul evidențiat ca să actualizezi codul.',
+      tooLong: 'Prea mult conținut pentru un singur cod QR.',
+      error: 'Codul nu a putut fi creat.'
+    },
+    design: {
+      presets: 'Stil',
+      custom: 'Personalizat',
+      presetStandard: 'Standard',
+      presetClassic: 'Clasic',
+      presetRounded: 'Rotunjit',
+      presetDots: 'Puncte',
+      presetSoft: 'Delicat',
+      presetScanMe: 'Scanează-mă',
+      colors: 'Culori',
+      advanced: 'Avansat',
+      eclAutoHelp: 'Modul automat folosește nivelul M sau, dacă codul are logo, nivelul H.',
+      eclLockedPayment: 'Codurile de plată folosesc întotdeauna nivelul M.'
+    },
+    logo: {
+      dropHint: 'Trage, lipește sau alege o imagine: PNG, JPEG, WebP, GIF sau SVG.',
+      dropHere: 'Plasează imaginea aici pentru a o folosi ca logo',
+      readFailed: 'Imaginea nu a putut fi deschisă. Încearcă un fișier PNG, JPEG, WebP sau SVG.',
+      tooLarge: 'Imaginea are peste 10 MB. Alege un fișier mai mic.',
+      optimized: 'Imaginea a fost redimensionată la {{size}} px ca totul să meargă rapid.'
+    },
+    toast: {
+      designReset: 'Designul a fost resetat.',
+      applied: 'Aplicat: {{what}}',
+      imageCopied: 'Imaginea a fost copiată.',
+      svgCopied: 'Codul SVG a fost copiat.',
+      textCopied: 'Textul a fost copiat.',
+      copyFailed: 'Copierea nu este permisă în acest browser. Folosește butonul Descarcă.',
+      shareFailed: 'Distribuirea nu a funcționat. Folosește butonul Descarcă.',
+      saved: 'Salvat: {{filename}}',
+      exportFailed: 'Fișierul {{format}} nu a putut fi creat. Încearcă din nou.',
+      pdfRasterFallback: 'PDF-ul a fost salvat cu codul ca imagine.',
+      batchLoadFailed: 'Crearea mai multor coduri nu este disponibilă acum. Reîncarcă pagina și încearcă din nou.'
+    },
+    mobile: {
+      showPreview: 'Arată codul QR'
+    },
+    batch: {
+      title: 'Creează mai multe coduri QR',
+      intro:
+        'Lipește rânduri dintr-o foaie de calcul sau alege un fișier CSV. Fiecare rând devine un cod QR cu designul tău actual. Fișierul este citit pe acest dispozitiv și nu este încărcat niciodată.',
+      dropHint: 'Plasează aici un fișier CSV',
+      mappingTitle: 'Asociază coloanele cu câmpurile',
+      rowsFound: 'Rânduri găsite: {{count}}',
+      limit: 'Poți crea cel mult {{max}} de rânduri odată.',
+      sizeNote: 'Dimensiunea vine din setările tale actuale de descărcare: {{summary}}.',
+      progress: 'Se creează {{done}} din {{total}}',
+      done: 'Coduri create: {{ok}}. Omise: {{failed}}.',
+      rowError: 'Rândul {{row}}: {{message}}',
+      emptyInput: 'Mai întâi lipește date CSV sau alege un fișier.',
+      cancelled: 'Oprit. Nu a fost creat niciun fișier ZIP.',
+      column: 'Coloana {{n}}',
+      columnSample: 'Coloana {{n}} ({{sample}})',
+      mapRequired: 'Alege o coloană pentru {{field}}.',
+      fileTooLarge: 'Fișierul are peste 5 MB. Alege un fișier CSV mai mic.',
+      notCsv: 'Acesta nu este un fișier CSV. În aplicația de foi de calcul, salvează-l sau exportă-l ca CSV, apoi încearcă din nou.',
+      scanFailed: 'Coduri care nu au trecut verificarea scanării: {{count}}.',
+      moreErrors: 'Alte rânduri cu probleme: {{count}}.'
     }
   };
 })();

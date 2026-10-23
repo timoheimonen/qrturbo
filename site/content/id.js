@@ -11,7 +11,7 @@ module.exports = {
     eyebrow: 'Pembuat kode QR gratis',
     display: 'Kode QR gratis yang tidak pernah berhenti berfungsi.',
     lead:
-      'Buat kode QR untuk tautan, WiFi, kontak, dan lainnya, langsung di browser Anda. Tanpa daftar, tanpa masa uji coba, tanpa pengalihan: konten Anda masuk langsung ke dalam kode, jadi kodenya berfungsi selamanya. Tambahkan logo, warna, dan bingkai “Pindai saya”.'
+      'Buat kode QR untuk tautan, WiFi, kontak, dan lainnya, langsung di browser Anda. Tanpa daftar, tanpa masa uji coba, tanpa pengalihan: konten Anda masuk langsung ke dalam kode, jadi kodenya berfungsi selamanya. Tambahkan logo, warna, dan bingkai “Pindai saya”, lalu unduh file PNG, SVG, PDF, atau EPS yang siap cetak.'
   },
   types: {
     wifi: {
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Seberapa besar ukuran cetak kode QR yang ideal?',
-        a: 'Cetak minimal 2 × 2 cm. Sebagai patokan, ukuran kode setidaknya sepersepuluh dari jarak pemindaian: poster yang dipindai dari jarak 2 meter membutuhkan kode sekitar 20 cm. Untuk cetak, unduh file SVG atau PNG beresolusi besar dan biarkan zona tenang di sekitar kode tetap kosong.'
+        a: 'Cetak minimal 2 × 2 cm. Sebagai patokan, ukuran kode setidaknya sepersepuluh dari jarak pemindaian: poster yang dipindai dari jarak 2 meter membutuhkan kode sekitar 20 cm. Untuk cetak, unduh file PDF atau SVG yang tetap tajam di ukuran berapa pun, lalu atur lebar cetak yang tepat. QRTurbo.app menampilkan ukuran modul dan memperingatkan Anda jika kode terlalu kecil untuk dipindai. Biarkan zona tenang di sekitar kode tetap kosong.'
       },
       {
         q: 'Mengapa kode QR saya tidak bisa dipindai?',
-        a: 'Penyebab paling umum adalah kontras yang rendah antara kode dan latar belakangnya, zona tenang yang terlalu kecil, logo yang menutupi terlalu banyak bagian kode, atau konten yang terlalu banyak untuk ukuran cetaknya. QRTurbo.app memperingatkan Anda tentang risiko ini. Selalu uji kode dengan beberapa ponsel yang berbeda sebelum mencetaknya.'
+        a: 'Penyebab paling umum adalah kontras yang rendah antara kode dan latar belakangnya, zona tenang yang terlalu kecil, logo yang menutupi terlalu banyak bagian kode, atau konten yang terlalu banyak untuk ukuran cetaknya. QRTurbo.app memeriksa setiap kode dengan pemindai bawaan di perangkat Anda dan menyarankan perbaikan. Selalu uji kode dengan beberapa ponsel yang berbeda sebelum mencetaknya.'
       },
       {
         q: 'Apakah data saya aman? Bisakah Anda melihat kata sandi WiFi saya?',
         a: 'Data Anda tetap di perangkat Anda. Kode QR dibuat oleh kode yang berjalan di browser Anda, dan tidak ada yang Anda ketik atau unggah yang dikirim ke server, jadi tidak ada yang bisa melihat kata sandi WiFi atau data kontak Anda. Setelah kunjungan pertama, generator ini juga bisa dipakai secara offline.'
+      },
+      {
+        q: 'Format file mana yang sebaiknya saya pakai?',
+        a: 'Gunakan PNG untuk layar, dokumen, dan sebagian besar printer. Gunakan SVG untuk situs web dan alat desain, serta PDF untuk percetakan: keduanya file vektor yang tetap tajam di ukuran berapa pun. EPS cocok untuk perangkat lunak desain dan pembuatan papan nama versi lama. JPG dan WebP adalah file gambar berukuran kecil untuk aplikasi dan situs web. Semua format gratis dan tetap menyimpan warna, logo, dan bingkai Anda.'
       }
     ]
   },

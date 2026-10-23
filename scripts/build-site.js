@@ -28,6 +28,32 @@ const HTML_LANGS = {
   'zh-hant': 'zh-Hant'
 };
 
+// Each language is listed under its own name in the language menu.
+const LANGUAGE_NAMES = {
+  en: 'English',
+  es: 'Español',
+  fr: 'Français',
+  de: 'Deutsch',
+  it: 'Italiano',
+  fi: 'Suomi',
+  sv: 'Svenska',
+  no: 'Norsk',
+  da: 'Dansk',
+  zh: '简体中文',
+  ja: '日本語',
+  ko: '한국어',
+  pt: 'Português',
+  nl: 'Nederlands',
+  pl: 'Polski',
+  tr: 'Türkçe',
+  id: 'Bahasa Indonesia',
+  'zh-hant': '繁體中文',
+  cs: 'Čeština',
+  ro: 'Română',
+  hu: 'Magyar',
+  el: 'Ελληνικά'
+};
+
 const OG_LOCALES = {
   en: 'en_US',
   cs: 'cs_CZ',
@@ -66,6 +92,10 @@ const PAGE_TYPES = [
   { key: 'social', slug: 'social-media-qr-code', tab: 'SocialMedia' },
   { key: 'app', slug: 'app-store-qr-code', tab: 'AppLink' }
 ];
+
+// Tabs that exist in the generator but have no landing page of their own, so
+// they are never the selected tab of a generated page.
+const TABS_WITHOUT_PAGE = new Set(['MeCard', 'Payment']);
 
 function escapeHtml(value) {
   return String(value)
@@ -345,13 +375,38 @@ ${links}
 `;
 }
 
+// The language menu links to the same page in every language, so it also
+// works without JavaScript. The list has two columns filled top to bottom.
+function renderLangMenu(lang, page, translate) {
+  const rows = Math.ceil(LANGUAGES.length / 2);
+  const items = LANGUAGES.map(code => {
+    const current = code === lang ? ' aria-current="true"' : '';
+    return `                    <li><a href="${pagePath(code, page)}" hreflang="${htmlLang(code)}" lang="${htmlLang(code)}" data-lang="${code}"${current}>${escapeHtml(LANGUAGE_NAMES[code])}</a></li>`;
+  }).join('\n');
+  const label = `${translate('aria.language')}: ${LANGUAGE_NAMES[lang]}`;
+  const long = lang.length > 2 ? ' lang-toggle--long' : '';
+
+  return `<details class="lang-menu" data-lang-menu>
+                <summary class="lang-toggle${long}" aria-label="${escapeHtml(label)}">
+                    <svg class="language-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
+                    </svg>
+                    <span class="lang-code" aria-hidden="true">${escapeHtml(lang.toUpperCase())}</span>
+                </summary>
+                <ul class="lang-list" role="list" style="--rows: ${rows}">
+${items}
+                </ul>
+            </details>`;
+}
+
 function renderPage(template, lang, page, translate, content) {
   const pageContent = page.key === 'home' ? content.home : content.types[page.key];
   const tabs = new Set(PAGE_TYPES.map(entry => entry.tab));
   let html = translateTemplate(template, translate);
 
   html = html.replace(/\{\{(tabClass|tabSelected|tabIndex|tabPanel):(\w+)\}\}/g, (match, kind, tab) => {
-    if (!tabs.has(tab) && tab !== 'MeCard') {
+    if (!tabs.has(tab) && !TABS_WITHOUT_PAGE.has(tab)) {
       throw new Error(`Unknown tab ${tab} in template`);
     }
     const active = tab === page.tab;
@@ -361,13 +416,10 @@ function renderPage(template, lang, page, translate, content) {
     return active ? 'style="display: block;"' : 'hidden';
   });
 
-  html = html.replace(/<option value="([\w-]+)">/g, (match, value) => (
-    LANGUAGES.includes(value) && value === lang ? `<option value="${value}" selected>` : match
-  ));
-
   const values = {
     lang: htmlLang(lang),
     homeHref: pagePath(lang, PAGE_TYPES[0]),
+    langMenu: renderLangMenu(lang, page, translate),
     head: renderHead(lang, page, pageContent, content),
     heroEyebrow: escapeHtml(pageContent.eyebrow),
     heroDisplay: escapeHtml(pageContent.display),

@@ -11,7 +11,7 @@ module.exports = {
     eyebrow: 'Generator de coduri QR gratuit',
     display: 'Coduri QR gratuite care funcționează pentru totdeauna.',
     lead:
-      'Creează coduri QR pentru linkuri, WiFi, contacte și multe altele, direct în browserul tău. Fără înregistrare, fără perioadă de probă, fără redirecționări: conținutul tău intră direct în cod, așa că acesta funcționează pentru totdeauna. Adaugă un logo, culori și un chenar „Scanează-mă”.'
+      'Creează coduri QR pentru linkuri, WiFi, contacte și multe altele, direct în browserul tău. Fără înregistrare, fără perioadă de probă, fără redirecționări: conținutul tău intră direct în cod, așa că acesta funcționează pentru totdeauna. Adaugă un logo, culori și un chenar „Scanează-mă”, apoi descarcă fișiere PNG, SVG, PDF sau EPS gata de tipar.'
   },
   types: {
     wifi: {
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Cât de mare trebuie tipărit un cod QR?',
-        a: 'Tipărește-l la cel puțin 2 × 2 cm. Ca regulă generală, latura codului ar trebui să fie de cel puțin o zecime din distanța de scanare: un afiș citit de la 2 metri are nevoie de un cod de aproximativ 20 cm. Pentru tipar, descarcă un SVG sau un PNG mare și nu pune nimic în zona liberă din jurul codului.'
+        a: 'Tipărește-l la cel puțin 2 × 2 cm. Ca regulă generală, latura codului ar trebui să fie de cel puțin o zecime din distanța de scanare: un afiș citit de la 2 metri are nevoie de un cod de aproximativ 20 cm. Pentru tipar, descarcă un PDF sau un SVG, care rămân clare la orice dimensiune, și setează lățimea exactă de tipărire. QRTurbo.app îți arată dimensiunea modulelor și te avertizează când codul este prea mic pentru a fi scanat. Nu pune nimic în zona liberă din jurul codului.'
       },
       {
         q: 'De ce nu se scanează codul meu QR?',
-        a: 'Cele mai frecvente cauze sunt contrastul slab dintre cod și fundal, o zonă liberă prea mică, un logo care acoperă prea mult din cod sau prea mult conținut pentru dimensiunea tipărită. QRTurbo.app te avertizează despre aceste riscuri. Testează întotdeauna codul cu câteva telefoane diferite înainte de tipărire.'
+        a: 'Cele mai frecvente cauze sunt contrastul slab dintre cod și fundal, o zonă liberă prea mică, un logo care acoperă prea mult din cod sau prea mult conținut pentru dimensiunea tipărită. QRTurbo.app verifică fiecare cod cu un scaner integrat, direct pe dispozitivul tău, și îți sugerează remedii. Testează întotdeauna codul cu câteva telefoane diferite înainte de tipărire.'
       },
       {
         q: 'Datele mele sunt în siguranță? Puteți vedea parola mea WiFi?',
         a: 'Datele tale rămân pe dispozitivul tău. Codul QR este generat de un program care rulează în browserul tău și nimic din ce scrii sau încarci nu este trimis la un server, așa că nimeni nu îți poate vedea parola WiFi sau datele de contact. După prima vizită, generatorul funcționează și offline.'
+      },
+      {
+        q: 'Ce format de fișier ar trebui să folosesc?',
+        a: 'Folosește PNG pentru ecrane, documente și majoritatea imprimantelor. Folosește SVG pentru site-uri și programe de design, iar PDF pentru tipografii: ambele sunt fișiere vectoriale care rămân clare la orice dimensiune. EPS este pentru programe mai vechi de design și de inscripționare. JPG și WebP sunt fișiere imagine mici pentru aplicații și site-uri. Toate formatele sunt gratuite și păstrează culorile, logoul și chenarul.'
       }
     ]
   },
