@@ -30,7 +30,16 @@ const translations = {
       lightTheme: 'Light theme',
       darkTheme: 'Dark theme',
       language: 'Language',
-      qrTypes: 'QR code types'
+      qrTypes: 'QR code types',
+      skipToGenerator: 'Skip to the QR code generator',
+      qrImage: 'QR code preview: {{type}}',
+      qrImageStale: 'QR code preview, out of date',
+      removeLogo: 'Remove logo',
+      formatGroup: 'File format',
+      presetGroup: 'Style presets',
+      mobileBar: 'Quick download',
+      notifications: 'Notifications',
+      hexValue: '{{name}}, hex value'
     },
     tabs: {
       urlText: 'URL/Text',
@@ -42,6 +51,7 @@ const translations = {
       location: 'Location',
       socialMedia: 'Social Media',
       whatsapp: 'WhatsApp',
+      payment: 'Payment',
       mecard: 'MeCard',
       appLink: 'App Link'
     },
@@ -66,20 +76,19 @@ const translations = {
       hiddenNetwork: 'This is a hidden network',
       phoneNumber: 'Phone Number',
       message: 'Message (optional)',
-      qrSize: 'QR Code Size',
-      foregroundColor: 'Foreground Color',
-      backgroundColor: 'Background Color',
+      qrSize: 'Size',
+      foregroundColor: 'Code color',
+      backgroundColor: 'Background',
       transparentBackground: 'Transparent background',
-      errorCorrection: 'Error Correction',
-      downloadFormat: 'Download Format',
-      dotStyle: 'Dot Style',
-      cornerSquare: 'Corner Square',
-      cornerDot: 'Corner Dot',
-      quietZone: 'Quiet Zone (Margin)',
-      logoSize: 'Logo Size',
-      logoMargin: 'Logo Margin',
-      logo: 'Logo (Optional)',
-      styleOptions: 'Style Options',
+      errorCorrection: 'Error correction',
+      dotStyle: 'Pattern',
+      cornerSquare: 'Corner frame',
+      cornerDot: 'Corner center',
+      quietZone: 'Quiet zone',
+      logoSize: 'Logo size',
+      logoMargin: 'Space around logo',
+      logo: 'Logo',
+      styleOptions: 'Shapes',
       emailTo: 'Recipient Email',
       emailSubject: 'Subject',
       emailBody: 'Message',
@@ -104,7 +113,45 @@ const translations = {
       appLinkTarget: 'Store fallback',
       frame: 'Frame',
       frameText: 'Frame text',
-      frameColor: 'Frame color'
+      frameColor: 'Frame color',
+      smsPhoneType: 'Code type',
+      fill: 'Fill',
+      gradientColor2: 'Second color',
+      gradientType: 'Gradient type',
+      gradientAngle: 'Angle',
+      customCorners: 'Custom corner colors',
+      cornerOuterColor: 'Corner frame color',
+      cornerInnerColor: 'Corner center color',
+      customPixels: 'Width in pixels',
+      setPrintSize: 'Set print size',
+      printWidth: 'Printed width',
+      unit: 'Unit',
+      dpi: 'Resolution',
+      pdfPage: 'Page',
+      colorMode: 'Color mode',
+      minVersion: 'Minimum QR version',
+      paymentName: 'Recipient name',
+      iban: 'IBAN',
+      bic: 'BIC (optional)',
+      amount: 'Amount in euros (optional)',
+      paymentReference: 'Reference number (optional)',
+      paymentMessage: 'Message (optional)',
+      dueDate: 'Due date (optional)',
+      allDay: 'All-day event',
+      timeZone: 'Time zone',
+      phoneHome: 'Phone (Home)',
+      department: 'Department',
+      birthday: 'Birthday',
+      note: 'Note',
+      addressType: 'Address type',
+      batchSource: 'CSV data',
+      batchHasHeader: 'The first row contains column names',
+      batchType: 'Code type',
+      batchFilename: 'File names from',
+      batchFormat: 'File format',
+      batchSameSize: 'Make all codes the same size',
+      batchManifest: 'Include a list of all files (manifest.csv)',
+      batchVerify: 'Check that every code scans'
     },
     placeholders: {
       url: 'e.g., https://www.example.com',
@@ -144,21 +191,39 @@ const translations = {
       appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
-      generate: 'Create QR Code',
-      download: 'Download QR Code',
-      reset: 'Reset to Defaults',
-      customize: 'Customize Appearance (Optional)',
-      chooseLogo: 'Choose Image',
+      download: 'Download',
+      reset: 'Reset design',
+      customize: 'More design options',
+      chooseLogo: 'Choose image',
       showPassword: 'Show password',
       hidePassword: 'Hide password',
       showPayload: 'Show QR data',
-      hidePayload: 'Hide QR data'
+      hidePayload: 'Hide QR data',
+      downloadFormat: 'Download {{format}}',
+      copyImage: 'Copy image',
+      copySvg: 'Copy SVG code',
+      copyText: 'Copy text',
+      share: 'Share',
+      undo: 'Undo',
+      goToField: 'Go to field',
+      addHttps: 'Add https://',
+      moreFormats: 'More formats',
+      swapColors: 'Swap colors',
+      dismiss: 'Dismiss',
+      retry: 'Try again',
+      useLevelL: 'Use level L',
+      print: 'Print',
+      cancel: 'Cancel',
+      close: 'Close',
+      createMany: 'Create many from a CSV file',
+      batchStart: 'Create ZIP file',
+      chooseCsv: 'Choose CSV file'
     },
     options: {
-      sizeMedium: 'Screen (512 px)',
-      sizeLarge: 'Large (1024 px)',
-      sizePrint: 'Print (2048 px)',
-      sizePoster: 'Poster (4096 px)',
+      sizeMedium: 'Small (512 px)',
+      sizeLarge: 'Medium (1024 px)',
+      sizePrint: 'Large (2048 px)',
+      sizePoster: 'Extra large (4096 px)',
       frameNone: 'No frame',
       frameBannerBottom: 'Label below',
       frameBannerTop: 'Label above',
@@ -167,12 +232,12 @@ const translations = {
       errorMedium: 'M - Medium (15%)',
       errorQuartile: 'Q - Quartile (25%)',
       errorHigh: 'H - High (30%)',
-      formatPng: 'PNG (raster)',
-      formatSvg: 'SVG (vector)',
-      formatPdf: 'PDF (document)',
-      authWpa: 'WPA/WPA2',
-      authWep: 'WEP',
-      authNone: 'None',
+      formatPng: 'PNG',
+      formatSvg: 'SVG',
+      formatPdf: 'PDF',
+      authWpa: 'WPA/WPA2/WPA3 (recommended)',
+      authWep: 'WEP (outdated)',
+      authNone: 'None (open network)',
       dotSquare: 'Square',
       dotRounded: 'Rounded',
       dotDots: 'Dots',
@@ -198,7 +263,34 @@ const translations = {
       socialTypeCompany: 'Company',
       socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Use iOS if no web URL',
-      appTargetAndroid: 'Use Android if no web URL'
+      appTargetAndroid: 'Use Android if no web URL',
+      errorAuto: 'Auto (recommended)',
+      sizeCustom: 'Custom size',
+      formatJpg: 'JPG',
+      formatWebp: 'WebP',
+      unitMm: 'mm',
+      unitIn: 'in',
+      dpi150: '150 dpi (draft)',
+      dpi300: '300 dpi (print)',
+      dpi600: '600 dpi (fine print)',
+      pageFit: 'Fit to code',
+      pageA4: 'A4',
+      pageLetter: 'US Letter',
+      fillSolid: 'Solid',
+      fillGradient: 'Gradient',
+      gradientLinear: 'Linear',
+      gradientRadial: 'Radial',
+      formatEps: 'EPS',
+      colorRgb: 'RGB',
+      colorCmyk: 'CMYK',
+      colorK: 'Black only (100% K)',
+      authWpa3: 'WPA3 only',
+      versionAuto: 'Automatic',
+      addressAuto: 'Automatic',
+      addressWork: 'Work',
+      addressHome: 'Home',
+      filenameRowNumber: 'Row number',
+      notUsed: 'Not used'
     },
     alerts: {
       enterText: 'Please enter some text or a URL',
@@ -224,25 +316,28 @@ const translations = {
       mecardRequired: 'Please enter at least one of: Name, Phone Number or Email.',
       appLinkRequired: 'Please enter a web, iOS or Android app URL.',
       urlInvalid: 'Please enter a valid URL starting with http:// or https://.',
-      lowContrast:
-        '⚠️ Low contrast detected. Your QR code may be difficult to scan. Consider using darker foreground or lighter background.',
       dataEmpty: 'QR code data is empty.',
       noData: 'No data provided for QR code.',
-      libraryLoadFailed: 'QR Code library failed to load. Please refresh the page.',
       generationError: 'Error generating QR code',
       dataTooLong: 'This content is too large for the selected QR error correction level. Shorten it or choose a lower level.',
-      pdfExportFailed: 'PDF export failed. Please try again.',
-      generateFirst: 'Please generate a QR code first.',
-      resetSuccess: 'Customization reset to defaults',
-      largeImageWarning:
-        '⚠️ Large image file ({{size}}MB). Consider using a smaller image for better performance.',
-      invalidImageFile: 'Please select a valid image file (PNG, JPEG, SVG, GIF).'
+      phoneInvalid: 'Please enter a phone number using digits, for example +358401234567.',
+      paymentRequired: 'Please enter the recipient name and IBAN.',
+      paymentNameTooLong: 'The recipient name can be at most 70 characters.',
+      ibanInvalid: 'Please check the IBAN. Its check digits do not match.',
+      bicInvalid: 'Please enter a valid BIC of 8 or 11 characters.',
+      amountInvalid: 'Enter an amount between 0.01 and 999999999.99 euros.',
+      referenceInvalid: 'Please check the reference number.',
+      referenceAndMessage: 'Use either a reference number or a message, not both.',
+      paymentTooLong: 'The payment details are too long for a payment QR code (at most 331 bytes).',
+      paymentMessageTooLong: 'The message can be at most 140 characters.',
+      dateInvalid: 'Please enter a valid date, for example 2026-12-31.'
     },
     counters: {
       characters: '{{current}} / {{max}} characters'
     },
     units: {
-      modules: '{{count}} modules'
+      modules: '{{count}} modules',
+      modules_one: '{{count}} module'
     },
     labels: {
       sms: 'SMS',
@@ -250,17 +345,25 @@ const translations = {
     },
     warnings: {
       lowContrast:
-        'Low contrast may make this QR code difficult to scan. Use a darker foreground or lighter background.',
+        'Low contrast may make this QR code difficult to scan. Use a darker code color or a lighter background.',
       transparentBackground:
         'Transparent backgrounds depend on the final surface. Test the QR code on the exact background before publishing.',
-      quietZoneSmall:
-        'The quiet zone is too small. Use at least 4 modules for reliable scanning.',
       denseData:
-        'This QR code contains a lot of data for the selected size. Use a larger size or shorten the content.',
+        'This code holds a lot of data, so its modules are small. Shorten the content or show it larger.',
       logoErrorCorrection:
-        'Large logos scan more reliably with High (H) error correction.',
+        'Codes with a logo scan more reliably with High (H) error correction.',
       logoLarge:
-        'The logo is large and may cover too much of the QR code. Test before printing or sharing.'
+        'The logo is large and may cover too much of the QR code. Test before printing or sharing.',
+      inverted:
+        'The code is lighter than its background. Some scanner apps cannot read inverted codes.',
+      gradientContrast: 'Part of the code color is too light against the background.',
+      printTooSmall:
+        'At this print size each module is only {{size}}. Print it larger so phones can read it.',
+      codeTooSmall: 'The code is smaller than 2 cm (0.8 in). Many phones need it larger.',
+      sizeTooSmall: 'At {{size}} px the modules are very small. Use a larger image size.',
+      smallScanRisky: 'This code only scans when it is shown large. Avoid printing it small.',
+      decodeFailed: 'The built-in scanner could not read this design.',
+      paymentLogo: 'Payment codes scan more reliably without a logo.'
     },
     brand: {
       tagline: 'your private place to make QR codes'
@@ -277,11 +380,13 @@ const translations = {
     workspace: {
       chooseType: 'Choose a type',
       addContent: 'Add your content',
-      adjustLook: 'Size and style'
+      adjustLook: 'Design'
     },
     preview: {
       title: 'Preview',
-      localBadge: 'Created on this device'
+      localBadge: 'Created on this device',
+      encodedData: 'Encoded data',
+      ready: 'QR code ready'
     },
     how: {
       title: 'How it works',
@@ -290,7 +395,8 @@ const translations = {
       step2Title: 'Fill in',
       step2Text: 'Type your content. The preview updates as you write, right here in your browser.',
       step3Title: 'Download',
-      step3Text: 'Save it as PNG, SVG or PDF. Test the scan before you print or share it.'
+      step3Text:
+        'Download PNG, SVG, PDF or EPS at the exact size you need, or copy and share it. The scan check tells you if it will scan.'
     },
     privacyInfo: {
       title: 'Private by design',
@@ -300,13 +406,14 @@ const translations = {
       staticTitle: 'No redirects, no expiry',
       staticText: 'Your content is encoded directly in the QR code. Scans are never routed through us, and the code never expires.',
       noTrackingTitle: 'No tracking',
-      noTrackingText: 'No analytics, ads, cookies or accounts. Only your language and theme choices are saved, locally in your browser.',
+      noTrackingText:
+        'No analytics, ads, cookies or accounts. Only your language, theme and download settings are saved, locally in your browser.',
       openSourceTitle: 'Open to inspection',
       openSourceText: 'The full source code is public on GitHub, so anyone can verify these claims.'
     },
     footer: {
       privacy1: 'This free QR code generator runs entirely in your browser.',
-      privacy2: 'No data is stored or sent anywhere. No tracking, no ads, no nonsense.',
+      privacy2: 'Nothing you enter is stored or sent anywhere. No tracking, no ads, no nonsense.',
       privacyPolicy: 'Privacy Policy',
       termsOfUse: 'Terms of Use',
       github: 'View source on GitHub'
@@ -315,15 +422,154 @@ const translations = {
       quietZoneHelper:
         'Space around the QR code (minimum: 4 modules for reliable scanning)',
       socialHandleHelper:
-        'Enter a handle such as @username or paste a full https:// profile URL.'
+        'Enter a handle such as @username or paste a full https:// profile URL.',
+      httpsSuggestion: 'Phones open links only when they start with https://.',
+      ecHelper: 'Higher levels survive damage and logos, but make the code denser.',
+      wifiWpa3: 'Choose WPA3 only if the network does not accept older WPA2 devices.',
+      wifiHiddenIos: 'iPhones may ask guests to join a hidden network by hand.',
+      paymentReference: 'An RF creditor reference, or a Finnish reference number (converted to RF).',
+      paymentDueDate: 'Finnish banking apps fill in the due date. Other apps may show it as a note.',
+      eventTimeZone: 'The time is saved with this time zone, so it shows correctly everywhere.',
+      colorMode: 'RGB suits screens and office printers. CMYK is for print shops and uses a basic color conversion.'
     },
     frame: {
       defaultText: 'SCAN ME'
     },
     misc: {
-      qrPlaceholder: 'QR Code will appear here',
+      qrPlaceholder: 'Your QR code will appear here.',
       socialPreview: 'QR target',
-      wifiPayloadHidden: 'WiFi configuration — password hidden'
+      wifiPayloadHidden: 'WiFi settings: password hidden'
+    },
+    output: {
+      title: 'Download',
+      hintPng: 'Sharp image for screens, documents and most printers.',
+      hintSvg: 'Vector image for websites and design tools. Sharp at any size.',
+      hintPdf: 'Vector PDF, ready for print shops and documents.',
+      hintJpg: 'For apps that do not accept PNG. Not recommended for print.',
+      hintWebp: 'Small image for websites.',
+      hintEps: 'Vector file for older design and sign-making software.',
+      vectorAnySize: 'Vector: sharp at any size',
+      summaryPixels: '{{width}} × {{height}} px',
+      summaryPrint: '{{size}} at {{dpi}} dpi',
+      summaryVector: 'Vector',
+      summaryVectorPrint: '{{size}} wide',
+      moduleSize: 'Each module is {{size}}.',
+      scanDistance: 'Scans from up to about {{distance}}.',
+      sizeCapped: 'Images are limited to 4096 px. Use SVG or PDF for larger prints.',
+      pageTooSmall: 'The code was scaled down to fit the page.',
+      transparentJpg: 'JPG cannot be transparent, so the background will be white.',
+      epsOffice: 'Microsoft Office on Windows does not open EPS files. Use PDF or SVG there.',
+      printTip: 'In the print dialog, set the scale to 100% for the exact size.',
+      preparing: 'Preparing file',
+      widthInvalid: 'Enter a width between {{min}} and {{max}}.',
+      customSizeInvalid: 'Enter a size between 128 and 4096 pixels.'
+    },
+    capacity: {
+      version: 'Version {{version}} · {{modules}} × {{modules}} modules',
+      level: 'Level {{level}}',
+      levelAuto: 'Level {{level}}, automatic',
+      label: 'Data used',
+      usageBytes: '{{used}} of {{max}} bytes',
+      usageChars: '{{used}} of {{max}} characters (compact mode)',
+      usageDigits: '{{used}} of {{max}} digits',
+      tooLong: 'Too much content: {{used}} of {{max}} at level {{level}}.',
+      paymentLimit: '{{used}} of 331 bytes'
+    },
+    scan: {
+      title: 'Scan check',
+      checking: 'Checking',
+      ok: 'Scans well',
+      looksGood: 'Looks good',
+      tips: 'Scans, see tips',
+      fail: 'May not scan',
+      verified: 'A test scan on this device read the code correctly.',
+      notVerified: 'The built-in scanner could not read this code. Try the fixes below.',
+      unavailable:
+        'Automatic test scans are not available in this browser. Test with your phone camera before printing.',
+      fixEclH: 'Use level H',
+      fixBlack: 'Use black on white',
+      fixSwapColors: 'Swap colors',
+      fixLogoSmaller: 'Make the logo smaller',
+      fixPrintSize: 'Print at {{size}}',
+      fixPixelSize: 'Use {{size}} px',
+      fixSquare: 'Use square shapes',
+      fixRemoveLogo: 'Remove logo'
+    },
+    empty: {
+      urlText: 'Type or paste a link or some text to see your QR code.',
+      vcard: 'Add a name, email or phone number to see your contact code.',
+      smsPhone: 'Enter a phone number to see your code.',
+      wifi: 'Enter your network name to see your WiFi code.',
+      email: 'Add an email address, subject or message.',
+      calendarEvent: 'Add an event title and a start time.',
+      location: 'Enter an address or coordinates.',
+      socialMedia: 'Enter a handle or a profile link.',
+      whatsapp: 'Enter a WhatsApp number with country code.',
+      payment: 'Enter the recipient name and IBAN.',
+      mecard: 'Add a name, phone number or email.',
+      appLink: 'Add an app store link or a web link.',
+      invalid: 'Fix the highlighted field to update the code.',
+      tooLong: 'Too much content for one QR code.',
+      error: 'The code could not be created.'
+    },
+    design: {
+      presets: 'Style',
+      custom: 'Custom',
+      presetStandard: 'Standard',
+      presetClassic: 'Classic',
+      presetRounded: 'Rounded',
+      presetDots: 'Dots',
+      presetSoft: 'Soft',
+      presetScanMe: 'Scan me',
+      colors: 'Colors',
+      advanced: 'Advanced',
+      eclAutoHelp: 'Auto uses level M, or H when the code has a logo.',
+      eclLockedPayment: 'Payment codes always use level M.'
+    },
+    logo: {
+      dropHint: 'Drop, paste or choose an image: PNG, JPEG, WebP, GIF or SVG.',
+      dropHere: 'Drop the image to use it as a logo',
+      readFailed: 'This image could not be opened. Try a PNG, JPEG, WebP or SVG file.',
+      tooLarge: 'This image is larger than 10 MB. Choose a smaller file.',
+      optimized: 'Image resized to {{size}} px to keep things fast.'
+    },
+    toast: {
+      designReset: 'Design reset.',
+      applied: 'Applied: {{what}}',
+      imageCopied: 'Image copied.',
+      svgCopied: 'SVG code copied.',
+      textCopied: 'Text copied.',
+      copyFailed: 'Copying is not allowed in this browser. Use Download instead.',
+      shareFailed: 'Sharing did not work. Use Download instead.',
+      saved: 'Saved {{filename}}',
+      exportFailed: 'The {{format}} file could not be created. Please try again.',
+      pdfRasterFallback: 'The PDF was saved with the code as an image.',
+      batchLoadFailed: 'Creating many codes is not available right now. Reload the page and try again.'
+    },
+    mobile: {
+      showPreview: 'Show the QR code'
+    },
+    batch: {
+      title: 'Create many QR codes',
+      intro:
+        'Paste rows from a spreadsheet or choose a CSV file. Each row becomes one QR code with your current design. The file is read on this device and never uploaded.',
+      dropHint: 'Drop a CSV file here',
+      mappingTitle: 'Match columns to fields',
+      rowsFound: 'Rows found: {{count}}',
+      limit: 'At most {{max}} rows can be created at once.',
+      sizeNote: 'Size comes from your current download settings: {{summary}}.',
+      progress: 'Creating {{done}} of {{total}}',
+      done: 'Created: {{ok}}. Skipped: {{failed}}.',
+      rowError: 'Row {{row}}: {{message}}',
+      emptyInput: 'Paste CSV data or choose a file first.',
+      cancelled: 'Stopped. No ZIP file was created.',
+      column: 'Column {{n}}',
+      columnSample: 'Column {{n}} ({{sample}})',
+      mapRequired: 'Choose a column for {{field}}.',
+      fileTooLarge: 'This file is larger than 5 MB. Choose a smaller CSV file.',
+      notCsv: 'This is not a CSV file. In your spreadsheet app, save or export it as CSV, then try again.',
+      scanFailed: 'Codes that did not pass the scan check: {{count}}.',
+      moreErrors: 'More rows with problems: {{count}}.'
     }
   }
 };
@@ -340,19 +586,38 @@ function getNestedValue(obj, path) {
   return path.split('.').reduce((acc, part) => acc?.[part], obj);
 }
 
-// Helper function to replace variables in template strings
+/**
+ * @description Fills the {{name}} variables of a template. A value that
+ * already ends in a period (Intl units such as "χλστ." or "pol.") absorbs
+ * the template's sentence period, so the text never shows "..".
+ */
 function replaceVars(str, vars) {
-  return str.replace(/\{\{(\w+)\}\}/g, (_, name) => vars[name] ?? '');
+  return str.replace(/\{\{(\w+)\}\}(\.?)/g, (_, name, period) => {
+    const value = String(vars[name] ?? '');
+    return period && value.endsWith('.') ? value : value + period;
+  });
+}
+
+/**
+ * @description Counted strings: t(key, { count }) uses the "<key>_one"
+ * variant when the count is exactly 1 and that key exists, so "1 module"
+ * and "4 modules" can differ. Other counts, and languages without the
+ * variant, use the key itself.
+ */
+function countedValue(lang, key, vars) {
+  if (vars.count === undefined || vars.count === null) return undefined;
+  if (Number(String(vars.count).trim()) !== 1) return undefined;
+  return getNestedValue(translations[lang], `${key}_one`);
 }
 
 // Main translation function
 function t(key, vars = {}) {
   // Try current language first
-  let value = getNestedValue(translations[currentLang], key);
+  let value = countedValue(currentLang, key, vars) || getNestedValue(translations[currentLang], key);
 
   // Fallback to English if not found
   if (!value && currentLang !== 'en') {
-    value = getNestedValue(translations.en, key);
+    value = countedValue('en', key, vars) || getNestedValue(translations.en, key);
   }
 
   // Return key if still not found (dev mode indicator)
@@ -425,7 +690,9 @@ function translatePage() {
   updateDynamicTranslations();
 }
 
-// Update dynamic content that depends on current state
+// Update dynamic content that depends on current state. Every lookup is
+// null-safe: the build and test sandboxes have no real DOM. Feature modules
+// re-apply their own runtime text on the 'qrturbo:i18n' event fired below.
 function updateDynamicTranslations() {
   // Character counters
   const qrTextInput = document.getElementById('qr-text');
@@ -467,8 +734,14 @@ function updateDynamicTranslations() {
   }
 
   const formError = document.getElementById('form-error');
-  if (formError?.dataset.i18nKey) {
+  if (formError?.dataset?.i18nKey) {
     formError.textContent = t(formError.dataset.i18nKey);
+  }
+
+  // translatePage() resets every data-i18n element to its static text, so
+  // modules with runtime text listen for this event and re-apply it.
+  if (typeof document !== 'undefined' && typeof document.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
+    document.dispatchEvent(new CustomEvent('qrturbo:i18n'));
   }
 }
 

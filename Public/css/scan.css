@@ -1,0 +1,265 @@
+/*
+ * QRTurbo.app scan check styles
+ * The #scan-badge button in the preview head and the #scan-warnings details
+ * with the scan summary, the issue list and its one-click fixes. Uses the
+ * tokens defined in styles.css, so both themes follow them.
+ */
+
+/* ── Badge ── */
+
+/* It may shrink (and its label then ends in an ellipsis) only when it
+   does not fit even on a line of its own below the heading. */
+.scan-badge {
+    position: relative;
+    display: inline-flex;
+    flex: 0 1 auto;
+    align-items: center;
+    min-width: 0;
+    gap: 6px;
+    min-height: 32px;
+    max-width: 100%;
+    padding: 4px 8px 4px 10px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: var(--ctl-bg);
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+    cursor: pointer;
+    transition:
+        background-color var(--motion-fast) ease,
+        border-color var(--motion-fast) ease,
+        color var(--motion-fast) ease;
+}
+
+/* A 44 px tall touch target around the compact pill. */
+.scan-badge::before {
+    content: '';
+    position: absolute;
+    inset: -6px 0;
+}
+
+.scan-badge::after {
+    content: '';
+    flex: none;
+    width: 12px;
+    height: 12px;
+    background: var(--chevron) center / 12px 12px no-repeat;
+    transition: transform var(--motion-fast) ease;
+}
+
+.scan-badge[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+.scan-badge:hover {
+    border-color: var(--border-strong);
+}
+
+.scan-dot {
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--faint);
+}
+
+.scan-badge-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.scan-badge[data-state="ok"] {
+    background: var(--ok-soft);
+    color: var(--ok-text);
+}
+
+.scan-badge[data-state="ok"] .scan-dot {
+    background: var(--ok);
+}
+
+.scan-badge[data-state="warn"] {
+    border-color: var(--warn-border);
+    background: var(--warn-soft);
+    color: var(--warn);
+}
+
+.scan-badge[data-state="warn"] .scan-dot {
+    background: var(--warn);
+}
+
+.scan-badge[data-state="fail"] {
+    background: var(--danger-soft);
+    color: var(--danger-text);
+}
+
+.scan-badge[data-state="fail"] .scan-dot {
+    background: var(--danger);
+}
+
+/* While a new check runs, the previous label stays in neutral colors. */
+.scan-badge.is-checking[data-state] {
+    border-color: transparent;
+    background: var(--ctl-bg);
+    color: var(--muted);
+}
+
+.scan-badge.is-checking .scan-dot {
+    background: var(--faint);
+    animation: scan-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes scan-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+}
+
+/* ── Details panel ── */
+
+.scan-warnings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--fg);
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+/* A clean result reads as a quiet confirmation in the badge's green. */
+.scan-warnings[data-state="ok"] {
+    border-color: transparent;
+    background: var(--ok-soft);
+}
+
+.scan-warnings[data-state="ok"] .scan-summary {
+    color: var(--ok-text);
+}
+
+.scan-warnings[data-state="warn"] {
+    border-color: var(--warn-border);
+}
+
+.scan-warnings[data-state="fail"] {
+    border-color: var(--danger);
+}
+
+.scan-summary {
+    margin: 0;
+    color: var(--muted);
+}
+
+.scan-issues {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.scan-issue {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    padding: 8px 10px 8px 12px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--faint);
+    border-radius: var(--radius-sm);
+    background: var(--panel-bg);
+}
+
+.scan-issue[data-severity="info"] {
+    border-left-color: var(--accent);
+}
+
+.scan-issue[data-severity="warn"] {
+    border-left-color: var(--warn);
+}
+
+.scan-issue[data-severity="fail"] {
+    border-left-color: var(--danger);
+}
+
+.scan-issue-text {
+    flex: 1 1 14rem;
+    min-width: 0;
+    margin: 0;
+    color: var(--fg);
+}
+
+.scan-warnings.is-checking .scan-issue-text {
+    color: var(--muted);
+}
+
+.fix-btn {
+    flex: none;
+    min-height: 32px;
+    padding: 4px 12px;
+    border: 1px solid var(--field-border);
+    border-radius: 999px;
+    background: var(--field-bg);
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.3;
+    cursor: pointer;
+    transition:
+        border-color var(--motion-fast) ease,
+        color var(--motion-fast) ease;
+}
+
+.fix-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.fix-btn[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: progress;
+}
+
+.fix-btn[aria-disabled="true"]:hover {
+    border-color: var(--field-border);
+    color: var(--fg);
+}
+
+/* Desktop: a compact pill, so the preview card keeps its stage large.
+   The ::before area keeps the target 40 px tall. */
+@media (min-width: 961px) {
+    .scan-badge {
+        min-height: 28px;
+    }
+}
+
+@media (max-width: 720px) {
+    .fix-btn {
+        min-height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scan-badge,
+    .scan-badge::after,
+    .fix-btn {
+        transition: none;
+    }
+
+    .scan-badge.is-checking .scan-dot {
+        animation: none;
+    }
+}

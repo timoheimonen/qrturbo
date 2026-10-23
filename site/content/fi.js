@@ -11,7 +11,7 @@ module.exports = {
     eyebrow: 'Ilmainen QR-koodigeneraattori',
     display: 'Ilmaiset QR-koodit, jotka toimivat aina.',
     lead:
-      'Luo QR-koodeja linkeille, WiFi-verkoille, yhteystiedoille ja muulle suoraan selaimessasi. Ei rekisteröitymistä, ei kokeilujaksoa, ei uudelleenohjauksia: sisältö tallentuu suoraan koodiin, joten se toimii ikuisesti. Lisää logo, värit ja ”SKANNAA MINUT” -kehys.'
+      'Luo QR-koodeja linkeille, WiFi-verkoille, yhteystiedoille ja muulle suoraan selaimessasi. Ei rekisteröitymistä, ei kokeilujaksoa, ei uudelleenohjauksia: sisältö tallentuu suoraan koodiin, joten se toimii ikuisesti. Lisää logo, värit ja ”SKANNAA MINUT” -kehys. Lataa sitten tulostusvalmiit PNG-, SVG-, PDF- tai EPS-tiedostot.'
   },
   types: {
     wifi: {
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Kuinka suureksi QR-koodi kannattaa tulostaa?',
-        a: 'Tulosta se vähintään 2 × 2 cm:n kokoisena. Nyrkkisääntönä koodin koon tulisi olla vähintään kymmenesosa skannausetäisyydestä: 2 metrin päästä luettava juliste tarvitsee noin 20 cm:n koodin. Lataa painatusta varten SVG tai suuri PNG ja jätä koodin ympärille tyhjä marginaali eli hiljainen vyöhyke.'
+        a: 'Tulosta se vähintään 2 × 2 cm:n kokoisena. Nyrkkisääntönä koodin koon tulisi olla vähintään kymmenesosa skannausetäisyydestä: 2 metrin päästä luettava juliste tarvitsee noin 20 cm:n koodin. Lataa painatusta varten PDF tai SVG, jotka pysyvät terävinä missä tahansa koossa, ja aseta tarkka tulostusleveys. QRTurbo.app näyttää moduulikoon ja varoittaa, jos koodi on liian pieni skannattavaksi. Jätä koodin ympärille tyhjä marginaali eli hiljainen vyöhyke.'
       },
       {
         q: 'Miksi QR-koodini ei skannaudu?',
-        a: 'Yleisimmät syyt ovat heikko kontrasti koodin ja taustan välillä, liian pieni hiljainen vyöhyke, liian suuren osan koodista peittävä logo tai liian paljon sisältöä tulostuskokoon nähden. QRTurbo.app varoittaa näistä riskeistä. Testaa koodi aina muutamalla eri puhelimella ennen tulostamista.'
+        a: 'Yleisimmät syyt ovat heikko kontrasti koodin ja taustan välillä, liian pieni hiljainen vyöhyke, liian suuren osan koodista peittävä logo tai liian paljon sisältöä tulostuskokoon nähden. QRTurbo.app tarkistaa jokaisen koodin laitteellasi toimivalla sisäänrakennetulla skannerilla ja ehdottaa korjauksia. Testaa koodi aina muutamalla eri puhelimella ennen tulostamista.'
       },
       {
         q: 'Ovatko tietoni turvassa? Näettekö WiFi-salasanani?',
         a: 'Tietosi pysyvät laitteellasi. QR-koodi luodaan selaimessasi suoritettavalla koodilla, eikä mitään kirjoittamaasi tai lataamaasi lähetetä palvelimelle, joten kukaan ei näe WiFi-salasanaasi tai yhteystietojasi. Ensimmäisen käynnin jälkeen generaattori toimii myös ilman verkkoyhteyttä.'
+      },
+      {
+        q: 'Mitä tiedostomuotoa minun kannattaa käyttää?',
+        a: 'Käytä PNG-muotoa näytöille, asiakirjoihin ja useimmille tulostimille. Käytä SVG-muotoa verkkosivuille ja suunnitteluohjelmiin ja PDF-muotoa painotaloille: molemmat ovat vektoritiedostoja, jotka pysyvät terävinä missä tahansa koossa. EPS on tarkoitettu vanhemmille suunnittelu- ja kylttiohjelmille. JPG ja WebP ovat pieniä kuvatiedostoja sovelluksiin ja verkkosivuille. Kaikki muodot ovat ilmaisia, ja niissä säilyvät värit, logo ja kehys.'
       }
     ]
   },

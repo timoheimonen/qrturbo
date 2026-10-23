@@ -10,14 +10,23 @@
 
   window.translations.tr = {
     app: {
-      selectLanguage: 'Dil Seç'
+      selectLanguage: 'Dil seç'
     },
     aria: {
       themeGroup: 'Tema',
       lightTheme: 'Açık tema',
       darkTheme: 'Koyu tema',
       language: 'Dil',
-      qrTypes: 'QR kod türleri'
+      qrTypes: 'QR kod türleri',
+      skipToGenerator: 'QR kod oluşturucuya geç',
+      qrImage: 'QR kod önizlemesi: {{type}}',
+      qrImageStale: 'QR kod önizlemesi, güncel değil',
+      removeLogo: 'Logoyu kaldır',
+      formatGroup: 'Dosya biçimi',
+      presetGroup: 'Hazır stiller',
+      mobileBar: 'Hızlı indirme',
+      notifications: 'Bildirimler',
+      hexValue: '{{name}}, hex değeri'
     },
     tabs: {
       urlText: 'URL/Metin',
@@ -27,10 +36,11 @@
       email: 'E-posta',
       calendarEvent: 'Etkinlik',
       location: 'Konum',
-      socialMedia: 'Sosyal Medya',
+      socialMedia: 'Sosyal medya',
       whatsapp: 'WhatsApp',
+      payment: 'Ödeme',
       mecard: 'MeCard',
-      appLink: 'Uygulama Linki'
+      appLink: 'Uygulama linki'
     },
     fields: {
       textOrUrl: 'Metin veya URL',
@@ -53,20 +63,19 @@
       hiddenNetwork: 'Bu gizli bir ağ',
       phoneNumber: 'Telefon numarası',
       message: 'Mesaj (isteğe bağlı)',
-      qrSize: 'QR kod boyutu',
-      foregroundColor: 'Ön plan rengi',
-      backgroundColor: 'Arka plan rengi',
+      qrSize: 'Boyut',
+      foregroundColor: 'Kod rengi',
+      backgroundColor: 'Arka plan',
       transparentBackground: 'Şeffaf arka plan',
       errorCorrection: 'Hata düzeltme',
-      downloadFormat: 'İndirme biçimi',
-      dotStyle: 'Nokta stili',
-      cornerSquare: 'Köşe karesi',
-      cornerDot: 'Köşe noktası',
-      quietZone: 'Sessiz alan (kenar boşluğu)',
+      dotStyle: 'Desen',
+      cornerSquare: 'Köşe çerçevesi',
+      cornerDot: 'Köşe merkezi',
+      quietZone: 'Sessiz alan',
       logoSize: 'Logo boyutu',
-      logoMargin: 'Logo kenar boşluğu',
-      logo: 'Logo (isteğe bağlı)',
-      styleOptions: 'Stil seçenekleri',
+      logoMargin: 'Logo çevresindeki boşluk',
+      logo: 'Logo',
+      styleOptions: 'Şekiller',
       emailTo: 'Alıcının e-posta adresi',
       emailSubject: 'Konu',
       emailBody: 'Mesaj',
@@ -91,7 +100,45 @@
       appLinkTarget: 'Yedek mağaza',
       frame: 'Çerçeve',
       frameText: 'Çerçeve metni',
-      frameColor: 'Çerçeve rengi'
+      frameColor: 'Çerçeve rengi',
+      smsPhoneType: 'Kod türü',
+      fill: 'Dolgu',
+      gradientColor2: 'İkinci renk',
+      gradientType: 'Gradyan türü',
+      gradientAngle: 'Açı',
+      customCorners: 'Özel köşe renkleri',
+      cornerOuterColor: 'Köşe çerçevesi rengi',
+      cornerInnerColor: 'Köşe merkezi rengi',
+      customPixels: 'Piksel cinsinden genişlik',
+      setPrintSize: 'Baskı boyutunu ayarla',
+      printWidth: 'Baskı genişliği',
+      unit: 'Birim',
+      dpi: 'Çözünürlük',
+      pdfPage: 'Sayfa',
+      colorMode: 'Renk modu',
+      minVersion: 'En düşük QR sürümü',
+      paymentName: 'Alıcı adı',
+      iban: 'IBAN',
+      bic: 'BIC (isteğe bağlı)',
+      amount: 'Euro cinsinden tutar (isteğe bağlı)',
+      paymentReference: 'Referans numarası (isteğe bağlı)',
+      paymentMessage: 'Açıklama (isteğe bağlı)',
+      dueDate: 'Son ödeme tarihi (isteğe bağlı)',
+      allDay: 'Tüm gün',
+      timeZone: 'Saat dilimi',
+      phoneHome: 'Telefon (Ev)',
+      department: 'Departman',
+      birthday: 'Doğum günü',
+      note: 'Not',
+      addressType: 'Adres türü',
+      batchSource: 'CSV verisi',
+      batchHasHeader: 'İlk satır sütun adlarını içeriyor',
+      batchType: 'Kod türü',
+      batchFilename: 'Dosya adı kaynağı',
+      batchFormat: 'Dosya biçimi',
+      batchSameSize: 'Tüm kodları aynı boyutta yap',
+      batchManifest: 'Tüm dosyaların listesini ekle (manifest.csv)',
+      batchVerify: 'Her kodun taranabildiğini kontrol et'
     },
     placeholders: {
       url: 'örn. https://www.ornek.com',
@@ -131,21 +178,39 @@
       appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
-      generate: 'QR kod oluştur',
-      download: 'QR kodu indir',
-      reset: 'Varsayılanlara sıfırla',
-      customize: 'Görünümü özelleştir (isteğe bağlı)',
+      download: 'İndir',
+      reset: 'Tasarımı sıfırla',
+      customize: 'Diğer tasarım seçenekleri',
       chooseLogo: 'Görsel seç',
       showPassword: 'Şifreyi göster',
       hidePassword: 'Şifreyi gizle',
       showPayload: 'QR verisini göster',
-      hidePayload: 'QR verisini gizle'
+      hidePayload: 'QR verisini gizle',
+      downloadFormat: '{{format}} indir',
+      copyImage: 'Görseli kopyala',
+      copySvg: 'SVG kodunu kopyala',
+      copyText: 'Metni kopyala',
+      share: 'Paylaş',
+      undo: 'Geri al',
+      goToField: 'Alana git',
+      addHttps: 'https:// ekle',
+      moreFormats: 'Diğer biçimler',
+      swapColors: 'Renklerin yerini değiştir',
+      dismiss: 'Kapat',
+      retry: 'Tekrar dene',
+      useLevelL: 'L seviyesini kullan',
+      print: 'Yazdır',
+      cancel: 'İptal',
+      close: 'Kapat',
+      createMany: 'CSV dosyasından toplu oluştur',
+      batchStart: 'ZIP dosyası oluştur',
+      chooseCsv: 'CSV dosyası seç'
     },
     options: {
-      sizeMedium: 'Ekran (512 px)',
-      sizeLarge: 'Büyük (1024 px)',
-      sizePrint: 'Baskı (2048 px)',
-      sizePoster: 'Poster (4096 px)',
+      sizeMedium: 'Küçük (512 px)',
+      sizeLarge: 'Orta (1024 px)',
+      sizePrint: 'Büyük (2048 px)',
+      sizePoster: 'Çok büyük (4096 px)',
       frameNone: 'Çerçeve yok',
       frameBannerBottom: 'Yazı altta',
       frameBannerTop: 'Yazı üstte',
@@ -154,12 +219,12 @@
       errorMedium: 'M - Orta (%15)',
       errorQuartile: 'Q - Çeyrek (%25)',
       errorHigh: 'H - Yüksek (%30)',
-      formatPng: 'PNG (raster)',
-      formatSvg: 'SVG (vektör)',
-      formatPdf: 'PDF (belge)',
-      authWpa: 'WPA/WPA2',
-      authWep: 'WEP',
-      authNone: 'Yok',
+      formatPng: 'PNG',
+      formatSvg: 'SVG',
+      formatPdf: 'PDF',
+      authWpa: 'WPA/WPA2/WPA3 (önerilen)',
+      authWep: 'WEP (eski)',
+      authNone: 'Yok (açık ağ)',
       dotSquare: 'Kare',
       dotRounded: 'Yuvarlak',
       dotDots: 'Noktalar',
@@ -185,7 +250,34 @@
       socialTypeCompany: 'Şirket',
       socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Web URL\'si yoksa iOS bağlantısını kullan',
-      appTargetAndroid: 'Web URL\'si yoksa Android bağlantısını kullan'
+      appTargetAndroid: 'Web URL\'si yoksa Android bağlantısını kullan',
+      errorAuto: 'Otomatik (önerilen)',
+      sizeCustom: 'Özel boyut',
+      formatJpg: 'JPG',
+      formatWebp: 'WebP',
+      unitMm: 'mm',
+      unitIn: 'inç',
+      dpi150: '150 dpi (taslak)',
+      dpi300: '300 dpi (baskı)',
+      dpi600: '600 dpi (yüksek kaliteli baskı)',
+      pageFit: 'Kod boyutunda',
+      pageA4: 'A4',
+      pageLetter: 'Letter (ABD)',
+      fillSolid: 'Düz',
+      fillGradient: 'Gradyan',
+      gradientLinear: 'Doğrusal',
+      gradientRadial: 'Radyal',
+      formatEps: 'EPS',
+      colorRgb: 'RGB',
+      colorCmyk: 'CMYK',
+      colorK: 'Yalnızca siyah (%100 K)',
+      authWpa3: 'Yalnızca WPA3',
+      versionAuto: 'Otomatik',
+      addressAuto: 'Otomatik',
+      addressWork: 'İş',
+      addressHome: 'Ev',
+      filenameRowNumber: 'Satır numarası',
+      notUsed: 'Kullanılmıyor'
     },
     alerts: {
       enterText: 'Lütfen bir metin veya URL gir',
@@ -210,25 +302,28 @@
       mecardRequired: 'Lütfen şunlardan en az birini gir: Ad, Telefon numarası veya E-posta.',
       appLinkRequired: 'Lütfen bir web, iOS veya Android uygulama URL\'si gir.',
       urlInvalid: 'Lütfen http:// veya https:// ile başlayan geçerli bir URL gir.',
-      lowContrast:
-        '⚠️ Düşük kontrast algılandı. QR kodun zor taranabilir. Daha koyu bir ön plan veya daha açık bir arka plan kullanmayı düşün.',
       dataEmpty: 'QR kod verisi boş.',
       noData: 'QR kod için veri girilmedi.',
-      libraryLoadFailed: 'QR kod kütüphanesi yüklenemedi. Lütfen sayfayı yenile.',
       generationError: 'QR kod oluşturulurken bir hata oluştu',
       dataTooLong: 'Bu içerik, seçilen hata düzeltme seviyesi için çok uzun. İçeriği kısalt veya daha düşük bir seviye seç.',
-      pdfExportFailed: 'PDF dışa aktarılamadı. Lütfen tekrar dene.',
-      generateFirst: 'Lütfen önce bir QR kod oluştur.',
-      resetSuccess: 'Özelleştirmeler varsayılanlara sıfırlandı',
-      largeImageWarning:
-        '⚠️ Büyük görsel dosyası ({{size}} MB). Daha iyi performans için daha küçük bir görsel kullanmayı düşün.',
-      invalidImageFile: 'Lütfen geçerli bir görsel dosyası seç (PNG, JPEG, SVG, GIF).'
+      phoneInvalid: 'Lütfen telefon numarasını rakamlarla gir, örneğin +905321234567.',
+      paymentRequired: 'Lütfen alıcı adını ve IBAN\'ı gir.',
+      paymentNameTooLong: 'Alıcı adı en fazla 70 karakter olabilir.',
+      ibanInvalid: 'Lütfen IBAN\'ı kontrol et. Kontrol basamakları eşleşmiyor.',
+      bicInvalid: 'Lütfen 8 veya 11 karakterden oluşan geçerli bir BIC gir.',
+      amountInvalid: '0,01 ile 999999999,99 euro arasında bir tutar gir.',
+      referenceInvalid: 'Lütfen referans numarasını kontrol et.',
+      referenceAndMessage: 'Referans numarası veya açıklamadan yalnızca birini kullan.',
+      paymentTooLong: 'Ödeme bilgileri bir ödeme QR kodu için çok uzun (en fazla 331 bayt).',
+      paymentMessageTooLong: 'Açıklama en fazla 140 karakter olabilir.',
+      dateInvalid: 'Lütfen geçerli bir tarih gir, örneğin 2026-12-31.'
     },
     counters: {
       characters: '{{current}} / {{max}} karakter'
     },
     units: {
-      modules: '{{count}} modül'
+      modules: '{{count}} modül',
+      modules_one: '{{count}} modül'
     },
     labels: {
       sms: 'SMS',
@@ -239,14 +334,18 @@
         'Düşük kontrast, bu QR kodun taranmasını zorlaştırabilir. Daha koyu bir ön plan veya daha açık bir arka plan kullan.',
       transparentBackground:
         'Şeffaf arka planın nasıl görüneceği, kodun yer alacağı yüzeye bağlıdır. Yayınlamadan önce QR kodu tam o arka plan üzerinde test et.',
-      quietZoneSmall:
-        'Sessiz alan çok küçük. Güvenilir tarama için en az 4 modül kullan.',
-      denseData:
-        'Bu QR kod, seçilen boyut için çok fazla veri içeriyor. Daha büyük bir boyut seç veya içeriği kısalt.',
-      logoErrorCorrection:
-        'Büyük logolar, Yüksek (H) hata düzeltmeyle daha güvenilir taranır.',
+      denseData: 'Bu kod çok fazla veri içerdiği için modülleri küçük. İçeriği kısalt veya kodu daha büyük göster.',
+      logoErrorCorrection: 'Logolu kodlar, Yüksek (H) hata düzeltme ile daha güvenilir taranır.',
       logoLarge:
-        'Logo büyük ve QR kodun çok fazla kısmını kapatabilir. Basmadan veya paylaşmadan önce test et.'
+        'Logo büyük ve QR kodun çok fazla kısmını kapatabilir. Basmadan veya paylaşmadan önce test et.',
+      inverted: 'Kod, arka planından daha açık renkli. Bazı QR okuma uygulamaları ters renkli kodları okuyamaz.',
+      gradientContrast: 'Kod renginin bir kısmı arka plana göre fazla açık.',
+      printTooSmall: 'Bu baskı boyutunda her modül yalnızca {{size}}. Telefonların okuyabilmesi için daha büyük bas.',
+      codeTooSmall: 'Kod 2 cm\'den (0,8 inç) küçük. Birçok telefon için daha büyük olması gerekir.',
+      sizeTooSmall: '{{size}} px boyutunda modüller çok küçük. Daha büyük bir görsel boyutu kullan.',
+      smallScanRisky: 'Bu kod yalnızca büyük gösterildiğinde taranabiliyor. Küçük basmaktan kaçın.',
+      decodeFailed: 'Yerleşik QR okuyucu bu tasarımı okuyamadı.',
+      paymentLogo: 'Ödeme kodları logo olmadan daha güvenilir taranır.'
     },
     brand: {
       tagline: 'QR kod oluşturmak için sana özel alan'
@@ -263,11 +362,13 @@
     workspace: {
       chooseType: 'Bir tür seç',
       addContent: 'İçeriğini ekle',
-      adjustLook: 'Boyut ve stil'
+      adjustLook: 'Tasarım'
     },
     preview: {
       title: 'Önizleme',
-      localBadge: 'Bu cihazda oluşturuldu'
+      localBadge: 'Bu cihazda oluşturuldu',
+      encodedData: 'Kodlanan veri',
+      ready: 'QR kod hazır'
     },
     how: {
       title: 'Nasıl çalışır?',
@@ -276,7 +377,8 @@
       step2Title: 'Doldur',
       step2Text: 'İçeriğini yaz. Önizleme, sen yazdıkça doğrudan tarayıcında güncellenir.',
       step3Title: 'İndir',
-      step3Text: 'PNG, SVG veya PDF olarak kaydet. Basmadan ya da paylaşmadan önce taramayı test et.'
+      step3Text:
+        'İhtiyacın olan tam boyutta PNG, SVG, PDF veya EPS indir ya da kodu kopyalayıp paylaş. Tarama kontrolü, kodun taranıp taranmayacağını söyler.'
     },
     privacyInfo: {
       title: 'Baştan gizlilik odaklı',
@@ -286,14 +388,14 @@
       staticTitle: 'Yönlendirme yok, süre sınırı yok',
       staticText: 'İçeriğin doğrudan QR kodun içine kodlanır. Taramalar asla bizim üzerimizden geçmez ve kodun süresi hiç dolmaz.',
       noTrackingTitle: 'Takip yok',
-      noTrackingText: 'Analitik, reklam, çerez veya hesap yok. Yalnızca dil ve tema tercihlerin, yerel olarak tarayıcında saklanır.',
+      noTrackingText:
+        'Analitik, reklam, çerez veya hesap yok. Yalnızca dil, tema ve indirme ayarların kaydedilir; o da yerel olarak, tarayıcında.',
       openSourceTitle: 'Denetime açık',
       openSourceText: 'Kaynak kodun tamamı GitHub\'da herkese açık; böylece bu iddiaları herkes doğrulayabilir.'
     },
     footer: {
       privacy1: 'Bu ücretsiz QR kod oluşturucu tamamen tarayıcında çalışır.',
-      privacy2:
-        'Hiçbir veri saklanmaz veya bir yere gönderilmez. Takip yok, reklam yok, saçmalık yok.',
+      privacy2: 'Girdiğin hiçbir şey saklanmaz veya bir yere gönderilmez. Takip yok, reklam yok, saçmalık yok.',
       privacyPolicy: 'Gizlilik Politikası',
       termsOfUse: 'Kullanım Koşulları',
       github: 'Kaynak kodu GitHub\'da görüntüle'
@@ -302,15 +404,154 @@
       quietZoneHelper:
         'QR kodun etrafındaki boşluk (güvenilir tarama için en az 4 modül)',
       socialHandleHelper:
-        '@kullaniciadi gibi bir kullanıcı adı gir veya https:// ile başlayan tam profil URL\'sini yapıştır.'
+        '@kullaniciadi gibi bir kullanıcı adı gir veya https:// ile başlayan tam profil URL\'sini yapıştır.',
+      httpsSuggestion: 'Telefonlar linkleri yalnızca https:// ile başladıklarında açar.',
+      ecHelper: 'Yüksek seviyeler hasara ve logolara daha dayanıklıdır ama kodu daha yoğun hâle getirir.',
+      wifiWpa3: 'WPA3\'ü yalnızca ağ eski WPA2 cihazlarını kabul etmiyorsa seç.',
+      wifiHiddenIos: 'iPhone\'lar, misafirlerden gizli bir ağa elle katılmalarını isteyebilir.',
+      paymentReference: 'RF alacaklı referansı veya Fin referans numarası (RF biçimine dönüştürülür).',
+      paymentDueDate: 'Fin bankacılık uygulamaları son ödeme tarihini otomatik doldurur. Diğer uygulamalar bunu not olarak gösterebilir.',
+      eventTimeZone: 'Saat bu saat dilimiyle kaydedilir, böylece her yerde doğru görünür.',
+      colorMode: 'RGB ekranlar ve ofis yazıcıları için uygundur. CMYK matbaalar içindir ve temel bir renk dönüşümü kullanır.'
     },
     frame: {
       defaultText: 'TARA BENİ'
     },
     misc: {
-      qrPlaceholder: 'QR kod burada görünecek',
+      qrPlaceholder: 'QR kodun burada görünecek.',
       socialPreview: 'QR hedefi',
-      wifiPayloadHidden: 'WiFi yapılandırması — şifre gizli'
+      wifiPayloadHidden: 'WiFi ayarları: şifre gizli'
+    },
+    output: {
+      title: 'İndir',
+      hintPng: 'Ekranlar, belgeler ve çoğu yazıcı için net görsel.',
+      hintSvg: 'Web siteleri ve tasarım araçları için vektör görsel. Her boyutta net.',
+      hintPdf: 'Matbaalar ve belgeler için hazır vektör PDF.',
+      hintJpg: 'PNG kabul etmeyen uygulamalar için. Baskı için önerilmez.',
+      hintWebp: 'Web siteleri için küçük boyutlu görsel.',
+      hintEps: 'Eski tasarım ve tabela yazılımları için vektör dosya.',
+      vectorAnySize: 'Vektör: her boyutta net',
+      summaryPixels: '{{width}} × {{height}} px',
+      summaryPrint: '{{size}}, {{dpi}} dpi',
+      summaryVector: 'Vektör',
+      summaryVectorPrint: '{{size}} genişliğinde',
+      moduleSize: 'Her modül {{size}}.',
+      scanDistance: 'Yaklaşık {{distance}} uzaklığa kadar taranabilir.',
+      sizeCapped: 'Görseller en fazla 4096 px olabilir. Daha büyük baskılar için SVG veya PDF kullan.',
+      pageTooSmall: 'Kod, sayfaya sığması için küçültüldü.',
+      transparentJpg: 'JPG şeffaf olamaz, bu yüzden arka plan beyaz olacak.',
+      epsOffice: 'Windows\'taki Microsoft Office EPS dosyalarını açmaz. Orada PDF veya SVG kullan.',
+      printTip: 'Tam boyut için yazdırma penceresinde ölçeği %100 olarak ayarla.',
+      preparing: 'Dosya hazırlanıyor',
+      widthInvalid: '{{min}} ile {{max}} arasında bir genişlik gir.',
+      customSizeInvalid: '128 ile 4096 piksel arasında bir boyut gir.'
+    },
+    capacity: {
+      version: 'Sürüm {{version}} · {{modules}} × {{modules}} modül',
+      level: 'Seviye {{level}}',
+      levelAuto: 'Seviye {{level}}, otomatik',
+      label: 'Kullanılan veri',
+      usageBytes: '{{used}} / {{max}} bayt',
+      usageChars: '{{used}} / {{max}} karakter (kompakt mod)',
+      usageDigits: '{{used}} / {{max}} rakam',
+      tooLong: 'İçerik çok fazla: {{level}} seviyesinde {{used}} / {{max}}.',
+      paymentLimit: '{{used}} / 331 bayt'
+    },
+    scan: {
+      title: 'Tarama kontrolü',
+      checking: 'Kontrol ediliyor',
+      ok: 'Sorunsuz taranıyor',
+      looksGood: 'İyi görünüyor',
+      tips: 'Taranıyor, ipuçlarına bak',
+      fail: 'Taranmayabilir',
+      verified: 'Bu cihazda yapılan test taraması kodu doğru okudu.',
+      notVerified: 'Yerleşik QR okuyucu bu kodu okuyamadı. Aşağıdaki düzeltmeleri dene.',
+      unavailable:
+        'Otomatik test taraması bu tarayıcıda kullanılamıyor. Basmadan önce telefonunun kamerasıyla test et.',
+      fixEclH: 'H seviyesini kullan',
+      fixBlack: 'Beyaz üzerine siyah kullan',
+      fixSwapColors: 'Renklerin yerini değiştir',
+      fixLogoSmaller: 'Logoyu küçült',
+      fixPrintSize: '{{size}} boyutunda bas',
+      fixPixelSize: '{{size}} px kullan',
+      fixSquare: 'Kare şekiller kullan',
+      fixRemoveLogo: 'Logoyu kaldır'
+    },
+    empty: {
+      urlText: 'QR kodunu görmek için bir link veya metin yaz ya da yapıştır.',
+      vcard: 'Kişi kodunu görmek için bir ad, e-posta veya telefon numarası ekle.',
+      smsPhone: 'Kodunu görmek için bir telefon numarası gir.',
+      wifi: 'WiFi kodunu görmek için ağ adını gir.',
+      email: 'Bir e-posta adresi, konu veya mesaj ekle.',
+      calendarEvent: 'Bir etkinlik adı ve başlangıç zamanı ekle.',
+      location: 'Bir adres veya koordinat gir.',
+      socialMedia: 'Bir kullanıcı adı veya profil linki gir.',
+      whatsapp: 'Ülke koduyla birlikte bir WhatsApp numarası gir.',
+      payment: 'Alıcı adını ve IBAN\'ı gir.',
+      mecard: 'Bir ad, telefon numarası veya e-posta ekle.',
+      appLink: 'Bir uygulama mağazası linki veya web linki ekle.',
+      invalid: 'Kodu güncellemek için işaretli alanı düzelt.',
+      tooLong: 'İçerik tek bir QR kod için çok fazla.',
+      error: 'Kod oluşturulamadı.'
+    },
+    design: {
+      presets: 'Stil',
+      custom: 'Özel',
+      presetStandard: 'Standart',
+      presetClassic: 'Klasik',
+      presetRounded: 'Yuvarlak',
+      presetDots: 'Noktalı',
+      presetSoft: 'Yumuşak',
+      presetScanMe: 'Tara beni',
+      colors: 'Renkler',
+      advanced: 'Gelişmiş',
+      eclAutoHelp: 'Otomatik ayar M seviyesini, kodda logo varsa H seviyesini kullanır.',
+      eclLockedPayment: 'Ödeme kodları her zaman M seviyesini kullanır.'
+    },
+    logo: {
+      dropHint: 'Bir görsel bırak, yapıştır veya seç: PNG, JPEG, WebP, GIF veya SVG.',
+      dropHere: 'Logo olarak kullanmak için görseli bırak',
+      readFailed: 'Bu görsel açılamadı. PNG, JPEG, WebP veya SVG dosyası dene.',
+      tooLarge: 'Bu görsel 10 MB\'tan büyük. Daha küçük bir dosya seç.',
+      optimized: 'Hızlı çalışması için görsel {{size}} px boyutuna küçültüldü.'
+    },
+    toast: {
+      designReset: 'Tasarım sıfırlandı.',
+      applied: 'Uygulandı: {{what}}',
+      imageCopied: 'Görsel kopyalandı.',
+      svgCopied: 'SVG kodu kopyalandı.',
+      textCopied: 'Metin kopyalandı.',
+      copyFailed: 'Bu tarayıcı kopyalamaya izin vermiyor. Bunun yerine İndir düğmesini kullan.',
+      shareFailed: 'Paylaşım çalışmadı. Bunun yerine İndir düğmesini kullan.',
+      saved: '{{filename}} kaydedildi',
+      exportFailed: '{{format}} dosyası oluşturulamadı. Lütfen tekrar dene.',
+      pdfRasterFallback: 'PDF, kod görsel olarak eklenerek kaydedildi.',
+      batchLoadFailed: 'Toplu kod oluşturma şu anda kullanılamıyor. Sayfayı yenileyip tekrar dene.'
+    },
+    mobile: {
+      showPreview: 'QR kodu göster'
+    },
+    batch: {
+      title: 'Toplu QR kod oluştur',
+      intro:
+        'Bir elektronik tablodan satırları yapıştır veya bir CSV dosyası seç. Her satır, mevcut tasarımınla bir QR kod olur. Dosya bu cihazda okunur ve asla yüklenmez.',
+      dropHint: 'CSV dosyasını buraya bırak',
+      mappingTitle: 'Sütunları alanlarla eşleştir',
+      rowsFound: 'Bulunan satır: {{count}}',
+      limit: 'Tek seferde en fazla {{max}} satır oluşturulabilir.',
+      sizeNote: 'Boyut, mevcut indirme ayarlarından alınır: {{summary}}.',
+      progress: 'Oluşturuluyor: {{done}} / {{total}}',
+      done: 'Oluşturulan: {{ok}}. Atlanan: {{failed}}.',
+      rowError: 'Satır {{row}}: {{message}}',
+      emptyInput: 'Önce CSV verisi yapıştır veya bir dosya seç.',
+      cancelled: 'Durduruldu. ZIP dosyası oluşturulmadı.',
+      column: 'Sütun {{n}}',
+      columnSample: 'Sütun {{n}} ({{sample}})',
+      mapRequired: '{{field}} için bir sütun seç.',
+      fileTooLarge: 'Bu dosya 5 MB\'tan büyük. Daha küçük bir CSV dosyası seç.',
+      notCsv: 'Bu bir CSV dosyası değil. Elektronik tablo uygulamanda dosyayı CSV olarak kaydet veya dışa aktar, sonra tekrar dene.',
+      scanFailed: 'Tarama kontrolünden geçemeyen kodlar: {{count}}.',
+      moreErrors: 'Sorunlu diğer satırlar: {{count}}.'
     }
   };
 })();

@@ -11,12 +11,12 @@ module.exports = {
     eyebrow: 'Kostenloser QR-Code Generator',
     display: 'Kostenlose QR-Codes, die für immer funktionieren.',
     lead:
-      'Erstellen Sie QR-Codes für Links, WLAN, Kontakte und mehr, direkt in Ihrem Browser. Keine Anmeldung, keine Testphase, keine Weiterleitungen: Ihr Inhalt steckt direkt im Code und funktioniert deshalb dauerhaft. Mit Logo, Farben und „SCAN MICH“-Rahmen.'
+      'Erstellen Sie QR-Codes für Links, WLAN, Kontakte und mehr, direkt in Ihrem Browser. Keine Anmeldung, keine Testphase, keine Weiterleitungen: Ihr Inhalt steckt direkt im Code und funktioniert deshalb dauerhaft. Fügen Sie Logo, Farben und einen „SCAN MICH“-Rahmen hinzu und laden Sie dann druckfertige PNG-, SVG-, PDF- oder EPS-Dateien herunter.'
   },
   types: {
     wifi: {
       name: 'WLAN QR-Code',
-      title: 'WLAN QR-Code erstellen – kostenlos und sicher | QRTurbo.app',
+      title: 'WLAN QR-Code erstellen, kostenlos und sicher | QRTurbo.app',
       description:
         'Erstellen Sie kostenlos einen WLAN QR-Code: Gäste verbinden sich per Scan. Ihr Passwort bleibt im Browser. Ohne Anmeldung, ohne Tracking, läuft nie ab.',
       eyebrow: 'WLAN QR-Code Generator',
@@ -128,7 +128,7 @@ module.exports = {
     },
     whatsapp: {
       name: 'WhatsApp QR-Code',
-      title: 'WhatsApp QR-Code erstellen – Chat per Scan | QRTurbo.app',
+      title: 'WhatsApp QR-Code erstellen: Chat per Scan | QRTurbo.app',
       description:
         'Erstellen Sie kostenlos einen WhatsApp QR-Code, der einen Chat mit Ihrer Nummer und einer vorausgefüllten Nachricht öffnet. Ohne Anmeldung, läuft nie ab.',
       eyebrow: 'WhatsApp QR-Code Generator',
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Wie groß sollte ich einen QR-Code drucken?',
-        a: 'Drucken Sie ihn mindestens 2 × 2 cm groß. Als Faustregel gilt: Der Code sollte mindestens ein Zehntel des Scanabstands messen. Ein Plakat, das aus 2 Metern Entfernung gescannt wird, braucht also einen Code von etwa 20 cm. Laden Sie für den Druck eine SVG-Datei oder ein großes PNG herunter und lassen Sie die Ruhezone um den Code frei.'
+        a: 'Drucken Sie ihn mindestens 2 × 2 cm groß. Als Faustregel gilt: Der Code sollte mindestens ein Zehntel des Scanabstands messen. Ein Plakat, das aus 2 Metern Entfernung gescannt wird, braucht also einen Code von etwa 20 cm. Laden Sie für den Druck eine PDF- oder SVG-Datei herunter, die in jeder Größe scharf bleibt, und legen Sie die genaue Druckbreite fest. QRTurbo.app zeigt die Modulgröße an und warnt Sie, wenn der Code zu klein zum Scannen ist. Lassen Sie die Ruhezone um den Code frei.'
       },
       {
         q: 'Warum lässt sich mein QR-Code nicht scannen?',
-        a: 'Die häufigsten Ursachen sind zu wenig Kontrast zwischen Code und Hintergrund, eine zu kleine Ruhezone, ein Logo, das zu viel vom Code verdeckt, oder zu viel Inhalt für die Druckgröße. QRTurbo.app warnt Sie vor diesen Risiken. Testen Sie den Code vor dem Druck immer mit mehreren Handys.'
+        a: 'Die häufigsten Ursachen sind zu wenig Kontrast zwischen Code und Hintergrund, eine zu kleine Ruhezone, ein Logo, das zu viel vom Code verdeckt, oder zu viel Inhalt für die Druckgröße. QRTurbo.app prüft jeden Code mit einem integrierten Scanner auf Ihrem Gerät und schlägt Korrekturen vor. Testen Sie den Code vor dem Druck immer mit mehreren Handys.'
       },
       {
         q: 'Sind meine Daten sicher? Können Sie mein WLAN-Passwort sehen?',
         a: 'Ihre Daten bleiben auf Ihrem Gerät. Der QR-Code wird von Code erzeugt, der in Ihrem Browser läuft, und nichts, was Sie eingeben oder hochladen, wird an einen Server gesendet. Niemand kann also Ihr WLAN-Passwort oder Ihre Kontaktdaten sehen. Nach dem ersten Besuch funktioniert der Generator auch offline.'
+      },
+      {
+        q: 'Welches Dateiformat sollte ich verwenden?',
+        a: 'Verwenden Sie PNG für Bildschirme, Dokumente und die meisten Drucker. Verwenden Sie SVG für Websites und Designprogramme und PDF für Druckereien: Beides sind Vektordateien, die in jeder Größe scharf bleiben. EPS ist für ältere Grafik- und Schildersoftware gedacht. JPG und WebP sind kleine Bilddateien für Apps und Websites. Jedes Format ist kostenlos und behält Ihre Farben, Ihr Logo und Ihren Rahmen bei.'
       }
     ]
   },

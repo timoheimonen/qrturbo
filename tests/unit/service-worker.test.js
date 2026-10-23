@@ -90,6 +90,9 @@ function makeHarness({ cacheNames = [], fetchImpl, cachePutError = false } = {})
           }
         }
         return undefined;
+      },
+      async keys() {
+        return [...entries.keys()].map(key => new Request(key));
       }
     };
   }
@@ -239,6 +242,62 @@ test('activation deletes obsolete QRTurbo caches and keeps other apps\' caches',
 
   assert.deepEqual(harness.deletedCaches.sort(), ['qrturbo-runtime-v3', 'qrturbo-static-v4']);
   assert.deepEqual((await harness.caches.keys()).sort(), ['another-app-v1', cacheName].sort());
+  assert.equal(harness.clientsClaimed, true);
+});
+
+function htmlResponse(body) {
+  return new Response(body, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+}
+
+test('activation keeps pages visited in earlier releases, the newest copy first', async () => {
+  const { cacheName } = extractWorkerMetadata();
+  const v6 = 'qrturbo-static-v6-aaaaaaaaaaaa';
+  const v7 = 'qrturbo-static-v7-bbbbbbbbbbbb';
+  const harness = makeHarness({ cacheNames: [v6, v7, cacheName] });
+  const older = await harness.caches.open(v6);
+  const previous = await harness.caches.open(v7);
+  const current = await harness.caches.open(cacheName);
+  await older.put('/fi/', htmlResponse('V6 FI'));
+  await older.put('/sv/', htmlResponse('V6 SV'));
+  await previous.put('/fi/', htmlResponse('V7 FI'));
+  await previous.put('/de/wifi-qr-code/', htmlResponse('V7 DE WIFI'));
+  await previous.put('/ja/', htmlResponse('V7 JA'));
+  await previous.put('/index.html', htmlResponse('V7 INDEX'));
+  await previous.put('/js/app.js', new Response('V7 APP', { headers: { 'Content-Type': 'text/javascript' } }));
+  await previous.put('/not-a-page/', new Response('{}', { headers: { 'Content-Type': 'application/json' } }));
+  await current.put('/index.html', htmlResponse('NEW INDEX'));
+  await current.put('/ja/', htmlResponse('NEW JA'));
+
+  await harness.dispatchLifecycle('activate');
+
+  const text = async pathname => {
+    const response = await current.match(pathname);
+    return response ? response.text() : null;
+  };
+  assert.equal(await text('/fi/'), 'V7 FI');
+  assert.equal(await text('/sv/'), 'V6 SV');
+  assert.equal(await text('/de/wifi-qr-code/'), 'V7 DE WIFI');
+  // The new release's own copies and precached files never come from an old cache.
+  assert.equal(await text('/ja/'), 'NEW JA');
+  assert.equal(await text('/index.html'), 'NEW INDEX');
+  assert.equal(await text('/js/app.js'), null);
+  assert.equal(await text('/not-a-page/'), null);
+  assert.deepEqual(harness.deletedCaches.sort(), [v6, v7]);
+  assert.equal(harness.clientsClaimed, true);
+});
+
+test('activation still replaces old caches when copying visited pages fails', async () => {
+  const { cacheName } = extractWorkerMetadata();
+  const v7 = 'qrturbo-static-v7-bbbbbbbbbbbb';
+  const harness = makeHarness({ cacheNames: [v7, cacheName] });
+  const previous = await harness.caches.open(v7);
+  previous.keys = async () => {
+    throw new Error('Cache unavailable');
+  };
+
+  await harness.dispatchLifecycle('activate');
+
+  assert.deepEqual(harness.deletedCaches, [v7]);
   assert.equal(harness.clientsClaimed, true);
 });
 

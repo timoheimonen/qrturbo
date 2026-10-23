@@ -11,12 +11,12 @@ module.exports = {
     eyebrow: 'Ingyenes QR-kód generátor',
     display: 'Ingyenes QR-kódok, amelyek örökre működnek.',
     lead:
-      'Készíts QR-kódot linkhez, WiFi-hez, névjegyhez és sok máshoz, közvetlenül a böngésződben. Nincs regisztráció, próbaidő vagy átirányítás: a tartalom egyenesen a kódba kerül, így az örökre működik. Adj hozzá logót, színeket és „Olvass be” keretet.'
+      'Készíts QR-kódot linkhez, WiFi-hez, névjegyhez és sok máshoz, közvetlenül a böngésződben. Nincs regisztráció, próbaidő vagy átirányítás: a tartalom egyenesen a kódba kerül, így az örökre működik. Adj hozzá logót, színeket és „Olvass be” keretet, majd töltsd le nyomdakész PNG-, SVG-, PDF- vagy EPS-fájlként.'
   },
   types: {
     wifi: {
       name: 'WiFi QR-kód',
-      title: 'WiFi QR-kód generátor – ingyenes és biztonságos | QRTurbo.app',
+      title: 'WiFi QR-kód generátor, ingyenes és biztonságos | QRTurbo.app',
       description:
         'Készíts ingyenes WiFi QR-kódot, hogy a vendégek egy beolvasással csatlakozhassanak. A jelszó a böngésződben marad. Regisztráció és követés nélkül, nem jár le.',
       eyebrow: 'WiFi QR-kód generátor',
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Mekkorára nyomtassam a QR-kódot?',
-        a: 'Legalább 2 × 2 cm-esre. Ökölszabály: a kód legyen legalább akkora, mint a beolvasási távolság tizede, vagyis egy 2 méterről olvasott plakátra nagyjából 20 cm-es kód kell. Nyomtatáshoz tölts le SVG-t vagy nagy méretű PNG-t, és hagyd üresen a kód körüli csendes zónát.'
+        a: 'Legalább 2 × 2 cm-esre. Ökölszabály: a kód legyen legalább akkora, mint a beolvasási távolság tizede, vagyis egy 2 méterről olvasott plakátra nagyjából 20 cm-es kód kell. Nyomtatáshoz tölts le PDF-et vagy SVG-t, amelyek bármekkora méretben élesek maradnak, és add meg a pontos nyomtatási szélességet. A QRTurbo.app megmutatja a modulméretet, és figyelmeztet, ha a kód túl kicsi a beolvasáshoz. A kód körüli csendes zónát hagyd üresen.'
       },
       {
         q: 'Miért nem olvasható be a QR-kódom?',
-        a: 'A leggyakoribb okok: túl kicsi a kontraszt a kód és a háttér között, túl keskeny a csendes zóna, a logó túl nagy részt takar el a kódból, vagy túl sok a tartalom a nyomtatott mérethez képest. A QRTurbo.app figyelmeztet ezekre a kockázatokra. Nyomtatás előtt mindig teszteld a kódot néhány különböző telefonnal.'
+        a: 'A leggyakoribb okok: túl kicsi a kontraszt a kód és a háttér között, túl keskeny a csendes zóna, a logó túl nagy részt takar el a kódból, vagy túl sok a tartalom a nyomtatott mérethez képest. A QRTurbo.app minden kódot ellenőriz egy beépített olvasóval, közvetlenül az eszközödön, és javításokat javasol. Nyomtatás előtt mindig teszteld a kódot néhány különböző telefonnal.'
       },
       {
         q: 'Biztonságban vannak az adataim? Láthatjátok a WiFi-jelszavamat?',
         a: 'Az adataid az eszközödön maradnak. A QR-kódot a böngésződben futó kód állítja elő, és semmi, amit beírsz vagy feltöltesz, nem jut el szerverre, így senki sem láthatja a WiFi-jelszavadat vagy az elérhetőségeidet. Az első látogatás után a generátor offline is működik.'
+      },
+      {
+        q: 'Milyen fájlformátumot válasszak?',
+        a: 'A PNG képernyőre, dokumentumokba és a legtöbb nyomtatóhoz való. Az SVG weboldalakhoz és tervezőprogramokhoz, a PDF nyomdáknak ajánlott: mindkettő vektoros fájl, amely bármekkora méretben éles marad. Az EPS régebbi grafikai és feliratkészítő programokhoz készült. A JPG és a WebP kis méretű képfájlok alkalmazásokhoz és weboldalakhoz. Minden formátum ingyenes, és megőrzi a színeket, a logót és a keretet.'
       }
     ]
   },

@@ -1,0 +1,351 @@
+/*
+ * QRTurbo.app preview stage styles
+ * The live preview inside the preview card: #qr-stage and its data-state
+ * values (empty, pending, ready, invalid, tooLong, error), the ghost
+ * placeholder, the stage fix and retry buttons, and the #qr-info readout
+ * with its capacity meter. Uses the tokens defined in styles.css.
+ *
+ * controller.js sets these attributes on #qr-stage:
+ *   data-state        empty | pending | ready | invalid | tooLong | error
+ *   data-artwork      "true" while #qr-canvas-container holds a code
+ *   data-transparent  "true" when that code has a transparent background
+ *   data-ink          "light" when that code's color is light, else "dark"
+ *   data-revealed     "true" when an invalid field's error is shown
+ * and the class .is-updating on #qr-canvas-container while pending.
+ */
+
+/* ── Stage ── */
+
+.qr-stage {
+    /* The transparency checkerboard depends on the code color, not on the
+       page theme: dark codes need a light board and light codes a dark one. */
+    --stage-checker-light-a: #ffffff;
+    --stage-checker-light-b: #e4e4e7;
+    --stage-checker-dark-a: #2b2b2b;
+    --stage-checker-dark-b: #1f1f1f;
+    position: relative;
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+    place-items: center;
+    /* Desktop: the stage takes the height that the rest of the preview
+       card leaves in the sticky column, never less than 200 px, so the
+       whole card fits on screens 700 px tall or more. --preview-reserve
+       (styles.css) is the space around the card and --preview-chrome
+       (measured by QRTurboUI) the card without its stage. */
+    width: min(100%, max(200px, calc(100vh - var(--preview-reserve, 94px) - var(--preview-chrome, 440px) - var(--stage-readout, 0px))));
+    width: min(100%, max(200px, calc(100dvh - var(--preview-reserve, 94px) - var(--preview-chrome, 440px) - var(--stage-readout, 0px))));
+    margin-inline: auto;
+    aspect-ratio: 1;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--stage-bg);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* While the readout below is hidden (no code yet, or an error), the stage
+   keeps the size it has next to the readout, so it does not jump when the
+   first code appears. */
+.preview-card:has(> .qr-info[hidden]) > .qr-stage {
+    --stage-readout: 52px;
+}
+
+.qr-stage > .qr-placeholder,
+.qr-stage > .qr-canvas-container {
+    grid-area: 1 / 1;
+}
+
+/* ── Artwork ── */
+
+.qr-stage #qr-canvas-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border-radius: 6px;
+    background: none;
+    transition: opacity 180ms ease;
+}
+
+.qr-stage #qr-canvas-container:empty {
+    display: none;
+}
+
+.qr-stage #qr-canvas-container > svg {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
+    height: auto !important;
+    border-radius: 6px;
+    box-shadow: none;
+}
+
+.qr-stage[data-transparent="false"] #qr-canvas-container > svg {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* A transparent code is shown on a checkerboard, so it never disappears
+   against the stage in either theme. */
+.qr-stage[data-transparent="true"] #qr-canvas-container {
+    --checker-a-color: var(--stage-checker-light-a);
+    --checker-b-color: var(--stage-checker-light-b);
+    background-color: var(--checker-a-color);
+    background-image:
+        linear-gradient(45deg, var(--checker-b-color) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--checker-b-color) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--checker-b-color) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--checker-b-color) 75%);
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    background-size: 16px 16px;
+}
+
+.qr-stage[data-transparent="true"][data-ink="light"] #qr-canvas-container {
+    --checker-a-color: var(--stage-checker-dark-a);
+    --checker-b-color: var(--stage-checker-dark-b);
+}
+
+/* Pending: the previous code stays in place. It dims only when an update
+   takes longer than 250 ms, so typing never flickers. */
+.qr-stage[data-state="pending"] #qr-canvas-container.is-updating {
+    opacity: 0.55;
+    transition: opacity 180ms ease 250ms;
+}
+
+/* Invalid: the last good code stays, faded, and is no longer downloadable. */
+.qr-stage[data-state="invalid"] #qr-canvas-container {
+    opacity: 0.35;
+}
+
+.qr-stage[data-state="invalid"][data-artwork="true"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--stage-bg);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Corner spinner, shown only after 300 ms of pending. */
+.qr-stage::after {
+    content: '';
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    z-index: 2;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-strong);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 120ms ease, visibility 0s linear 120ms;
+}
+
+.qr-stage[data-state="pending"]::after {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 120ms ease 300ms, visibility 0s linear 300ms;
+    animation: qrturbo-stage-spin 0.8s linear infinite;
+}
+
+@keyframes qrturbo-stage-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Placeholder ── */
+
+.qr-stage #qr-placeholder {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    max-width: 240px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+/* A ghost QR code, drawn with a mask so it follows the theme color. */
+.qr-stage #qr-placeholder::before {
+    content: '';
+    display: block;
+    width: 112px;
+    height: 112px;
+    margin: 0 auto var(--space-1);
+    background: var(--faint);
+    opacity: 0.55;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 29 29'%3E%3Cpath fill-rule='evenodd' d='M0 0h7v7H0zM1 1v5h5V1zM2 2h3v3H2zM22 0h7v7h-7zm1 1v5h5V1zm1 1h3v3h-3zM0 22h7v7H0zm1 1v5h5v-5zm1 1h3v3H2zM9 0h2v2H9zm4 0h1v3h-1zm3 1h2v2h-2zm3 2h1v2h-1zM9 4h3v1H9zm5 1h2v2h-2zM9 7h1v2H9zm3 0h2v1h-2zm5 0h2v3h-2zM0 9h2v1H0zm4 0h3v2H4zm5 1h4v1H9zm6 0h1v2h-1zm4 1h3v1h-3zm5-2h2v2h-2zm3 2h2v1h-2zM1 12h2v2H1zm6 0h3v1H7zm5 1h3v3h-3zm5 0h1v2h-1zm4 0h3v1h-3zm5 0h3v3h-3zM3 15h4v1H3zm6 0h2v2H9zm8 2h3v1h-3zm5-1h2v2h-2zM0 18h2v2H0zm5-1h3v2H5zm5 2h3v1h-3zm4 0h1v3h-1zm3 1h3v2h-3zm5 0h1v3h-1zm3-1h2v2h-2zM9 22h3v1H9zm5 2h2v2h-2zm4 0h3v1h-3zm5-1h2v2h-2zm3 2h3v1h-3zM9 26h2v3H9zm4 1h3v1h-3zm5-1h1v3h-1zm3 1h3v2h-3zm6 1h2v1h-2z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 29 29'%3E%3Cpath fill-rule='evenodd' d='M0 0h7v7H0zM1 1v5h5V1zM2 2h3v3H2zM22 0h7v7h-7zm1 1v5h5V1zm1 1h3v3h-3zM0 22h7v7H0zm1 1v5h5v-5zm1 1h3v3H2zM9 0h2v2H9zm4 0h1v3h-1zm3 1h2v2h-2zm3 2h1v2h-1zM9 4h3v1H9zm5 1h2v2h-2zM9 7h1v2H9zm3 0h2v1h-2zm5 0h2v3h-2zM0 9h2v1H0zm4 0h3v2H4zm5 1h4v1H9zm6 0h1v2h-1zm4 1h3v1h-3zm5-2h2v2h-2zm3 2h2v1h-2zM1 12h2v2H1zm6 0h3v1H7zm5 1h3v3h-3zm5 0h1v2h-1zm4 0h3v1h-3zm5 0h3v3h-3zM3 15h4v1H3zm6 0h2v2H9zm8 2h3v1h-3zm5-1h2v2h-2zM0 18h2v2H0zm5-1h3v2H5zm5 2h3v1h-3zm4 0h1v3h-1zm3 1h3v2h-3zm5 0h1v3h-1zm3-1h2v2h-2zM9 22h3v1H9zm5 2h2v2h-2zm4 0h3v1h-3zm5-1h2v2h-2zm3 2h3v1h-3zM9 26h2v3H9zm4 1h3v1h-3zm5-1h1v3h-1zm3 1h3v2h-3zm6 1h2v1h-2z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.qr-stage[data-state="tooLong"] #qr-placeholder::before,
+.qr-stage[data-state="error"] #qr-placeholder::before {
+    background: var(--danger);
+    opacity: 0.3;
+}
+
+/* Over a faded code the message sits on a small card instead of the ghost. */
+.qr-stage #qr-placeholder.is-overlay {
+    max-width: min(260px, calc(100% - var(--space-4)));
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--panel-bg);
+    box-shadow: var(--shadow);
+}
+
+.qr-stage #qr-placeholder.is-overlay::before {
+    content: none;
+}
+
+.qr-stage .qr-placeholder-text {
+    margin: 0;
+}
+
+.qr-stage[data-state="tooLong"] .qr-placeholder-text,
+.qr-stage[data-state="error"] .qr-placeholder-text,
+.qr-stage[data-revealed="true"] .qr-placeholder-text {
+    color: var(--danger-text);
+    font-weight: 500;
+}
+
+.qr-stage .stage-action {
+    min-height: 36px;
+}
+
+/* ── QR info readout ── */
+
+.qr-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.qr-info .capacity-text {
+    margin: 0;
+    color: var(--fg);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+.qr-info .capacity-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+}
+
+.qr-info .capacity-usage {
+    font-variant-numeric: tabular-nums;
+}
+
+.qr-info .capacity-usage.is-danger {
+    color: var(--danger-text);
+    font-weight: 600;
+}
+
+.qr-info #capacity-fix-btn {
+    min-height: 32px;
+}
+
+.capacity-meter {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: block;
+    flex: 1 1 120px;
+    min-width: 80px;
+    height: 6px;
+    margin: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--ctl-bg);
+    overflow: hidden;
+}
+
+.capacity-meter::-webkit-meter-bar {
+    height: 6px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--ctl-bg);
+}
+
+.capacity-meter::-webkit-meter-optimum-value {
+    border-radius: 999px;
+    background: var(--accent);
+}
+
+.capacity-meter::-webkit-meter-suboptimum-value {
+    border-radius: 999px;
+    background: var(--warn);
+}
+
+.capacity-meter::-webkit-meter-even-less-good-value {
+    border-radius: 999px;
+    background: var(--danger);
+}
+
+.capacity-meter::-moz-meter-bar {
+    border-radius: 999px;
+    background: var(--accent);
+}
+
+.capacity-meter:-moz-meter-sub-optimum::-moz-meter-bar {
+    background: var(--warn);
+}
+
+.capacity-meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: var(--danger);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 960px) {
+    .qr-stage {
+        width: min(100%, 400px);
+    }
+}
+
+@media (max-width: 720px) {
+    .qr-stage {
+        width: min(100%, 320px);
+        padding: var(--space-3);
+    }
+}
+
+/* ── Reduced motion ── */
+
+@media (prefers-reduced-motion: reduce) {
+    /* No fades and no spinning; the delays stay, so typing does not flicker. */
+    .qr-stage #qr-canvas-container {
+        transition: none;
+    }
+
+    .qr-stage[data-state="pending"] #qr-canvas-container.is-updating {
+        transition: opacity 0s linear 250ms;
+    }
+
+    .qr-stage::after,
+    .qr-stage[data-state="pending"]::after {
+        animation: none;
+    }
+
+    .qr-stage[data-state="pending"]::after {
+        transition: visibility 0s linear 300ms, opacity 0s linear 300ms;
+    }
+}

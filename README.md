@@ -15,22 +15,27 @@ The app is served as static assets from Cloudflare's global network, with no ori
 
 ## Features
 
-- Create QR codes instantly in your browser
-- Generate QR codes for URL/Text, vCard, MeCard, WiFi, SMS/Phone, Email, Calendar Events, Locations, Social Media, WhatsApp, and App Links
-- Customize foreground and background colors
-- Add an optional logo with adjustable size and margin
-- Add a frame with a call-to-action label such as "Scan me"
-- Choose dot styles, corner square styles, and corner dot styles
-- Select QR code size: 512px, 1024px, 2048px, or 4096px
-- Error correction levels: L, M, Q, H
-- Export formats: PNG, SVG and PDF
+- Create QR codes instantly in your browser, with a live preview that never flickers while you type
+- QR code types: URL/Text, vCard, MeCard, WiFi (including WPA3), SMS/Phone, Email, Calendar Events (all-day and time zones),
+  Locations, Social Media, WhatsApp, App Links and SEPA payments (EPC QR code with Finnish reference numbers)
+- Create many codes at once from a CSV file and download them as a ZIP file
+- Style presets, solid or gradient code colors, custom corner colors, transparent backgrounds
+- Logos by choosing, dropping or pasting an image, with adjustable size and spacing
+- Frames with a call-to-action label such as "Scan me"
+- Pattern, corner frame and corner center shapes
+- Automatic error correction (M, or H with a logo), or a fixed level L, M, Q or H, and an optional minimum QR version
+- Built-in scan check: every code is test-scanned on your device, with one-click fixes for contrast, logo size and print size
+- QR info readout: version, module count and how much of the capacity the content uses
+- Export formats: PNG, JPG and WebP images up to 4096 px, SVG, vector PDF (fit to code, A4 or US Letter) and EPS
+- Exact print sizes in millimetres or inches at 150, 300 or 600 dpi, written into PNG and JPG files
+- PDF and EPS in RGB, CMYK or black only
+- Copy the image, share it on phones, or print it at its exact size
 - Light and dark themes
-- Multilingual UI with 24 supported languages, each pre-rendered at its own URL
+- Multilingual UI with 22 supported languages, each pre-rendered at its own URL
 - Landing pages for every QR code type in every language
 - No external API calls
 - Works fully offline after initial load
 - Supports UTF-8 and long messages
-- Download the QR code as an image
 
 ## Pages
 
@@ -41,6 +46,13 @@ The HTML pages in `Public/` are generated. Edit `site/template.html` for the pag
 
 ```bash
 npm run build
+```
+
+When you add or rename interface strings in `Public/js/i18n/core.js`, copy the English key set into
+every locale file (new keys get the English text until they are translated):
+
+```bash
+node scripts/sync-locales.js
 ```
 
 `npm run build:check` and the static tests fail when the committed pages are out of date.
@@ -74,8 +86,9 @@ Generate the diagnostic production-code coverage report with:
 npm run test:coverage
 ```
 
-The report contains `Public/js/app.js` and `Public/sw.js`. It intentionally excludes the vendor
-QR library and test harnesses, and it does not enforce an arbitrary percentage threshold.
+The report contains `Public/js/app.js`, `Public/js/frame.js`, the modules in `Public/js/lib/` and
+`Public/sw.js`. It intentionally excludes the vendored libraries and test harnesses, and it does not
+enforce an arbitrary percentage threshold.
 
 The browser suite runs fully on desktop Chromium. Pixel 7 runs one responsive mobile smoke test,
 while WebKit runs the core generation, PNG/SVG download, and logo/FileReader paths. PWA cache tests

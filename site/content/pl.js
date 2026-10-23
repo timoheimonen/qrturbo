@@ -11,14 +11,14 @@ module.exports = {
     eyebrow: 'Darmowy generator kodów QR',
     display: 'Darmowe kody QR, które nigdy nie przestają działać.',
     lead:
-      'Twórz kody QR do linków, sieci WiFi, kontaktów i nie tylko – bezpośrednio w przeglądarce. Bez rejestracji, bez okresu próbnego, bez przekierowań: treść trafia prosto do kodu, więc działa on zawsze. Dodaj logo, kolory i ramkę „Zeskanuj”.'
+      'Twórz kody QR do linków, sieci WiFi, kontaktów i nie tylko, bezpośrednio w przeglądarce. Bez rejestracji, bez okresu próbnego, bez przekierowań: treść trafia prosto do kodu, więc działa on zawsze. Dodaj logo, kolory i ramkę „Zeskanuj”, a potem pobierz gotowe do druku pliki PNG, SVG, PDF lub EPS.'
   },
   types: {
     wifi: {
       name: 'Kod QR do WiFi',
-      title: 'Kod QR do WiFi za darmo – bezpieczny generator | QRTurbo.app',
+      title: 'Kod QR do WiFi za darmo, bezpieczny generator | QRTurbo.app',
       description:
-        'Utwórz darmowy kod QR do WiFi – goście połączą się z siecią jednym skanem. Hasło zostaje w przeglądarce. Bez rejestracji i śledzenia, nie wygasa.',
+        'Utwórz darmowy kod QR do WiFi: goście połączą się z siecią jednym skanem. Hasło zostaje w przeglądarce. Bez rejestracji i śledzenia, nie wygasa.',
       eyebrow: 'Generator kodów QR do WiFi',
       display: 'Goście łączą się z Twoim WiFi jednym skanem.',
       lead:
@@ -32,7 +32,7 @@ module.exports = {
     },
     vcard: {
       name: 'Kod QR z wizytówką vCard',
-      title: 'Kod QR vCard na wizytówkę – generator za darmo | QRTurbo.app',
+      title: 'Kod QR vCard na wizytówkę, generator za darmo | QRTurbo.app',
       description:
         'Utwórz darmowy kod QR vCard na wizytówkę. Jeden skan zapisuje imię, telefon, e-mail i adres w kontaktach. Bez rejestracji, kod nigdy nie wygasa.',
       eyebrow: 'Generator kodów QR vCard',
@@ -48,7 +48,7 @@ module.exports = {
     },
     sms: {
       name: 'Kod QR do SMS-a i połączenia',
-      title: 'Kod QR do SMS-a i połączenia – generator za darmo | QRTurbo.app',
+      title: 'Kod QR do SMS-a i połączenia, generator za darmo | QRTurbo.app',
       description:
         'Utwórz darmowy kod QR, który otwiera SMS-a lub rozpoczyna połączenie. Dodaj gotową treść wiadomości. Działa w przeglądarce, bez rejestracji, nie wygasa.',
       eyebrow: 'Generator kodów QR do SMS-ów i połączeń',
@@ -64,13 +64,13 @@ module.exports = {
     },
     email: {
       name: 'Kod QR do e-maila',
-      title: 'Kod QR do e-maila z gotową wiadomością – za darmo | QRTurbo.app',
+      title: 'Kod QR do e-maila z gotową wiadomością, za darmo | QRTurbo.app',
       description:
         'Utwórz darmowy kod QR do e-maila, który otwiera nową wiadomość z wpisanym odbiorcą, tematem i treścią. Bez rejestracji i śledzenia, nigdy nie wygasa.',
       eyebrow: 'Generator kodów QR do e-maili',
       display: 'Gotowy do wysłania e-mail po jednym skanie.',
       lead:
-        'Wpisz odbiorcę, temat i treść, aby utworzyć kod QR do e-maila – do zbierania opinii, zgłoszeń do pomocy technicznej, zamówień i zapisów.',
+        'Wpisz odbiorcę, temat i treść, aby utworzyć kod QR do e-maila: do zbierania opinii, zgłoszeń do pomocy technicznej, zamówień i zapisów.',
       aboutTitle: 'Jak działają kody QR do e-maili',
       about: [
         'Kod QR do e-maila zawiera link mailto. Po zeskanowaniu otwiera się aplikacja pocztowa z wpisanym już odbiorcą, tematem i treścią, a osoba skanująca decyduje, czy wysłać wiadomość.',
@@ -80,7 +80,7 @@ module.exports = {
     },
     event: {
       name: 'Kod QR z wydarzeniem w kalendarzu',
-      title: 'Kod QR do wydarzenia w kalendarzu – za darmo | QRTurbo.app',
+      title: 'Kod QR do wydarzenia w kalendarzu, za darmo | QRTurbo.app',
       description:
         'Utwórz darmowy kod QR z wydarzeniem. Jeden skan dodaje nazwę, termin, miejsce i szczegóły do kalendarza. Działa w przeglądarce, nigdy nie wygasa.',
       eyebrow: 'Generator kodów QR do wydarzeń',
@@ -96,7 +96,7 @@ module.exports = {
     },
     location: {
       name: 'Kod QR z lokalizacją',
-      title: 'Kod QR z lokalizacją na mapie – generator za darmo | QRTurbo.app',
+      title: 'Kod QR z lokalizacją na mapie, generator za darmo | QRTurbo.app',
       description:
         'Utwórz darmowy kod QR z lokalizacją, który otwiera adres lub współrzędne w aplikacji z mapami. Idealny na zaproszenia i tablice. Bez rejestracji, nie wygasa.',
       eyebrow: 'Generator kodów QR z lokalizacją',
@@ -144,7 +144,7 @@ module.exports = {
     },
     app: {
       name: 'Kod QR do pobrania aplikacji',
-      title: 'Kod QR do App Store i Google Play – za darmo | QRTurbo.app',
+      title: 'Kod QR do App Store i Google Play, za darmo | QRTurbo.app',
       description:
         'Utwórz darmowy kod QR do strony pobierania aplikacji w App Store lub Google Play. Działa w przeglądarce. Bez rejestracji i przekierowań, nie wygasa.',
       eyebrow: 'Generator kodów QR do pobierania aplikacji',
@@ -153,7 +153,7 @@ module.exports = {
         'Dodaj stronę internetową aplikacji oraz linki do App Store i Google Play, aby utworzyć kod QR do pobierania aplikacji.',
       aboutTitle: 'Jak działają kody QR do pobierania aplikacji',
       about: [
-        'Kod QR zawiera jeden link, a QRTurbo.app nigdy nie dodaje przekierowań. Jeśli masz stronę, która kieruje użytkowników iPhone’a do App Store, a użytkowników Androida do Google Play, podaj ją jako adres strony – to najlepsze rozwiązanie dla każdego telefonu.',
+        'Kod QR zawiera jeden link, a QRTurbo.app nigdy nie dodaje przekierowań. Jeśli masz stronę, która kieruje użytkowników iPhone’a do App Store, a użytkowników Androida do Google Play, podaj ją jako adres strony. To najlepsze rozwiązanie dla każdego telefonu.',
         'Jeśli nie masz takiej strony, wybierz, który sklep ma otwierać kod, albo wydrukuj osobne kody dla App Store i Google Play.',
         'Sprawdź, czy linki do sklepów są publiczne i nie zawierają parametrów śledzących, których nie chcesz udostępniać.'
       ]
@@ -162,7 +162,7 @@ module.exports = {
   comparison: {
     title: 'Darmowe kody QR, które nigdy nie przestają działać',
     intro:
-      'Wiele „darmowych” generatorów kodów QR tworzy kody dynamiczne, które prowadzą przez ich własny serwer przekierowań. Gdy kończy się okres próbny, kod zostaje wyłączony – często wtedy, gdy jest już wydrukowany w menu, na wizytówkach czy opakowaniach. QRTurbo.app działa inaczej.',
+      'Wiele „darmowych” generatorów kodów QR tworzy kody dynamiczne, które prowadzą przez ich własny serwer przekierowań. Gdy kończy się okres próbny, kod zostaje wyłączony, często wtedy, gdy jest już wydrukowany w menu, na wizytówkach czy opakowaniach. QRTurbo.app działa inaczej.',
     headers: {
       feature: 'Pytanie',
       dynamic: 'Typowy kod QR z „darmowym okresem próbnym”',
@@ -203,7 +203,7 @@ module.exports = {
     items: [
       {
         q: 'Czy kody QR z QRTurbo.app wygasają?',
-        a: 'Nie. QRTurbo.app tworzy statyczne kody QR: Twój link, tekst lub dane kontaktowe są zakodowane bezpośrednio w kodzie. Nie ma pośredniczącego serwera, więc nic nie może wygasnąć ani zostać wyłączone. Kod działa tak długo, jak długo jego treść jest aktualna – na przykład dopóki istnieje strona, do której prowadzi.'
+        a: 'Nie. QRTurbo.app tworzy statyczne kody QR: Twój link, tekst lub dane kontaktowe są zakodowane bezpośrednio w kodzie. Nie ma pośredniczącego serwera, więc nic nie może wygasnąć ani zostać wyłączone. Kod działa tak długo, jak długo jego treść jest aktualna, na przykład dopóki istnieje strona, do której prowadzi.'
       },
       {
         q: 'Dlaczego mój kod QR z innej strony przestał działać?',
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Jak duży powinien być wydrukowany kod QR?',
-        a: 'Drukuj go w rozmiarze co najmniej 2 × 2 cm. Praktyczna zasada: bok kodu powinien mieć co najmniej jedną dziesiątą odległości, z której będzie skanowany – plakat czytany z 2 metrów potrzebuje kodu o boku ok. 20 cm. Do druku pobierz plik SVG lub duży PNG i zostaw pustą strefę ciszy wokół kodu.'
+        a: 'Drukuj go w rozmiarze co najmniej 2 × 2 cm. Praktyczna zasada: bok kodu powinien mieć co najmniej jedną dziesiątą odległości, z której będzie skanowany. Plakat czytany z 2 metrów potrzebuje kodu o boku ok. 20 cm. Do druku pobierz plik PDF lub SVG, które pozostają ostre w każdym rozmiarze, i ustaw dokładną szerokość wydruku. QRTurbo.app pokazuje rozmiar modułu i ostrzega, gdy kod jest za mały, by dało się go zeskanować. Zostaw pustą strefę ciszy wokół kodu.'
       },
       {
         q: 'Dlaczego mój kod QR się nie skanuje?',
-        a: 'Najczęstsze przyczyny to zbyt niski kontrast między kodem a tłem, za mała strefa ciszy, logo zasłaniające zbyt dużą część kodu lub zbyt dużo treści jak na rozmiar wydruku. QRTurbo.app ostrzega przed tymi problemami. Przed drukiem zawsze przetestuj kod na kilku różnych telefonach.'
+        a: 'Najczęstsze przyczyny to zbyt niski kontrast między kodem a tłem, za mała strefa ciszy, logo zasłaniające zbyt dużą część kodu lub zbyt dużo treści jak na rozmiar wydruku. QRTurbo.app sprawdza każdy kod wbudowanym skanerem na Twoim urządzeniu i podpowiada poprawki. Przed drukiem zawsze przetestuj kod na kilku różnych telefonach.'
       },
       {
         q: 'Czy moje dane są bezpieczne? Czy widzicie moje hasło do WiFi?',
-        a: 'Twoje dane zostają na Twoim urządzeniu. Kod QR jest generowany przez skrypt działający w Twojej przeglądarce, a nic, co wpiszesz lub prześlesz, nie trafia na serwer – nikt więc nie zobaczy Twojego hasła do WiFi ani danych kontaktowych. Po pierwszej wizycie generator działa także offline.'
+        a: 'Twoje dane zostają na Twoim urządzeniu. Kod QR jest generowany przez skrypt działający w Twojej przeglądarce, a nic, co wpiszesz lub prześlesz, nie trafia na serwer. Nikt więc nie zobaczy Twojego hasła do WiFi ani danych kontaktowych. Po pierwszej wizycie generator działa także offline.'
+      },
+      {
+        q: 'Jakiego formatu pliku użyć?',
+        a: 'Używaj PNG na ekranach, w dokumentach i do druku na większości drukarek. SVG wybierz do stron internetowych i programów graficznych, a PDF dla drukarni: oba są plikami wektorowymi, które pozostają ostre w każdym rozmiarze. EPS jest przeznaczony dla starszych programów graficznych i reklamowych. JPG i WebP to lekkie pliki graficzne do aplikacji i stron internetowych. Każdy format jest darmowy i zachowuje Twoje kolory, logo i ramkę.'
       }
     ]
   },

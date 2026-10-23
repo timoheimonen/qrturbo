@@ -116,7 +116,7 @@
                     "name": "Hoe groot moet ik een QR-code printen?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Print hem minstens 2 × 2 cm. Vuistregel: maak de code minstens een tiende van de scanafstand. Een poster die van 2 meter afstand wordt gescand, heeft dus een code van ongeveer 20 cm nodig. Download voor drukwerk een SVG of een grote PNG en houd de witrand rond de code leeg."
+                        "text": "Print hem minstens 2 × 2 cm. Vuistregel: maak de code minstens een tiende van de scanafstand. Een poster die van 2 meter afstand wordt gescand, heeft dus een code van ongeveer 20 cm nodig. Download voor drukwerk een PDF- of SVG-bestand, dat op elk formaat scherp blijft, en stel de exacte afdrukbreedte in. QRTurbo.app toont de modulegrootte en waarschuwt je als de code te klein is om te scannen. Houd de witrand rond de code leeg."
                     }
                 },
                 {
@@ -124,7 +124,7 @@
                     "name": "Waarom scant mijn QR-code niet?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "De meest voorkomende oorzaken zijn te weinig contrast tussen de code en de achtergrond, een te smalle witrand, een logo dat te veel van de code bedekt, of te veel inhoud voor het formaat waarop je print. QRTurbo.app waarschuwt je voor deze risico’s. Test de code altijd met een paar verschillende telefoons voordat je hem laat drukken."
+                        "text": "De meest voorkomende oorzaken zijn te weinig contrast tussen de code en de achtergrond, een te smalle witrand, een logo dat te veel van de code bedekt, of te veel inhoud voor het formaat waarop je print. QRTurbo.app controleert elke code met een ingebouwde scanner op je apparaat en stelt oplossingen voor. Test de code altijd met een paar verschillende telefoons voordat je hem laat drukken."
                     }
                 },
                 {
@@ -133,6 +133,14 @@
                     "acceptedAnswer": {
                         "@type": "Answer",
                         "text": "Je gegevens blijven op je apparaat. De QR-code wordt gemaakt door code die in je browser draait, en niets wat je typt of uploadt wordt naar een server gestuurd. Niemand kan dus je wifiwachtwoord of contactgegevens zien. Na het eerste bezoek werkt de generator ook offline."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Welk bestandsformaat moet ik gebruiken?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Gebruik PNG voor schermen, documenten en de meeste printers. Gebruik SVG voor websites en ontwerpprogramma’s, en PDF voor drukkerijen: dat zijn allebei vectorbestanden die op elk formaat scherp blijven. EPS is voor oudere ontwerp- en beletteringssoftware. JPG en WebP zijn kleine afbeeldingsbestanden voor apps en websites. Elk formaat is gratis en behoudt je kleuren, logo en kader."
                     }
                 }
             ]
@@ -173,11 +181,11 @@
     </script>
 
     <!-- Favicon Configuration -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=1.2.0">
-    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png?v=1.2.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.2.0">
-    <link rel="icon" href="/favicon.ico?v=1.2.0" type="image/x-icon">
-    <link rel="manifest" href="/manifest.json?v=1.2.0">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=2.0.0">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png?v=2.0.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2.0.0">
+    <link rel="icon" href="/favicon.ico?v=2.0.0" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json?v=2.0.0">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
     <script>
@@ -191,11 +199,22 @@
             document.documentElement.dataset.theme = 'light';
         }
     </script>
-    <!-- Local CSS -->
-    <link rel="stylesheet" href="/css/styles.css?v=1.2.0">
+    <!-- Local CSS: shell first, then one stylesheet per feature area -->
+    <link rel="stylesheet" href="/css/styles.css?v=2.0.0">
+    <link rel="stylesheet" href="/css/stage.css?v=2.0.0">
+    <link rel="stylesheet" href="/css/design.css?v=2.0.0">
+    <link rel="stylesheet" href="/css/scan.css?v=2.0.0">
+    <link rel="stylesheet" href="/css/batch.css?v=2.0.0">
 </head>
 
 <body>
+    <!-- Print at exact size: filled with the vector code right before window.print().
+         It stays the first element in <body>: the print styles hide every
+         later sibling while it is filled, also in engines without :has(). -->
+    <div id="print-sheet" class="print-sheet" aria-hidden="true"></div>
+
+    <a class="skip-link" href="#generator" data-i18n="aria.skipToGenerator">Ga naar de QR-codegenerator</a>
+
     <header id="menu-bar">
         <a class="brand" href="/nl/">
             <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -215,28 +234,28 @@
                     <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
                 </svg>
                 <select id="lang-select" aria-label="Taal" data-i18n-aria-label="aria.language">
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
-                    <option value="fr">Français</option>
-                    <option value="de">Deutsch</option>
-                    <option value="it">Italiano</option>
-                    <option value="fi">Suomi</option>
-                    <option value="sv">Svenska</option>
-                    <option value="no">Norsk</option>
-                    <option value="da">Dansk</option>
-                    <option value="zh">简体中文</option>
-                    <option value="ja">日本語</option>
-                    <option value="ko">한국어</option>
-                    <option value="pt">Português</option>
-                    <option value="nl" selected>Nederlands</option>
-                    <option value="pl">Polski</option>
-                    <option value="tr">Türkçe</option>
-                    <option value="id">Bahasa Indonesia</option>
-                    <option value="zh-hant">繁體中文</option>
-                    <option value="cs">Čeština</option>
-                    <option value="ro">Română</option>
-                    <option value="hu">Magyar</option>
-                    <option value="el">Ελληνικά</option>
+                    <option value="en" lang="en">English</option>
+                    <option value="es" lang="es">Español</option>
+                    <option value="fr" lang="fr">Français</option>
+                    <option value="de" lang="de">Deutsch</option>
+                    <option value="it" lang="it">Italiano</option>
+                    <option value="fi" lang="fi">Suomi</option>
+                    <option value="sv" lang="sv">Svenska</option>
+                    <option value="no" lang="no">Norsk</option>
+                    <option value="da" lang="da">Dansk</option>
+                    <option value="zh" lang="zh">简体中文</option>
+                    <option value="ja" lang="ja">日本語</option>
+                    <option value="ko" lang="ko">한국어</option>
+                    <option value="pt" lang="pt">Português</option>
+                    <option value="nl" lang="nl" selected>Nederlands</option>
+                    <option value="pl" lang="pl">Polski</option>
+                    <option value="tr" lang="tr">Türkçe</option>
+                    <option value="id" lang="id">Bahasa Indonesia</option>
+                    <option value="zh-hant" lang="zh-Hant">繁體中文</option>
+                    <option value="cs" lang="cs">Čeština</option>
+                    <option value="ro" lang="ro">Română</option>
+                    <option value="hu" lang="hu">Magyar</option>
+                    <option value="el" lang="el">Ελληνικά</option>
                 </select>
             </div>
             <span class="menu-divider" aria-hidden="true"></span>
@@ -292,7 +311,7 @@
         </ul>
     </section>
 
-    <main class="workspace">
+    <main id="generator" class="workspace">
         <section class="panel panel-content" aria-labelledby="step-type-title">
             <div class="panel-head">
                 <span class="step-num" aria-hidden="true">1</span>
@@ -315,7 +334,7 @@
                 </button>
                 <button type="button" id="tab-Wifi" class="tab-link" data-tab="Wifi" role="tab" aria-controls="Wifi" aria-selected="false" tabindex="-1">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0"></path><path d="M12 19h.01"></path></svg>
-                    <span data-i18n="tabs.wifi">WiFi</span>
+                    <span data-i18n="tabs.wifi">Wifi</span>
                 </button>
                 <button type="button" id="tab-Email" class="tab-link" data-tab="Email" role="tab" aria-controls="Email" aria-selected="false" tabindex="-1">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="m3.5 7 8.5 6 8.5-6"></path></svg>
@@ -337,6 +356,10 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-4.9A8.5 8.5 0 1 1 20.5 12Z"></path></svg>
                     <span data-i18n="tabs.whatsapp">WhatsApp</span>
                 </button>
+                <button type="button" id="tab-Payment" class="tab-link" data-tab="Payment" role="tab" aria-controls="Payment" aria-selected="false" tabindex="-1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="2.5"></rect><path d="M2.5 10h19M6.5 15h4"></path></svg>
+                    <span data-i18n="tabs.payment">Betaling</span>
+                </button>
                 <button type="button" id="tab-MeCard" class="tab-link" data-tab="MeCard" role="tab" aria-controls="MeCard" aria-selected="false" tabindex="-1">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
                     <span data-i18n="tabs.mecard">MeCard</span>
@@ -349,14 +372,25 @@
 
             <div class="panel-head panel-head-spaced">
                 <span class="step-num" aria-hidden="true">2</span>
-                <h2 data-i18n="workspace.addContent">Voeg je inhoud toe</h2>
+                <h2 id="step-content-title" data-i18n="workspace.addContent">Voeg je inhoud toe</h2>
+                <!-- Batch entry point: shown at runtime for batch-capable types only. -->
+                <button type="button" id="batch-open-btn" class="link-btn batch-open-btn" aria-haspopup="dialog" hidden>
+                    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2.5"></rect><path d="M3 10h18M3 15h18M9 4v16"></path></svg>
+                    <span data-i18n="actions.createMany">Veel codes maken uit een CSV-bestand</span>
+                </button>
             </div>
 
         <!-- Tab Content: URL/Text Input -->
         <div id="URLText" class="tab-content" role="tabpanel" aria-labelledby="tab-URLText" tabindex="0" hidden>
-            <label for="qr-text" data-i18n="fields.textOrUrl">Tekst of URL</label>
-            <textarea id="qr-text" data-i18n-placeholder="placeholders.url" placeholder="bijv. https://www.voorbeeld.nl" maxlength="2000" rows="4"></textarea>
-            <div id="char-count" class="char-counter">0 / 2000 characters</div>
+            <div class="input-group">
+                <label for="qr-text" data-i18n="fields.textOrUrl">Tekst of URL</label>
+                <textarea id="qr-text" data-i18n-placeholder="placeholders.url" placeholder="bijv. https://www.voorbeeld.nl" maxlength="2000" rows="4" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+                <p id="url-https-hint" class="helper-text url-https-hint" hidden>
+                    <span data-i18n="helpers.httpsSuggestion">Telefoons openen links alleen als ze met https:// beginnen.</span>
+                    <button type="button" id="url-https-btn" class="link-btn" data-i18n="actions.addHttps">https:// toevoegen</button>
+                </p>
+                <div id="char-count" class="char-counter">0 / 2000 characters</div>
+            </div>
         </div>
 
         <!-- Tab Content: vCard Input Form -->
@@ -365,55 +399,79 @@
                 <div class="input-group">
                     <!-- vCard Fields -->
                     <label for="vcard-fn" data-i18n="fields.firstName">Voornaam</label>
-                    <input type="text" id="vcard-fn" data-i18n-placeholder="placeholders.firstName" placeholder="Jan" maxlength="50">
+                    <input type="text" id="vcard-fn" data-i18n-placeholder="placeholders.firstName" placeholder="Jan" maxlength="50" autocomplete="given-name">
                 </div>
                 <div class="input-group">
                     <label for="vcard-ln" data-i18n="fields.lastName">Achternaam</label>
-                    <input type="text" id="vcard-ln" data-i18n-placeholder="placeholders.lastName" placeholder="Jansen" maxlength="50">
+                    <input type="text" id="vcard-ln" data-i18n-placeholder="placeholders.lastName" placeholder="Jansen" maxlength="50" autocomplete="family-name">
                 </div>
                 <div class="input-group">
                     <label for="vcard-org" data-i18n="fields.organization">Organisatie</label>
-                    <input type="text" id="vcard-org" data-i18n-placeholder="placeholders.organization" placeholder="ACME B.V." maxlength="100">
+                    <input type="text" id="vcard-org" data-i18n-placeholder="placeholders.organization" placeholder="ACME B.V." maxlength="100" autocomplete="organization">
                 </div>
                 <div class="input-group">
                     <label for="vcard-title" data-i18n="fields.title">Functie</label>
-                    <input type="text" id="vcard-title" data-i18n-placeholder="placeholders.title" placeholder="Ontwikkelaar" maxlength="100">
+                    <input type="text" id="vcard-title" data-i18n-placeholder="placeholders.title" placeholder="Ontwikkelaar" maxlength="100" autocomplete="organization-title">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-department" data-i18n="fields.department">Afdeling</label>
+                    <input type="text" id="vcard-department" maxlength="100" autocomplete="off">
                 </div>
                 <div class="input-group">
                     <label for="vcard-tel-work" data-i18n="fields.phoneWork">Telefoon (werk)</label>
-                    <input type="tel" id="vcard-tel-work" data-i18n-placeholder="placeholders.phoneWork" placeholder="+31 20 123 4567" maxlength="30">
+                    <input type="tel" id="vcard-tel-work" data-i18n-placeholder="placeholders.phoneWork" placeholder="+31 20 123 4567" maxlength="30" autocomplete="work tel">
                 </div>
                 <div class="input-group">
                     <label for="vcard-tel-mobile" data-i18n="fields.phoneMobile">Telefoon (mobiel)</label>
-                    <input type="tel" id="vcard-tel-mobile" data-i18n-placeholder="placeholders.phoneMobile" placeholder="+31 6 12345678" maxlength="30">
+                    <input type="tel" id="vcard-tel-mobile" data-i18n-placeholder="placeholders.phoneMobile" placeholder="+31 6 12345678" maxlength="30" autocomplete="mobile tel">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-tel-home" data-i18n="fields.phoneHome">Telefoon (thuis)</label>
+                    <input type="tel" id="vcard-tel-home" maxlength="30" autocomplete="home tel">
                 </div>
                 <div class="input-group full-width">
                     <label for="vcard-email" data-i18n="fields.email">E-mail</label>
-                    <input type="email" id="vcard-email" data-i18n-placeholder="placeholders.email" placeholder="jan.jansen@voorbeeld.nl" maxlength="254">
+                    <input type="email" id="vcard-email" data-i18n-placeholder="placeholders.email" placeholder="jan.jansen@voorbeeld.nl" maxlength="254" autocomplete="email" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="vcard-url" data-i18n="fields.website">Website</label>
-                    <input type="url" id="vcard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.voorbeeld.nl" maxlength="255">
+                    <input type="url" id="vcard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.voorbeeld.nl" maxlength="255" autocomplete="url" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="vcard-street" data-i18n="fields.street">Straat</label>
-                    <input type="text" id="vcard-street" data-i18n-placeholder="placeholders.street" placeholder="Dorpsstraat 1" maxlength="100">
+                    <input type="text" id="vcard-street" data-i18n-placeholder="placeholders.street" placeholder="Dorpsstraat 1" maxlength="100" autocomplete="street-address">
                 </div>
                 <div class="input-group">
                     <label for="vcard-city" data-i18n="fields.city">Plaats</label>
-                    <input type="text" id="vcard-city" data-i18n-placeholder="placeholders.city" placeholder="Amsterdam" maxlength="50">
+                    <input type="text" id="vcard-city" data-i18n-placeholder="placeholders.city" placeholder="Amsterdam" maxlength="50" autocomplete="address-level2">
                 </div>
                 <div class="input-group">
                     <label for="vcard-state" data-i18n="fields.state">Provincie/staat</label>
-                    <input type="text" id="vcard-state" data-i18n-placeholder="placeholders.state" placeholder="Noord-Holland" maxlength="50">
+                    <input type="text" id="vcard-state" data-i18n-placeholder="placeholders.state" placeholder="Noord-Holland" maxlength="50" autocomplete="address-level1">
                 </div>
                 <div class="input-group">
                     <label for="vcard-zip" data-i18n="fields.zip">Postcode</label>
-                    <input type="text" id="vcard-zip" data-i18n-placeholder="placeholders.zip" placeholder="1012 AB">
+                    <input type="text" id="vcard-zip" data-i18n-placeholder="placeholders.zip" placeholder="1012 AB" maxlength="20" autocomplete="postal-code">
                 </div>
                 <div class="input-group">
                     <label for="vcard-country" data-i18n="fields.country">Land</label>
-                    <input type="text" id="vcard-country" data-i18n-placeholder="placeholders.country" placeholder="Nederland" maxlength="50">
+                    <input type="text" id="vcard-country" data-i18n-placeholder="placeholders.country" placeholder="Nederland" maxlength="50" autocomplete="country-name">
+                </div>
+                <div class="input-group">
+                    <label for="vcard-adr-type" data-i18n="fields.addressType">Soort adres</label>
+                    <select id="vcard-adr-type">
+                        <option value="" selected data-i18n-option="options.addressAuto">Automatisch</option>
+                        <option value="work" data-i18n-option="options.addressWork">Werk</option>
+                        <option value="home" data-i18n-option="options.addressHome">Thuis</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="vcard-bday" data-i18n="fields.birthday">Verjaardag</label>
+                    <input type="date" id="vcard-bday" autocomplete="bday">
+                </div>
+                <div class="input-group full-width">
+                    <label for="vcard-note" data-i18n="fields.note">Notitie</label>
+                    <textarea id="vcard-note" rows="3" maxlength="500"></textarea>
                 </div>
             </div>
         </div>
@@ -423,33 +481,38 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="wifi-ssid" data-i18n="fields.ssid">Netwerknaam (SSID)</label>
-                    <input type="text" id="wifi-ssid" data-i18n-placeholder="placeholders.ssid" placeholder="bijv. MijnThuisWiFi" maxlength="128">
+                    <input type="text" id="wifi-ssid" data-i18n-placeholder="placeholders.ssid" placeholder="bijv. MijnThuisWiFi" maxlength="128" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group">
                     <label for="wifi-password" data-i18n="fields.password">Wachtwoord</label>
-                    <input type="password" id="wifi-password" data-i18n-placeholder="placeholders.wifiPassword" placeholder="Je geheime wachtwoord" maxlength="64" autocomplete="off">
+                    <input type="password" id="wifi-password" data-i18n-placeholder="placeholders.wifiPassword" placeholder="Je geheime wachtwoord" maxlength="64" autocomplete="off" autocapitalize="off" spellcheck="false">
                     <button type="button" id="wifi-password-toggle" class="secondary-btn small-btn" data-i18n="actions.showPassword">Wachtwoord tonen</button>
                 </div>
                 <div class="input-group">
                     <label for="wifi-auth" data-i18n="fields.authentication">Beveiliging</label>
                     <select id="wifi-auth">
-                        <option value="WPA" selected data-i18n-option="options.authWpa">WPA/WPA2</option>
-                        <option value="WEP" data-i18n-option="options.authWep">WEP</option>
-                        <option value="nopass" data-i18n-option="options.authNone">Geen</option>
+                        <option value="WPA" selected data-i18n-option="options.authWpa">WPA/WPA2/WPA3 (aanbevolen)</option>
+                        <option value="WPA3" data-i18n-option="options.authWpa3">Alleen WPA3</option>
+                        <option value="WEP" data-i18n-option="options.authWep">WEP (verouderd)</option>
+                        <option value="nopass" data-i18n-option="options.authNone">Geen (open netwerk)</option>
                     </select>
+                    <p id="wifi-security-help" class="helper-text" data-i18n="helpers.wifiWpa3" hidden>Kies ‘Alleen WPA3’ als het netwerk geen oudere WPA2-apparaten toelaat.</p>
                 </div>
-                <div class="input-group full-width checkbox-group">
-                    <input type="checkbox" id="wifi-hidden">
-                    <label for="wifi-hidden" data-i18n="fields.hiddenNetwork">Dit is een verborgen netwerk</label>
+                <div class="input-group full-width">
+                    <div class="checkbox-group compact-checkbox">
+                        <input type="checkbox" id="wifi-hidden">
+                        <label for="wifi-hidden" data-i18n="fields.hiddenNetwork">Dit is een verborgen netwerk</label>
+                    </div>
+                    <p id="wifi-hidden-help" class="helper-text" data-i18n="helpers.wifiHiddenIos" hidden>iPhones vragen gasten soms om handmatig verbinding te maken met een verborgen netwerk.</p>
                 </div>
-
             </div>
         </div>
 
         <!-- Tab Content: SMS/Phone Input Form -->
         <div id="SMSPhone" class="tab-content" role="tabpanel" aria-labelledby="tab-SMSPhone" tabindex="0" style="display: block;">
             <div class="vcard-grid">
-                <div class="radio-group-container">
+                <fieldset class="radio-group-container">
+                    <legend class="sr-only" data-i18n="fields.smsPhoneType">Soort code</legend>
                     <div class="radio-group">
                         <input type="radio" id="sms-type-sms" name="sms-phone-type" value="sms" checked>
                         <label for="sms-type-sms" data-i18n="labels.sms">SMS</label>
@@ -458,10 +521,10 @@
                         <input type="radio" id="sms-type-phone" name="sms-phone-type" value="phone">
                         <label for="sms-type-phone" data-i18n="labels.phone">Bellen</label>
                     </div>
-                </div>
+                </fieldset>
                 <div class="input-group full-width">
                     <label for="sms-phone-number" data-i18n="fields.phoneNumber">Telefoonnummer</label>
-                    <input type="tel" id="sms-phone-number" data-i18n-placeholder="placeholders.phoneNumber" placeholder="bijv. +31612345678" maxlength="30">
+                    <input type="tel" id="sms-phone-number" data-i18n-placeholder="placeholders.phoneNumber" placeholder="bijv. +31612345678" maxlength="30" autocomplete="tel">
                 </div>
                 <div id="sms-message-group" class="input-group full-width">
                     <label for="sms-message" data-i18n="fields.message">Bericht (optioneel)</label>
@@ -477,7 +540,7 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="email-to" data-i18n="fields.emailTo">E-mailadres ontvanger</label>
-                    <input type="email" id="email-to" data-i18n-placeholder="placeholders.emailTo" placeholder="hallo@voorbeeld.nl" maxlength="254">
+                    <input type="email" id="email-to" data-i18n-placeholder="placeholders.emailTo" placeholder="hallo@voorbeeld.nl" maxlength="254" autocomplete="email" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="email-subject" data-i18n="fields.emailSubject">Onderwerp</label>
@@ -505,6 +568,16 @@
                     <label for="event-end" data-i18n="fields.eventEnd">Einde</label>
                     <input type="datetime-local" id="event-end">
                 </div>
+                <div class="input-group full-width checkbox-group">
+                    <input type="checkbox" id="event-all-day">
+                    <label for="event-all-day" data-i18n="fields.allDay">Hele dag</label>
+                </div>
+                <div class="input-group full-width">
+                    <label for="event-time-zone" data-i18n="fields.timeZone">Tijdzone</label>
+                    <!-- Filled at runtime with the IANA time zones; defaults to the device zone. -->
+                    <select id="event-time-zone" aria-describedby="event-time-zone-help"></select>
+                    <p id="event-time-zone-help" class="helper-text" data-i18n="helpers.eventTimeZone">De tijd wordt met deze tijdzone opgeslagen, zodat hij overal goed wordt weergegeven.</p>
+                </div>
                 <div class="input-group full-width">
                     <label for="event-location" data-i18n="fields.eventLocation">Locatie</label>
                     <input type="text" id="event-location" data-i18n-placeholder="placeholders.eventLocation" placeholder="Vergaderzaal of adres" maxlength="160">
@@ -525,11 +598,11 @@
                 </div>
                 <div class="input-group">
                     <label for="location-lat" data-i18n="fields.latitude">Breedtegraad</label>
-                    <input type="number" id="location-lat" data-i18n-placeholder="placeholders.latitude" placeholder="52.358" min="-90" max="90" step="any">
+                    <input type="text" id="location-lat" data-i18n-placeholder="placeholders.latitude" placeholder="52.358" inputmode="decimal" maxlength="24" autocomplete="off" spellcheck="false">
                 </div>
                 <div class="input-group">
                     <label for="location-lng" data-i18n="fields.longitude">Lengtegraad</label>
-                    <input type="number" id="location-lng" data-i18n-placeholder="placeholders.longitude" placeholder="4.881" min="-180" max="180" step="any">
+                    <input type="text" id="location-lng" data-i18n-placeholder="placeholders.longitude" placeholder="4.881" inputmode="decimal" maxlength="24" autocomplete="off" spellcheck="false">
                 </div>
             </div>
         </div>
@@ -554,7 +627,7 @@
                         <option value="other" data-i18n-option="options.socialOther">Andere URL</option>
                     </select>
                 </div>
-                <div id="social-profile-type-group" class="input-group" style="display:none;">
+                <div id="social-profile-type-group" class="input-group" hidden>
                     <label for="social-profile-type" data-i18n="fields.socialProfileType">Soort profiel</label>
                     <select id="social-profile-type">
                         <option value="person" selected data-i18n-option="options.socialTypePerson">Persoon/profiel</option>
@@ -564,7 +637,7 @@
                 </div>
                 <div class="input-group full-width">
                     <label for="social-handle" data-i18n="fields.socialHandleOrUrl">Gebruikersnaam of profiel-URL</label>
-                    <input type="text" id="social-handle" data-i18n-placeholder="placeholders.socialHandle" placeholder="@gebruikersnaam of https://..." maxlength="255">
+                    <input type="text" id="social-handle" data-i18n-placeholder="placeholders.socialHandle" placeholder="@gebruikersnaam of https://..." maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                     <p class="helper-text" data-i18n="helpers.socialHandleHelper">Vul een gebruikersnaam in, zoals @gebruikersnaam, of plak een volledige https://-profiel-URL.</p>
                 </div>
                 <div class="input-group full-width social-preview">
@@ -579,11 +652,51 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="whatsapp-phone" data-i18n="fields.whatsappPhone">WhatsApp-nummer of @gebruikersnaam</label>
-                    <input type="text" id="whatsapp-phone" data-i18n-placeholder="placeholders.whatsappPhone" placeholder="bijv. +31612345678 of @gebruikersnaam" maxlength="40">
+                    <input type="text" id="whatsapp-phone" data-i18n-placeholder="placeholders.whatsappPhone" placeholder="bijv. +31612345678 of @gebruikersnaam" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="whatsapp-message" data-i18n="fields.whatsappMessage">Bericht (optioneel)</label>
                     <textarea id="whatsapp-message" rows="4" data-i18n-placeholder="placeholders.whatsappMessage" placeholder="Je WhatsApp-bericht..." maxlength="1000"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Payment (SEPA credit transfer) Input Form -->
+        <div id="Payment" class="tab-content" role="tabpanel" aria-labelledby="tab-Payment" tabindex="0" hidden>
+            <div class="vcard-grid">
+                <div class="input-group full-width">
+                    <label for="payment-name" data-i18n="fields.paymentName">Naam ontvanger</label>
+                    <input type="text" id="payment-name" maxlength="70" autocomplete="name" aria-required="true">
+                </div>
+                <div class="input-group full-width">
+                    <label for="payment-iban" data-i18n="fields.iban">IBAN</label>
+                    <input type="text" id="payment-iban" maxlength="42" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-required="true">
+                </div>
+                <div class="input-group">
+                    <label for="payment-bic" data-i18n="fields.bic">BIC (optioneel)</label>
+                    <input type="text" id="payment-bic" maxlength="11" autocomplete="off" autocapitalize="characters" spellcheck="false">
+                </div>
+                <div class="input-group">
+                    <label for="payment-amount" data-i18n="fields.amount">Bedrag in euro (optioneel)</label>
+                    <input type="text" id="payment-amount" inputmode="decimal" maxlength="16" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="input-group full-width">
+                    <label for="payment-reference" data-i18n="fields.paymentReference">Betalingskenmerk (optioneel)</label>
+                    <input type="text" id="payment-reference" maxlength="35" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="payment-reference-help">
+                    <p id="payment-reference-help" class="helper-text" data-i18n="helpers.paymentReference">Een RF-betalingskenmerk of een Fins referentienummer (wordt omgezet naar RF).</p>
+                </div>
+                <div class="input-group full-width">
+                    <label for="payment-message" data-i18n="fields.paymentMessage">Omschrijving (optioneel)</label>
+                    <textarea id="payment-message" rows="3" maxlength="140"></textarea>
+                </div>
+                <div class="input-group full-width">
+                    <label for="payment-due-date" data-i18n="fields.dueDate">Vervaldatum (optioneel)</label>
+                    <input type="date" id="payment-due-date" aria-describedby="payment-due-date-help">
+                    <p id="payment-due-date-help" class="helper-text" data-i18n="helpers.paymentDueDate">Finse bankapps vullen de vervaldatum in. Andere apps tonen die mogelijk als notitie.</p>
+                </div>
+                <div class="input-group full-width">
+                    <!-- Filled at runtime with capacity.paymentLimit. -->
+                    <div id="payment-bytes" class="char-counter"></div>
                 </div>
             </div>
         </div>
@@ -593,23 +706,23 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="mecard-name" data-i18n="fields.mecardName">Naam</label>
-                    <input type="text" id="mecard-name" data-i18n-placeholder="placeholders.mecardName" placeholder="Jan Jansen" maxlength="100">
+                    <input type="text" id="mecard-name" data-i18n-placeholder="placeholders.mecardName" placeholder="Jan Jansen" maxlength="100" autocomplete="name">
                 </div>
                 <div class="input-group">
                     <label for="mecard-phone" data-i18n="fields.phoneNumber">Telefoonnummer</label>
-                    <input type="tel" id="mecard-phone" data-i18n-placeholder="placeholders.phoneNumber" placeholder="bijv. +31612345678" maxlength="30">
+                    <input type="tel" id="mecard-phone" data-i18n-placeholder="placeholders.phoneNumber" placeholder="bijv. +31612345678" maxlength="30" autocomplete="tel">
                 </div>
                 <div class="input-group">
                     <label for="mecard-email" data-i18n="fields.email">E-mail</label>
-                    <input type="email" id="mecard-email" data-i18n-placeholder="placeholders.email" placeholder="jan.jansen@voorbeeld.nl" maxlength="254">
+                    <input type="email" id="mecard-email" data-i18n-placeholder="placeholders.email" placeholder="jan.jansen@voorbeeld.nl" maxlength="254" autocomplete="email" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="mecard-url" data-i18n="fields.website">Website</label>
-                    <input type="url" id="mecard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.voorbeeld.nl" maxlength="255">
+                    <input type="url" id="mecard-url" data-i18n-placeholder="placeholders.website" placeholder="https://www.voorbeeld.nl" maxlength="255" autocomplete="url" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="mecard-address" data-i18n="fields.address">Adres</label>
-                    <input type="text" id="mecard-address" data-i18n-placeholder="placeholders.address" placeholder="Dorpsstraat 1, Amsterdam" maxlength="240">
+                    <input type="text" id="mecard-address" data-i18n-placeholder="placeholders.address" placeholder="Dorpsstraat 1, Amsterdam" maxlength="240" autocomplete="street-address">
                 </div>
             </div>
         </div>
@@ -619,15 +732,15 @@
             <div class="vcard-grid">
                 <div class="input-group full-width">
                     <label for="app-web-url" data-i18n="fields.appWebUrl">Web-URL (terugvaloptie)</label>
-                    <input type="url" id="app-web-url" data-i18n-placeholder="placeholders.appWebUrl" placeholder="https://example.com/app" maxlength="255">
+                    <input type="url" id="app-web-url" data-i18n-placeholder="placeholders.appWebUrl" placeholder="https://example.com/app" maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="app-ios-url" data-i18n="fields.appIosUrl">iOS App Store-URL</label>
-                    <input type="url" id="app-ios-url" data-i18n-placeholder="placeholders.appIosUrl" placeholder="https://apps.apple.com/app/..." maxlength="255">
+                    <input type="url" id="app-ios-url" data-i18n-placeholder="placeholders.appIosUrl" placeholder="https://apps.apple.com/app/..." maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group full-width">
                     <label for="app-android-url" data-i18n="fields.appAndroidUrl">Android Play Store-URL</label>
-                    <input type="url" id="app-android-url" data-i18n-placeholder="placeholders.appAndroidUrl" placeholder="https://play.google.com/store/apps/details?id=..." maxlength="255">
+                    <input type="url" id="app-android-url" data-i18n-placeholder="placeholders.appAndroidUrl" placeholder="https://play.google.com/store/apps/details?id=..." maxlength="255" autocomplete="off" autocapitalize="off" spellcheck="false">
                 </div>
                 <div class="input-group">
                     <label for="app-link-target" data-i18n="fields.appLinkTarget">Store als terugvaloptie</label>
@@ -641,182 +754,556 @@
 
         </section>
 
-        <!-- QR Code Display Area -->
+        <!-- QR Code Display Area: preview, scan check, readout and export -->
         <aside class="preview" aria-labelledby="preview-title">
-            <div id="qr-container" class="preview-card" aria-busy="false">
+            <div id="qr-container" class="preview-card">
                 <div class="preview-head">
-                    <h2 id="preview-title" data-i18n="preview.title">Voorbeeld</h2>
-                    <span class="local-badge">
-                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
-                        <span data-i18n="preview.localBadge">Gemaakt op dit apparaat</span>
-                    </span>
+                    <h2 id="preview-title" tabindex="-1" data-i18n="preview.title">Voorbeeld</h2>
+                    <button type="button" id="scan-badge" class="scan-badge" aria-expanded="false" aria-controls="scan-warnings" hidden>
+                        <span class="scan-dot" aria-hidden="true"></span>
+                        <span class="sr-only" data-i18n="scan.title">Scancontrole</span>
+                        <span id="scan-badge-label" class="scan-badge-label" aria-live="polite" data-i18n="scan.checking">Wordt gecontroleerd</span>
+                    </button>
                 </div>
                 <p id="form-error" class="form-error" role="alert" aria-live="assertive" aria-atomic="true" hidden></p>
-                <div class="qr-stage">
-                    <p id="qr-placeholder" role="status" aria-live="polite" data-i18n="misc.qrPlaceholder">Hier verschijnt je QR-code</p>
-                    <div id="qr-canvas-container"></div>
-                    <img id="qr-image" src="" alt="QR Code" style="display:none;">
+
+                <!-- Stage states (data-state): empty, pending, ready, invalid, tooLong, error -->
+                <div id="qr-stage" class="qr-stage" data-state="empty">
+                    <div id="qr-placeholder" class="qr-placeholder">
+                        <p id="qr-placeholder-text" class="qr-placeholder-text" data-i18n="misc.qrPlaceholder">Hier verschijnt je QR-code.</p>
+                        <button type="button" id="stage-fix-btn" class="secondary-btn small-btn stage-action" data-i18n="actions.goToField" hidden>Naar het veld</button>
+                        <button type="button" id="stage-retry-btn" class="secondary-btn small-btn stage-action" data-i18n="actions.retry" hidden>Opnieuw proberen</button>
+                    </div>
+                    <div id="qr-canvas-container" class="qr-canvas-container"></div>
                 </div>
-                <div id="scan-warnings" class="scan-warnings" role="status" aria-live="polite" style="display:none;"></div>
-                <div class="payload-display">
-                    <p id="qr-code-text" style="display:none;"></p>
-                    <button type="button" id="payload-reveal-btn" class="secondary-btn small-btn" data-i18n="actions.showPayload" hidden>QR-gegevens tonen</button>
+
+                <div id="scan-warnings" class="scan-warnings" hidden>
+                    <p id="scan-summary" class="scan-summary"></p>
+                    <ul id="scan-issues" class="scan-issues"></ul>
                 </div>
-                <button type="button" id="download-btn" class="primary-btn" style="display:none;" disabled>
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M4 21h16"></path></svg>
-                    <span data-i18n="actions.download">QR-code downloaden</span>
-                </button>
+
+                <div id="qr-info" class="qr-info" hidden>
+                    <p id="capacity-text" class="capacity-text"></p>
+                    <div class="capacity-row">
+                        <span id="capacity-label" class="sr-only" data-i18n="capacity.label">Gebruikte gegevens</span>
+                        <meter id="capacity-meter" class="capacity-meter" min="0" max="1" low="0.7" high="0.9" optimum="0" value="0" aria-labelledby="capacity-label capacity-usage"></meter>
+                        <span id="capacity-usage" class="capacity-usage"></span>
+                        <button type="button" id="capacity-fix-btn" class="link-btn" data-i18n="actions.useLevelL" hidden>Niveau L gebruiken</button>
+                    </div>
+                </div>
+
+                <fieldset id="export-group" class="export-group">
+                    <legend class="export-legend" data-i18n="output.title">Downloaden</legend>
+
+                    <fieldset id="qr-format" class="format-group" aria-describedby="format-hint">
+                        <legend class="sr-only" data-i18n="aria.formatGroup">Bestandsformaat</legend>
+                        <div class="format-options">
+                            <span class="format-option">
+                                <input type="radio" id="format-png" name="qr-format" value="png" checked>
+                                <label for="format-png" data-i18n="options.formatPng">PNG</label>
+                            </span>
+                            <span class="format-option">
+                                <input type="radio" id="format-svg" name="qr-format" value="svg">
+                                <label for="format-svg" data-i18n="options.formatSvg">SVG</label>
+                            </span>
+                            <span class="format-option">
+                                <input type="radio" id="format-pdf" name="qr-format" value="pdf">
+                                <label for="format-pdf" data-i18n="options.formatPdf">PDF</label>
+                            </span>
+                            <button type="button" id="more-formats-toggle" class="link-btn more-formats-toggle" aria-expanded="false" aria-controls="more-formats">
+                                <span data-i18n="actions.moreFormats">Meer formaten</span>
+                                <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+                            </button>
+                        </div>
+                        <div id="more-formats" class="format-options format-options-more" hidden>
+                            <span class="format-option">
+                                <input type="radio" id="format-jpg" name="qr-format" value="jpg">
+                                <label for="format-jpg" data-i18n="options.formatJpg">JPG</label>
+                            </span>
+                            <span class="format-option">
+                                <input type="radio" id="format-webp" name="qr-format" value="webp">
+                                <label for="format-webp" data-i18n="options.formatWebp">WebP</label>
+                            </span>
+                            <span class="format-option">
+                                <input type="radio" id="format-eps" name="qr-format" value="eps">
+                                <label for="format-eps" data-i18n="options.formatEps">EPS</label>
+                            </span>
+                        </div>
+                    </fieldset>
+                    <p id="format-hint" class="helper-text format-hint" data-i18n="output.hintPng">Scherpe afbeelding voor schermen, documenten en de meeste printers.</p>
+
+                    <div id="size-block" class="size-block">
+                        <div id="pixel-size" class="export-field">
+                            <label for="size-select" data-i18n="fields.qrSize">Formaat</label>
+                            <select id="size-select">
+                                <option value="512" data-i18n-option="options.sizeMedium">Klein (512 px)</option>
+                                <option value="1024" selected data-i18n-option="options.sizeLarge">Middel (1024 px)</option>
+                                <option value="2048" data-i18n-option="options.sizePrint">Groot (2048 px)</option>
+                                <option value="4096" data-i18n-option="options.sizePoster">Extra groot (4096 px)</option>
+                                <option value="custom" data-i18n-option="options.sizeCustom">Aangepast formaat</option>
+                            </select>
+                        </div>
+                        <div id="size-custom-group" class="export-field" hidden>
+                            <label for="size-custom" data-i18n="fields.customPixels">Breedte in pixels</label>
+                            <input type="number" id="size-custom" min="128" max="4096" step="1" value="1024" inputmode="numeric">
+                            <p id="size-custom-error" class="field-error" hidden></p>
+                        </div>
+                        <p id="vector-size-note" class="helper-text vector-size-note" data-i18n="output.vectorAnySize" hidden>Vector: scherp op elk formaat</p>
+                        <div id="print-toggle-group" class="export-check">
+                            <input type="checkbox" id="print-toggle" aria-controls="print-size">
+                            <label for="print-toggle" data-i18n="fields.setPrintSize">Afdrukformaat instellen</label>
+                        </div>
+                        <div id="print-size" class="print-size" hidden>
+                            <div class="export-field">
+                                <label for="print-width" data-i18n="fields.printWidth">Afdrukbreedte</label>
+                                <!-- The unit moves below the width field when both do not fit on one line -->
+                                <div class="print-width-row">
+                                    <input type="number" id="print-width" min="0.4" max="2000" step="any" value="50" inputmode="decimal">
+                                    <fieldset id="print-unit" class="radio-group-container print-unit">
+                                        <legend class="sr-only" data-i18n="fields.unit">Eenheid</legend>
+                                        <div class="radio-group">
+                                            <input type="radio" id="print-unit-mm" name="print-unit" value="mm" checked>
+                                            <label for="print-unit-mm" data-i18n="options.unitMm">mm</label>
+                                        </div>
+                                        <div class="radio-group">
+                                            <input type="radio" id="print-unit-in" name="print-unit" value="in">
+                                            <label for="print-unit-in" data-i18n="options.unitIn">in</label>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div id="print-dpi-group" class="export-field">
+                                <label for="print-dpi" data-i18n="fields.dpi">Resolutie</label>
+                                <select id="print-dpi">
+                                    <option value="150" data-i18n-option="options.dpi150">150 dpi (concept)</option>
+                                    <option value="300" selected data-i18n-option="options.dpi300">300 dpi (drukwerk)</option>
+                                    <option value="600" data-i18n-option="options.dpi600">600 dpi (fijn drukwerk)</option>
+                                </select>
+                            </div>
+                            <p id="print-width-error" class="field-error" hidden></p>
+                        </div>
+                        <div id="pdf-page-group" class="export-field" hidden>
+                            <label for="pdf-page" data-i18n="fields.pdfPage">Pagina</label>
+                            <select id="pdf-page">
+                                <option value="fit" selected data-i18n-option="options.pageFit">Passend bij code</option>
+                                <option value="a4" data-i18n-option="options.pageA4">A4</option>
+                                <option value="letter" data-i18n-option="options.pageLetter">US-Letter</option>
+                            </select>
+                        </div>
+                        <div id="color-mode-group" class="export-field" hidden>
+                            <label for="color-mode" data-i18n="fields.colorMode">Kleurmodus</label>
+                            <select id="color-mode" aria-describedby="color-mode-help">
+                                <option value="rgb" selected data-i18n-option="options.colorRgb">RGB</option>
+                                <option value="cmyk" data-i18n-option="options.colorCmyk">CMYK</option>
+                                <option value="k" data-i18n-option="options.colorK">Alleen zwart (100% K)</option>
+                            </select>
+                            <p id="color-mode-help" class="helper-text" data-i18n="helpers.colorMode">RGB is geschikt voor schermen en kantoorprinters. CMYK is bedoeld voor drukkerijen en gebruikt een eenvoudige kleuromzetting.</p>
+                        </div>
+                    </div>
+
+                    <div id="print-info" class="print-info" hidden></div>
+                    <div id="export-notes" class="export-notes" aria-live="polite"></div>
+
+                    <button type="button" id="download-btn" class="primary-btn download-btn" aria-disabled="true">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+                        <span id="download-label" class="download-label" data-i18n="actions.download">Downloaden</span>
+                        <span id="download-summary" class="download-summary"></span>
+                    </button>
+
+                    <div class="secondary-actions">
+                        <button type="button" id="copy-btn" class="secondary-btn" hidden>
+                            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V6a2 2 0 0 1 2-2h9"></path></svg>
+                            <span id="copy-btn-label" data-i18n="actions.copyImage">Afbeelding kopiëren</span>
+                        </button>
+                        <button type="button" id="share-btn" class="secondary-btn" hidden>
+                            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg>
+                            <span data-i18n="actions.share">Delen</span>
+                        </button>
+                        <button type="button" id="print-btn" class="secondary-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3h10v6"></path><rect x="3" y="9" width="18" height="8" rx="2"></rect><path d="M7 14h10v7H7z"></path></svg>
+                            <span data-i18n="actions.print">Afdrukken</span>
+                        </button>
+                    </div>
+                </fieldset>
+
+                <div class="payload-disclosure">
+                    <button type="button" id="payload-toggle" class="link-btn payload-toggle" aria-expanded="false" aria-controls="payload-panel">
+                        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+                        <span data-i18n="preview.encodedData">Gecodeerde gegevens</span>
+                    </button>
+                    <div id="payload-panel" class="payload-panel" hidden>
+                        <p id="qr-code-text" class="qr-code-text"></p>
+                        <div class="payload-actions">
+                            <button type="button" id="payload-reveal-btn" class="secondary-btn small-btn" data-i18n="actions.showPayload" hidden>QR-gegevens tonen</button>
+                            <button type="button" id="copy-text-btn" class="secondary-btn small-btn" data-i18n="actions.copyText">Tekst kopiëren</button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="local-badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+                    <span data-i18n="preview.localBadge">Gemaakt op dit apparaat</span>
+                </p>
             </div>
         </aside>
 
         <section class="panel panel-style" aria-labelledby="step-style-title">
             <div class="panel-head">
                 <span class="step-num" aria-hidden="true">3</span>
-                <h2 id="step-style-title" data-i18n="workspace.adjustLook">Formaat en stijl</h2>
+                <h2 id="step-style-title" data-i18n="workspace.adjustLook">Ontwerp</h2>
             </div>
 
-            <div class="style-row">
-                <div class="input-group">
-                    <label for="size-select" data-i18n="fields.qrSize">Formaat QR-code</label>
-                    <select id="size-select">
-                        <option value="512" selected data-i18n-option="options.sizeMedium">Scherm (512 px)</option>
-                        <option value="1024" data-i18n-option="options.sizeLarge">Groot (1024 px)</option>
-                        <option value="2048" data-i18n-option="options.sizePrint">Drukwerk (2048 px)</option>
-                        <option value="4096" data-i18n-option="options.sizePoster">Poster (4096 px)</option>
-                    </select>
+            <!-- Style presets: thumbnails are rendered at runtime -->
+            <fieldset id="preset-picker" class="design-group preset-picker" aria-label="Stijlsjablonen" data-i18n-aria-label="aria.presetGroup">
+                <legend class="design-legend" data-i18n="design.presets">Stijl</legend>
+                <span id="preset-custom-tag" class="preset-custom-tag" data-i18n="design.custom" hidden>Aangepast</span>
+                <div class="choice-list preset-list">
+                    <input type="radio" id="preset-standard" name="preset" value="standard" checked>
+                    <label for="preset-standard" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetStandard">Standaard</span>
+                    </label>
+                    <input type="radio" id="preset-classic" name="preset" value="classic">
+                    <label for="preset-classic" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetClassic">Klassiek</span>
+                    </label>
+                    <input type="radio" id="preset-rounded" name="preset" value="rounded">
+                    <label for="preset-rounded" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetRounded">Afgerond</span>
+                    </label>
+                    <input type="radio" id="preset-dots" name="preset" value="dots">
+                    <label for="preset-dots" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetDots">Stippen</span>
+                    </label>
+                    <input type="radio" id="preset-soft" name="preset" value="soft">
+                    <label for="preset-soft" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetSoft">Zacht</span>
+                    </label>
+                    <input type="radio" id="preset-scanme" name="preset" value="scanme">
+                    <label for="preset-scanme" class="choice-card preset-card">
+                        <img class="preset-thumb" alt="" width="72" height="72" decoding="async">
+                        <span data-i18n="design.presetScanMe">Scan mij</span>
+                    </label>
                 </div>
-                <div class="input-group">
-                    <label for="frame-style" data-i18n="fields.frame">Kader</label>
-                    <select id="frame-style">
-                        <option value="none" selected data-i18n-option="options.frameNone">Geen kader</option>
-                        <option value="banner-bottom" data-i18n-option="options.frameBannerBottom">Tekst onder</option>
-                        <option value="banner-top" data-i18n-option="options.frameBannerTop">Tekst boven</option>
-                        <option value="outline" data-i18n-option="options.frameOutline">Rand met tekst</option>
-                    </select>
-                </div>
-            </div>
-            <div id="frame-options" class="style-row frame-options" hidden>
-                <div class="input-group">
-                    <label for="frame-text" data-i18n="fields.frameText">Kadertekst</label>
-                    <input type="text" id="frame-text" data-i18n-placeholder="frame.defaultText" placeholder="SCAN MIJ" maxlength="30" autocomplete="off">
-                </div>
-                <div class="input-group">
-                    <label id="frame-color-label" for="frame-color" data-i18n="fields.frameColor">Kaderkleur</label>
-                    <div class="color-input-wrapper">
-                        <input type="color" id="frame-color" value="#000000">
-                        <input type="text" id="frame-color-text" value="#000000" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="frame-color-label">
-                    </div>
-                </div>
-            </div>
+            </fieldset>
 
-        <!-- Customization Section -->
-        <div class="customization-section">
-            <button type="button" id="customize-toggle" class="customize-toggle" aria-expanded="false" aria-controls="customize-panel">
-                <span data-i18n="actions.customize">Uiterlijk aanpassen (optioneel)</span>
-                <svg id="customize-icon" class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
-            </button>
-            <div id="customize-panel" class="customize-panel" style="display:none;">
-                <div class="customize-grid">
-                    <div class="input-group">
-                        <label id="qr-fg-color-label" for="qr-fg-color" data-i18n="fields.foregroundColor">Voorgrondkleur</label>
+            <!-- Colors -->
+            <fieldset id="colors-group" class="design-group colors-group">
+                <legend class="design-legend" data-i18n="design.colors">Kleuren</legend>
+                <div class="color-row">
+                    <div class="color-field">
+                        <label id="qr-fg-color-label" for="qr-fg-color" data-i18n="fields.foregroundColor">Codekleur</label>
                         <div class="color-input-wrapper">
                             <input type="color" id="qr-fg-color" value="#000000">
-                            <input type="text" id="qr-fg-color-text" value="#000000" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="qr-fg-color-label">
+                            <input type="text" id="qr-fg-color-text" value="#000000" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="qr-fg-color-label">
                         </div>
                     </div>
-                    <div class="input-group">
-                        <label id="qr-bg-color-label" for="qr-bg-color" data-i18n="fields.backgroundColor">Achtergrondkleur</label>
+                    <fieldset id="fill-type" class="radio-group-container fill-type">
+                        <legend class="sr-only" data-i18n="fields.fill">Vulling</legend>
+                        <div class="radio-group">
+                            <input type="radio" id="fill-solid" name="fill" value="solid" checked>
+                            <label for="fill-solid" data-i18n="options.fillSolid">Effen</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="fill-gradient" name="fill" value="gradient">
+                            <label for="fill-gradient" data-i18n="options.fillGradient">Verloop</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="gradient-options" class="gradient-options" hidden>
+                    <div class="color-field">
+                        <label id="qr-fg-color2-label" for="qr-fg-color2" data-i18n="fields.gradientColor2">Tweede kleur</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="qr-fg-color2" value="#2563eb">
+                            <input type="text" id="qr-fg-color2-text" value="#2563eb" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="qr-fg-color2-label">
+                        </div>
+                    </div>
+                    <fieldset id="gradient-type" class="radio-group-container gradient-type">
+                        <legend class="sr-only" data-i18n="fields.gradientType">Soort verloop</legend>
+                        <div class="radio-group">
+                            <input type="radio" id="gradient-linear" name="gradient-type" value="linear" checked>
+                            <label for="gradient-linear" data-i18n="options.gradientLinear">Lineair</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="gradient-radial" name="gradient-type" value="radial">
+                            <label for="gradient-radial" data-i18n="options.gradientRadial">Radiaal</label>
+                        </div>
+                    </fieldset>
+                    <div id="gradient-angle-group" class="slider-group">
+                        <label for="gradient-angle" data-i18n="fields.gradientAngle">Hoek</label>: <span id="gradient-angle-value">45°</span>
+                        <input type="range" id="gradient-angle" min="0" max="345" step="15" value="45" aria-valuetext="45°">
+                    </div>
+                </div>
+                <div class="color-row">
+                    <div class="color-field">
+                        <label id="qr-bg-color-label" for="qr-bg-color" data-i18n="fields.backgroundColor">Achtergrond</label>
                         <div class="color-input-wrapper">
                             <input type="color" id="qr-bg-color" value="#ffffff">
-                            <input type="text" id="qr-bg-color-text" value="#ffffff" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" aria-labelledby="qr-bg-color-label">
+                            <input type="text" id="qr-bg-color-text" value="#ffffff" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="qr-bg-color-label">
                         </div>
                         <div class="checkbox-group compact-checkbox">
                             <input type="checkbox" id="qr-transparent-bg">
                             <label for="qr-transparent-bg" data-i18n="fields.transparentBackground">Transparante achtergrond</label>
                         </div>
                     </div>
+                </div>
+                <div class="color-actions">
+                    <button type="button" id="swap-colors-btn" class="secondary-btn small-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"></path></svg>
+                        <span data-i18n="actions.swapColors">Kleuren omwisselen</span>
+                    </button>
+                    <div class="checkbox-group compact-checkbox">
+                        <input type="checkbox" id="custom-corners" aria-controls="corner-colors">
+                        <label for="custom-corners" data-i18n="fields.customCorners">Eigen hoekkleuren</label>
+                    </div>
+                </div>
+                <div id="corner-colors" class="corner-colors" hidden>
+                    <div class="color-field">
+                        <label id="corner-outer-color-label" for="corner-outer-color" data-i18n="fields.cornerOuterColor">Kleur hoekkader</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="corner-outer-color" value="#000000">
+                            <input type="text" id="corner-outer-color-text" value="#000000" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="corner-outer-color-label">
+                        </div>
+                    </div>
+                    <div class="color-field">
+                        <label id="corner-inner-color-label" for="corner-inner-color" data-i18n="fields.cornerInnerColor">Kleur hoekmidden</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="corner-inner-color" value="#000000">
+                            <input type="text" id="corner-inner-color-text" value="#000000" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="corner-inner-color-label">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Logo: click, drop or paste -->
+            <div id="logo-group" class="design-group logo-section">
+                <h3 class="design-legend" data-i18n="fields.logo">Logo</h3>
+                <div id="logo-dropzone" class="logo-dropzone">
+                    <input type="file" id="qr-logo" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" hidden>
+                    <div class="logo-upload-area">
+                        <button type="button" id="logo-select-btn" class="secondary-btn small-btn" data-i18n="actions.chooseLogo">Afbeelding kiezen</button>
+                        <div id="logo-preview" class="logo-preview" hidden>
+                            <img id="logo-preview-img" alt="">
+                        </div>
+                        <span id="logo-filename" class="logo-filename"></span>
+                        <button type="button" id="logo-remove-btn" class="icon-btn" aria-label="Logo verwijderen" data-i18n-aria-label="aria.removeLogo" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+                    </div>
+                    <p id="logo-drop-hint" class="helper-text logo-drop-hint" data-i18n="logo.dropHint">Sleep, plak of kies een afbeelding: PNG, JPEG, WebP, GIF of SVG.</p>
+                    <span class="logo-drop-overlay" aria-hidden="true" data-i18n="logo.dropHere" hidden>Laat de afbeelding los om hem als logo te gebruiken</span>
+                </div>
+                <p id="logo-error" class="field-error logo-error" role="alert" hidden></p>
+                <p id="logo-note" class="helper-text logo-note" hidden></p>
+                <div id="logo-controls" class="logo-controls" hidden>
+                    <div class="slider-group">
+                        <label for="qr-logo-size" data-i18n="fields.logoSize">Formaat logo</label>: <span id="qr-logo-size-value">40%</span>
+                        <input type="range" id="qr-logo-size" min="0.2" max="0.5" step="0.05" value="0.4" aria-valuetext="40%">
+                    </div>
+                    <div class="slider-group">
+                        <label for="qr-logo-margin" data-i18n="fields.logoMargin">Ruimte rond logo</label>: <span id="qr-logo-margin-value">0.5 modules</span>
+                        <input type="range" id="qr-logo-margin" min="0" max="2" step="0.25" value="0.5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame -->
+            <fieldset id="frame-picker" class="design-group frame-picker">
+                <legend class="design-legend" data-i18n="fields.frame">Kader</legend>
+                <div class="choice-list">
+                    <input type="radio" id="frame-none" name="frame-style" value="none" checked>
+                    <label for="frame-none" class="choice-card">
+                        <svg class="choice-thumb" width="40" height="40" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" transform="translate(8 8)" d="M0 0h10v10H0zM2 2v6h6V2zM3.5 3.5h3v3h-3zM22 0h10v10H22zM24 2v6h6V2zM25.5 3.5h3v3h-3zM0 22h10v10H0zM2 24v6h6v-6zM3.5 25.5h3v3h-3zM14 0h4v4h-4zM14 8h4v6h-4zM0 14h4v4H0zM8 14h6v4H8zM18 18h4v4h-4zM24 14h4v4h-4zM28 20h4v4h-4zM14 24h4v8h-4zM22 26h4v6h-4zM28 28h4v4h-4z"></path></svg>
+                        <span data-i18n="options.frameNone">Geen kader</span>
+                    </label>
+                    <input type="radio" id="frame-banner-bottom" name="frame-style" value="banner-bottom">
+                    <label for="frame-banner-bottom" class="choice-card">
+                        <svg class="choice-thumb" width="40" height="40" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" transform="translate(12 5) scale(0.75)" d="M0 0h10v10H0zM2 2v6h6V2zM3.5 3.5h3v3h-3zM22 0h10v10H22zM24 2v6h6V2zM25.5 3.5h3v3h-3zM0 22h10v10H0zM2 24v6h6v-6zM3.5 25.5h3v3h-3zM14 0h4v4h-4zM14 8h4v6h-4zM0 14h4v4H0zM8 14h6v4H8zM18 18h4v4h-4zM24 14h4v4h-4zM28 20h4v4h-4zM14 24h4v8h-4zM22 26h4v6h-4zM28 28h4v4h-4z"></path><rect x="8" y="33" width="32" height="10" rx="2"></rect></svg>
+                        <span data-i18n="options.frameBannerBottom">Tekst onder</span>
+                    </label>
+                    <input type="radio" id="frame-banner-top" name="frame-style" value="banner-top">
+                    <label for="frame-banner-top" class="choice-card">
+                        <svg class="choice-thumb" width="40" height="40" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><rect x="8" y="5" width="32" height="10" rx="2"></rect><path fill-rule="evenodd" transform="translate(12 19) scale(0.75)" d="M0 0h10v10H0zM2 2v6h6V2zM3.5 3.5h3v3h-3zM22 0h10v10H22zM24 2v6h6V2zM25.5 3.5h3v3h-3zM0 22h10v10H0zM2 24v6h6v-6zM3.5 25.5h3v3h-3zM14 0h4v4h-4zM14 8h4v6h-4zM0 14h4v4H0zM8 14h6v4H8zM18 18h4v4h-4zM24 14h4v4h-4zM28 20h4v4h-4zM14 24h4v8h-4zM22 26h4v6h-4zM28 28h4v4h-4z"></path></svg>
+                        <span data-i18n="options.frameBannerTop">Tekst boven</span>
+                    </label>
+                    <input type="radio" id="frame-outline" name="frame-style" value="outline">
+                    <label for="frame-outline" class="choice-card">
+                        <svg class="choice-thumb" width="40" height="40" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><rect x="5" y="3" width="38" height="42" rx="5" fill="none" stroke="currentColor" stroke-width="2"></rect><path fill-rule="evenodd" transform="translate(13 8) scale(0.6875)" d="M0 0h10v10H0zM2 2v6h6V2zM3.5 3.5h3v3h-3zM22 0h10v10H22zM24 2v6h6V2zM25.5 3.5h3v3h-3zM0 22h10v10H0zM2 24v6h6v-6zM3.5 25.5h3v3h-3zM14 0h4v4h-4zM14 8h4v6h-4zM0 14h4v4H0zM8 14h6v4H8zM18 18h4v4h-4zM24 14h4v4h-4zM28 20h4v4h-4zM14 24h4v8h-4zM22 26h4v6h-4zM28 28h4v4h-4z"></path><rect x="15" y="35" width="18" height="4" rx="1"></rect></svg>
+                        <span data-i18n="options.frameOutline">Rand met tekst</span>
+                    </label>
+                </div>
+                <div id="frame-options" class="style-row frame-options" hidden>
+                    <div class="input-group">
+                        <label for="frame-text" data-i18n="fields.frameText">Kadertekst</label>
+                        <input type="text" id="frame-text" data-i18n-placeholder="frame.defaultText" placeholder="SCAN MIJ" maxlength="30" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label id="frame-color-label" for="frame-color" data-i18n="fields.frameColor">Kaderkleur</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="frame-color" value="#000000">
+                            <input type="text" id="frame-color-text" value="#000000" maxlength="7" pattern="^#(?:[0-9A-Fa-f]{3}){1,2}$" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="frame-color-label">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+        <!-- More design options: shapes, advanced settings and reset -->
+        <div class="customization-section">
+            <button type="button" id="customize-toggle" class="customize-toggle" aria-expanded="false" aria-controls="customize-panel">
+                <span data-i18n="actions.customize">Meer ontwerpopties</span>
+                <svg id="customize-icon" class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div id="customize-panel" class="customize-panel" hidden>
+                <div class="design-subsection shapes-section">
+                    <h3 class="section-title" data-i18n="fields.styleOptions">Vormen</h3>
+
+                    <fieldset id="dot-style-picker" class="choice-group">
+                        <legend class="choice-legend" data-i18n="fields.dotStyle">Patroon</legend>
+                        <div class="choice-list">
+                            <input type="radio" id="dot-square" name="dot-style" value="square" checked>
+                            <label for="dot-square" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 0h20v10H0zM10 10h20v10H10zM0 20h10v10H0zM20 20h10v10H20z"></path></svg>
+                                <span data-i18n="options.dotSquare">Vierkant</span>
+                            </label>
+                            <input type="radio" id="dot-rounded" name="dot-style" value="rounded">
+                            <label for="dot-rounded" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><rect x="0" y="0" width="20" height="10" rx="3"></rect><rect x="10" y="10" width="20" height="10" rx="3"></rect><rect x="0" y="20" width="10" height="10" rx="3"></rect><rect x="20" y="20" width="10" height="10" rx="3"></rect></svg>
+                                <span data-i18n="options.dotRounded">Afgerond</span>
+                            </label>
+                            <input type="radio" id="dot-dots" name="dot-style" value="dots">
+                            <label for="dot-dots" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="5" cy="5" r="4.2"></circle><circle cx="15" cy="5" r="4.2"></circle><circle cx="15" cy="15" r="4.2"></circle><circle cx="25" cy="15" r="4.2"></circle><circle cx="5" cy="25" r="4.2"></circle><circle cx="25" cy="25" r="4.2"></circle></svg>
+                                <span data-i18n="options.dotDots">Stippen</span>
+                            </label>
+                            <input type="radio" id="dot-classy" name="dot-style" value="classy">
+                            <label for="dot-classy" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5 0h5v5a5 5 0 0 1-5 5H0V5a5 5 0 0 1 5-5zM15 0h5v5a5 5 0 0 1-5 5h-5V5a5 5 0 0 1 5-5zM15 10h5v5a5 5 0 0 1-5 5h-5v-5a5 5 0 0 1 5-5zM25 10h5v5a5 5 0 0 1-5 5h-5v-5a5 5 0 0 1 5-5zM5 20h5v5a5 5 0 0 1-5 5H0v-5a5 5 0 0 1 5-5zM25 20h5v5a5 5 0 0 1-5 5h-5v-5a5 5 0 0 1 5-5z"></path></svg>
+                                <span data-i18n="options.dotClassy">Elegant</span>
+                            </label>
+                            <input type="radio" id="dot-classy-rounded" name="dot-style" value="classy-rounded">
+                            <label for="dot-classy-rounded" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><path d="M7 0h3v3a7 7 0 0 1-7 7H0V7a7 7 0 0 1 7-7zM17 0h3v3a7 7 0 0 1-7 7h-3V7a7 7 0 0 1 7-7zM17 10h3v3a7 7 0 0 1-7 7h-3v-3a7 7 0 0 1 7-7zM27 10h3v3a7 7 0 0 1-7 7h-3v-3a7 7 0 0 1 7-7zM7 20h3v3a7 7 0 0 1-7 7H0v-3a7 7 0 0 1 7-7zM27 20h3v3a7 7 0 0 1-7 7h-3v-3a7 7 0 0 1 7-7z"></path></svg>
+                                <span data-i18n="options.dotClassyRounded">Elegant afgerond</span>
+                            </label>
+                            <input type="radio" id="dot-extra-rounded" name="dot-style" value="extra-rounded">
+                            <label for="dot-extra-rounded" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 30 30" fill="currentColor" aria-hidden="true" focusable="false"><rect x="0" y="0" width="20" height="10" rx="5"></rect><rect x="10" y="10" width="20" height="10" rx="5"></rect><circle cx="5" cy="25" r="5"></circle><circle cx="25" cy="25" r="5"></circle></svg>
+                                <span data-i18n="options.dotExtraRounded">Extra afgerond</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset id="corner-square-picker" class="choice-group">
+                        <legend class="choice-legend" data-i18n="fields.cornerSquare">Hoekkader</legend>
+                        <div class="choice-list">
+                            <input type="radio" id="corner-square-square" name="corner-square-style" value="square">
+                            <label for="corner-square-square" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0 0h70v70H0zM10 10v50h50V10z"></path><rect x="20" y="20" width="30" height="30" opacity="0.35"></rect></svg>
+                                <span data-i18n="options.cornerSquare">Vierkant</span>
+                            </label>
+                            <input type="radio" id="corner-square-extra-rounded" name="corner-square-style" value="extra-rounded" checked>
+                            <label for="corner-square-extra-rounded" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0 25A25 25 0 0 1 25 0h20a25 25 0 0 1 25 25v20a25 25 0 0 1-25 25H25A25 25 0 0 1 0 45zM10 25v20a15 15 0 0 0 15 15h20a15 15 0 0 0 15-15V25a15 15 0 0 0-15-15H25a15 15 0 0 0-15 15z"></path><rect x="20" y="20" width="30" height="30" opacity="0.35"></rect></svg>
+                                <span data-i18n="options.cornerExtraRounded">Extra afgerond</span>
+                            </label>
+                            <input type="radio" id="corner-square-dot" name="corner-square-style" value="dot">
+                            <label for="corner-square-dot" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M35 0a35 35 0 1 1 0 70a35 35 0 1 1 0-70zM35 10a25 25 0 1 0 0 50a25 25 0 1 0 0-50z"></path><rect x="20" y="20" width="30" height="30" opacity="0.35"></rect></svg>
+                                <span data-i18n="options.cornerDot">Stip</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset id="corner-dot-picker" class="choice-group">
+                        <legend class="choice-legend" data-i18n="fields.cornerDot">Hoekmidden</legend>
+                        <div class="choice-list">
+                            <input type="radio" id="corner-dot-square" name="corner-dot-style" value="square">
+                            <label for="corner-dot-square" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" opacity="0.35" d="M0 0h70v70H0zM10 10v50h50V10z"></path><rect x="20" y="20" width="30" height="30"></rect></svg>
+                                <span data-i18n="options.cornerSquare">Vierkant</span>
+                            </label>
+                            <input type="radio" id="corner-dot-dot" name="corner-dot-style" value="dot" checked>
+                            <label for="corner-dot-dot" class="choice-card">
+                                <svg class="choice-thumb" width="40" height="40" viewBox="0 0 70 70" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" opacity="0.35" d="M0 0h70v70H0zM10 10v50h50V10z"></path><circle cx="35" cy="35" r="15"></circle></svg>
+                                <span data-i18n="options.cornerDot">Stip</span>
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="design-subsection advanced-section">
+                    <h3 class="section-title" data-i18n="design.advanced">Geavanceerd</h3>
                     <div class="input-group">
                         <label for="qr-error-correction" data-i18n="fields.errorCorrection">Foutcorrectie</label>
-                        <select id="qr-error-correction">
+                        <select id="qr-error-correction" aria-describedby="ecl-help">
+                            <option value="auto" selected data-i18n-option="options.errorAuto">Automatisch (aanbevolen)</option>
                             <option value="L" data-i18n-option="options.errorLow">L - Laag (7%)</option>
-                            <option value="M" selected data-i18n-option="options.errorMedium">M - Gemiddeld (15%)</option>
+                            <option value="M" data-i18n-option="options.errorMedium">M - Gemiddeld (15%)</option>
                             <option value="Q" data-i18n-option="options.errorQuartile">Q - Kwartiel (25%)</option>
                             <option value="H" data-i18n-option="options.errorHigh">H - Hoog (30%)</option>
                         </select>
+                        <p id="ecl-help" class="helper-text ecl-help">
+                            <span data-i18n="helpers.ecHelper">Hogere niveaus zijn bestand tegen schade en logo’s, maar maken de code dichter.</span>
+                            <span id="ecl-auto-help" data-i18n="design.eclAutoHelp">‘Automatisch’ gebruikt niveau M, of niveau H als de code een logo heeft.</span>
+                            <span id="ecl-locked-help" data-i18n="design.eclLockedPayment" hidden>Betaalcodes gebruiken altijd niveau M.</span>
+                        </p>
                     </div>
-                    <div class="input-group">
-                        <label for="qr-format" data-i18n="fields.downloadFormat">Bestandsformaat</label>
-                        <select id="qr-format">
-                            <option value="png" selected data-i18n-option="options.formatPng">PNG (raster)</option>
-                            <option value="svg" data-i18n-option="options.formatSvg">SVG (vector)</option>
-                            <option value="pdf" data-i18n-option="options.formatPdf">PDF (document)</option>
+                    <div class="slider-group">
+                        <label for="qr-margin" data-i18n="fields.quietZone">Witrand</label>: <span id="qr-margin-value">4 modules</span>
+                        <input type="range" id="qr-margin" min="4" max="12" step="1" value="4" aria-describedby="quiet-zone-helper">
+                        <p id="quiet-zone-helper" class="helper-text" data-i18n="helpers.quietZoneHelper">Lege ruimte rond de QR-code (minimaal 4 modules voor betrouwbaar scannen)</p>
+                    </div>
+                    <div class="input-group min-version-group">
+                        <label for="min-version" data-i18n="fields.minVersion">Minimale QR-versie</label>
+                        <select id="min-version">
+                            <option value="0" selected data-i18n-option="options.versionAuto">Automatisch</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- Logo Upload Section -->
-                <div class="logo-section">
-                    <h3 class="section-title" data-i18n="fields.logo">Logo (optioneel)</h3>
-                    <div class="logo-upload-area">
-                        <input type="file" id="qr-logo" accept="image/*" style="display:none;">
-                        <button type="button" id="logo-select-btn" class="secondary-btn small-btn" data-i18n="actions.chooseLogo">Afbeelding kiezen</button>
-                        <span id="logo-filename" class="logo-filename"></span>
-                        <button type="button" id="logo-remove-btn" class="icon-btn" style="display:none;" title="Remove logo" aria-label="Remove logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
-                    </div>
-                    <div id="logo-preview" class="logo-preview" style="display:none;">
-                        <img id="logo-preview-img" alt="Logo preview">
-                    </div>
-                    <div id="logo-controls" style="display:none;">
-                        <div class="slider-group">
-                            <label for="qr-logo-size" data-i18n="fields.logoSize">Formaat logo</label>: <span id="qr-logo-size-value">40%</span>
-                            <input type="range" id="qr-logo-size" min="0.2" max="0.5" step="0.05" value="0.4">
-                        </div>
-                        <div class="slider-group">
-                            <label for="qr-logo-margin" data-i18n="fields.logoMargin">Ruimte rond logo</label>: <span id="qr-logo-margin-value">4px</span>
-                            <input type="range" id="qr-logo-margin" min="0" max="20" step="2" value="4">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Style Section -->
-                <div class="style-section">
-                    <h3 class="section-title" data-i18n="fields.styleOptions">Stijlopties</h3>
-                    <div class="style-grid">
-                        <div class="input-group">
-                            <label for="qr-dot-style" data-i18n="fields.dotStyle">Stijl van de punten</label>
-                            <select id="qr-dot-style">
-                                <option value="square" selected data-i18n-option="options.dotSquare">Vierkant</option>
-                                <option value="rounded" data-i18n-option="options.dotRounded">Afgerond</option>
-                                <option value="dots" data-i18n-option="options.dotDots">Stippen</option>
-                                <option value="classy" data-i18n-option="options.dotClassy">Klassiek</option>
-                                <option value="classy-rounded" data-i18n-option="options.dotClassyRounded">Klassiek afgerond</option>
-                                <option value="extra-rounded" data-i18n-option="options.dotExtraRounded">Extra afgerond</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="qr-corner-square-style" data-i18n="fields.cornerSquare">Hoekvierkant</label>
-                            <select id="qr-corner-square-style">
-                                <option value="square" data-i18n-option="options.cornerSquare">Vierkant</option>
-                                <option value="extra-rounded" selected data-i18n-option="options.cornerExtraRounded">Extra afgerond</option>
-                                <option value="dot" data-i18n-option="options.cornerDot">Stip</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="qr-corner-dot-style" data-i18n="fields.cornerDot">Hoekpunt</label>
-                            <select id="qr-corner-dot-style">
-                                <option value="square" data-i18n-option="options.cornerSquare">Vierkant</option>
-                                <option value="dot" selected data-i18n-option="options.cornerDot">Stip</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="slider-group">
-                        <label for="qr-margin" data-i18n="fields.quietZone">Witrand (marge)</label>: <span id="qr-margin-value">4 modules</span>
-                        <input type="range" id="qr-margin" min="4" max="12" step="1" value="4" aria-describedby="quiet-zone-helper">
-                        <p id="quiet-zone-helper" class="helper-text" data-i18n="helpers.quietZoneHelper">Lege ruimte rond de QR-code (minimaal 4 modules voor betrouwbaar scannen)</p>
-                    </div>
-                </div>
-
-                <button type="button" id="reset-customization" class="secondary-btn" data-i18n="actions.reset">Standaardinstellingen herstellen</button>
+                <button type="button" id="reset-customization" class="secondary-btn" data-i18n="actions.reset">Ontwerp terugzetten</button>
             </div>
         </div>
         </section>
@@ -844,7 +1331,7 @@
             </li>
             <li>
                 <span class="step-num" aria-hidden="true">3</span>
-                <div><strong data-i18n="how.step3Title">Download</strong><span data-i18n="how.step3Text">Sla de code op als PNG, SVG of PDF. Test of hij goed scant voordat je hem print of deelt.</span></div>
+                <div><strong data-i18n="how.step3Title">Download</strong><span data-i18n="how.step3Text">Download PNG, SVG, PDF of EPS in precies het formaat dat je nodig hebt, of kopieer en deel de code. De scancontrole laat zien of hij goed scant.</span></div>
             </li>
         </ol>
     </section>
@@ -914,7 +1401,7 @@
             <div class="card">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10.6 5.1A10 10 0 0 1 12 5c5 0 9 4.5 10 7a13 13 0 0 1-2.5 3.6M6.6 6.6A13 13 0 0 0 2 12c1 2.5 5 7 10 7a9.8 9.8 0 0 0 5.4-1.6"></path><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path><path d="m3 3 18 18"></path></svg>
                 <h3 data-i18n="privacyInfo.noTrackingTitle">Geen tracking</h3>
-                <p data-i18n="privacyInfo.noTrackingText">Geen analytics, advertenties, cookies of accounts. Alleen je taal- en themakeuze worden bewaard, lokaal in je browser.</p>
+                <p data-i18n="privacyInfo.noTrackingText">Geen analytics, advertenties, cookies of accounts. Alleen je taal-, thema- en downloadinstellingen worden bewaard, lokaal in je browser.</p>
             </div>
             <div class="card">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"></path></svg>
@@ -945,15 +1432,19 @@
             </details>
             <details class="faq-item">
                 <summary>Hoe groot moet ik een QR-code printen?</summary>
-                <p>Print hem minstens 2 × 2 cm. Vuistregel: maak de code minstens een tiende van de scanafstand. Een poster die van 2 meter afstand wordt gescand, heeft dus een code van ongeveer 20 cm nodig. Download voor drukwerk een SVG of een grote PNG en houd de witrand rond de code leeg.</p>
+                <p>Print hem minstens 2 × 2 cm. Vuistregel: maak de code minstens een tiende van de scanafstand. Een poster die van 2 meter afstand wordt gescand, heeft dus een code van ongeveer 20 cm nodig. Download voor drukwerk een PDF- of SVG-bestand, dat op elk formaat scherp blijft, en stel de exacte afdrukbreedte in. QRTurbo.app toont de modulegrootte en waarschuwt je als de code te klein is om te scannen. Houd de witrand rond de code leeg.</p>
             </details>
             <details class="faq-item">
                 <summary>Waarom scant mijn QR-code niet?</summary>
-                <p>De meest voorkomende oorzaken zijn te weinig contrast tussen de code en de achtergrond, een te smalle witrand, een logo dat te veel van de code bedekt, of te veel inhoud voor het formaat waarop je print. QRTurbo.app waarschuwt je voor deze risico’s. Test de code altijd met een paar verschillende telefoons voordat je hem laat drukken.</p>
+                <p>De meest voorkomende oorzaken zijn te weinig contrast tussen de code en de achtergrond, een te smalle witrand, een logo dat te veel van de code bedekt, of te veel inhoud voor het formaat waarop je print. QRTurbo.app controleert elke code met een ingebouwde scanner op je apparaat en stelt oplossingen voor. Test de code altijd met een paar verschillende telefoons voordat je hem laat drukken.</p>
             </details>
             <details class="faq-item">
                 <summary>Zijn mijn gegevens veilig? Kunnen jullie mijn wifiwachtwoord zien?</summary>
                 <p>Je gegevens blijven op je apparaat. De QR-code wordt gemaakt door code die in je browser draait, en niets wat je typt of uploadt wordt naar een server gestuurd. Niemand kan dus je wifiwachtwoord of contactgegevens zien. Na het eerste bezoek werkt de generator ook offline.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Welk bestandsformaat moet ik gebruiken?</summary>
+                <p>Gebruik PNG voor schermen, documenten en de meeste printers. Gebruik SVG voor websites en ontwerpprogramma’s, en PDF voor drukkerijen: dat zijn allebei vectorbestanden die op elk formaat scherp blijven. EPS is voor oudere ontwerp- en beletteringssoftware. JPG en WebP zijn kleine afbeeldingsbestanden voor apps en websites. Elk formaat is gratis en behoudt je kleuren, logo en kader.</p>
             </details>
         </div>
     </section>
@@ -978,7 +1469,7 @@
     <footer class="site-footer">
         <p>
             <span data-i18n="footer.privacy1">Deze gratis QR-code generator werkt volledig in je browser.</span>
-            <span data-i18n="footer.privacy2">Er worden geen gegevens opgeslagen of verstuurd. Geen tracking, geen advertenties, geen gedoe.</span>
+            <span data-i18n="footer.privacy2">Wat je invult, wordt nergens opgeslagen of naartoe gestuurd. Geen tracking, geen advertenties, geen gedoe.</span>
         </p>
         <nav aria-label="QRTurbo.app">
             <a href="/privacy.html" data-i18n="footer.privacyPolicy">Privacybeleid</a>
@@ -987,10 +1478,160 @@
         </nav>
     </footer>
 
-    <!-- External JavaScript -->
-    <script src="/js/i18n/core.js?v=1.2.0" defer></script>
-    <script src="/js/qr-code-styling.min.js?v=1.2.0" defer></script>
-    <script src="/js/app.js?v=1.2.0" defer></script>
+    <!-- Notifications: visual toasts and screen-reader-only announcements -->
+    <div id="toast-region" class="toast-region" role="status" aria-live="polite" aria-label="Meldingen" data-i18n-aria-label="aria.notifications"></div>
+    <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Phone quick bar: shown while the preview card is scrolled out of view -->
+    <div id="mobile-bar" class="mobile-bar" role="region" aria-label="Snel downloaden" data-i18n-aria-label="aria.mobileBar" hidden>
+        <button type="button" id="mobile-thumb-btn" class="mobile-thumb-btn" aria-label="QR-code tonen" data-i18n-aria-label="mobile.showPreview">
+            <img id="mobile-thumb" class="mobile-thumb" alt="" width="48" height="48">
+        </button>
+        <button type="button" id="mobile-download-btn" class="primary-btn mobile-download-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+            <span id="mobile-download-label" data-i18n="actions.download">Downloaden</span>
+        </button>
+        <button type="button" id="mobile-share-btn" class="secondary-btn mobile-share-btn" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg>
+            <span data-i18n="actions.share">Delen</span>
+        </button>
+    </div>
+
+    <!-- Batch mode: CSV or TSV rows to a ZIP file, created on this device -->
+    <dialog id="batch-dialog" class="batch-dialog" aria-labelledby="batch-title">
+        <div class="batch-body">
+            <div class="batch-section batch-data">
+                <h2 id="batch-title" class="batch-title" data-i18n="batch.title">Veel QR-codes maken</h2>
+                <p class="helper-text batch-intro" data-i18n="batch.intro">Plak rijen uit een spreadsheet of kies een CSV-bestand. Elke rij wordt één QR-code met je huidige ontwerp. Het bestand wordt op dit apparaat gelezen en nooit geüpload.</p>
+                <div class="input-group">
+                    <label for="batch-input" data-i18n="fields.batchSource">CSV-gegevens</label>
+                    <textarea id="batch-input" rows="6" wrap="off" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+                </div>
+                <div class="batch-file-row">
+                    <input type="file" id="batch-file" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden>
+                    <button type="button" id="batch-file-btn" class="secondary-btn small-btn" data-i18n="actions.chooseCsv">CSV-bestand kiezen</button>
+                    <span id="batch-file-name" class="batch-file-name"></span>
+                    <span class="helper-text batch-drop-hint" data-i18n="batch.dropHint">Sleep een CSV-bestand hierheen</span>
+                </div>
+                <p id="batch-file-error" class="field-error batch-error" role="alert" hidden></p>
+                <div class="checkbox-group compact-checkbox">
+                    <input type="checkbox" id="batch-has-header" checked>
+                    <label for="batch-has-header" data-i18n="fields.batchHasHeader">De eerste rij bevat kolomnamen</label>
+                </div>
+                <p id="batch-rows-found" class="helper-text" role="status"></p>
+            </div>
+
+            <div class="batch-section batch-fields">
+                <h3 class="section-title" data-i18n="batch.mappingTitle">Kolommen aan velden koppelen</h3>
+                <div class="input-group">
+                    <label for="batch-type" data-i18n="fields.batchType">Soort code</label>
+                    <select id="batch-type">
+                        <option value="URLText" data-i18n-option="tabs.urlText">URL/Tekst</option>
+                        <option value="VCard" data-i18n-option="tabs.vcard">vCard</option>
+                        <option value="Wifi" data-i18n-option="tabs.wifi">Wifi</option>
+                        <option value="SMSPhone" data-i18n-option="tabs.smsPhone">SMS/Bellen</option>
+                        <option value="Email" data-i18n-option="tabs.email">E-mail</option>
+                        <option value="Location" data-i18n-option="tabs.location">Locatie</option>
+                        <option value="WhatsApp" data-i18n-option="tabs.whatsapp">WhatsApp</option>
+                        <option value="MeCard" data-i18n-option="tabs.mecard">MeCard</option>
+                        <option value="Payment" data-i18n-option="tabs.payment">Betaling</option>
+                    </select>
+                </div>
+                <!-- One row per field of the chosen type, built at runtime. -->
+                <div id="batch-mapping" class="batch-mapping"></div>
+                <div class="input-group">
+                    <label for="batch-filename-col" data-i18n="fields.batchFilename">Bestandsnamen uit</label>
+                    <select id="batch-filename-col">
+                        <option value="" selected data-i18n-option="options.filenameRowNumber">Rijnummer</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="batch-section batch-output">
+                <fieldset id="batch-format" class="batch-format">
+                    <legend class="batch-legend" data-i18n="fields.batchFormat">Bestandsformaat</legend>
+                    <div class="radio-group-container batch-format-options">
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-png" name="batch-format" value="png" checked>
+                            <label for="batch-format-png" data-i18n="options.formatPng">PNG</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-svg" name="batch-format" value="svg">
+                            <label for="batch-format-svg" data-i18n="options.formatSvg">SVG</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-pdf" name="batch-format" value="pdf">
+                            <label for="batch-format-pdf" data-i18n="options.formatPdf">PDF</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-jpg" name="batch-format" value="jpg">
+                            <label for="batch-format-jpg" data-i18n="options.formatJpg">JPG</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-webp" name="batch-format" value="webp">
+                            <label for="batch-format-webp" data-i18n="options.formatWebp">WebP</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="batch-format-eps" name="batch-format" value="eps">
+                            <label for="batch-format-eps" data-i18n="options.formatEps">EPS</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <p id="batch-size-note" class="helper-text"></p>
+                <div class="checkbox-group compact-checkbox">
+                    <input type="checkbox" id="batch-same-size">
+                    <label for="batch-same-size" data-i18n="fields.batchSameSize">Alle codes even groot maken</label>
+                </div>
+                <div id="batch-verify-group" class="checkbox-group compact-checkbox">
+                    <input type="checkbox" id="batch-verify" checked>
+                    <label for="batch-verify" data-i18n="fields.batchVerify">Controleren of elke code scant</label>
+                </div>
+                <div class="checkbox-group compact-checkbox">
+                    <input type="checkbox" id="batch-manifest" checked>
+                    <label for="batch-manifest" data-i18n="fields.batchManifest">Lijst met alle bestanden toevoegen (manifest.csv)</label>
+                </div>
+            </div>
+
+            <!-- Row errors of the last run, filled at runtime. -->
+            <div id="batch-result" class="batch-section batch-result" hidden></div>
+        </div>
+
+        <!-- Always visible below the scrolling form: progress, messages and actions. -->
+        <div class="batch-footer">
+            <progress id="batch-progress" class="batch-progress" max="100" value="0" aria-labelledby="batch-status" hidden></progress>
+            <p id="batch-status" class="helper-text batch-status" role="status"></p>
+            <p id="batch-error" class="field-error batch-error" role="alert" hidden></p>
+            <div class="batch-actions">
+                <button type="button" id="batch-start" class="primary-btn" data-i18n="actions.batchStart">ZIP-bestand maken</button>
+                <button type="button" id="batch-cancel" class="secondary-btn" data-i18n="actions.cancel" hidden>Annuleren</button>
+                <button type="button" id="batch-close" class="secondary-btn" data-i18n="actions.close">Sluiten</button>
+            </div>
+        </div>
+
+        <div class="batch-drop-overlay" data-drop-overlay hidden>
+            <span data-i18n="batch.dropHint">Sleep een CSV-bestand hierheen</span>
+        </div>
+    </dialog>
+
+    <!-- External JavaScript, in dependency order -->
+    <script src="/js/i18n/core.js?v=2.0.0" defer></script>
+    <script src="/js/qr-code-styling.min.js?v=2.0.0" defer></script>
+    <script src="/js/lib/bytes.js?v=2.0.0" defer></script>
+    <script src="/js/lib/color.js?v=2.0.0" defer></script>
+    <script src="/js/lib/capacity.js?v=2.0.0" defer></script>
+    <script src="/js/lib/payloads.js?v=2.0.0" defer></script>
+    <script src="/js/lib/rules.js?v=2.0.0" defer></script>
+    <script src="/js/lib/presets.js?v=2.0.0" defer></script>
+    <script src="/js/lib/svg.js?v=2.0.0" defer></script>
+    <script src="/js/frame.js?v=2.0.0" defer></script>
+    <script src="/js/qr-engine.js?v=2.0.0" defer></script>
+    <script src="/js/ui/kit.js?v=2.0.0" defer></script>
+    <script src="/js/exporter.js?v=2.0.0" defer></script>
+    <script src="/js/scan.js?v=2.0.0" defer></script>
+    <script src="/js/ui/design.js?v=2.0.0" defer></script>
+    <script src="/js/ui/export.js?v=2.0.0" defer></script>
+    <script src="/js/app.js?v=2.0.0" defer></script>
+    <script src="/js/controller.js?v=2.0.0" defer></script>
 </body>
 
 </html>

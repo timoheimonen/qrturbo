@@ -11,7 +11,7 @@ module.exports = {
     eyebrow: 'Gratis QR-kode generator',
     display: 'Gratis QR-koder, der bliver ved med at virke.',
     lead:
-      'Lav QR-koder til links, WiFi, kontakter og meget mere direkte i din browser. Ingen tilmelding, ingen prøveperiode, ingen omdirigeringer: dit indhold ligger direkte i koden, så den virker for altid. Tilføj logo, farver og en »SCAN MIG«-ramme.'
+      'Lav QR-koder til links, WiFi, kontakter og meget mere direkte i din browser. Ingen tilmelding, ingen prøveperiode, ingen omdirigeringer: dit indhold ligger direkte i koden, så den virker for altid. Tilføj logo, farver og en »SCAN MIG«-ramme, og download derefter trykklare PNG-, SVG-, PDF- eller EPS-filer.'
   },
   types: {
     wifi: {
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'Hvor stor skal en QR-kode printes?',
-        a: 'Print den mindst 2 × 2 cm. En tommelfingerregel er, at koden skal være mindst en tiendedel af scanningsafstanden: En plakat, der læses fra 2 meters afstand, kræver en kode på cirka 20 cm. Til tryk skal du downloade en SVG eller en stor PNG og holde den rolige zone omkring koden tom.'
+        a: 'Print den mindst 2 × 2 cm. En tommelfingerregel er, at koden skal være mindst en tiendedel af scanningsafstanden: En plakat, der læses fra 2 meters afstand, kræver en kode på cirka 20 cm. Til tryk skal du downloade en PDF- eller SVG-fil, der forbliver skarp i alle størrelser, og angive den præcise bredde på tryk. QRTurbo.app viser modulstørrelsen og advarer dig, når koden er for lille til at kunne scannes. Hold margenen omkring koden tom.'
       },
       {
         q: 'Hvorfor kan min QR-kode ikke scannes?',
-        a: 'De mest almindelige årsager er for lav kontrast mellem koden og baggrunden, en for lille rolig zone, et logo, der dækker for meget af koden, eller for meget indhold i forhold til den trykte størrelse. QRTurbo.app advarer dig om disse risici. Test altid koden med et par forskellige telefoner, før du printer.'
+        a: 'De mest almindelige årsager er for lav kontrast mellem koden og baggrunden, en for lille margen, et logo, der dækker for meget af koden, eller for meget indhold i forhold til den trykte størrelse. QRTurbo.app tjekker hver kode med en indbygget scanner på din enhed og foreslår rettelser. Test altid koden med et par forskellige telefoner, før du printer.'
       },
       {
         q: 'Er mine data sikre? Kan I se min WiFi-adgangskode?',
         a: 'Dine data bliver på din enhed. QR-koden laves af kode, der kører i din browser, og intet af det, du skriver eller uploader, sendes til en server, så ingen kan se din WiFi-adgangskode eller dine kontaktoplysninger. Efter det første besøg virker generatoren også offline.'
+      },
+      {
+        q: 'Hvilket filformat skal jeg bruge?',
+        a: 'Brug PNG til skærme, dokumenter og de fleste printere. Brug SVG til hjemmesider og designværktøjer og PDF til trykkerier: Begge er vektorfiler, der forbliver skarpe i alle størrelser. EPS er til ældre design- og skilteprogrammer. JPG og WebP er små billedfiler til apps og hjemmesider. Alle formater er gratis og bevarer dine farver, dit logo og din ramme.'
       }
     ]
   },

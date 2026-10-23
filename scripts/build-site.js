@@ -67,6 +67,10 @@ const PAGE_TYPES = [
   { key: 'app', slug: 'app-store-qr-code', tab: 'AppLink' }
 ];
 
+// Tabs that exist in the generator but have no landing page of their own, so
+// they are never the selected tab of a generated page.
+const TABS_WITHOUT_PAGE = new Set(['MeCard', 'Payment']);
+
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, '&amp;')
@@ -351,7 +355,7 @@ function renderPage(template, lang, page, translate, content) {
   let html = translateTemplate(template, translate);
 
   html = html.replace(/\{\{(tabClass|tabSelected|tabIndex|tabPanel):(\w+)\}\}/g, (match, kind, tab) => {
-    if (!tabs.has(tab) && tab !== 'MeCard') {
+    if (!tabs.has(tab) && !TABS_WITHOUT_PAGE.has(tab)) {
       throw new Error(`Unknown tab ${tab} in template`);
     }
     const active = tab === page.tab;
@@ -361,8 +365,9 @@ function renderPage(template, lang, page, translate, content) {
     return active ? 'style="display: block;"' : 'hidden';
   });
 
-  html = html.replace(/<option value="([\w-]+)">/g, (match, value) => (
-    LANGUAGES.includes(value) && value === lang ? `<option value="${value}" selected>` : match
+  // Language options may carry a lang attribute; only these get `selected`.
+  html = html.replace(/<option value="([\w-]+)"((?: lang="[\w-]+")?)>/g, (match, value, langAttr) => (
+    LANGUAGES.includes(value) && value === lang ? `<option value="${value}"${langAttr} selected>` : match
   ));
 
   const values = {

@@ -30,10 +30,13 @@ for (const lang of LANGUAGES) {
     await expectTranslated(page.locator('#char-count'), 'counters.characters');
     await expectTranslated(page.locator('#qr-margin-value'), 'units.modules');
 
-    // The hidden WiFi payload notice is translated without revealing the password.
+    // The hidden WiFi payload notice is translated without revealing the
+    // password. The encoded data sits in a collapsed panel.
     await page.locator('#tab-Wifi').click();
     await page.locator('#wifi-ssid').fill('Private');
     await page.locator('#wifi-password').fill('supersecret');
+    await page.locator('#payload-toggle').click();
+    await expect(page.locator('#payload-toggle')).toHaveAttribute('aria-expanded', 'true');
     const payloadText = page.locator('#qr-code-text');
     await expect(payloadText).toBeVisible({ timeout: 10_000 });
     await expectTranslated(payloadText, 'misc.wifiPayloadHidden');

@@ -1,59 +1,94 @@
-// QR Code Styling instance (global for download access)
-let qrCodeInstance = null;
-let previewDebounceTimer = null;
-let generationRevision = 0;
-let generatedQRCode = null;
-let activeGenerationPromise = null;
+// QRTurbo.app - Content forms, validation and page helpers
+// This file reads the content forms and hands their values to
+// QRTurboPayloads.build(), which turns them into QR payloads. The preview,
+// design and export live in controller.js and the UI modules; controller.js
+// starts the page and calls initContentForms(app).
 
 const THEME_STORAGE_KEY = 'qrturbo_theme';
 const DEFAULT_THEME = 'light';
-const AUTO_PREVIEW_DELAY = 450;
-const ASSET_VERSION_QUERY = document.currentScript?.src.match(/\?v=[^#&]+/)?.[0] || '';
-const WHATSAPP_USERNAME_PATTERN = /^@(?![0-9]{3,35}$)[a-z0-9._]{3,35}$/;
-const WHATSAPP_PHONE_PATTERN = /^\+?[0-9\s().-]+$/;
 const MIN_QUIET_ZONE_MODULES = 4;
-const FRAME_STYLES = new Set(['none', 'banner-bottom', 'banner-top', 'outline']);
-const FRAME_TEXT_MAX_LENGTH = 30;
-const FRAME_FONT_FAMILY = '-apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, '
-    + '\'Noto Sans CJK SC\', \'Noto Sans CJK JP\', \'Noto Sans CJK KR\', sans-serif';
+const URL_TEXT_MAX_LENGTH = 2000;
+const SMS_MESSAGE_MAX_LENGTH = 300;
 
-const SOCIAL_PLATFORM_CONFIG = {
-    instagram: {
-        buildUrl: handle => `https://www.instagram.com/${handle}/`
+// The field that receives focus and the error message for each content type
+// when no more specific field is invalid.
+const CONTENT_PRIMARY_FIELDS = {
+    URLText: 'qr-text',
+    VCard: 'vcard-fn',
+    Wifi: 'wifi-ssid',
+    SMSPhone: 'sms-phone-number',
+    Email: 'email-to',
+    CalendarEvent: 'event-title',
+    Location: 'location-address',
+    SocialMedia: 'social-handle',
+    WhatsApp: 'whatsapp-phone',
+    MeCard: 'mecard-name',
+    AppLink: 'app-web-url',
+    Payment: 'payment-name'
+};
+
+// Form field ids per content type, keyed by the QRTurboPayloads values key
+// (SPEC D). Validation errors name a values key; this maps it back to the
+// field to highlight.
+const CONTENT_FIELD_IDS = {
+    URLText: { text: 'qr-text' },
+    VCard: {
+        firstName: 'vcard-fn',
+        lastName: 'vcard-ln',
+        organization: 'vcard-org',
+        department: 'vcard-department',
+        title: 'vcard-title',
+        phoneWork: 'vcard-tel-work',
+        phoneMobile: 'vcard-tel-mobile',
+        phoneHome: 'vcard-tel-home',
+        email: 'vcard-email',
+        website: 'vcard-url',
+        street: 'vcard-street',
+        city: 'vcard-city',
+        state: 'vcard-state',
+        zip: 'vcard-zip',
+        country: 'vcard-country',
+        addressType: 'vcard-adr-type',
+        birthday: 'vcard-bday',
+        note: 'vcard-note'
     },
-    tiktok: {
-        buildUrl: handle => `https://www.tiktok.com/@${handle}`
+    Wifi: { ssid: 'wifi-ssid', password: 'wifi-password', security: 'wifi-auth', hidden: 'wifi-hidden' },
+    SMSPhone: { mode: 'sms-type-sms', number: 'sms-phone-number', message: 'sms-message' },
+    Email: { to: 'email-to', subject: 'email-subject', body: 'email-body' },
+    CalendarEvent: {
+        title: 'event-title',
+        location: 'event-location',
+        start: 'event-start',
+        end: 'event-end',
+        description: 'event-description',
+        allDay: 'event-all-day',
+        timeZone: 'event-time-zone'
     },
-    youtube: {
-        buildUrl: handle => `https://www.youtube.com/@${handle}`
-    },
-    facebook: {
-        buildUrl: handle => `https://www.facebook.com/${handle}`
-    },
-    x: {
-        buildUrl: handle => `https://x.com/${handle}`
-    },
-    linkedin: {
-        buildUrl: (handle, type) => `https://www.linkedin.com/${type === 'company' ? 'company' : 'in'}/${handle}`
-    },
-    snapchat: {
-        buildUrl: handle => `https://www.snapchat.com/add/${handle}`
-    },
-    pinterest: {
-        buildUrl: handle => `https://www.pinterest.com/${handle}/`
-    },
-    reddit: {
-        buildUrl: (handle, type) => `https://www.reddit.com/${type === 'subreddit' ? 'r' : 'user'}/${handle}`
-    },
-    threads: {
-        buildUrl: handle => `https://www.threads.net/@${handle}`
-    },
-    bluesky: {
-        buildUrl: handle => `https://bsky.app/profile/${handle}`
-    },
-    other: {
-        requiresUrl: true
+    Location: { address: 'location-address', latitude: 'location-lat', longitude: 'location-lng' },
+    SocialMedia: { platform: 'social-platform', profileType: 'social-profile-type', handle: 'social-handle' },
+    WhatsApp: { phone: 'whatsapp-phone', message: 'whatsapp-message' },
+    MeCard: { name: 'mecard-name', phone: 'mecard-phone', email: 'mecard-email', url: 'mecard-url', address: 'mecard-address' },
+    AppLink: { webUrl: 'app-web-url', iosUrl: 'app-ios-url', androidUrl: 'app-android-url', target: 'app-link-target' },
+    Payment: {
+        name: 'payment-name',
+        iban: 'payment-iban',
+        bic: 'payment-bic',
+        amount: 'payment-amount',
+        reference: 'payment-reference',
+        message: 'payment-message',
+        dueDate: 'payment-due-date'
     }
+};
+
+// Values keys that come from checkboxes.
+const CONTENT_BOOLEAN_KEYS = ['hidden', 'allDay'];
+
+// Mutable page state for the content forms: the event UID and DTSTAMP stay
+// the same while the event fields do not change, so redrawing the preview
+// (for example after a color change) never reshuffles the code.
+const contentFormState = {
+    calendar: null,
+    formErrorHome: null
 };
 
 function registerServiceWorker() {
@@ -61,41 +96,33 @@ function registerServiceWorker() {
         return;
     }
 
+    // The service worker inherits the page's ?v= query, which it propagates.
+    const versionQuery = globalThis.QRTurboUI?.ASSET_VERSION_QUERY || '';
+
+    // Keep this language and page available offline.
+    const cachePage = worker => {
+        worker?.postMessage({ type: 'cache-page', path: window.location.pathname });
+    };
+
+    // An update replaces the worker and its cache while this page is open, so
+    // the new worker is asked too. The first visit's takeover needs no repeat.
+    let hadController = Boolean(navigator.serviceWorker.controller);
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (hadController) {
+            cachePage(navigator.serviceWorker.controller);
+        }
+        hadController = true;
+    });
+
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register(`/sw.js${ASSET_VERSION_QUERY}`)
+        navigator.serviceWorker.register(`/sw.js${versionQuery}`)
             .then(() => navigator.serviceWorker.ready)
-            .then(registration => {
-                // Keep this language and page available offline.
-                registration.active?.postMessage({ type: 'cache-page', path: window.location.pathname });
-            })
+            .then(registration => cachePage(registration.active))
             .catch(error => {
                 console.warn('Service worker registration failed:', error);
             });
     });
 }
-
-function getDefaultCustomization() {
-    return {
-        fgColor: '#000000',
-        bgColor: '#ffffff',
-        errorCorrection: 'M',
-        format: 'png',
-        dotStyle: 'square',
-        cornerSquareStyle: 'extra-rounded',
-        cornerDotStyle: 'dot',
-        margin: MIN_QUIET_ZONE_MODULES,
-        logoImage: null,
-        logoSize: 0.4,
-        logoMargin: 4,
-        transparentBackground: false,
-        frameStyle: 'none',
-        frameText: '',
-        frameColor: '#000000'
-    };
-}
-
-// Customization state
-let qrCustomization = getDefaultCustomization();
 
 function normalizeTheme(theme) {
     return theme === 'dark' ? 'dark' : DEFAULT_THEME;
@@ -157,49 +184,6 @@ function setupThemeSelector() {
     });
 }
 
-/**
- * @description Calculate luminance for color contrast validation
- */
-function calculateLuminance(hex) {
-    const rgb = parseInt(hex.slice(1), 16);
-    const r = (rgb >> 16) & 0xff;
-    const g = (rgb >> 8) & 0xff;
-    const b = (rgb >> 0) & 0xff;
-    return 0.299 * r + 0.587 * g + 0.114 * b;
-}
-
-/**
- * @description Validate color contrast to ensure QR code scannability
- */
-function validateColorContrast(fgColor, bgColor) {
-    const fgLum = calculateLuminance(fgColor);
-    const bgLum = calculateLuminance(bgColor);
-    const contrast = Math.abs(fgLum - bgLum);
-
-    if (contrast < 100) {
-        alert(t('alerts.lowContrast'));
-        return false;
-    }
-    return true;
-}
-
-function getFieldValue(id) {
-    return document.getElementById(id).value.trim();
-}
-
-function isValidEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
-
-function isValidHttpUrl(value) {
-    try {
-        const url = new URL(value);
-        return url.protocol === 'http:' || url.protocol === 'https:';
-    } catch {
-        return false;
-    }
-}
-
 function getUtf8Bytes(value) {
     const text = String(value);
     if (typeof TextEncoder !== 'undefined') {
@@ -229,121 +213,35 @@ function formatQuietZoneValue(value) {
     return t('units.modules', { count: Number(value) });
 }
 
-function cleanSocialHandle(value, platform, type) {
-    let handle = String(value)
-        .trim()
-        .replace(/^@+/, '')
-        .replace(/^\/+/, '')
-        .replace(/^@+/, '')
-        .replace(/\/+$/, '');
+// --- Validation messages ---
 
-    if (platform === 'linkedin') {
-        handle = type === 'company'
-            ? handle.replace(/^company\//i, '')
-            : handle.replace(/^in\//i, '');
-    }
-
-    if (platform === 'reddit') {
-        handle = type === 'subreddit'
-            ? handle.replace(/^r\//i, '')
-            : handle.replace(/^(?:u|user)\//i, '');
-    }
-
-    if (platform === 'youtube') {
-        handle = handle.replace(/^@+/, '');
-    }
-
-    return handle;
+function addIdToken(element, attribute, id) {
+    const tokens = (element.getAttribute?.(attribute) || '').split(/\s+/).filter(Boolean);
+    if (!tokens.includes(id)) element.setAttribute(attribute, [...tokens, id].join(' '));
 }
 
-function isValidSocialHandle(value) {
-    return /^[A-Za-z0-9._-]+$/.test(value);
+function removeIdToken(element, attribute, id) {
+    const tokens = (element.getAttribute?.(attribute) || '').split(/\s+/).filter(Boolean);
+    if (!tokens.includes(id)) return;
+    const remaining = tokens.filter(token => token !== id);
+    if (remaining.length) {
+        element.setAttribute(attribute, remaining.join(' '));
+    } else {
+        element.removeAttribute(attribute);
+    }
 }
 
-function getSocialQRCodeUrl(showAlerts = false) {
-    const platform = getFieldValue('social-platform') || 'instagram';
-    const profileType = getFieldValue('social-profile-type') || 'person';
-    const rawValue = getFieldValue('social-handle');
-    const config = SOCIAL_PLATFORM_CONFIG[platform] || SOCIAL_PLATFORM_CONFIG.instagram;
-
-    if (!rawValue) {
-        return notifyValidation('alerts.socialRequired', showAlerts, 'social-handle');
-    }
-
-    if (/^https?:\/\//i.test(rawValue)) {
-        return isValidHttpUrl(rawValue)
-            ? rawValue
-            : notifyValidation('alerts.socialUrlInvalid', showAlerts, 'social-handle');
-    }
-
-    if (config.requiresUrl) {
-        return notifyValidation('alerts.socialUrlInvalid', showAlerts, 'social-handle');
-    }
-
-    const handle = cleanSocialHandle(rawValue, platform, profileType);
-    if (!isValidSocialHandle(handle)) {
-        return notifyValidation('alerts.socialHandleInvalid', showAlerts, 'social-handle');
-    }
-
-    return config.buildUrl(handle, profileType);
-}
-
-function normalizeWhatsAppNumber(value) {
-    return value.replace(/\D/g, '');
-}
-
-function normalizeWhatsAppUsername(value) {
-    const username = String(value).trim();
-    return username.startsWith('@') ? username : '';
-}
-
-function getWhatsAppQRCodeUrl(showAlerts = false) {
-    const target = getFieldValue('whatsapp-phone');
-    const message = document.getElementById('whatsapp-message').value;
-    const username = normalizeWhatsAppUsername(target);
-
-    if (username) {
-        if (!WHATSAPP_USERNAME_PATTERN.test(username)) {
-            return notifyValidation('alerts.whatsappPhoneRequired', showAlerts, 'whatsapp-phone');
-        }
-
-        return `https://wa.me/${username.slice(1)}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
-    }
-
-    const phoneTarget = String(target).trim();
-    if (!WHATSAPP_PHONE_PATTERN.test(phoneTarget)) {
-        return notifyValidation('alerts.whatsappPhoneRequired', showAlerts, 'whatsapp-phone');
-    }
-
-    const digits = normalizeWhatsAppNumber(phoneTarget);
-
-    if (!digits || digits.length < 7 || digits.length > 15) {
-        return notifyValidation('alerts.whatsappPhoneRequired', showAlerts, 'whatsapp-phone');
-    }
-
-    return `https://wa.me/${digits}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
-}
-
-function escapeICalText(value) {
-    return String(value)
-        .replace(/\\/g, '\\\\')
-        .replace(/\r\n|\r|\n/g, '\\n')
-        .replace(/;/g, '\\;')
-        .replace(/,/g, '\\,');
-}
-
-function formatICalDateTime(value) {
-    const compactValue = value.replace(/[-:]/g, '');
-    return compactValue.length === 13 ? `${compactValue}00` : compactValue.slice(0, 15);
-}
-
-function escapeMeCardField(value) {
-    return String(value)
-        .replace(/\\/g, '\\\\')
-        .replace(/;/g, '\\;')
-        .replace(/:/g, '\\:')
-        .replace(/,/g, '\\,')
-        .replace(/\r\n|\r|\n/g, ' ');
+/**
+ * @description Removes the invalid state from the fields that #form-error
+ * described. Other modules' own aria-invalid fields are left alone.
+ */
+function clearInvalidFields(exceptField = null) {
+    document.querySelectorAll?.('[aria-errormessage="form-error"]').forEach(field => {
+        if (field === exceptField) return;
+        field.removeAttribute('aria-invalid');
+        field.removeAttribute('aria-errormessage');
+        removeIdToken(field, 'aria-describedby', 'form-error');
+    });
 }
 
 function clearFormError() {
@@ -354,424 +252,180 @@ function clearFormError() {
         delete errorContainer.dataset.i18nKey;
     }
 
-    document.querySelectorAll?.('[aria-invalid="true"]').forEach(field => {
-        field.removeAttribute('aria-invalid');
-        field.removeAttribute('aria-errormessage');
-    });
+    clearInvalidFields();
 }
 
+/**
+ * @description Moves #form-error to its place: at the end of the invalid
+ * field's own .input-group, so in a two-column grid the message stays in the
+ * field's cell and never pushes the neighbouring field to another row. A
+ * field without a group gets it right after its fieldset or itself. With no
+ * field it goes back to its home in the preview card.
+ */
+function placeFormError(errorContainer, field) {
+    if (!contentFormState.formErrorHome && errorContainer.parentNode) {
+        contentFormState.formErrorHome = {
+            parent: errorContainer.parentNode,
+            next: errorContainer.nextSibling
+        };
+    }
+
+    const group = field ? field.closest?.('.input-group') : null;
+    if (group) {
+        if (group.lastElementChild !== errorContainer) group.append(errorContainer);
+        return;
+    }
+
+    const anchor = field ? (field.closest?.('fieldset') || field) : null;
+    if (anchor && anchor.parentNode) {
+        if (anchor.nextElementSibling !== errorContainer) anchor.after(errorContainer);
+        return;
+    }
+
+    const home = contentFormState.formErrorHome;
+    if (home && errorContainer.parentNode !== home.parent) {
+        const next = home.next && home.next.parentNode === home.parent ? home.next : null;
+        home.parent.insertBefore(errorContainer, next);
+    }
+}
+
+/**
+ * @description Shows a message in #form-error next to the invalid field and
+ * marks the field with aria-invalid, aria-errormessage and
+ * aria-describedby. Returns false when the page has no #form-error.
+ */
 function showFormError(message, fieldId, messageKey) {
     const errorContainer = document.getElementById('form-error');
     if (!errorContainer) return false;
 
-    errorContainer.textContent = message;
-    errorContainer.hidden = false;
+    const field = fieldId ? document.getElementById(fieldId) : null;
+    const unchanged = !errorContainer.hidden &&
+        errorContainer.textContent === message &&
+        (!field || field.getAttribute('aria-errormessage') === 'form-error');
+
+    clearInvalidFields(field);
+    placeFormError(errorContainer, field);
+
+    // Rewriting the same text would make screen readers repeat the alert.
+    if (!unchanged) {
+        errorContainer.textContent = message;
+        errorContainer.hidden = false;
+    }
     if (messageKey) {
         errorContainer.dataset.i18nKey = messageKey;
     } else {
         delete errorContainer.dataset.i18nKey;
     }
 
-    if (fieldId) {
-        const field = document.getElementById(fieldId);
-        field?.setAttribute('aria-invalid', 'true');
-        field?.setAttribute('aria-errormessage', 'form-error');
+    if (field) {
+        field.setAttribute('aria-invalid', 'true');
+        field.setAttribute('aria-errormessage', 'form-error');
+        addIdToken(field, 'aria-describedby', 'form-error');
     }
 
     return true;
 }
 
+/**
+ * @description Shows a validation message next to the form when requested.
+ * Without a #form-error region (as in the Node test harness) the message goes
+ * to the validation sink, never to a blocking dialog.
+ */
 function notifyValidation(messageKey, showErrors, fieldId) {
     if (showErrors) {
         const message = t(messageKey);
         if (!showFormError(message, fieldId, messageKey)) {
-            alert(message);
+            (globalThis.__qrturboValidationSink || console.warn)(message);
         }
     }
     return null;
 }
 
+// --- Reading the content forms ---
+
+/**
+ * @description Reads the form of one content type into the plain values
+ * object that QRTurboPayloads.build() expects.
+ */
+function readContentValues(type) {
+    const ids = CONTENT_FIELD_IDS[type] || {};
+    const values = {};
+
+    Object.keys(ids).forEach(key => {
+        if (type === 'SMSPhone' && key === 'mode') {
+            values.mode = document.querySelector('input[name="sms-phone-type"]:checked')?.value || 'sms';
+            return;
+        }
+
+        const element = document.getElementById(ids[key]);
+        if (!element) return;
+        values[key] = CONTENT_BOOLEAN_KEYS.includes(key) ? Boolean(element.checked) : element.value;
+    });
+
+    return values;
+}
+
+/**
+ * @description The event UID and DTSTAMP for the current event values. They
+ * change only when the event fields change.
+ */
+function getCalendarOptions(values) {
+    const key = JSON.stringify(values);
+    const cached = contentFormState.calendar;
+    if (cached && cached.key === key) return { now: cached.now, uid: cached.uid };
+
+    const next = { key, now: new Date(), uid: globalThis.QRTurboPayloads.createUid() };
+    contentFormState.calendar = next;
+    return { now: next.now, uid: next.uid };
+}
+
+/**
+ * @description Reads the active content form and returns a ContentResult:
+ * { ok: true, type, payload, isSensitive, filenameHint, primaryFieldId } or
+ * { ok: false, type, empty, errorKey, fieldId }. With showErrors, a failure
+ * is also shown in #form-error next to the invalid field.
+ */
+function collectContent(showErrors = false) {
+    const type = getActiveTabName();
+    const ids = CONTENT_FIELD_IDS[type];
+    const payloads = globalThis.QRTurboPayloads;
+
+    if (!ids || !payloads || typeof payloads.build !== 'function') {
+        notifyValidation('alerts.noData', showErrors, null);
+        return { ok: false, type, empty: true, errorKey: 'alerts.noData', fieldId: null };
+    }
+
+    const values = readContentValues(type);
+    const result = payloads.build(type, values, type === 'CalendarEvent' ? getCalendarOptions(values) : undefined);
+
+    if (!result.ok) {
+        const fieldId = (result.field && ids[result.field]) || null;
+        notifyValidation(result.errorKey, showErrors, fieldId);
+        return {
+            ok: false,
+            type,
+            empty: Boolean(result.empty),
+            errorKey: result.errorKey,
+            fieldId
+        };
+    }
+
+    return {
+        ok: true,
+        type,
+        payload: result.payload,
+        isSensitive: Boolean(result.isSensitive),
+        filenameHint: String(result.filenameHint || ''),
+        primaryFieldId: CONTENT_PRIMARY_FIELDS[type] || null
+    };
+}
+
+/**
+ * @description Compatibility wrapper: the payload of the active tab, or null.
+ */
 function collectQRCodeText(showAlerts = false) {
-    const activeTabButton = document.querySelector('.tab-link.active');
-    if (!activeTabButton) return null;
-    const activeTab = activeTabButton.dataset.tab;
-
-    if (activeTab === 'URLText') {
-        const text = document.getElementById('qr-text').value;
-        return text.trim() ? text : notifyValidation('alerts.enterText', showAlerts, 'qr-text');
-    }
-
-    if (activeTab === 'VCard') {
-        const vcard = {
-            fn: document.getElementById('vcard-fn').value.trim(),
-            ln: document.getElementById('vcard-ln').value.trim(),
-            org: document.getElementById('vcard-org').value.trim(),
-            title: document.getElementById('vcard-title').value.trim(),
-            telWork: document.getElementById('vcard-tel-work').value.trim(),
-            telMobile: document.getElementById('vcard-tel-mobile').value.trim(),
-            email: document.getElementById('vcard-email').value.trim(),
-            url: document.getElementById('vcard-url').value.trim(),
-            street: document.getElementById('vcard-street').value.trim(),
-            city: document.getElementById('vcard-city').value.trim(),
-            state: document.getElementById('vcard-state').value.trim(),
-            zip: document.getElementById('vcard-zip').value.trim(),
-            country: document.getElementById('vcard-country').value.trim(),
-        };
-
-        if (!vcard.fn && !vcard.ln && !vcard.email && !vcard.telMobile && !vcard.telWork) {
-            return notifyValidation('alerts.vcardRequired', showAlerts, 'vcard-fn');
-        }
-
-        if (vcard.email && !isValidEmail(vcard.email)) {
-            return notifyValidation('alerts.emailInvalid', showAlerts, 'vcard-email');
-        }
-
-        if (vcard.url && !isValidHttpUrl(vcard.url)) {
-            return notifyValidation('alerts.urlInvalid', showAlerts, 'vcard-url');
-        }
-
-        const escapeVCardField = (value) => {
-            if (!value) return '';
-            return String(value)
-                .replace(/\\/g, '\\\\')
-                .replace(/\r\n|\r|\n/g, '\\n')
-                .replace(/;/g, '\\;')
-                .replace(/,/g, '\\,');
-        };
-
-        const vCardLines = ['BEGIN:VCARD', 'VERSION:3.0'];
-        const hasName = vcard.fn || vcard.ln;
-        const displayName = hasName
-            ? `${vcard.fn || ''} ${vcard.ln || ''}`.trim()
-            : vcard.email || vcard.telMobile || vcard.telWork || vcard.org || 'Contact';
-
-        vCardLines.push(`N:${escapeVCardField(vcard.ln)};${escapeVCardField(vcard.fn)};;;`);
-        vCardLines.push(`FN:${escapeVCardField(displayName)}`);
-        if (vcard.org) vCardLines.push(`ORG:${escapeVCardField(vcard.org)}`);
-        if (vcard.title) vCardLines.push(`TITLE:${escapeVCardField(vcard.title)}`);
-        if (vcard.telWork) vCardLines.push(`TEL;TYPE=WORK,VOICE:${escapeVCardField(vcard.telWork)}`);
-        if (vcard.telMobile) vCardLines.push(`TEL;TYPE=CELL,VOICE:${escapeVCardField(vcard.telMobile)}`);
-        if (vcard.email) vCardLines.push(`EMAIL:${escapeVCardField(vcard.email)}`);
-        if (vcard.url) vCardLines.push(`URL:${escapeVCardField(vcard.url)}`);
-        if (vcard.street || vcard.city || vcard.state || vcard.zip || vcard.country) {
-            vCardLines.push(`ADR;TYPE=HOME:;;${escapeVCardField(vcard.street)};${escapeVCardField(vcard.city)};${escapeVCardField(vcard.state)};${escapeVCardField(vcard.zip)};${escapeVCardField(vcard.country)}`);
-        }
-        vCardLines.push('END:VCARD');
-        return vCardLines.join('\r\n');
-    }
-
-    if (activeTab === 'Wifi') {
-        const ssid = document.getElementById('wifi-ssid').value;
-        const password = document.getElementById('wifi-password').value;
-        const authType = document.getElementById('wifi-auth').value;
-        const isHidden = document.getElementById('wifi-hidden').checked;
-
-        if (!ssid.length) {
-            return notifyValidation('alerts.wifiSsidRequired', showAlerts, 'wifi-ssid');
-        }
-
-        if (getUtf8Bytes(ssid).length > 32) {
-            return notifyValidation('alerts.wifiSsidLengthInvalid', showAlerts, 'wifi-ssid');
-        }
-
-        if (authType === 'WPA' && !/^(?:[ -~]{8,63}|[0-9A-Fa-f]{64})$/.test(password)) {
-            return notifyValidation('alerts.wifiWpaPasswordInvalid', showAlerts, 'wifi-password');
-        }
-
-        if (authType === 'WEP' && !/^(?:[ -~]{5}|[ -~]{13}|[0-9A-Fa-f]{10}|[0-9A-Fa-f]{26})$/.test(password)) {
-            return notifyValidation('alerts.wifiWepPasswordInvalid', showAlerts, 'wifi-password');
-        }
-
-        const escapeWifi = (s) => s.replace(/([\\;,":])/g, '\\$1');
-        let wifiString = `WIFI:S:${escapeWifi(ssid)};T:${authType};`;
-        if (authType !== 'nopass') {
-            wifiString += `P:${escapeWifi(password)};`;
-        }
-        if (isHidden) {
-            wifiString += 'H:true;';
-        }
-        return wifiString;
-    }
-
-    if (activeTab === 'SMSPhone') {
-        const type = document.querySelector('input[name="sms-phone-type"]:checked').value;
-        const phoneNumber = document.getElementById('sms-phone-number').value.trim();
-
-        if (!phoneNumber) {
-            return notifyValidation('alerts.phoneRequired', showAlerts, 'sms-phone-number');
-        }
-
-        return type === 'sms'
-            ? `SMSTO:${phoneNumber}:${document.getElementById('sms-message').value}`
-            : `tel:${phoneNumber}`;
-    }
-
-    if (activeTab === 'Email') {
-        const to = getFieldValue('email-to');
-        const subject = getFieldValue('email-subject');
-        const body = document.getElementById('email-body').value;
-
-        if (!to && !subject && !body.trim()) {
-            return notifyValidation('alerts.emailRequired', showAlerts, 'email-to');
-        }
-
-        if (to && !isValidEmail(to)) {
-            return notifyValidation('alerts.emailInvalid', showAlerts, 'email-to');
-        }
-
-        const params = [];
-        const encodeMailtoValue = value => encodeURIComponent(
-            String(value).replace(/\r\n|\r|\n/g, '\r\n')
-        );
-        if (subject) params.push(`subject=${encodeMailtoValue(subject)}`);
-        if (body) params.push(`body=${encodeMailtoValue(body)}`);
-        const query = params.join('&');
-        return `mailto:${to}${query ? `?${query}` : ''}`;
-    }
-
-    if (activeTab === 'CalendarEvent') {
-        const title = getFieldValue('event-title');
-        const location = getFieldValue('event-location');
-        const start = document.getElementById('event-start').value;
-        const end = document.getElementById('event-end').value;
-        const description = document.getElementById('event-description').value.trim();
-
-        if (!title || !start) {
-            return notifyValidation('alerts.eventRequired', showAlerts, !title ? 'event-title' : 'event-start');
-        }
-
-        if (end && new Date(end) < new Date(start)) {
-            return notifyValidation('alerts.eventEndInvalid', showAlerts, 'event-end');
-        }
-
-        const eventLines = [
-            'BEGIN:VCALENDAR',
-            'VERSION:2.0',
-            'PRODID:-//QRTurbo.app//QR Event//EN',
-            'BEGIN:VEVENT',
-            `UID:${Date.now()}@qrturbo.app`,
-            `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z')}`,
-            `DTSTART:${formatICalDateTime(start)}`,
-        ];
-
-        if (end) eventLines.push(`DTEND:${formatICalDateTime(end)}`);
-        eventLines.push(`SUMMARY:${escapeICalText(title)}`);
-        if (location) eventLines.push(`LOCATION:${escapeICalText(location)}`);
-        if (description) eventLines.push(`DESCRIPTION:${escapeICalText(description)}`);
-        eventLines.push('END:VEVENT', 'END:VCALENDAR');
-        return eventLines.join('\r\n');
-    }
-
-    if (activeTab === 'Location') {
-        const address = getFieldValue('location-address');
-        const latitude = getFieldValue('location-lat');
-        const longitude = getFieldValue('location-lng');
-        const hasLat = latitude !== '';
-        const hasLng = longitude !== '';
-
-        if (!address && !hasLat && !hasLng) {
-            return notifyValidation('alerts.locationRequired', showAlerts, 'location-address');
-        }
-
-        if (hasLat || hasLng) {
-            const lat = Number(latitude);
-            const lng = Number(longitude);
-            if (!hasLat || !hasLng || Number.isNaN(lat) || Number.isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-                return notifyValidation(
-                    'alerts.locationCoordinatesInvalid',
-                    showAlerts,
-                    !hasLat || Number.isNaN(lat) || lat < -90 || lat > 90 ? 'location-lat' : 'location-lng'
-                );
-            }
-            return address
-                ? `geo:${lat},${lng}?q=${encodeURIComponent(address)}`
-                : `geo:${lat},${lng}`;
-        }
-
-        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-    }
-
-    if (activeTab === 'SocialMedia') {
-        return getSocialQRCodeUrl(showAlerts);
-    }
-
-    if (activeTab === 'WhatsApp') {
-        return getWhatsAppQRCodeUrl(showAlerts);
-    }
-
-    if (activeTab === 'MeCard') {
-        const name = getFieldValue('mecard-name');
-        const phone = getFieldValue('mecard-phone');
-        const email = getFieldValue('mecard-email');
-        const url = getFieldValue('mecard-url');
-        const address = getFieldValue('mecard-address');
-
-        if (!name && !phone && !email) {
-            return notifyValidation('alerts.mecardRequired', showAlerts, 'mecard-name');
-        }
-
-        if (email && !isValidEmail(email)) {
-            return notifyValidation('alerts.emailInvalid', showAlerts, 'mecard-email');
-        }
-
-        if (url && !isValidHttpUrl(url)) {
-            return notifyValidation('alerts.urlInvalid', showAlerts, 'mecard-url');
-        }
-
-        let meCardString = 'MECARD:';
-        if (name) meCardString += `N:${escapeMeCardField(name)};`;
-        if (phone) meCardString += `TEL:${escapeMeCardField(phone)};`;
-        if (email) meCardString += `EMAIL:${escapeMeCardField(email)};`;
-        if (url) meCardString += `URL:${escapeMeCardField(url)};`;
-        if (address) meCardString += `ADR:${escapeMeCardField(address)};`;
-        return `${meCardString};`;
-    }
-
-    if (activeTab === 'AppLink') {
-        const webUrl = getFieldValue('app-web-url');
-        const iosUrl = getFieldValue('app-ios-url');
-        const androidUrl = getFieldValue('app-android-url');
-        const target = document.getElementById('app-link-target').value;
-        const urls = [webUrl, iosUrl, androidUrl].filter(Boolean);
-
-        if (!urls.length) {
-            return notifyValidation('alerts.appLinkRequired', showAlerts, 'app-web-url');
-        }
-
-        if (urls.some(url => !isValidHttpUrl(url))) {
-            const invalidField = [
-                ['app-web-url', webUrl],
-                ['app-ios-url', iosUrl],
-                ['app-android-url', androidUrl]
-            ].find(([, url]) => url && !isValidHttpUrl(url));
-            return notifyValidation('alerts.urlInvalid', showAlerts, invalidField?.[0]);
-        }
-
-        if (webUrl) {
-            return webUrl;
-        }
-
-        const selectedStoreUrl = target === 'ios' ? iosUrl : androidUrl;
-        const fallbackStoreUrl = target === 'ios' ? androidUrl : iosUrl;
-        return selectedStoreUrl || fallbackStoreUrl;
-    }
-
-    return notifyValidation('alerts.noData', showAlerts);
-}
-
-function estimateQrComplexity(text) {
-    const length = new Blob([text]).size;
-    if (length > 1200) return 'veryHigh';
-    if (length > 700) return 'high';
-    if (length > 350) return 'medium';
-    return 'low';
-}
-
-function getScannabilityWarnings(text, size) {
-    const warnings = [];
-    const fgLum = calculateLuminance(qrCustomization.fgColor);
-    const bgLum = qrCustomization.transparentBackground ? 255 : calculateLuminance(qrCustomization.bgColor);
-    const contrast = Math.abs(fgLum - bgLum);
-    const complexity = estimateQrComplexity(text);
-
-    if (contrast < 100) {
-        warnings.push(t('warnings.lowContrast'));
-    }
-
-    if (qrCustomization.transparentBackground) {
-        warnings.push(t('warnings.transparentBackground'));
-    }
-
-    if (qrCustomization.margin < MIN_QUIET_ZONE_MODULES) {
-        warnings.push(t('warnings.quietZoneSmall'));
-    }
-
-    if (complexity === 'veryHigh' || (complexity === 'high' && size < 1024) || (complexity === 'medium' && size < 512)) {
-        warnings.push(t('warnings.denseData'));
-    }
-
-    if (qrCustomization.logoImage && qrCustomization.logoSize >= 0.4 && qrCustomization.errorCorrection !== 'H') {
-        warnings.push(t('warnings.logoErrorCorrection'));
-    }
-
-    if (qrCustomization.logoImage && qrCustomization.logoSize >= 0.45) {
-        warnings.push(t('warnings.logoLarge'));
-    }
-
-    return warnings;
-}
-
-function renderScannabilityWarnings(warnings) {
-    const warningsContainer = document.getElementById('scan-warnings');
-    if (!warningsContainer) return;
-
-    if (!warnings.length) {
-        warningsContainer.style.display = 'none';
-        warningsContainer.innerHTML = '';
-        return;
-    }
-
-    warningsContainer.innerHTML = warnings
-        .map(warning => `<p>${warning}</p>`)
-        .join('');
-    warningsContainer.style.display = 'block';
-}
-
-function clearGeneratedQRCode() {
-    const qrContainer = document.getElementById('qr-container');
-    const qrCanvasContainer = document.getElementById('qr-canvas-container');
-    const qrImage = document.getElementById('qr-image');
-    const downloadBtn = document.getElementById('download-btn');
-    const qrCodeText = document.getElementById('qr-code-text');
-    const qrPlaceholder = document.getElementById('qr-placeholder');
-    const payloadRevealBtn = document.getElementById('payload-reveal-btn');
-
-    qrCodeInstance = null;
-    generatedQRCode = null;
-    if (qrCanvasContainer) {
-        qrCanvasContainer.innerHTML = '';
-        qrCanvasContainer.classList.remove('transparent-preview');
-    }
-    if (qrPlaceholder) qrPlaceholder.style.display = 'block';
-    if (qrImage) {
-        qrImage.src = '';
-        qrImage.style.display = 'none';
-    }
-    if (downloadBtn) {
-        downloadBtn.style.display = 'none';
-        downloadBtn.disabled = true;
-    }
-    if (qrCodeText) {
-        qrCodeText.textContent = '';
-        qrCodeText.style.display = 'none';
-    }
-    if (payloadRevealBtn) {
-        payloadRevealBtn.hidden = true;
-        payloadRevealBtn.dataset.revealed = 'false';
-    }
-    if (qrContainer) {
-        qrContainer.classList.remove('loading');
-        qrContainer.setAttribute('aria-busy', 'false');
-    }
-    renderScannabilityWarnings([]);
-}
-
-function invalidateGeneratedQRCode() {
-    generationRevision += 1;
-    clearFormError();
-    clearGeneratedQRCode();
-    return generationRevision;
-}
-
-function schedulePreview({ showErrors = false } = {}) {
-    window.clearTimeout(previewDebounceTimer);
-    const revision = invalidateGeneratedQRCode();
-    previewDebounceTimer = window.setTimeout(() => {
-        activeGenerationPromise = generateQRCode({ revision, animate: false, showErrors });
-        activeGenerationPromise.finally(() => {
-            if (generationRevision === revision) activeGenerationPromise = null;
-        });
-    }, AUTO_PREVIEW_DELAY);
+    const result = collectContent(showAlerts);
+    return result.ok ? result.payload : null;
 }
 
 function getActiveTabName() {
@@ -786,419 +440,7 @@ function getPayloadPresentation(activeTab, payload) {
     };
 }
 
-function getGenerationErrorMessage(error) {
-    const details = String(error?.message || error || '');
-    return /code length overflow|data too long|capacity/i.test(details)
-        ? t('alerts.dataTooLong')
-        : `${t('alerts.generationError')}${details ? `: ${details}` : ''}`;
-}
-
-/**
- * @description Places the QR code and its call-to-action label inside a square
- * output of the selected size. The QR code keeps its own quiet zone, so the
- * frame never touches the modules that scanners read.
- */
-function getFrameLayout(size, style) {
-    const outputSize = Math.max(1, Math.round(Number(size) || 1));
-
-    if (!FRAME_STYLES.has(style) || style === 'none') {
-        return {
-            style: 'none',
-            framed: false,
-            width: outputSize,
-            height: outputSize,
-            qr: { x: 0, y: 0, size: outputSize }
-        };
-    }
-
-    const padding = Math.round(outputSize * 0.05);
-    const band = Math.round(outputSize * 0.16);
-    const qrSize = outputSize - (2 * padding) - band;
-    const qrX = Math.round((outputSize - qrSize) / 2);
-    const qrY = style === 'banner-top' ? padding + band : padding;
-    const labelHeight = padding + band;
-    const labelTop = style === 'banner-top' ? 0 : qrY + qrSize;
-
-    return {
-        style,
-        framed: true,
-        width: outputSize,
-        height: outputSize,
-        radius: Math.round(outputSize * 0.06),
-        innerRadius: Math.round(outputSize * 0.02),
-        stroke: Math.max(1, Math.round(outputSize * 0.02)),
-        qr: { x: qrX, y: qrY, size: qrSize },
-        label: {
-            x: outputSize / 2,
-            centerY: labelTop + (labelHeight / 2),
-            maxWidth: qrSize,
-            fontSize: Math.max(1, Math.round(band * 0.46))
-        }
-    };
-}
-
-function getFrameText() {
-    const text = String(qrCustomization.frameText || '').trim().slice(0, FRAME_TEXT_MAX_LENGTH);
-    return text || t('frame.defaultText');
-}
-
-function getReadableTextColor(backgroundHex) {
-    return calculateLuminance(backgroundHex) > 150 ? '#000000' : '#ffffff';
-}
-
-function getFrameColors(layout) {
-    const frameColor = qrCustomization.frameColor;
-    return {
-        frame: frameColor,
-        text: layout.style === 'outline' ? frameColor : getReadableTextColor(frameColor),
-        card: qrCustomization.transparentBackground ? null : qrCustomization.bgColor
-    };
-}
-
-function getFrameFont(fontSize) {
-    return `700 ${fontSize}px ${FRAME_FONT_FAMILY}`;
-}
-
-/**
- * @description Shrinks the label font until the measured text fits the QR width.
- */
-function fitFrameFontSize(text, fontSize, maxWidth, measureWidth) {
-    const measured = measureWidth(text, fontSize);
-    if (!measured || measured <= maxWidth) return fontSize;
-    return Math.max(1, Math.floor(fontSize * (maxWidth / measured)));
-}
-
-function measureFrameText(text, fontSize) {
-    const context = document.createElement('canvas').getContext('2d');
-    if (!context) return 0;
-    context.font = getFrameFont(fontSize);
-    return context.measureText(text).width;
-}
-
-// The label is drawn on an alphabetic baseline in both canvas and SVG, so the
-// raster and vector downloads place the text identically.
-function getFrameLabelBaseline(layout, fontSize) {
-    return layout.label.centerY + (fontSize * 0.35);
-}
-
-function roundedRectPathData(x, y, width, height, radius) {
-    const r = Math.max(0, Math.min(radius, width / 2, height / 2));
-    const n = formatPdfNumber;
-    return `M${n(x + r)} ${n(y)}H${n(x + width - r)}A${n(r)} ${n(r)} 0 0 1 ${n(x + width)} ${n(y + r)}`
-        + `V${n(y + height - r)}A${n(r)} ${n(r)} 0 0 1 ${n(x + width - r)} ${n(y + height)}`
-        + `H${n(x + r)}A${n(r)} ${n(r)} 0 0 1 ${n(x)} ${n(y + height - r)}`
-        + `V${n(y + r)}A${n(r)} ${n(r)} 0 0 1 ${n(x + r)} ${n(y)}Z`;
-}
-
-function traceRoundedRect(context, x, y, width, height, radius) {
-    const r = Math.max(0, Math.min(radius, width / 2, height / 2));
-    context.moveTo(x + r, y);
-    context.arcTo(x + width, y, x + width, y + height, r);
-    context.arcTo(x + width, y + height, x, y + height, r);
-    context.arcTo(x, y + height, x, y, r);
-    context.arcTo(x, y, x + width, y, r);
-    context.closePath();
-}
-
-function escapeXml(value) {
-    return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&apos;');
-}
-
-/**
- * @description Wraps the library's SVG in a framed vector document. The QR code
- * stays a nested SVG, so its modules keep their exact vector geometry.
- */
-function buildFramedSvg(qrSvgMarkup, layout, options) {
-    const { width, height, qr, radius, innerRadius, stroke } = layout;
-    const { text, fontSize, colors } = options;
-    const n = formatPdfNumber;
-    const nestedSvg = String(qrSvgMarkup)
-        .replace(/^\s*<\?xml[^>]*\?>\s*/i, '')
-        .replace(/<svg\b([^>]*)>/i, (match, attributes) => {
-            const cleanAttributes = attributes.replace(/\s(?:width|height|x|y|viewBox)="[^"]*"/g, '');
-            return `<svg${cleanAttributes} x="${qr.x}" y="${qr.y}" width="${qr.size}" height="${qr.size}" viewBox="0 0 ${qr.size} ${qr.size}">`;
-        });
-
-    const parts = [
-        `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
-        '<defs><clipPath id="qrturbo-frame-clip">',
-        `<path d="${roundedRectPathData(qr.x, qr.y, qr.size, qr.size, innerRadius)}"/>`,
-        '</clipPath></defs>'
-    ];
-
-    if (layout.style === 'outline') {
-        if (colors.card) {
-            parts.push(`<path fill="${colors.card}" d="${roundedRectPathData(0, 0, width, height, radius)}"/>`);
-        }
-        const inset = stroke / 2;
-        parts.push(
-            `<path fill="none" stroke="${colors.frame}" stroke-width="${stroke}" `
-            + `d="${roundedRectPathData(inset, inset, width - stroke, height - stroke, radius - inset)}"/>`
-        );
-    } else {
-        parts.push(
-            `<path fill="${colors.frame}" fill-rule="evenodd" d="${roundedRectPathData(0, 0, width, height, radius)}`
-            + `${roundedRectPathData(qr.x, qr.y, qr.size, qr.size, innerRadius)}"/>`
-        );
-    }
-
-    parts.push(
-        `<g clip-path="url(#qrturbo-frame-clip)">${nestedSvg}</g>`,
-        `<text x="${n(layout.label.x)}" y="${n(getFrameLabelBaseline(layout, fontSize))}" text-anchor="middle" `
-        + `font-family="${escapeXml(FRAME_FONT_FAMILY)}" font-weight="700" font-size="${fontSize}" `
-        + `fill="${colors.text}">${escapeXml(text)}</text>`,
-        '</svg>'
-    );
-
-    return parts.join('');
-}
-
-async function renderFramedCanvas(qrPngBlob, layout, options) {
-    const image = await loadImageFromDataURL(await blobToDataURL(qrPngBlob));
-    const { width, height, qr, radius, innerRadius, stroke } = layout;
-    const { text, fontSize, colors } = options;
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const context = canvas.getContext('2d');
-
-    if (layout.style === 'outline') {
-        if (colors.card) {
-            context.beginPath();
-            traceRoundedRect(context, 0, 0, width, height, radius);
-            context.fillStyle = colors.card;
-            context.fill();
-        }
-        const inset = stroke / 2;
-        context.beginPath();
-        traceRoundedRect(context, inset, inset, width - stroke, height - stroke, radius - inset);
-        context.lineWidth = stroke;
-        context.strokeStyle = colors.frame;
-        context.stroke();
-    } else {
-        context.beginPath();
-        traceRoundedRect(context, 0, 0, width, height, radius);
-        traceRoundedRect(context, qr.x, qr.y, qr.size, qr.size, innerRadius);
-        context.fillStyle = colors.frame;
-        context.fill('evenodd');
-    }
-
-    context.save();
-    context.beginPath();
-    traceRoundedRect(context, qr.x, qr.y, qr.size, qr.size, innerRadius);
-    context.clip();
-    context.imageSmoothingEnabled = false;
-    context.drawImage(image, qr.x, qr.y, qr.size, qr.size);
-    context.restore();
-
-    context.font = getFrameFont(fontSize);
-    context.textAlign = 'center';
-    context.textBaseline = 'alphabetic';
-    context.fillStyle = colors.text;
-    context.fillText(text, layout.label.x, getFrameLabelBaseline(layout, fontSize));
-
-    return canvas;
-}
-
-function canvasToBlob(canvas) {
-    return new Promise((resolve, reject) => {
-        canvas.toBlob(blob => (blob ? resolve(blob) : reject(new Error('Canvas export failed'))), 'image/png');
-    });
-}
-
-async function renderFramedArtifact(candidate, layout, renderType) {
-    const text = getFrameText();
-    const fontSize = fitFrameFontSize(text, layout.label.fontSize, layout.label.maxWidth, measureFrameText);
-    const options = { text, fontSize, colors: getFrameColors(layout) };
-
-    if (renderType === 'svg') {
-        const qrSvgBlob = await candidate.getRawData('svg');
-        const markup = buildFramedSvg(await qrSvgBlob.text(), layout, options);
-        const svgDocument = new DOMParser().parseFromString(markup, 'image/svg+xml');
-        if (svgDocument.querySelector('parsererror')) {
-            throw new Error('Framed SVG could not be parsed');
-        }
-        return { markup, element: document.importNode(svgDocument.documentElement, true) };
-    }
-
-    const canvas = await renderFramedCanvas(await candidate.getRawData('png'), layout, options);
-    return { canvas, element: canvas };
-}
-
-/**
- * @description Main function to generate the QR code based on the active tab and user input.
- */
-async function generateQRCode(options = {}) {
-    const revision = Number.isInteger(options.revision) ? options.revision : generationRevision;
-    const animate = options.animate !== false;
-    const showErrors = Boolean(options.showErrors);
-
-    clearFormError();
-    const text = collectQRCodeText(showErrors);
-
-    if (!text) {
-        if (revision === generationRevision) {
-            clearGeneratedQRCode();
-        }
-        return null;
-    }
-
-    const qrContainer = document.getElementById('qr-container');
-    const qrCanvasContainer = document.getElementById('qr-canvas-container');
-    const qrImage = document.getElementById('qr-image');
-    const downloadBtn = document.getElementById('download-btn');
-    const qrCodeText = document.getElementById('qr-code-text');
-    const qrPlaceholder = document.getElementById('qr-placeholder');
-    const payloadRevealBtn = document.getElementById('payload-reveal-btn');
-    const size = parseInt(document.getElementById('size-select').value);
-    const layout = getFrameLayout(size, qrCustomization.frameStyle);
-    const qrSize = layout.qr.size;
-    const qrText = String(text);
-    const activeTab = getActiveTabName();
-
-    if (typeof QRCodeStyling === 'undefined') {
-        showFormError(t('alerts.libraryLoadFailed'));
-        return null;
-    }
-
-    qrContainer.classList.add('loading');
-    qrContainer.setAttribute('aria-busy', 'true');
-    qrPlaceholder.style.display = 'none';
-    qrImage.style.display = 'none';
-    downloadBtn.style.display = 'none';
-    downloadBtn.disabled = true;
-    qrCodeText.style.display = 'none';
-
-    const config = {
-        width: qrSize,
-        height: qrSize,
-        type: qrCustomization.format === 'svg' ? 'svg' : 'canvas',
-        data: encodeTextForQRCode(qrText),
-        dotsOptions: {
-            color: qrCustomization.fgColor,
-            type: qrCustomization.dotStyle
-        },
-        backgroundOptions: {
-            color: qrCustomization.transparentBackground ? 'transparent' : qrCustomization.bgColor
-        },
-        cornersSquareOptions: {
-            color: qrCustomization.fgColor,
-            type: qrCustomization.cornerSquareStyle
-        },
-        cornersDotOptions: {
-            color: qrCustomization.fgColor,
-            type: qrCustomization.cornerDotStyle
-        },
-        qrOptions: {
-            errorCorrectionLevel: qrCustomization.errorCorrection
-        },
-        margin: 0
-    };
-
-    if (qrCustomization.logoImage) {
-        config.image = qrCustomization.logoImage;
-        config.imageOptions = {
-            hideBackgroundDots: true,
-            imageSize: qrCustomization.logoSize,
-            margin: qrCustomization.logoMargin,
-            crossOrigin: 'anonymous'
-        };
-    }
-
-    try {
-        const candidate = new QRCodeStyling(config);
-        const renderType = qrCustomization.format === 'svg' ? 'svg' : 'png';
-
-        // First render resolves automatic QR version selection and therefore
-        // the exact module count used for a standards-sized quiet zone.
-        await candidate.getRawData(renderType);
-        if (revision !== generationRevision) return null;
-
-        const moduleCount = candidate._qr?.getModuleCount?.();
-        if (!moduleCount) {
-            throw new Error('QR module count was not available');
-        }
-
-        const margin = calculateQuietZonePixels(qrSize, moduleCount, qrCustomization.margin);
-        candidate.update({ margin });
-        await candidate.getRawData(renderType);
-        if (revision !== generationRevision) return null;
-
-        const framed = layout.framed ? await renderFramedArtifact(candidate, layout, renderType) : null;
-        if (revision !== generationRevision) return null;
-
-        qrCanvasContainer.innerHTML = '';
-        qrCanvasContainer.classList.toggle('transparent-preview', qrCustomization.transparentBackground);
-        if (framed) {
-            qrCanvasContainer.appendChild(framed.element);
-        } else {
-            candidate.append(qrCanvasContainer);
-
-            // The library sizes SVG output with width/height only. A viewBox lets
-            // the preview (and the downloaded vector) scale instead of cropping.
-            const renderedSvg = qrCanvasContainer.querySelector('svg');
-            if (renderedSvg && !renderedSvg.hasAttribute('viewBox')) {
-                renderedSvg.setAttribute('viewBox', `0 0 ${qrSize} ${qrSize}`);
-            }
-        }
-
-        const presentation = getPayloadPresentation(activeTab, qrText);
-        const snapshot = {
-            revision,
-            activeTab,
-            payload: qrText,
-            format: qrCustomization.format,
-            filename: buildQRCodeFilename(activeTab, qrText),
-            isSensitive: presentation.isSensitive,
-            instance: candidate,
-            framed,
-            moduleCount,
-            margin
-        };
-        qrCodeInstance = candidate;
-        generatedQRCode = snapshot;
-
-        renderScannabilityWarnings(getScannabilityWarnings(qrText, qrSize));
-
-        qrCodeText.textContent = presentation.displayText;
-        qrCodeText.style.display = 'block';
-        if (payloadRevealBtn) {
-            payloadRevealBtn.hidden = !presentation.isSensitive;
-            payloadRevealBtn.dataset.revealed = 'false';
-            payloadRevealBtn.textContent = t('actions.showPayload');
-        }
-
-        qrContainer.classList.remove('loading');
-        qrContainer.setAttribute('aria-busy', 'false');
-        downloadBtn.disabled = false;
-        downloadBtn.style.display = 'block';
-
-        if (animate) {
-            qrContainer.style.animation = 'none';
-            qrContainer.offsetHeight;
-            qrContainer.style.animation = 'qrAppear 0.6s ease-out';
-        }
-        return snapshot;
-    } catch (error) {
-        console.error('QR Code Generation Error:', error);
-        if (revision === generationRevision) {
-            clearGeneratedQRCode();
-            showFormError(getGenerationErrorMessage(error));
-            qrPlaceholder.style.display = 'block';
-        }
-        return null;
-    } finally {
-        if (revision === generationRevision) {
-            qrContainer.classList.remove('loading');
-            qrContainer.setAttribute('aria-busy', 'false');
-        }
-    }
-}
+// --- Raster PDF fallback ---
 
 /**
  * @description Converts a string into byte values for PDF syntax.
@@ -1225,10 +467,6 @@ function createBlobFromParts(parts, type) {
     }
 
     return new Blob([bytes], { type });
-}
-
-function formatPdfNumber(value) {
-    return Number(value).toFixed(2).replace(/\.?0+$/, '');
 }
 
 function escapePdfText(value) {
@@ -1289,6 +527,10 @@ function imageDataToRgbBytes(imageData) {
     return rgbBytes;
 }
 
+/**
+ * @description Raster PDF fallback: one A4 page holding the QR code as an RGB
+ * image. The vector PDF writer falls back to this when it fails.
+ */
 function createQRCodePdfBlob(imageData, payloadText = '', includePayload = false) {
     const pageWidth = 595.28;
     const pageHeight = 841.89;
@@ -1347,7 +589,7 @@ function createQRCodePdfBlob(imageData, payloadText = '', includePayload = false
 
     const contentStream = `${contentLines.join('\n')}\n`;
 
-    appendString('%PDF-1.4\n% QRTurbo PDF export\n');
+    appendString('%PDF-1.4\n% QRTurbo.app PDF export\n');
 
     beginObject(1);
     appendString('<< /Type /Catalog /Pages 2 0 R >>\n');
@@ -1394,384 +636,473 @@ function createQRCodePdfBlob(imageData, payloadText = '', includePayload = false
     return createBlobFromParts(parts, 'application/pdf');
 }
 
-function blobToDataURL(blob) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = () => reject(reader.error || new Error('Blob reading failed'));
-        reader.readAsDataURL(blob);
-    });
-}
-
-function loadImageFromDataURL(dataUrl) {
-    return new Promise((resolve, reject) => {
-        const image = new Image();
-        image.onload = () => resolve(image);
-        image.onerror = () => reject(new Error('Image loading failed'));
-        image.src = dataUrl;
-    });
-}
-
 async function getOpaqueImageDataFromBlob(blob) {
     const dataUrl = await blobToDataURL(blob);
     const image = await loadImageFromDataURL(dataUrl);
     const width = image.naturalWidth || image.width;
     const height = image.naturalHeight || image.height;
     const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
 
-    canvas.width = width;
-    canvas.height = height;
-    context.fillStyle = '#ffffff';
-    context.fillRect(0, 0, width, height);
-    context.imageSmoothingEnabled = false;
-    context.drawImage(image, 0, 0, width, height);
+    try {
+        const context = canvas.getContext('2d');
+        canvas.width = width;
+        canvas.height = height;
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, width, height);
+        context.imageSmoothingEnabled = false;
+        context.drawImage(image, 0, 0, width, height);
 
-    return context.getImageData(0, 0, width, height);
-}
-
-function triggerBlobDownload(blob, filename) {
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-async function downloadQRCodePdf(snapshot) {
-    const qrPngBlob = snapshot.framed?.canvas
-        ? await canvasToBlob(snapshot.framed.canvas)
-        : await snapshot.instance.getRawData('png');
-    if (!qrPngBlob) {
-        throw new Error('QR PNG data was not available');
+        return context.getImageData(0, 0, width, height);
+    } finally {
+        // The pixels are copied out; release the canvas memory at once
+        // (Safari keeps a small total canvas budget).
+        canvas.width = 0;
+        canvas.height = 0;
     }
-
-    const imageData = await getOpaqueImageDataFromBlob(qrPngBlob);
-    // The PDF intentionally contains only the QR image. Payload captions can
-    // leak Wi-Fi passwords and other private data into otherwise shared files.
-    const pdfBlob = createQRCodePdfBlob(imageData);
-
-    triggerBlobDownload(pdfBlob, `${snapshot.filename}.pdf`);
 }
 
-function animateDownloadButton() {
-    const downloadBtn = document.getElementById('download-btn');
-    downloadBtn.style.animation = 'none';
-    downloadBtn.offsetHeight; // Force reflow
-    downloadBtn.style.animation = 'bounceIn 0.6s ease-out';
+// --- Content form helpers (browser only, wired by initContentForms) ---
+
+function updateCharCounter(input, counter, max, warnAt) {
+    if (!input || !counter) return;
+    const currentLength = input.value.length;
+    counter.textContent = t('counters.characters', { current: currentLength, max });
+    counter.classList.toggle('warning', currentLength >= warnAt);
 }
 
-function buildQRCodeFilename(activeTab, payload = '') {
-    let filename = 'qrcode_unknown';
+function prefersReducedMotion() {
+    return Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+}
 
-    if (activeTab === 'URLText') {
-        const urlText = String(payload).trim();
-        if (urlText) {
-            if (urlText.startsWith('http')) {
-                try {
-                    const url = new URL(urlText);
-                    filename = `url_${url.hostname.replace(/^www\./, '')}`;
-                } catch {
-                    filename = `text_${urlText.substring(0, 30)}`;
-                }
-            } else {
-                filename = `text_${urlText.substring(0, 30)}`;
-            }
-        }
-    } else if (activeTab === 'VCard') {
-        const firstName = document.getElementById('vcard-fn').value.trim();
-        const lastName = document.getElementById('vcard-ln').value.trim();
-        const email = document.getElementById('vcard-email').value.trim();
-        const org = document.getElementById('vcard-org').value.trim();
-        
-        if (firstName || lastName) {
-            filename = `vcard_${firstName || ''}_${lastName || ''}`.trim();
-        } else if (email) {
-            filename = `vcard_${email.split('@')[0]}`;
-        } else if (org) {
-            filename = `vcard_${org}`;
-        } else {
-            filename = 'vcard_contact';
-        }
-    } else if (activeTab === 'Wifi') {
-        const ssid = document.getElementById('wifi-ssid').value;
-        if (ssid) {
-            filename = `wifi_${ssid}`;
-        } else {
-            filename = 'wifi_network';
-        }
-    } else if (activeTab === 'SMSPhone') {
-        const type = document.querySelector('input[name="sms-phone-type"]:checked').value;
-        const phoneNumber = document.getElementById('sms-phone-number').value.trim();
-        if (phoneNumber) {
-            filename = `${type}_${phoneNumber.replace(/[^\d+]/g, '')}`;
-        } else {
-            filename = `${type}_number`;
-        }
-    } else if (activeTab === 'Email') {
-        const emailTo = document.getElementById('email-to').value.trim();
-        filename = emailTo ? `email_${emailTo.split('@')[0]}` : 'email_message';
-    } else if (activeTab === 'CalendarEvent') {
-        const eventTitle = document.getElementById('event-title').value.trim();
-        filename = eventTitle ? `event_${eventTitle}` : 'calendar_event';
-    } else if (activeTab === 'Location') {
-        const address = document.getElementById('location-address').value.trim();
-        filename = address ? `location_${address.substring(0, 30)}` : 'geo_location';
-    } else if (activeTab === 'SocialMedia') {
-        const platform = document.getElementById('social-platform').value;
-        const handle = document.getElementById('social-handle').value.trim();
-        filename = handle
-            ? `social_${platform}_${handle.replace(/^https?:\/\//i, '').substring(0, 30)}`
-            : `social_${platform}`;
-    } else if (activeTab === 'WhatsApp') {
-        const whatsappTarget = document.getElementById('whatsapp-phone').value.trim();
-        filename = whatsappTarget
-            ? `whatsapp_${whatsappTarget.replace(/^@/, '').replace(/[^\dA-Za-z._-]/g, '')}`
-            : 'whatsapp_message';
-    } else if (activeTab === 'MeCard') {
-        const name = document.getElementById('mecard-name').value.trim();
-        const email = document.getElementById('mecard-email').value.trim();
-        filename = name ? `mecard_${name}` : email ? `mecard_${email.split('@')[0]}` : 'mecard_contact';
-    } else if (activeTab === 'AppLink') {
-        const webUrl = document.getElementById('app-web-url').value.trim();
-        if (webUrl) {
-            try {
-                filename = `app_${new URL(webUrl).hostname.replace(/^www\./, '')}`;
-            } catch {
-                filename = 'app_link';
-            }
-        } else {
-            filename = 'app_link';
-        }
-    }
+const TAB_CHIP_CLEARANCE = 16;
 
-    const safeText = filename
-        .replace(/[^a-z0-9\-_]/gi, '_')
-        .replace(/_+/g, '_')
-        .replace(/^_|_$/g, '')
-        .substring(0, 50)
-        || 'qrcode_unknown';
-
-    return `qrcode_${safeText}`;
+function cssPixels(value) {
+    const number = parseFloat(value);
+    return Number.isFinite(number) && number > 0 ? number : 0;
 }
 
 /**
- * @description Downloads only the immutable, fully rendered input revision.
+ * @description How far a chip must stay from each end of the tab row: the
+ * row's padding (or scroll padding, whichever is larger). On phones that
+ * is --panel-pad, the width of the edge fade, so a chip that keeps this
+ * clearance is never faded.
  */
-async function downloadQRCode() {
-    window.clearTimeout(previewDebounceTimer);
-
-    if (activeGenerationPromise) {
-        await activeGenerationPromise;
-    }
-
-    let snapshot = generatedQRCode;
-    if (!snapshot || snapshot.revision !== generationRevision) {
-        activeGenerationPromise = generateQRCode({
-            revision: generationRevision,
-            animate: false,
-            showErrors: true
-        });
-        snapshot = await activeGenerationPromise;
-        activeGenerationPromise = null;
-    }
-
-    if (!snapshot || snapshot.revision !== generationRevision) {
-        showFormError(t('alerts.generateFirst'));
-        return;
-    }
-
-    const extension = snapshot.format;
-    const downloadBtn = document.getElementById('download-btn');
-
+function tabRowClearance(row) {
+    let style = null;
     try {
-        downloadBtn.disabled = true;
+        style = window.getComputedStyle?.(row) || null;
+    } catch {
+        style = null;
+    }
+    const left = style ? Math.max(cssPixels(style.paddingLeft), cssPixels(style.scrollPaddingLeft)) : 0;
+    const right = style ? Math.max(cssPixels(style.paddingRight), cssPixels(style.scrollPaddingRight)) : 0;
+    return { left: left || TAB_CHIP_CLEARANCE, right: right || TAB_CHIP_CLEARANCE };
+}
 
-        if (extension === 'pdf') {
-            await downloadQRCodePdf(snapshot);
-        } else if (snapshot.framed) {
-            const blob = snapshot.framed.canvas
-                ? await canvasToBlob(snapshot.framed.canvas)
-                : new Blob([snapshot.framed.markup], { type: 'image/svg+xml' });
-            triggerBlobDownload(blob, `${snapshot.filename}.${extension}`);
-        } else {
-            await snapshot.instance.download({
-                name: snapshot.filename,
-                extension: extension
-            });
-        }
+/**
+ * @description Scrolls the tab row sideways so the chip is fully visible
+ * and clear of the edge fade, without moving the page. Smooth only when
+ * asked and when the user has not asked for reduced motion.
+ *
+ * On phones the row snaps chip starts to its scroll padding, and Chromium
+ * moves a programmatic scroll to the nearest snap position, even backwards
+ * into the fade. So the scroll always ends on a snap position: the chip's
+ * own start, or the first chip start that shows the whole chip.
+ */
+function scrollTabChipIntoView(tab, smooth) {
+    const row = tab?.parentElement;
+    if (!row || row.scrollWidth <= row.clientWidth) return;
 
-        if (generatedQRCode === snapshot) {
-            animateDownloadButton();
+    const rowRect = row.getBoundingClientRect();
+    const tabRect = tab.getBoundingClientRect();
+    const clearance = tabRowClearance(row);
+    const visibleLeft = rowRect.left + clearance.left;
+    const visibleRight = rowRect.right - clearance.right;
+    let delta = 0;
+    if (tabRect.left < visibleLeft || tabRect.width > visibleRight - visibleLeft) {
+        delta = tabRect.left - visibleLeft;
+    } else if (tabRect.right > visibleRight) {
+        const needed = tabRect.right - visibleRight;
+        delta = needed;
+        for (const chip of Array.from(row.children || [])) {
+            const offset = chip.getBoundingClientRect().left - visibleLeft;
+            if (offset >= needed - 0.5) {
+                delta = offset;
+                break;
+            }
         }
-    } catch (error) {
-        console.error('Download failed:', error);
-        if (generatedQRCode === snapshot) {
-            showFormError(extension === 'pdf' ? t('alerts.pdfExportFailed') : t('alerts.generationError'));
-        }
-    } finally {
-        if (generatedQRCode === snapshot) {
-            downloadBtn.disabled = false;
-        }
+    }
+    if (Math.abs(delta) < 0.5) return;
+
+    if (typeof row.scrollBy === 'function') {
+        row.scrollBy({ left: delta, behavior: smooth && !prefersReducedMotion() ? 'smooth' : 'auto' });
+    } else {
+        row.scrollLeft += delta;
     }
 }
 
-// Setup page logic after the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    registerServiceWorker();
-    setupThemeSelector();
+/**
+ * @description The URL/Text form: character counter and the "Add https://"
+ * suggestion for values that look like a bare domain.
+ */
+function initUrlTextForm() {
+    const input = document.getElementById('qr-text');
+    const counter = document.getElementById('char-count');
+    const hint = document.getElementById('url-https-hint');
+    const button = document.getElementById('url-https-btn');
 
-    // --- Element Selectors ---
-    const tabsContainer = document.getElementById('tabs');
-    const wifiAuthSelect = document.getElementById('wifi-auth');
-    const wifiPasswordField = document.getElementById('wifi-password');
-    const wifiPasswordToggle = document.getElementById('wifi-password-toggle');
-    const smsPhoneTypeRadios = document.querySelectorAll('input[name="sms-phone-type"]');
-    const smsMessageGroup = document.getElementById('sms-message-group');
-    const qrTextInput = document.getElementById('qr-text');
-    const charCountDisplay = document.getElementById('char-count');
-    const smsMessageInput = document.getElementById('sms-message');
-    const smsCharCountDisplay = document.getElementById('sms-char-count');
-    const socialPlatformSelect = document.getElementById('social-platform');
-    const socialProfileTypeSelect = document.getElementById('social-profile-type');
-    const socialProfileTypeGroup = document.getElementById('social-profile-type-group');
-    const socialHandleInput = document.getElementById('social-handle');
-    const socialPreviewUrl = document.getElementById('social-preview-url');
-    const downloadBtn = document.getElementById('download-btn');
-    const payloadRevealBtn = document.getElementById('payload-reveal-btn');
+    function refresh() {
+        if (!input) return;
+        updateCharCounter(input, counter, URL_TEXT_MAX_LENGTH, 1800);
+        if (hint) hint.hidden = !globalThis.QRTurboPayloads?.looksLikeBareDomain(input.value);
+    }
 
-    // --- Event Listeners ---
+    input?.addEventListener('input', refresh);
 
-    downloadBtn?.addEventListener('click', downloadQRCode);
-    payloadRevealBtn?.addEventListener('click', function() {
-        if (!generatedQRCode?.isSensitive || generatedQRCode.revision !== generationRevision) {
+    // The suggestion only edits the field; the payload is always exactly
+    // what the field holds.
+    button?.addEventListener('click', () => {
+        const value = input.value.trim();
+        if (!value) return;
+        input.value = `https://${value}`;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.focus();
+        input.setSelectionRange?.(input.value.length, input.value.length);
+    });
+
+    refresh();
+    return { refresh };
+}
+
+/**
+ * @description The SMS/Phone form: the message field only shows for SMS.
+ */
+function initSmsPhoneForm() {
+    const radios = document.querySelectorAll('input[name="sms-phone-type"]');
+    const messageGroup = document.getElementById('sms-message-group');
+    const message = document.getElementById('sms-message');
+    const counter = document.getElementById('sms-char-count');
+
+    function refresh() {
+        const selectedType = document.querySelector('input[name="sms-phone-type"]:checked')?.value;
+        if (messageGroup) messageGroup.hidden = selectedType !== 'sms';
+        updateCharCounter(message, counter, SMS_MESSAGE_MAX_LENGTH, 250);
+    }
+
+    radios.forEach(radio => radio.addEventListener('change', refresh));
+    message?.addEventListener('input', () => updateCharCounter(message, counter, SMS_MESSAGE_MAX_LENGTH, 250));
+
+    refresh();
+    return { refresh };
+}
+
+/**
+ * @description The WiFi form: the password follows the security type, and
+ * the WPA3 and hidden network hints follow their controls.
+ */
+function initWifiForm() {
+    const auth = document.getElementById('wifi-auth');
+    const password = document.getElementById('wifi-password');
+    const toggle = document.getElementById('wifi-password-toggle');
+    const hidden = document.getElementById('wifi-hidden');
+    const securityHelp = document.getElementById('wifi-security-help');
+    const hiddenHelp = document.getElementById('wifi-hidden-help');
+
+    function relabel() {
+        if (!toggle || !password) return;
+        toggle.textContent = t(password.type === 'password' ? 'actions.showPassword' : 'actions.hidePassword');
+    }
+
+    function refresh() {
+        if (!auth || !password) return;
+        const needsPassword = auth.value !== 'nopass';
+        password.disabled = !needsPassword;
+        if (toggle) toggle.disabled = !needsPassword;
+        if (!needsPassword) {
+            password.value = '';
+            password.type = 'password';
+        }
+        if (securityHelp) securityHelp.hidden = auth.value !== 'WPA3';
+        if (hiddenHelp) hiddenHelp.hidden = !hidden?.checked;
+        relabel();
+    }
+
+    auth?.addEventListener('change', refresh);
+    hidden?.addEventListener('change', refresh);
+    toggle?.addEventListener('click', () => {
+        password.type = password.type === 'password' ? 'text' : 'password';
+        relabel();
+    });
+
+    refresh();
+    return { refresh, relabel };
+}
+
+/**
+ * @description The social media form: profile types per platform and the
+ * live preview of the target URL.
+ */
+function initSocialForm() {
+    const platform = document.getElementById('social-platform');
+    const profileType = document.getElementById('social-profile-type');
+    const profileTypeGroup = document.getElementById('social-profile-type-group');
+    const handle = document.getElementById('social-handle');
+    const preview = document.getElementById('social-preview-url');
+
+    function refresh() {
+        if (platform && profileType && profileTypeGroup) {
+            const allowedTypes = platform.value === 'linkedin'
+                ? ['person', 'company']
+                : platform.value === 'reddit'
+                    ? ['person', 'subreddit']
+                    : ['person'];
+
+            profileTypeGroup.hidden = allowedTypes.length < 2;
+            Array.from(profileType.options).forEach(option => {
+                // Safari ignores hidden on <option>, so disable it as well.
+                const allowed = allowedTypes.includes(option.value);
+                option.hidden = !allowed;
+                option.disabled = !allowed;
+            });
+            if (!allowedTypes.includes(profileType.value)) profileType.value = 'person';
+        }
+
+        if (preview) {
+            const result = globalThis.QRTurboPayloads?.build('SocialMedia', readContentValues('SocialMedia'));
+            preview.textContent = result?.ok ? result.payload : '-';
+        }
+    }
+
+    platform?.addEventListener('change', refresh);
+    profileType?.addEventListener('change', refresh);
+    handle?.addEventListener('input', refresh);
+
+    refresh();
+    return { refresh };
+}
+
+function padTwo(value) {
+    return String(value).padStart(2, '0');
+}
+
+/**
+ * @description 'YYYY-MM-DDTHH:MM' plus one hour of wall-clock time, or ''.
+ */
+function addOneHour(value) {
+    const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(value || '');
+    if (!match) return '';
+    const date = new Date(0);
+    date.setFullYear(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    date.setHours(Number(match[4]) + 1, Number(match[5]), 0, 0);
+    return `${String(date.getFullYear()).padStart(4, '0')}-${padTwo(date.getMonth() + 1)}-${padTwo(date.getDate())}` +
+        `T${padTwo(date.getHours())}:${padTwo(date.getMinutes())}`;
+}
+
+function getDeviceTimeZone() {
+    try {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    } catch {
+        return '';
+    }
+}
+
+/**
+ * @description The event form: the end time follows the start time until it
+ * is edited, "All-day event" switches both fields to dates, and the time
+ * zone list is filled on first use.
+ */
+function initCalendarForm(app) {
+    const start = document.getElementById('event-start');
+    const end = document.getElementById('event-end');
+    const allDay = document.getElementById('event-all-day');
+    const timeZone = document.getElementById('event-time-zone');
+    const timeZoneGroup = timeZone?.closest('.input-group');
+    const DEFAULT_TIMES = { start: '09:00', end: '10:00' };
+    // True while the end holds a value the user picked. Script changes fire
+    // no events, so the automatic end and the all-day switch never set it.
+    let endEdited = false;
+
+    function fillTimeZones() {
+        if (!timeZone || timeZone.options.length) return;
+        const deviceZone = getDeviceTimeZone();
+        if (!deviceZone) {
+            // Without a known device zone, times stay in device time.
+            if (timeZoneGroup) timeZoneGroup.hidden = true;
             return;
         }
 
-        const qrCodeText = document.getElementById('qr-code-text');
-        const isRevealed = this.dataset.revealed !== 'true';
-        this.dataset.revealed = String(isRevealed);
-        this.textContent = t(isRevealed ? 'actions.hidePayload' : 'actions.showPayload');
-        qrCodeText.textContent = isRevealed
-            ? generatedQRCode.payload
-            : t('misc.wifiPayloadHidden');
-    });
-
-    // Track character count for the URL/Text input
-    qrTextInput.addEventListener('input', function() {
-        const currentLength = this.value.length;
-        charCountDisplay.textContent = t('counters.characters', { current: currentLength, max: 2000 });
-        charCountDisplay.classList.toggle('warning', currentLength >= 1800);
-        schedulePreview({ showErrors: true });
-    });
-
-    // Track character count for the SMS message input
-    smsMessageInput.addEventListener('input', function() {
-        const currentLength = this.value.length;
-        smsCharCountDisplay.textContent = t('counters.characters', { current: currentLength, max: 300 });
-        smsCharCountDisplay.classList.toggle('warning', currentLength >= 250);
-        schedulePreview({ showErrors: true });
-    });
-
-    // Add a subtle scale effect on input focus for better UX
-    document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], input[type="url"], textarea').forEach(el => {
-        el.addEventListener('focus', function() {
-            // The :focus CSS already handles this, but if you wanted JS-only:
-            // this.style.transform = 'scale(1.02)';
-        });
-        el.addEventListener('blur', function() {
-            // The :focus CSS already handles this, but if you wanted JS-only:
-            // this.style.transform = 'scale(1)';
-        });
-    });
-
-    // --- SMS/Phone Form Logic ---
-    function updateSmsPhoneUI() {
-        const selectedType = document.querySelector('input[name="sms-phone-type"]:checked').value;
-        const isSms = selectedType === 'sms';
-        // Use 'flex' to match the .input-group display property
-        smsMessageGroup.style.display = isSms ? 'flex' : 'none';
-    }
-    smsPhoneTypeRadios.forEach(radio => radio.addEventListener('change', updateSmsPhoneUI));
-    smsPhoneTypeRadios.forEach(radio => radio.addEventListener('change', schedulePreview));
-    // Set initial state on page load
-    updateSmsPhoneUI();
-
-    // --- Wifi Form Logic ---
-    function updateWifiPasswordToggleLabel() {
-        wifiPasswordToggle.textContent = t(
-            wifiPasswordField.type === 'password' ? 'actions.showPassword' : 'actions.hidePassword'
-        );
-    }
-
-    function updateWifiPasswordState() {
-        const isPasswordNeeded = wifiAuthSelect.value !== 'nopass';
-        wifiPasswordField.disabled = !isPasswordNeeded;
-        wifiPasswordToggle.disabled = !isPasswordNeeded;
-        if (!isPasswordNeeded) {
-            wifiPasswordField.value = ''; // Clear password if not needed
-            wifiPasswordField.type = 'password';
+        let zones = [];
+        try {
+            if (typeof Intl.supportedValuesOf === 'function') zones = Intl.supportedValuesOf('timeZone');
+        } catch {
+            zones = [];
         }
-        updateWifiPasswordToggleLabel();
+
+        const fragment = document.createDocumentFragment();
+        [...new Set([...zones, 'UTC', deviceZone])].sort().forEach(zone => {
+            const option = document.createElement('option');
+            option.value = zone;
+            option.textContent = zone;
+            fragment.appendChild(option);
+        });
+        timeZone.appendChild(fragment);
+        timeZone.value = deviceZone;
     }
 
-    // Toggle password field enabled state based on authentication type
-    wifiAuthSelect.addEventListener('change', function() {
-        updateWifiPasswordState();
-        schedulePreview();
-    });
-    updateWifiPasswordState();
-
-    wifiPasswordToggle.addEventListener('click', function() {
-        const isHidden = wifiPasswordField.type === 'password';
-        wifiPasswordField.type = isHidden ? 'text' : 'password';
-        updateWifiPasswordToggleLabel();
-    });
-
-    // --- Social Media Form Logic ---
-    function updateSocialProfileTypeUI() {
-        if (!socialPlatformSelect || !socialProfileTypeSelect || !socialProfileTypeGroup) return;
-
-        const platform = socialPlatformSelect.value;
-        const allowedTypes = platform === 'linkedin'
-            ? ['person', 'company']
-            : platform === 'reddit'
-                ? ['person', 'subreddit']
-                : ['person'];
-
-        socialProfileTypeGroup.style.display = allowedTypes.length > 1 ? 'flex' : 'none';
-
-        Array.from(socialProfileTypeSelect.options).forEach(option => {
-            option.hidden = !allowedTypes.includes(option.value);
+    function setAllDay(enabled) {
+        [start, end].forEach(input => {
+            if (!input) return;
+            const value = input.value;
+            if (enabled && input.type !== 'date') {
+                input.dataset.time = value.slice(11, 16);
+                input.type = 'date';
+                input.value = value.slice(0, 10);
+            } else if (!enabled && input.type !== 'datetime-local') {
+                const time = input.dataset.time || (input === start ? DEFAULT_TIMES.start : DEFAULT_TIMES.end);
+                input.type = 'datetime-local';
+                input.value = value ? `${value.slice(0, 10)}T${time}` : '';
+            }
         });
+        if (timeZoneGroup && timeZone?.options.length) timeZoneGroup.hidden = enabled;
+    }
 
-        if (!allowedTypes.includes(socialProfileTypeSelect.value)) {
-            socialProfileTypeSelect.value = 'person';
+    end?.addEventListener('change', () => {
+        endEdited = Boolean(end.value);
+    });
+
+    // A new start moves an end that is empty or still the automatic one.
+    start?.addEventListener('change', () => {
+        if (!end || !start.value) return;
+        if (end.value && endEdited) return;
+        let nextEnd;
+        if (allDay?.checked) {
+            // An empty end already means one day; an automatic one follows.
+            if (!end.value) return;
+            nextEnd = start.value.slice(0, 10);
+        } else {
+            nextEnd = addOneHour(start.value);
         }
-    }
-
-    function updateSocialPreview() {
-        if (!socialPreviewUrl) return;
-        socialPreviewUrl.textContent = getSocialQRCodeUrl(false) || '-';
-    }
-
-    function updateSocialMediaUI() {
-        updateSocialProfileTypeUI();
-        updateSocialPreview();
-    }
-
-    [socialPlatformSelect, socialProfileTypeSelect, socialHandleInput].forEach(element => {
-        if (!element) return;
-        const eventName = element.tagName === 'SELECT' ? 'change' : 'input';
-        element.addEventListener(eventName, function() {
-            updateSocialMediaUI();
-        });
+        if (!nextEnd || nextEnd === end.value) return;
+        end.value = nextEnd;
+        app.schedulePreview({ reason: 'discrete' });
     });
-    updateSocialMediaUI();
 
+    allDay?.addEventListener('change', () => setAllDay(allDay.checked));
+
+    // The browser may restore a checked box after a back navigation.
+    if (allDay?.checked) setAllDay(true);
+
+    return {
+        refresh() {
+            fillTimeZones();
+            if (timeZoneGroup && timeZone?.options.length) timeZoneGroup.hidden = Boolean(allDay?.checked);
+        }
+    };
+}
+
+/**
+ * @description The payment form: the byte counter, and IBAN and BIC tidied
+ * up when the field is left.
+ */
+function initPaymentForm() {
+    const panel = document.getElementById('Payment');
+    const counter = document.getElementById('payment-bytes');
+    const iban = document.getElementById('payment-iban');
+    const bic = document.getElementById('payment-bic');
+    const payloads = globalThis.QRTurboPayloads;
+
+    function refresh() {
+        if (!counter || !payloads) return;
+        const used = payloads.paymentBytes(readContentValues('Payment'));
+        counter.textContent = t('capacity.paymentLimit', { used });
+        counter.classList.toggle('warning', used > 300);
+    }
+
+    panel?.addEventListener('input', refresh);
+
+    iban?.addEventListener('change', () => {
+        if (payloads?.iban.validate(iban.value)) iban.value = payloads.iban.format(iban.value);
+    });
+    bic?.addEventListener('change', () => {
+        bic.value = bic.value.replace(/\s+/g, '').toUpperCase();
+    });
+
+    refresh();
+    return { refresh };
+}
+
+/**
+ * @description "Create many from a CSV file": shown only for batch-capable
+ * types, and only where <dialog> exists.
+ */
+function initBatchButton(app) {
+    const button = document.getElementById('batch-open-btn');
+    const supported = typeof HTMLDialogElement === 'function';
+
+    button?.addEventListener('click', () => {
+        Promise.resolve()
+            .then(() => app.openBatch())
+            .catch(error => {
+                console.error('Opening batch mode failed:', error);
+                globalThis.QRTurboUI?.toast?.(t('toast.batchLoadFailed'), { tone: 'error' });
+            });
+    });
+
+    return {
+        update(tab) {
+            if (!button) return;
+            const batchTypes = globalThis.QRTurboPayloads?.BATCH_TYPES || [];
+            button.hidden = !(supported && batchTypes.includes(tab));
+        }
+    };
+}
+
+function isDiscreteContentField(field) {
+    return field.tagName === 'SELECT' || ['checkbox', 'radio', 'date', 'datetime-local'].includes(field.type);
+}
+
+/**
+ * @description Wires the content forms: tabs (APG keyboard behavior), the
+ * per-type helpers, the batch entry point, and a preview request for every
+ * edit. Typing is debounced by the controller; calm validation (dirty fields,
+ * idle reveal) is the controller's too.
+ */
+function initContentForms(app) {
+    const tabsContainer = document.getElementById('tabs');
+    const urlText = initUrlTextForm();
+    const smsPhone = initSmsPhoneForm();
+    const wifi = initWifiForm();
+    const social = initSocialForm();
+    const calendar = initCalendarForm(app);
+    const payment = initPaymentForm();
+    const batchButton = initBatchButton(app);
+    const refreshers = {
+        URLText: urlText.refresh,
+        SMSPhone: smsPhone.refresh,
+        Wifi: wifi.refresh,
+        SocialMedia: social.refresh,
+        CalendarEvent: calendar.refresh,
+        Payment: payment.refresh
+    };
+
+    function refreshTab(tabName) {
+        refreshers[tabName]?.();
+        batchButton.update(tabName);
+    }
+
+    // Every content edit asks for a new preview: text fields after a typing
+    // pause, checkboxes, radios, selects and dates at once.
+    const contentRoot = document.querySelector('.tab-content')?.parentElement;
+    contentRoot?.addEventListener('input', event => {
+        const field = event.target;
+        if (!field?.closest?.('.tab-content') || isDiscreteContentField(field)) return;
+        app.schedulePreview({ reason: 'typing' });
+    });
+    contentRoot?.addEventListener('change', event => {
+        const field = event.target;
+        if (!field?.closest?.('.tab-content') || !isDiscreteContentField(field)) return;
+        app.schedulePreview({ reason: 'discrete' });
+    });
 
     // --- Tab Switching Logic ---
     function activateTab(nextTab, { focus = false } = {}) {
@@ -1797,21 +1128,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         window.scrollTo(0, currentScrollY);
+        // Only the tab row scrolls, so the chip clears the edge fade and
+        // the page stays where it is.
+        scrollTabChipIntoView(nextTab, true);
 
-        updateWifiPasswordState();
-        updateSmsPhoneUI();
-        updateSocialMediaUI();
-        updateDynamicTranslations();
-        schedulePreview();
+        // A tab the user has not touched yet never starts with an error.
+        clearFormError();
+        refreshTab(tabName);
+        app.emit('tab', { tab: tabName });
+        app.schedulePreview({ reason: 'discrete' });
 
-        if (focus) nextTab.focus();
+        // The row is already scrolling to the chip; a focus scroll would
+        // cut that short.
+        if (focus) nextTab.focus({ preventScroll: true });
     }
 
-    tabsContainer.addEventListener('click', function(event) {
+    tabsContainer?.addEventListener('click', function(event) {
         activateTab(event.target.closest('.tab-link'));
     });
 
-    tabsContainer.addEventListener('keydown', function(event) {
+    tabsContainer?.addEventListener('keydown', function(event) {
         const currentTab = event.target.closest('.tab-link');
         if (!currentTab) return;
 
@@ -1835,289 +1171,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- Customization Panel Event Handlers ---
+    // The landing page of a type starts on its tab; show that chip too.
+    const initialTab = tabsContainer?.querySelector('.tab-link.active');
+    if (initialTab) scrollTabChipIntoView(initialTab, false);
+    refreshTab(getActiveTabName());
 
-    // Toggle customization panel
-    const customizeToggle = document.getElementById('customize-toggle');
-    const customizePanel = document.getElementById('customize-panel');
-
-    if (customizeToggle) {
-        customizeToggle.addEventListener('click', function() {
-            const isExpanded = customizePanel.style.display === 'block';
-            customizePanel.style.display = isExpanded ? 'none' : 'block';
-            customizeToggle.setAttribute('aria-expanded', !isExpanded);
-        });
-    }
-
-    // Color picker sync (picker <-> text input)
-    function setupColorSync(colorInputId, textInputId, stateKey) {
-        const colorInput = document.getElementById(colorInputId);
-        const textInput = document.getElementById(textInputId);
-
-        if (colorInput && textInput) {
-            colorInput.addEventListener('input', function() {
-                textInput.value = this.value.toUpperCase();
-                qrCustomization[stateKey] = this.value;
-                schedulePreview();
-            });
-
-            textInput.addEventListener('input', function() {
-                const hex = this.value.trim();
-                if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
-                    colorInput.value = hex;
-                    qrCustomization[stateKey] = hex;
-                    schedulePreview();
-                }
-            });
-        }
-    }
-
-    setupColorSync('qr-fg-color', 'qr-fg-color-text', 'fgColor');
-    setupColorSync('qr-bg-color', 'qr-bg-color-text', 'bgColor');
-
-    const transparentBackgroundCheckbox = document.getElementById('qr-transparent-bg');
-    function updateTransparentBackgroundUI() {
-        const isTransparent = transparentBackgroundCheckbox?.checked || false;
-        qrCustomization.transparentBackground = isTransparent;
-        document.getElementById('qr-bg-color').disabled = isTransparent;
-        document.getElementById('qr-bg-color-text').disabled = isTransparent;
-    }
-
-    if (transparentBackgroundCheckbox) {
-        transparentBackgroundCheckbox.addEventListener('change', function() {
-            updateTransparentBackgroundUI();
-            schedulePreview();
-        });
-        updateTransparentBackgroundUI();
-    }
-
-    // Error correction change
-    const errorCorrectionSelect = document.getElementById('qr-error-correction');
-    if (errorCorrectionSelect) {
-        errorCorrectionSelect.addEventListener('change', function() {
-            qrCustomization.errorCorrection = this.value;
-            schedulePreview();
-        });
-    }
-
-    // Format change
-    const formatSelect = document.getElementById('qr-format');
-    if (formatSelect) {
-        formatSelect.addEventListener('change', function() {
-            qrCustomization.format = this.value;
-            schedulePreview();
-        });
-    }
-
-    const sizeSelect = document.getElementById('size-select');
-    if (sizeSelect) {
-        sizeSelect.addEventListener('change', schedulePreview);
-    }
-
-    // --- Frame Event Handlers ---
-    const frameStyleSelect = document.getElementById('frame-style');
-    const frameOptions = document.getElementById('frame-options');
-    const frameTextInput = document.getElementById('frame-text');
-
-    function updateFrameOptionsUI() {
-        frameOptions.hidden = qrCustomization.frameStyle === 'none';
-    }
-
-    frameStyleSelect.addEventListener('change', function() {
-        qrCustomization.frameStyle = FRAME_STYLES.has(this.value) ? this.value : 'none';
-        updateFrameOptionsUI();
-        schedulePreview();
+    // translatePage() resets baked labels, so restore the stateful ones.
+    app.on('i18n', () => {
+        wifi.relabel();
+        urlText.refresh();
+        smsPhone.refresh();
+        payment.refresh();
     });
-
-    frameTextInput.addEventListener('input', function() {
-        qrCustomization.frameText = this.value;
-        schedulePreview();
-    });
-
-    setupColorSync('frame-color', 'frame-color-text', 'frameColor');
-    updateFrameOptionsUI();
-
-    document.querySelectorAll('.tab-content input, .tab-content textarea, .tab-content select').forEach(element => {
-        if (element === qrTextInput || element === smsMessageInput || element.name === 'sms-phone-type' || element === wifiAuthSelect) {
-            return;
-        }
-
-        const eventName = element.type === 'checkbox' || element.type === 'radio' || element.tagName === 'SELECT'
-            ? 'change'
-            : 'input';
-        element.addEventListener(eventName, () => schedulePreview({
-            showErrors: eventName === 'input'
-        }));
-    });
-
-    // Reset customization button
-    const resetCustomizationBtn = document.getElementById('reset-customization');
-    if (resetCustomizationBtn) {
-        resetCustomizationBtn.addEventListener('click', function() {
-            // Reset to defaults
-            qrCustomization = getDefaultCustomization();
-
-            // Update UI
-            document.getElementById('frame-style').value = 'none';
-            document.getElementById('frame-text').value = '';
-            document.getElementById('frame-color').value = '#000000';
-            document.getElementById('frame-color-text').value = '#000000';
-            updateFrameOptionsUI();
-            document.getElementById('qr-fg-color').value = '#000000';
-            document.getElementById('qr-fg-color-text').value = '#000000';
-            document.getElementById('qr-bg-color').value = '#ffffff';
-            document.getElementById('qr-bg-color-text').value = '#ffffff';
-            document.getElementById('qr-transparent-bg').checked = false;
-            document.getElementById('qr-error-correction').value = 'M';
-            document.getElementById('qr-format').value = 'png';
-            updateTransparentBackgroundUI();
-
-            // Reset logo
-            const logoInput = document.getElementById('qr-logo');
-            if (logoInput) {
-                logoInput.value = '';
-                document.getElementById('logo-preview').style.display = 'none';
-                document.getElementById('logo-controls').style.display = 'none';
-                document.getElementById('logo-filename').textContent = '';
-                document.getElementById('logo-remove-btn').style.display = 'none';
-                document.getElementById('qr-logo-size').value = '0.4';
-                document.getElementById('qr-logo-size-value').textContent = '40%';
-                document.getElementById('qr-logo-margin').value = '4';
-                document.getElementById('qr-logo-margin-value').textContent = '4px';
-            }
-
-            // Reset style options
-            document.getElementById('qr-dot-style').value = 'square';
-            document.getElementById('qr-corner-square-style').value = 'extra-rounded';
-            document.getElementById('qr-corner-dot-style').value = 'dot';
-            document.getElementById('qr-margin').value = String(MIN_QUIET_ZONE_MODULES);
-            document.getElementById('qr-margin-value').textContent = formatQuietZoneValue(MIN_QUIET_ZONE_MODULES);
-
-            alert(t('alerts.resetSuccess'));
-            schedulePreview();
-        });
-    }
-
-    // --- Logo Upload Event Handlers ---
-
-    // Logo select button click
-    const logoSelectBtn = document.getElementById('logo-select-btn');
-    const logoInput = document.getElementById('qr-logo');
-    if (logoSelectBtn && logoInput) {
-        logoSelectBtn.addEventListener('click', function() {
-            logoInput.click();
-        });
-    }
-
-    // Logo file selection
-    if (logoInput) {
-        logoInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                // Check file size (warn if > 1MB)
-                if (file.size > 1048576) {
-                    alert(t('alerts.largeImageWarning', { size: (file.size / 1048576).toFixed(1) }));
-                }
-
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const logoDataURL = event.target.result;
-
-                    // Store in customization state
-                    qrCustomization.logoImage = logoDataURL;
-
-                    // Show preview
-                    document.getElementById('logo-preview-img').src = logoDataURL;
-                    document.getElementById('logo-preview').style.display = 'block';
-                    document.getElementById('logo-controls').style.display = 'block';
-                    document.getElementById('logo-filename').textContent = file.name;
-                    document.getElementById('logo-remove-btn').style.display = 'inline-block';
-                    schedulePreview();
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert(t('alerts.invalidImageFile'));
-            }
-        });
-    }
-
-    // Logo remove button
-    const logoRemoveBtn = document.getElementById('logo-remove-btn');
-    if (logoRemoveBtn) {
-        logoRemoveBtn.addEventListener('click', function() {
-            // Clear logo
-            qrCustomization.logoImage = null;
-            document.getElementById('qr-logo').value = '';
-            document.getElementById('logo-preview').style.display = 'none';
-            document.getElementById('logo-controls').style.display = 'none';
-            document.getElementById('logo-filename').textContent = '';
-            this.style.display = 'none';
-            schedulePreview();
-        });
-    }
-
-    // Logo size slider
-    const logoSizeSlider = document.getElementById('qr-logo-size');
-    const logoSizeValue = document.getElementById('qr-logo-size-value');
-    if (logoSizeSlider && logoSizeValue) {
-        logoSizeSlider.addEventListener('input', function() {
-            const percentage = Math.round(this.value * 100);
-            logoSizeValue.textContent = percentage + '%';
-            qrCustomization.logoSize = parseFloat(this.value);
-            schedulePreview();
-        });
-    }
-
-    // Logo margin slider
-    const logoMarginSlider = document.getElementById('qr-logo-margin');
-    const logoMarginValue = document.getElementById('qr-logo-margin-value');
-    if (logoMarginSlider && logoMarginValue) {
-        logoMarginSlider.addEventListener('input', function() {
-            logoMarginValue.textContent = this.value + 'px';
-            qrCustomization.logoMargin = parseInt(this.value);
-            schedulePreview();
-        });
-    }
-
-    // --- Style Options Event Handlers ---
-
-    // Dot style selector
-    const dotStyleSelect = document.getElementById('qr-dot-style');
-    if (dotStyleSelect) {
-        dotStyleSelect.addEventListener('change', function() {
-            qrCustomization.dotStyle = this.value;
-            schedulePreview();
-        });
-    }
-
-    // Corner square style selector
-    const cornerSquareStyleSelect = document.getElementById('qr-corner-square-style');
-    if (cornerSquareStyleSelect) {
-        cornerSquareStyleSelect.addEventListener('change', function() {
-            qrCustomization.cornerSquareStyle = this.value;
-            schedulePreview();
-        });
-    }
-
-    // Corner dot style selector
-    const cornerDotStyleSelect = document.getElementById('qr-corner-dot-style');
-    if (cornerDotStyleSelect) {
-        cornerDotStyleSelect.addEventListener('change', function() {
-            qrCustomization.cornerDotStyle = this.value;
-            schedulePreview();
-        });
-    }
-
-    // Margin slider
-    const marginSlider = document.getElementById('qr-margin');
-    const marginValue = document.getElementById('qr-margin-value');
-    if (marginSlider && marginValue) {
-        marginSlider.addEventListener('input', function() {
-            marginValue.textContent = formatQuietZoneValue(this.value);
-            qrCustomization.margin = parseInt(this.value);
-            schedulePreview();
-        });
-        marginValue.textContent = formatQuietZoneValue(marginSlider.value);
-    }
-
-});
+}

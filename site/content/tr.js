@@ -11,7 +11,7 @@ module.exports = {
     eyebrow: 'Ücretsiz QR kod oluşturucu',
     display: 'Süresi hiç dolmayan ücretsiz QR kodlar.',
     lead:
-      'Linkler, WiFi, kişi bilgileri ve daha fazlası için QR kodlarını doğrudan tarayıcında oluştur. Üyelik yok, deneme süresi yok, yönlendirme yok: içeriğin doğrudan kodun içine yazılır, bu yüzden kod sonsuza dek çalışır. Logo, renk ve “Tara beni” çerçevesi ekle.'
+      'Linkler, WiFi, kişi bilgileri ve daha fazlası için QR kodlarını doğrudan tarayıcında oluştur. Üyelik yok, deneme süresi yok, yönlendirme yok: içeriğin doğrudan kodun içine yazılır, bu yüzden kod sonsuza dek çalışır. Logo, renk ve “Tara beni” çerçevesi ekle, ardından baskıya hazır PNG, SVG, PDF veya EPS dosyalarını indir.'
   },
   types: {
     wifi: {
@@ -219,15 +219,19 @@ module.exports = {
       },
       {
         q: 'QR kodu hangi boyutta basmalıyım?',
-        a: 'En az 2 × 2 cm boyutunda bas. Genel bir kural olarak kod, tarama mesafesinin en az onda biri kadar olmalı: 2 metreden okunacak bir afiş için yaklaşık 20 cm\'lik bir kod gerekir. Baskı için SVG veya büyük bir PNG indir ve kodun etrafındaki sessiz alanı boş bırak.'
+        a: 'En az 2 × 2 cm boyutunda bas. Genel bir kural olarak kod, tarama mesafesinin en az onda biri kadar olmalı: 2 metreden okunacak bir afiş için yaklaşık 20 cm\'lik bir kod gerekir. Baskı için her boyutta net kalan bir PDF veya SVG indir ve tam baskı genişliğini ayarla. QRTurbo.app modül boyutunu gösterir ve kod taranamayacak kadar küçükse seni uyarır. Kodun etrafındaki sessiz alanı boş bırak.'
       },
       {
         q: 'QR kodum neden taranmıyor?',
-        a: 'En yaygın nedenler; kod ile arka planı arasındaki düşük kontrast, fazla küçük bir sessiz alan, kodun çok büyük bir kısmını kapatan bir logo veya baskı boyutuna göre fazla içeriktir. QRTurbo.app seni bu risklere karşı uyarır. Basmadan önce kodu her zaman birkaç farklı telefonla test et.'
+        a: 'En yaygın nedenler; kod ile arka planı arasındaki düşük kontrast, fazla küçük bir sessiz alan, kodun çok büyük bir kısmını kapatan bir logo veya baskı boyutuna göre fazla içeriktir. QRTurbo.app her kodu cihazındaki yerleşik bir QR okuyucuyla kontrol eder ve düzeltmeler önerir. Basmadan önce kodu her zaman birkaç farklı telefonla test et.'
       },
       {
         q: 'Verilerim güvende mi? WiFi şifremi görebiliyor musunuz?',
         a: 'Verilerin cihazında kalır. QR kod, tarayıcında çalışan kodla oluşturulur ve yazdığın ya da yüklediğin hiçbir şey bir sunucuya gönderilmez; bu yüzden WiFi şifreni veya iletişim bilgilerini kimse göremez. İlk ziyaretten sonra oluşturucu çevrimdışı da çalışır.'
+      },
+      {
+        q: 'Hangi dosya biçimini kullanmalıyım?',
+        a: 'Ekranlar, belgeler ve çoğu yazıcı için PNG kullan. Web siteleri ve tasarım araçları için SVG, matbaalar için PDF kullan: ikisi de her boyutta net kalan vektör dosyalardır. EPS, eski tasarım ve tabela yazılımları içindir. JPG ve WebP, uygulamalar ve web siteleri için küçük boyutlu görsel dosyalarıdır. Tüm biçimler ücretsizdir ve renklerini, logonu ve çerçeveni korur.'
       }
     ]
   },

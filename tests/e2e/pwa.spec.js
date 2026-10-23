@@ -44,7 +44,8 @@ test('offline app reload generates and downloads a decodable PNG', async ({ page
 
     await page.locator('#qr-text').fill(payload);
     await expect(page.locator('#qr-code-text')).toHaveText(payload, { timeout: 10_000 });
-    await expect(page.locator('#qr-canvas-container canvas')).toBeVisible();
+    await expect(page.locator('#qr-stage')).toHaveAttribute('data-state', 'ready', { timeout: 10_000 });
+    await expect(page.locator('#qr-canvas-container svg')).toBeVisible();
 
     const downloadPromise = page.waitForEvent('download');
     await page.locator('#download-btn').click();
@@ -52,6 +53,14 @@ test('offline app reload generates and downloads a decodable PNG', async ({ page
 
     expect(decoded.filename).toMatch(/\.png$/i);
     expect(decoded.data).toBe(payload);
+
+    // The scan check runs offline too: its worker and jsQR come from the cache.
+    const badge = page.locator('#scan-badge');
+    await expect(badge).toBeVisible();
+    await expect(badge).not.toHaveClass(/\bis-checking\b/, { timeout: 10_000 });
+    await expect(badge).toHaveAttribute('data-state', 'ok');
+    const okLabel = await page.evaluate(() => t('scan.ok'));
+    await expect(page.locator('#scan-badge-label')).toHaveText(okLabel);
   } finally {
     await context.setOffline(false);
   }

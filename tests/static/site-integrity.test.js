@@ -4,7 +4,7 @@ const path = require('node:path');
 const test = require('node:test');
 const vm = require('node:vm');
 
-const { repoRoot } = require('../helpers/app-vm');
+const { listFirstPartyScripts, repoRoot } = require('../helpers/app-vm');
 const { LANGUAGES, PAGE_TYPES, buildSite, pagePath } = require('../../scripts/build-site');
 
 // Paths use lowercase codes; <html lang> and hreflang use the BCP 47 spelling.
@@ -73,32 +73,44 @@ test('HTML references only existing local scripts, styles, icons and manifest as
   }
 });
 
-test('every element ID that app.js looks up exists in index.html', () => {
+test('every element ID that first-party scripts look up exists in index.html', () => {
   const html = readPublicFile('index.html');
-  const appJs = readPublicFile('js/app.js');
   const htmlIds = new Set(extractAttributeValues(html, '\\sid'));
   const lookupPatterns = [
-    /getElementById\('([^']+)'\)/g,
-    /getFieldValue\('([^']+)'\)/g,
+    /getElementById\(\s*'([^']+)'\s*\)/g,
+    /getFieldValue\(\s*'([^']+)'\s*\)/g,
+    /querySelector(?:All)?\(\s*'#([A-Za-z][\w-]*)'\s*\)/g,
     /notifyValidation\('[^']+',\s*\w+,\s*'([^']+)'\)/g,
+    /contentFailure\('[^']+',\s*'([^']+)'/g,
     /setupColorSync\('([^']+)',\s*'([^']+)'/g
   ];
-  const usedIds = new Set(lookupPatterns.flatMap(pattern => (
-    [...appJs.matchAll(pattern)].flatMap(match => match.slice(1))
-  )));
 
-  assert.ok(usedIds.size > 50, 'Expected to find the element lookups in app.js');
-  for (const id of usedIds) {
-    assert.ok(htmlIds.has(id), `app.js looks up #${id}, which is missing from index.html`);
+  const missing = [];
+  let lookups = 0;
+  for (const script of listFirstPartyScripts()) {
+    const source = readPublicFile(`js/${script}`);
+    const usedIds = new Set(lookupPatterns.flatMap(pattern => (
+      [...source.matchAll(pattern)].flatMap(match => match.slice(1))
+    )));
+    lookups += usedIds.size;
+    for (const id of usedIds) {
+      if (!htmlIds.has(id)) missing.push(`Public/js/${script} looks up #${id}`);
+    }
   }
+
+  assert.ok(lookups > 50, 'Expected to find the element lookups in the first-party scripts');
+  assert.deepEqual(missing, [], 'Every looked-up element must exist in index.html');
 });
 
-test('service worker precache list points to existing public assets', () => {
+function readPrecacheUrls() {
   const sw = readPublicFile('sw.js');
   const precacheMatch = sw.match(/const PRECACHE_URLS = \[([\s\S]*?)\];/);
   assert.ok(precacheMatch, 'Could not find PRECACHE_URLS in sw.js');
+  return [...precacheMatch[1].matchAll(/'([^']+)'/g)].map(match => match[1]);
+}
 
-  const precacheUrls = [...precacheMatch[1].matchAll(/'([^']+)'/g)].map(match => match[1]);
+test('service worker precache list points to existing public assets', () => {
+  const precacheUrls = readPrecacheUrls();
   assert.ok(precacheUrls.includes('/'));
   assert.ok(precacheUrls.includes('/index.html'));
 
@@ -106,6 +118,43 @@ test('service worker precache list points to existing public assets', () => {
     if (url === '/') continue;
     assertPublicAssetExists(url);
   }
+});
+
+test('every script, stylesheet, lazy script and worker is precached for offline use', () => {
+  const precacheUrls = new Set(readPrecacheUrls());
+  const toPath = url => new URL(url, 'https://qrturbo.test/').pathname;
+  const required = new Map();
+  const add = (url, source) => {
+    if (/^(?:https?:)?\/\//.test(url)) return;
+    required.set(toPath(url), source);
+  };
+
+  for (const page of ['site/template.html', 'Public/index.html']) {
+    const html = fs.readFileSync(path.join(repoRoot, page), 'utf8');
+    for (const match of html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)) add(match[1], page);
+    for (const match of html.matchAll(/<link\b[^>]*\brel="stylesheet"[^>]*>/g)) {
+      const href = match[0].match(/\bhref="([^"]+)"/);
+      if (href) add(href[1], page);
+    }
+  }
+
+  const loaderPatterns = [
+    /\bloadScript\(\s*'([^']+)'/g,
+    /\bnew Worker\(\s*'([^']+)'/g,
+    /\bimportScripts\(\s*'([^']+)'/g
+  ];
+  for (const script of listFirstPartyScripts()) {
+    const source = readPublicFile(`js/${script}`);
+    for (const pattern of loaderPatterns) {
+      for (const match of source.matchAll(pattern)) add(match[1], `Public/js/${script}`);
+    }
+  }
+
+  assert.ok(required.has('/js/app.js') && required.has('/css/styles.css'), 'Expected to find the page assets');
+  const missing = [...required]
+    .filter(([assetPath]) => !precacheUrls.has(assetPath))
+    .map(([assetPath, source]) => `${assetPath} (from ${source})`);
+  assert.deepEqual(missing, [], 'Add these paths to PRECACHE_URLS in sw.js');
 });
 
 test('SEO metadata and structured data are present and parseable', () => {
@@ -174,7 +223,7 @@ test('every language and type page has its own URL, language and alternates', ()
       assert.match(html, new RegExp(`id="tab-${page.tab}" class="tab-link active"[^>]*aria-selected="true"`), label);
       assert.match(html, new RegExp(`<div id="${page.tab}" class="tab-content"[^>]*style="display: block;"`), label);
       assert.equal((html.match(/class="tab-link active"/g) || []).length, 1, label);
-      assert.match(html, new RegExp(`<option value="${lang}" selected>`), label);
+      assert.match(html, new RegExp(`<option\\b[^>]*\\bvalue="${lang}"[^>]*\\sselected\\b[^>]*>`), label);
 
       const jsonLd = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
         .map(match => JSON.parse(match[1]));

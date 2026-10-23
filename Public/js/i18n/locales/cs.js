@@ -17,7 +17,16 @@
       lightTheme: 'Světlý motiv',
       darkTheme: 'Tmavý motiv',
       language: 'Jazyk',
-      qrTypes: 'Typy QR kódů'
+      qrTypes: 'Typy QR kódů',
+      skipToGenerator: 'Přejít na generátor QR kódů',
+      qrImage: 'Náhled QR kódu: {{type}}',
+      qrImageStale: 'Náhled QR kódu, neaktuální',
+      removeLogo: 'Odebrat logo',
+      formatGroup: 'Formát souboru',
+      presetGroup: 'Předvolby stylu',
+      mobileBar: 'Rychlé stažení',
+      notifications: 'Oznámení',
+      hexValue: '{{name}}, hexadecimální hodnota'
     },
     tabs: {
       urlText: 'URL/text',
@@ -29,6 +38,7 @@
       location: 'Poloha',
       socialMedia: 'Sociální sítě',
       whatsapp: 'WhatsApp',
+      payment: 'Platba',
       mecard: 'MeCard',
       appLink: 'Aplikace'
     },
@@ -53,20 +63,19 @@
       hiddenNetwork: 'Toto je skrytá síť',
       phoneNumber: 'Telefonní číslo',
       message: 'Zpráva (volitelné)',
-      qrSize: 'Velikost QR kódu',
+      qrSize: 'Velikost',
       foregroundColor: 'Barva kódu',
-      backgroundColor: 'Barva pozadí',
+      backgroundColor: 'Pozadí',
       transparentBackground: 'Průhledné pozadí',
       errorCorrection: 'Korekce chyb',
-      downloadFormat: 'Formát souboru',
-      dotStyle: 'Styl modulů',
-      cornerSquare: 'Rohový čtverec',
-      cornerDot: 'Rohová tečka',
-      quietZone: 'Klidová zóna (okraj)',
+      dotStyle: 'Vzor',
+      cornerSquare: 'Rohový rámeček',
+      cornerDot: 'Střed rohu',
+      quietZone: 'Klidová zóna',
       logoSize: 'Velikost loga',
-      logoMargin: 'Okraj loga',
-      logo: 'Logo (volitelné)',
-      styleOptions: 'Možnosti stylu',
+      logoMargin: 'Mezera kolem loga',
+      logo: 'Logo',
+      styleOptions: 'Tvary',
       emailTo: 'E-mail příjemce',
       emailSubject: 'Předmět',
       emailBody: 'Text zprávy',
@@ -91,7 +100,45 @@
       appLinkTarget: 'Záložní obchod',
       frame: 'Rámeček',
       frameText: 'Text rámečku',
-      frameColor: 'Barva rámečku'
+      frameColor: 'Barva rámečku',
+      smsPhoneType: 'Typ kódu',
+      fill: 'Výplň',
+      gradientColor2: 'Druhá barva',
+      gradientType: 'Typ přechodu',
+      gradientAngle: 'Úhel',
+      customCorners: 'Vlastní barvy rohů',
+      cornerOuterColor: 'Barva rohového rámečku',
+      cornerInnerColor: 'Barva středu rohu',
+      customPixels: 'Šířka v pixelech',
+      setPrintSize: 'Nastavit velikost tisku',
+      printWidth: 'Šířka výtisku',
+      unit: 'Jednotka',
+      dpi: 'Rozlišení',
+      pdfPage: 'Stránka',
+      colorMode: 'Barevný režim',
+      minVersion: 'Minimální verze QR',
+      paymentName: 'Jméno příjemce',
+      iban: 'IBAN',
+      bic: 'BIC (volitelné)',
+      amount: 'Částka v eurech (volitelné)',
+      paymentReference: 'Referenční číslo (volitelné)',
+      paymentMessage: 'Zpráva pro příjemce (volitelné)',
+      dueDate: 'Datum splatnosti (volitelné)',
+      allDay: 'Celodenní událost',
+      timeZone: 'Časové pásmo',
+      phoneHome: 'Telefon (domácí)',
+      department: 'Oddělení',
+      birthday: 'Datum narození',
+      note: 'Poznámka',
+      addressType: 'Typ adresy',
+      batchSource: 'Data CSV',
+      batchHasHeader: 'První řádek obsahuje názvy sloupců',
+      batchType: 'Typ kódu',
+      batchFilename: 'Názvy souborů podle',
+      batchFormat: 'Formát souboru',
+      batchSameSize: 'Sjednotit velikost všech kódů',
+      batchManifest: 'Přiložit seznam všech souborů (manifest.csv)',
+      batchVerify: 'Ověřit čitelnost každého kódu'
     },
     placeholders: {
       url: 'např. https://www.example.com',
@@ -131,21 +178,39 @@
       appAndroidUrl: 'https://play.google.com/store/apps/details?id=...'
     },
     actions: {
-      generate: 'Vytvořit QR kód',
-      download: 'Stáhnout QR kód',
-      reset: 'Obnovit výchozí',
-      customize: 'Upravit vzhled (volitelné)',
+      download: 'Stáhnout',
+      reset: 'Obnovit vzhled',
+      customize: 'Další možnosti vzhledu',
       chooseLogo: 'Vybrat obrázek',
       showPassword: 'Zobrazit heslo',
       hidePassword: 'Skrýt heslo',
       showPayload: 'Zobrazit data QR kódu',
-      hidePayload: 'Skrýt data QR kódu'
+      hidePayload: 'Skrýt data QR kódu',
+      downloadFormat: 'Stáhnout {{format}}',
+      copyImage: 'Kopírovat obrázek',
+      copySvg: 'Kopírovat kód SVG',
+      copyText: 'Kopírovat text',
+      share: 'Sdílet',
+      undo: 'Zpět',
+      goToField: 'Přejít na pole',
+      addHttps: 'Přidat https://',
+      moreFormats: 'Další formáty',
+      swapColors: 'Prohodit barvy',
+      dismiss: 'Zavřít oznámení',
+      retry: 'Zkusit znovu',
+      useLevelL: 'Použít úroveň L',
+      print: 'Vytisknout',
+      cancel: 'Zrušit',
+      close: 'Zavřít',
+      createMany: 'Vytvořit více kódů ze souboru CSV',
+      batchStart: 'Vytvořit soubor ZIP',
+      chooseCsv: 'Vybrat soubor CSV'
     },
     options: {
-      sizeMedium: 'Obrazovka (512 px)',
-      sizeLarge: 'Velký (1024 px)',
-      sizePrint: 'Tisk (2048 px)',
-      sizePoster: 'Plakát (4096 px)',
+      sizeMedium: 'Malá (512 px)',
+      sizeLarge: 'Střední (1024 px)',
+      sizePrint: 'Velká (2048 px)',
+      sizePoster: 'Velmi velká (4096 px)',
       frameNone: 'Bez rámečku',
       frameBannerBottom: 'Popisek pod kódem',
       frameBannerTop: 'Popisek nad kódem',
@@ -154,12 +219,12 @@
       errorMedium: 'M - střední (15 %)',
       errorQuartile: 'Q - vyšší (25 %)',
       errorHigh: 'H - vysoká (30 %)',
-      formatPng: 'PNG (rastrový obrázek)',
-      formatSvg: 'SVG (vektorový obrázek)',
-      formatPdf: 'PDF (dokument)',
-      authWpa: 'WPA/WPA2',
-      authWep: 'WEP',
-      authNone: 'Žádné',
+      formatPng: 'PNG',
+      formatSvg: 'SVG',
+      formatPdf: 'PDF',
+      authWpa: 'WPA/WPA2/WPA3 (doporučeno)',
+      authWep: 'WEP (zastaralé)',
+      authNone: 'Žádné (otevřená síť)',
       dotSquare: 'Čtverce',
       dotRounded: 'Zaoblené',
       dotDots: 'Tečky',
@@ -185,7 +250,34 @@
       socialTypeCompany: 'Firma',
       socialTypeSubreddit: 'Subreddit',
       appTargetIos: 'Použít iOS, pokud chybí webová adresa',
-      appTargetAndroid: 'Použít Android, pokud chybí webová adresa'
+      appTargetAndroid: 'Použít Android, pokud chybí webová adresa',
+      errorAuto: 'Automaticky (doporučeno)',
+      sizeCustom: 'Vlastní velikost',
+      formatJpg: 'JPG',
+      formatWebp: 'WebP',
+      unitMm: 'mm',
+      unitIn: 'in',
+      dpi150: '150 dpi (koncept)',
+      dpi300: '300 dpi (tisk)',
+      dpi600: '600 dpi (jemný tisk)',
+      pageFit: 'Podle velikosti kódu',
+      pageA4: 'A4',
+      pageLetter: 'Letter (USA)',
+      fillSolid: 'Jedna barva',
+      fillGradient: 'Přechod',
+      gradientLinear: 'Lineární',
+      gradientRadial: 'Radiální',
+      formatEps: 'EPS',
+      colorRgb: 'RGB',
+      colorCmyk: 'CMYK',
+      colorK: 'Jen černá (100 % K)',
+      authWpa3: 'Pouze WPA3',
+      versionAuto: 'Automaticky',
+      addressAuto: 'Automaticky',
+      addressWork: 'Pracovní',
+      addressHome: 'Domácí',
+      filenameRowNumber: 'Číslo řádku',
+      notUsed: 'Nepoužito'
     },
     alerts: {
       enterText: 'Zadej text nebo URL adresu.',
@@ -211,25 +303,28 @@
       mecardRequired: 'Vyplň aspoň jedno z polí: jméno, telefonní číslo nebo e-mail.',
       appLinkRequired: 'Zadej webovou adresu nebo URL aplikace pro iOS či Android.',
       urlInvalid: 'Zadej platnou URL adresu začínající http:// nebo https://.',
-      lowContrast:
-        '⚠️ Zjištěn nízký kontrast. QR kód může jít špatně naskenovat. Použij tmavší barvu kódu nebo světlejší pozadí.',
       dataEmpty: 'Data QR kódu jsou prázdná.',
       noData: 'Pro QR kód nebyla zadána žádná data.',
-      libraryLoadFailed: 'Knihovnu pro QR kódy se nepodařilo načíst. Obnov stránku.',
       generationError: 'Chyba při vytváření QR kódu',
       dataTooLong: 'Obsah je pro zvolenou úroveň korekce chyb příliš dlouhý. Zkrať ho nebo zvol nižší úroveň.',
-      pdfExportFailed: 'Export do PDF se nezdařil. Zkus to znovu.',
-      generateFirst: 'Nejdřív vytvoř QR kód.',
-      resetSuccess: 'Vzhled byl obnoven na výchozí',
-      largeImageWarning:
-        '⚠️ Velký obrázek ({{size}} MB). Pro lepší výkon použij menší obrázek.',
-      invalidImageFile: 'Vyber platný obrázek (PNG, JPEG, SVG, GIF).'
+      phoneInvalid: 'Zadej telefonní číslo pomocí číslic, například +420601234567.',
+      paymentRequired: 'Zadej jméno příjemce a IBAN.',
+      paymentNameTooLong: 'Jméno příjemce může mít nejvýše 70 znaků.',
+      ibanInvalid: 'Zkontroluj IBAN. Jeho kontrolní číslice nesouhlasí.',
+      bicInvalid: 'Zadej platný BIC o 8 nebo 11 znacích.',
+      amountInvalid: 'Zadej částku od 0,01 do 999999999,99 eur.',
+      referenceInvalid: 'Zkontroluj referenční číslo.',
+      referenceAndMessage: 'Použij buď referenční číslo, nebo zprávu pro příjemce, ne obojí.',
+      paymentTooLong: 'Platební údaje jsou pro platební QR kód příliš dlouhé (nejvýše 331 bajtů).',
+      paymentMessageTooLong: 'Zpráva pro příjemce může mít nejvýše 140 znaků.',
+      dateInvalid: 'Zadej platné datum, například 2026-12-31.'
     },
     counters: {
       characters: '{{current}} / {{max}} znaků'
     },
     units: {
-      modules: 'Moduly: {{count}}'
+      modules: '{{count}} (v modulech)',
+      modules_one: '{{count}} (v modulech)'
     },
     labels: {
       sms: 'SMS',
@@ -240,17 +335,21 @@
         'Nízký kontrast může ztížit skenování QR kódu. Použij tmavší barvu kódu nebo světlejší pozadí.',
       transparentBackground:
         'U průhledného pozadí záleží na podkladu. Před zveřejněním otestuj QR kód přímo na cílovém pozadí.',
-      quietZoneSmall:
-        'Klidová zóna je příliš malá. Pro spolehlivé skenování nastav aspoň 4 moduly.',
-      denseData:
-        'Tento QR kód obsahuje na zvolenou velikost hodně dat. Zvol větší velikost nebo zkrať obsah.',
-      logoErrorCorrection:
-        'Kódy s velkým logem se spolehlivěji skenují s vysokou (H) korekcí chyb.',
+      denseData: 'Kód obsahuje hodně dat, takže jeho moduly jsou malé. Zkrať obsah nebo kód zvětši.',
+      logoErrorCorrection: 'Kódy s logem se spolehlivěji skenují s vysokou (H) korekcí chyb.',
       logoLarge:
-        'Logo je velké a může zakrývat příliš velkou část QR kódu. Před tiskem nebo sdílením kód otestuj.'
+        'Logo je velké a může zakrývat příliš velkou část QR kódu. Před tiskem nebo sdílením kód otestuj.',
+      inverted: 'Kód je světlejší než jeho pozadí. Některé čtečky nepřečtou kódy s převrácenými barvami.',
+      gradientContrast: 'Část barvy kódu je proti pozadí příliš světlá.',
+      printTooSmall: 'Při této velikosti tisku má každý modul jen {{size}}. Vytiskni kód větší, aby ho telefony přečetly.',
+      codeTooSmall: 'Kód je menší než 2 cm (0,8 in). Mnoho telefonů potřebuje větší kód.',
+      sizeTooSmall: 'Při {{size}} px jsou moduly velmi malé. Použij větší velikost obrázku.',
+      smallScanRisky: 'Tento kód jde naskenovat, jen když je zobrazený velký. Netiskni ho malý.',
+      decodeFailed: 'Vestavěná čtečka kód s tímto vzhledem nepřečetla.',
+      paymentLogo: 'Platební kódy se bez loga skenují spolehlivěji.'
     },
     brand: {
-      tagline: 'Tvoje soukromé místo pro tvorbu QR kódů'
+      tagline: 'tvoje soukromé místo pro tvorbu QR kódů'
     },
     trust: {
       local: 'Vzniká v prohlížeči',
@@ -264,11 +363,13 @@
     workspace: {
       chooseType: 'Vyber typ',
       addContent: 'Přidej obsah',
-      adjustLook: 'Velikost a styl'
+      adjustLook: 'Vzhled'
     },
     preview: {
       title: 'Náhled',
-      localBadge: 'Vytvořeno na tomto zařízení'
+      localBadge: 'Vytvořeno na tomto zařízení',
+      encodedData: 'Zakódovaná data',
+      ready: 'QR kód je hotový'
     },
     how: {
       title: 'Jak to funguje',
@@ -277,7 +378,8 @@
       step2Title: 'Vyplň',
       step2Text: 'Napiš obsah. Náhled se aktualizuje už při psaní, přímo v tvém prohlížeči.',
       step3Title: 'Stáhni',
-      step3Text: 'Ulož kód jako PNG, SVG nebo PDF. Před tiskem nebo sdílením vyzkoušej, že jde naskenovat.'
+      step3Text:
+        'Stáhni PNG, SVG, PDF nebo EPS přesně v potřebné velikosti, nebo kód zkopíruj a sdílej. Kontrola čitelnosti ti řekne, jestli půjde naskenovat.'
     },
     privacyInfo: {
       title: 'Soukromí v základu',
@@ -287,13 +389,14 @@
       staticTitle: 'Bez přesměrování a bez expirace',
       staticText: 'Obsah je zakódovaný přímo v QR kódu. Naskenování nikdy neprochází přes nás a kód nikdy nevyprší.',
       noTrackingTitle: 'Bez sledování',
-      noTrackingText: 'Žádná analytika, reklamy, cookies ani účty. Ukládá se jen zvolený jazyk a motiv, a to lokálně v tvém prohlížeči.',
+      noTrackingText:
+        'Žádná analytika, reklamy, cookies ani účty. Ukládá se jen jazyk, motiv a nastavení stahování, a to lokálně v tvém prohlížeči.',
       openSourceTitle: 'Kdokoli si to může ověřit',
       openSourceText: 'Celý zdrojový kód je veřejně dostupný na GitHubu, takže si tato tvrzení může ověřit kdokoli.'
     },
     footer: {
       privacy1: 'Tento generátor QR kódů zdarma běží celý ve tvém prohlížeči.',
-      privacy2: 'Žádná data se neukládají ani nikam neodesílají. Bez sledování, bez reklam, bez triků.',
+      privacy2: 'Nic z toho, co zadáš, se neukládá ani nikam neodesílá. Bez sledování, bez reklam, bez triků.',
       privacyPolicy: 'Ochrana soukromí',
       termsOfUse: 'Podmínky použití',
       github: 'Zdrojový kód na GitHubu'
@@ -302,15 +405,154 @@
       quietZoneHelper:
         'Prázdné místo kolem QR kódu (pro spolehlivé skenování aspoň 4 moduly)',
       socialHandleHelper:
-        'Zadej uživatelské jméno, např. @uzivatel, nebo vlož celou adresu profilu začínající https://.'
+        'Zadej uživatelské jméno, např. @uzivatel, nebo vlož celou adresu profilu začínající https://.',
+      httpsSuggestion: 'Telefony otevírají odkazy, jen když začínají https://.',
+      ecHelper: 'Vyšší úrovně odolají poškození i logu, ale kód je pak hustší.',
+      wifiWpa3: 'WPA3 zvol, jen pokud síť nepřijímá starší zařízení s WPA2.',
+      wifiHiddenIos: 'iPhony mohou po hostech chtít, aby se ke skryté síti připojili ručně.',
+      paymentReference: 'Reference věřitele RF nebo finské referenční číslo (převede se na RF).',
+      paymentDueDate: 'Finské bankovní aplikace datum splatnosti vyplní. Jiné aplikace ho mohou zobrazit jako poznámku.',
+      eventTimeZone: 'Čas se uloží s tímto časovým pásmem, takže se všude zobrazí správně.',
+      colorMode: 'RGB se hodí pro obrazovky a kancelářské tiskárny. CMYK je určen pro profesionální tisk a používá základní převod barev.'
     },
     frame: {
       defaultText: 'NASKENUJ MĚ'
     },
     misc: {
-      qrPlaceholder: 'Tady se zobrazí QR kód',
+      qrPlaceholder: 'Tady se zobrazí tvůj QR kód.',
       socialPreview: 'Cíl QR kódu',
-      wifiPayloadHidden: 'Nastavení WiFi — heslo skryto'
+      wifiPayloadHidden: 'Nastavení WiFi: heslo skryto'
+    },
+    output: {
+      title: 'Stažení',
+      hintPng: 'Ostrý obrázek pro obrazovky, dokumenty a většinu tiskáren.',
+      hintSvg: 'Vektorový obrázek pro weby a grafické nástroje. Ostrý v jakékoli velikosti.',
+      hintPdf: 'Vektorové PDF pro profesionální tisk i dokumenty.',
+      hintJpg: 'Pro aplikace, které nepodporují PNG. Pro tisk se nedoporučuje.',
+      hintWebp: 'Malý obrázek pro weby.',
+      hintEps: 'Vektorový soubor pro starší grafické programy a reklamní výrobu.',
+      vectorAnySize: 'Vektorový formát: ostrý v jakékoli velikosti',
+      summaryPixels: '{{width}} × {{height}} px',
+      summaryPrint: '{{size}} při {{dpi}} dpi',
+      summaryVector: 'Vektorový formát',
+      summaryVectorPrint: 'šířka {{size}}',
+      moduleSize: 'Každý modul měří {{size}}.',
+      scanDistance: 'Lze naskenovat ze vzdálenosti až asi {{distance}}.',
+      sizeCapped: 'Obrázky jsou omezené na 4096 px. Pro větší tisk použij SVG nebo PDF.',
+      pageTooSmall: 'Kód byl zmenšen, aby se vešel na stránku.',
+      transparentJpg: 'JPG nepodporuje průhlednost, takže pozadí bude bílé.',
+      epsOffice: 'Microsoft Office ve Windows soubory EPS neotevře. Tam použij PDF nebo SVG.',
+      printTip: 'V dialogu tisku nastav měřítko na 100 %, aby velikost přesně odpovídala.',
+      preparing: 'Připravuje se soubor',
+      widthInvalid: 'Zadej šířku od {{min}} do {{max}}.',
+      customSizeInvalid: 'Zadej velikost od 128 do 4096 pixelů.'
+    },
+    capacity: {
+      version: 'Verze {{version}} · {{modules}} × {{modules}} modulů',
+      level: 'Úroveň {{level}}',
+      levelAuto: 'Úroveň {{level}}, automaticky',
+      label: 'Využitá kapacita',
+      usageBytes: '{{used}} z {{max}} bajtů',
+      usageChars: '{{used}} z {{max}} znaků (úsporný režim)',
+      usageDigits: '{{used}} z {{max}} číslic',
+      tooLong: 'Příliš mnoho obsahu: {{used}} z {{max}} na úrovni {{level}}.',
+      paymentLimit: '{{used}} z 331 bajtů'
+    },
+    scan: {
+      title: 'Kontrola čitelnosti',
+      checking: 'Kontroluje se',
+      ok: 'Dobře čitelný',
+      looksGood: 'Vypadá dobře',
+      tips: 'Čitelný, viz tipy',
+      fail: 'Možná nebude čitelný',
+      verified: 'Testovací skenování na tomto zařízení kód správně přečetlo.',
+      notVerified: 'Vestavěná čtečka tento kód nepřečetla. Vyzkoušej opravy níže.',
+      unavailable:
+        'Automatické testovací skenování není v tomto prohlížeči k dispozici. Před tiskem kód vyzkoušej fotoaparátem telefonu.',
+      fixEclH: 'Použít úroveň H',
+      fixBlack: 'Použít černou na bílé',
+      fixSwapColors: 'Prohodit barvy',
+      fixLogoSmaller: 'Zmenšit logo',
+      fixPrintSize: 'Tisknout ve velikosti {{size}}',
+      fixPixelSize: 'Použít {{size}} px',
+      fixSquare: 'Použít čtvercové tvary',
+      fixRemoveLogo: 'Odebrat logo'
+    },
+    empty: {
+      urlText: 'Napiš nebo vlož odkaz či text a uvidíš svůj QR kód.',
+      vcard: 'Přidej jméno, e-mail nebo telefonní číslo a uvidíš kód s kontaktem.',
+      smsPhone: 'Zadej telefonní číslo a uvidíš svůj kód.',
+      wifi: 'Zadej název sítě a uvidíš kód pro WiFi.',
+      email: 'Přidej e-mailovou adresu, předmět nebo zprávu.',
+      calendarEvent: 'Přidej název události a čas začátku.',
+      location: 'Zadej adresu nebo souřadnice.',
+      socialMedia: 'Zadej uživatelské jméno nebo odkaz na profil.',
+      whatsapp: 'Zadej číslo WhatsApp s předvolbou země.',
+      payment: 'Zadej jméno příjemce a IBAN.',
+      mecard: 'Přidej jméno, telefonní číslo nebo e-mail.',
+      appLink: 'Přidej odkaz do obchodu s aplikacemi nebo webový odkaz.',
+      invalid: 'Oprav zvýrazněné pole a kód se aktualizuje.',
+      tooLong: 'Na jeden QR kód je to příliš mnoho obsahu.',
+      error: 'Kód se nepodařilo vytvořit.'
+    },
+    design: {
+      presets: 'Styl',
+      custom: 'Vlastní',
+      presetStandard: 'Standardní',
+      presetClassic: 'Klasický',
+      presetRounded: 'Zaoblený',
+      presetDots: 'Tečky',
+      presetSoft: 'Jemný',
+      presetScanMe: 'Naskenuj mě',
+      colors: 'Barvy',
+      advanced: 'Pokročilé nastavení',
+      eclAutoHelp: 'Volba Automaticky použije úroveň M, nebo H, když má kód logo.',
+      eclLockedPayment: 'Platební kódy vždy používají úroveň M.'
+    },
+    logo: {
+      dropHint: 'Přetáhni sem obrázek, vlož ho nebo ho vyber: PNG, JPEG, WebP, GIF nebo SVG.',
+      dropHere: 'Pusť obrázek sem a použije se jako logo',
+      readFailed: 'Tento obrázek nejde otevřít. Zkus soubor PNG, JPEG, WebP nebo SVG.',
+      tooLarge: 'Obrázek je větší než 10 MB. Vyber menší soubor.',
+      optimized: 'Obrázek byl kvůli rychlosti zmenšen na {{size}} px.'
+    },
+    toast: {
+      designReset: 'Vzhled byl obnoven.',
+      applied: 'Provedeno: {{what}}',
+      imageCopied: 'Obrázek zkopírován.',
+      svgCopied: 'Kód SVG zkopírován.',
+      textCopied: 'Text zkopírován.',
+      copyFailed: 'Tento prohlížeč kopírování nepovoluje. Použij raději tlačítko Stáhnout.',
+      shareFailed: 'Sdílení nefungovalo. Použij raději tlačítko Stáhnout.',
+      saved: 'Uloženo: {{filename}}',
+      exportFailed: 'Soubor {{format}} se nepodařilo vytvořit. Zkus to znovu.',
+      pdfRasterFallback: 'PDF bylo uloženo s kódem jako obrázkem.',
+      batchLoadFailed: 'Hromadné vytváření kódů teď není k dispozici. Obnov stránku a zkus to znovu.'
+    },
+    mobile: {
+      showPreview: 'Zobrazit QR kód'
+    },
+    batch: {
+      title: 'Hromadné vytvoření QR kódů',
+      intro:
+        'Vlož řádky z tabulky nebo vyber soubor CSV. Z každého řádku vznikne jeden QR kód s tvým aktuálním vzhledem. Soubor se čte na tomto zařízení a nikdy se nenahrává.',
+      dropHint: 'Přetáhni sem soubor CSV',
+      mappingTitle: 'Přiřaď sloupce k polím',
+      rowsFound: 'Nalezené řádky: {{count}}',
+      limit: 'Najednou lze zpracovat nejvýše {{max}} řádků.',
+      sizeNote: 'Velikost se řídí aktuálním nastavením stahování: {{summary}}.',
+      progress: 'Vytváří se {{done}} z {{total}}',
+      done: 'Vytvořeno: {{ok}}. Přeskočeno: {{failed}}.',
+      rowError: 'Řádek {{row}}: {{message}}',
+      emptyInput: 'Nejdřív vlož data CSV nebo vyber soubor.',
+      cancelled: 'Zastaveno. Soubor ZIP nebyl vytvořen.',
+      column: 'Sloupec {{n}}',
+      columnSample: 'Sloupec {{n}} ({{sample}})',
+      mapRequired: 'Vyber sloupec pro pole „{{field}}“.',
+      fileTooLarge: 'Soubor je větší než 5 MB. Vyber menší soubor CSV.',
+      notCsv: 'Toto není soubor CSV. V tabulkovém programu ho ulož nebo exportuj jako CSV a zkus to znovu.',
+      scanFailed: 'Kódy, které neprošly kontrolou čitelnosti: {{count}}.',
+      moreErrors: 'Další řádky s problémy: {{count}}.'
     }
   };
 })();
