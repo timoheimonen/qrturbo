@@ -1,6 +1,6 @@
 // The hash suffix fingerprints every entry in PRECACHE_URLS. The PWA integrity
 // test intentionally fails when a precached file changes without a new suffix.
-const CACHE_VERSION = 'v8-48f057c95f16';
+const CACHE_VERSION = 'v8-0c12c8fb2f9f';
 const STATIC_CACHE = `qrturbo-static-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [

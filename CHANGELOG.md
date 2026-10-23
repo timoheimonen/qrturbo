@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.1] - 2026-10-23
+
+### Changed
+
+- The App Link form now makes clear that a QR code holds one link and cannot pick a store by phone: clearer field labels, a hint about using a redirect page of your own, a "QR target" line that shows the link the code opens, and notes when store links are left out of the code.
+
 ## [2.0.0] - 2026-10-23
 
 ### Added
