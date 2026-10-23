@@ -100,14 +100,28 @@ test('WebP is offered only where the browser can write it @webkit-core', async (
   await expect(page.locator('label[for="format-jpg"]')).toBeVisible();
   await expect(page.locator('label[for="format-eps"]')).toBeVisible();
 
+  // Ask the canvas directly instead of assuming per browser: Safari on macOS
+  // returns a PNG for image/webp, while Chromium and the Linux WebKit build
+  // used in CI write a real WebP file.
+  const header = await page.evaluate(() => new Promise(resolve => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = 1;
+    canvas.toBlob(blob => {
+      if (!blob) return resolve([]);
+      blob.slice(0, 12).arrayBuffer().then(buffer => resolve(Array.from(new Uint8Array(buffer))));
+    }, 'image/webp', 1);
+  }));
+  const writesWebp = FORMATS.webp.magic(Buffer.from(header));
+  if (browserName === 'chromium') expect(writesWebp, 'Chromium writes WebP').toBe(true);
+
+  await expect.poll(() => page.evaluate(() => globalThis.QRTurboExport.capabilities().then(caps => caps.webp)))
+    .toBe(writesWebp);
   const webp = page.locator('label[for="format-webp"]');
-  if (browserName === 'webkit') {
-    // Safari's toBlob('image/webp') returns a PNG, so the option stays hidden.
-    await expect.poll(() => page.evaluate(() => globalThis.QRTurboExport.capabilities().then(caps => caps.webp)))
-      .toBe(false);
-    await expect(webp).toBeHidden();
-  } else {
+  if (writesWebp) {
     await expect(webp).toBeVisible();
+  } else {
+    await expect(webp).toBeHidden();
   }
 });
 
