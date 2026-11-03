@@ -12,7 +12,8 @@ module.exports = defineConfig({
   },
   use: {
     baseURL,
-    trace: 'on-first-retry'
+    trace: 'on-first-retry',
+    launchOptions: { chromiumSandbox: true }
   },
   webServer: {
     command: 'node tests/helpers/static-server.js',
